@@ -45,8 +45,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Game\Scripts\Command\StartUpCommand.cs" />
+     <Compile Include="Assets\Game\Scripts\Framework\AppFacade.cs" />
+     <Compile Include="Assets\Game\Scripts\Framework\AppView.cs" />
+     <Compile Include="Assets\Game\Scripts\Framework\Base.cs" />
      <Compile Include="Assets\Game\Scripts\Framework\Controller.cs" />
      <Compile Include="Assets\Game\Scripts\Framework\Facade.cs" />
+     <Compile Include="Assets\Game\Scripts\Framework\Message.cs" />
+     <Compile Include="Assets\Game\Scripts\Framework\NotiConst.cs" />
+     <Compile Include="Assets\Game\Scripts\Framework\View.cs" />
      <Compile Include="Assets\Game\Scripts\Globals.cs" />
      <Compile Include="Assets\Game\Scripts\Interface\ICommand.cs" />
      <Compile Include="Assets\Game\Scripts\Interface\IController.cs" />

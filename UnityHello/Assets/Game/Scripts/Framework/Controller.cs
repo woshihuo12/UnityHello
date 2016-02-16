@@ -81,5 +81,72 @@ public class Controller : IController
         }
     }
 
+    public virtual void RegisterCommand(string commandName, Type commandType)
+    {
+        lock (mSyncRoot)
+        {
+            mCommandMap[commandName] = commandType;
+        }
+    }
 
+    public virtual void RegisterViewCommand(IView view, string[] commandNames)
+    {
+        lock (mSyncRoot)
+        {
+            if (mViewCmdMap.ContainsKey(view))
+            {
+                List<string> list = null;
+                if (mViewCmdMap.TryGetValue(view, out list))
+                {
+                    for (int i = 0; i < commandNames.Length; i++)
+                    {
+                        if (list.Contains(commandNames[i])) continue;
+                        list.Add(commandNames[i]);
+                    }
+                }
+            }
+            else
+            {
+                mViewCmdMap.Add(view, new List<string>(commandNames));
+            }
+        }
+    }
+
+    public virtual bool HasCommand(string commandName)
+    {
+        lock (mSyncRoot)
+        {
+            return mCommandMap.ContainsKey(commandName);
+        }
+    }
+
+    public virtual void RemoveCommand(string commandName)
+    {
+        lock (mSyncRoot)
+        {
+            if (mCommandMap.ContainsKey(commandName))
+            {
+                mCommandMap.Remove(commandName);
+            }
+        }
+    }
+
+    public virtual void RemoveViewCommand(IView view, string[] commandNames)
+    {
+        lock (mSyncRoot)
+        {
+            if (mViewCmdMap.ContainsKey(view))
+            {
+                List<string> list = null;
+                if (mViewCmdMap.TryGetValue(view, out list))
+                {
+                    for (int i = 0; i < commandNames.Length; i++)
+                    {
+                        if (!list.Contains(commandNames[i])) continue;
+                        list.Remove(commandNames[i]);
+                    }
+                }
+            }
+        }
+    }
 }

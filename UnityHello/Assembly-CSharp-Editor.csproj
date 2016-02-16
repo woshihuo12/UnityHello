@@ -80,14 +80,14 @@
  <Reference Include="UnityEditor.TreeEditor">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TreeEditor/Editor/UnityEditor.TreeEditor.dll</HintPath>
  </Reference>
+ <Reference Include="Debugger">
+ <HintPath>E:/GithubSource/UnityHello/UnityHello/Assets/Plugins/Debugger.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.WindowsStandalone.Extensions">
  <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
- </Reference>
- <Reference Include="Debugger">
- <HintPath>E:/GithubSource/UnityHello/UnityHello/Assets/Plugins/Debugger.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
