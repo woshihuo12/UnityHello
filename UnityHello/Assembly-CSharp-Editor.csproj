@@ -45,7 +45,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Editor\AssetBundleBuildTool.cs" />
+     <Compile Include="Assets\Editor\CommandLineReader.cs" />
      <Compile Include="Assets\Editor\Custom\CustomSettings.cs" />
+     <Compile Include="Assets\Editor\PackResTool.cs" />
      <Compile Include="Assets\ToLua\Editor\Extend\ToLua_System_Delegate.cs" />
      <Compile Include="Assets\ToLua\Editor\Extend\ToLua_System_Enum.cs" />
      <Compile Include="Assets\ToLua\Editor\Extend\ToLua_System_Object.cs" />

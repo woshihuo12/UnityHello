@@ -16,7 +16,7 @@ public class Facade
     private static GameObject mGameManager;
     private static Dictionary<string, object> mManagers = new Dictionary<string, object>();
 
-    GameObject AppGameManager
+    public GameObject AppGameManager
     {
         get
         {

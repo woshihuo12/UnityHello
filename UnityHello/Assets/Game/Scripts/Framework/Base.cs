@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public class Base : MonoBehaviour
 {
     private AppFacade mFacade;
+    private ResourceManager mResMgr;
+    private LuaManager mLuaMgr;
 
     protected void RegisterMessage(IView view, List<string> messages)
     {
@@ -27,6 +29,30 @@ public class Base : MonoBehaviour
                 mFacade = AppFacade.Instance;
             }
             return mFacade;
+        }
+    }
+
+    protected ResourceManager ResManager
+    {
+        get
+        {
+            if (mResMgr == null)
+            {
+                mResMgr = mFacade.GetManager<ResourceManager>("ResourceManager");
+            }
+            return mResMgr;
+        }
+    }
+
+    protected LuaManager LuaManager
+    {
+        get
+        {
+            if (mLuaMgr == null)
+            {
+                mLuaMgr = mFacade.GetManager<LuaManager>("LuaManager");
+            }
+            return mLuaMgr;
         }
     }
 }
