@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
 using LuaInterface;
@@ -100,6 +101,14 @@ public static class CustomSettings
         _GT(typeof(Shader)),
         _GT(typeof(Texture2D)),
         _GT(typeof(WWW)),
+
+        ///////////////////////////////////////////
+        _GT(typeof(RectTransform)),
+        _GT(typeof(Image)),
+        _GT(typeof(Button)),
+        _GT(typeof(Text)),
+        _GT(typeof(UILayer)),
+        _GT(typeof(GameResFactory)),
     };
 
     static BindType _GT(Type t)

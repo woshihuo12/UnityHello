@@ -93,7 +93,7 @@ public class Facade
         }
         Component c = AppGameManager.AddComponent<T>();
         mManagers.Add(typeName, c);
-        return default(T);
+        return (T)c;
     }
 
     public T GetManager<T>(string typeName) where T : class

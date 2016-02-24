@@ -44,7 +44,7 @@ public class Base : MonoBehaviour
         }
     }
 
-    protected LuaManager LuaManager
+    protected LuaManager LuaMgr
     {
         get
         {

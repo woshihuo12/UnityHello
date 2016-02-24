@@ -40,6 +40,8 @@ public class LuaManager : Manager
 
     public void InitStart()
     {
+        LuaFileUtils.Instance.AddSearchPath("Lua");
+
         mLuaState.Start();
         mLuaState.DoFile("Main.lua");
 
@@ -54,7 +56,12 @@ public class LuaManager : Manager
 
         UpdateEvent = GetEvent("UpdateBeat");
         LateUpdateEvent = GetEvent("LateUpdateBeat");
-        FixedUpdateEvent = GetEvent("FixedUpdateEvent");
+        FixedUpdateEvent = GetEvent("FixedUpdateBeat");
+    }
+
+    public void DoFile(string fn)
+    {
+
     }
 
     private void Update()
@@ -146,8 +153,8 @@ public class LuaManager : Manager
         }
     }
 
-    //public static LuaState GetMainState()
-    //{
-    //    return Instance.mLuaState;
-    //}    
+    public LuaState GetLuaState()
+    {
+        return mLuaState;
+    }
 }

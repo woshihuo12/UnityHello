@@ -1,6 +1,6 @@
 --主入口函数。从这里开始lua逻辑
 function Main()					
-	 		
+	-- print(UILayer.Instance().mLayerParent)
 end
 	
 --逻辑update

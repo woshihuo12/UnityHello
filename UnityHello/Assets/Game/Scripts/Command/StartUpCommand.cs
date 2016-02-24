@@ -11,7 +11,11 @@ public class StartUpCommand : ControllerCommand
             AppView appView = gameMgr.AddComponent<AppView>();
         }
 
-        AppFacade.Instance.AddManager<LuaManager>("LuaManager");
+        LuaManager luaMgr = AppFacade.Instance.AddManager<LuaManager>("LuaManager");
+        if (luaMgr != null)
+        {
+            luaMgr.InitStart();
+        }
         AppFacade.Instance.AddManager<ResourceManager>("ResourceManager");
 
         Debug.Log("hello world.");

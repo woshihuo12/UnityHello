@@ -49,7 +49,7 @@ public class AssetBundleBuildTool
         return true;
     }
 
-    public static void MarkAssetBundle(params UnityEngine.Object[] objs)
+    static void DoMarkAssetBundle(params UnityEngine.Object[] objs)
     {
         if (objs == null)
         {
@@ -69,9 +69,10 @@ public class AssetBundleBuildTool
     }
 
     [MenuItem("Assets/MarkAssetBundle")]
-    public static void MarkAssetBundle()
+    static void MarkAssetBundle()
     {
-        MarkAssetBundle(Selection.objects);
+        DoMarkAssetBundle(Selection.objects);
+        AssetDatabase.Refresh();
     }
 
     [MenuItem("ExportAsset/检查资源包正确性")]
@@ -110,7 +111,7 @@ public class AssetBundleBuildTool
     [MenuItem("ExportAsset/生成资源包/Editor")]
     public static void MenuItem_BuildABsEditor()
     {
-        BuildPlatformABs("", BuildTarget.WebPlayer);
+        BuildPlatformABs("", BuildTarget.StandaloneWindows64);
         AssetDatabase.Refresh();
     }
 
