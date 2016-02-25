@@ -111,7 +111,7 @@ public class AssetBundleBuildTool
     [MenuItem("ExportAsset/生成资源包/Editor")]
     public static void MenuItem_BuildABsEditor()
     {
-        BuildPlatformABs("", BuildTarget.StandaloneWindows64);
+        BuildPlatformABs("", BuildTarget.StandaloneWindows);
         AssetDatabase.Refresh();
     }
 

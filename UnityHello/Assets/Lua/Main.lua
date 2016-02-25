@@ -1,6 +1,12 @@
+require "lscripts/UISession"
+require "lscripts/UIManager"
+
 --主入口函数。从这里开始lua逻辑
 function Main()					
 	-- print(UILayer.Instance().mLayerParent)
+	UIManager:Instance():ShowUI("ui_notice", UIManager:Instance():LayerParent(), function(go)
+		
+	end)
 end
 	
 --逻辑update

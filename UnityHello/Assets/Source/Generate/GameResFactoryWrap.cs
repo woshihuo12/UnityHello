@@ -5,7 +5,7 @@ public class GameResFactoryWrap
 {
 	public static void Register(LuaState L)
 	{
-		L.BeginClass(typeof(GameResFactory), typeof(View));
+		L.BeginClass(typeof(GameResFactory), typeof(System.Object));
 		L.RegFunction("Instance", Instance);
 		L.RegFunction("GetUIPrefab", GetUIPrefab);
 		L.RegFunction("DestroyUIPrefab", DestroyUIPrefab);
@@ -13,7 +13,6 @@ public class GameResFactoryWrap
 		L.RegFunction("DestroyUIEffect", DestroyUIEffect);
 		L.RegFunction("DestroyAllUIEffect", DestroyAllUIEffect);
 		L.RegFunction("New", _CreateGameResFactory);
-		L.RegFunction("__eq", op_Equality);
 		L.RegFunction("__tostring", Lua_ToString);
 		L.RegVar("out", get_out, null);
 		L.EndClass();
@@ -22,7 +21,20 @@ public class GameResFactoryWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int _CreateGameResFactory(IntPtr L)
 	{
-		return LuaDLL.luaL_error(L, "GameResFactory class does not have a constructor function");
+		int count = LuaDLL.lua_gettop(L);
+
+		if (count == 0)
+		{
+			GameResFactory obj = new GameResFactory();
+			ToLua.PushObject(L, obj);
+			return 1;
+		}
+		else
+		{
+			LuaDLL.luaL_error(L, "invalid arguments to method: GameResFactory.New");
+		}
+
+		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
@@ -40,7 +52,7 @@ public class GameResFactoryWrap
 			return LuaDLL.toluaL_exception(L, e);
 		}
 
-		ToLua.Push(L, o);
+		ToLua.PushObject(L, o);
 		return 1;
 	}
 
@@ -139,27 +151,6 @@ public class GameResFactoryWrap
 		}
 
 		return 0;
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int op_Equality(IntPtr L)
-	{
-		ToLua.CheckArgsCount(L, 2);
-		UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.ToObject(L, 1);
-		UnityEngine.Object arg1 = (UnityEngine.Object)ToLua.ToObject(L, 2);
-		bool o;
-
-		try
-		{
-			o = arg0 == arg1;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-
-		LuaDLL.lua_pushboolean(L, o);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

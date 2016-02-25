@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using LuaInterface;
-public class GameResFactory : View
+public class GameResFactory
 {
     private static GameResFactory sInstance = null;
     public static GameResFactory Instance()
@@ -19,6 +19,7 @@ public class GameResFactory : View
 
     public void GetUIPrefab(string name, Transform parent, LuaFunction luaCallBack)
     {
+        ResourceManager ResManager = AppFacade.Instance.GetManager<ResourceManager>("ResourceManager");
         ResManager.LoadPrefab(name, name, delegate(UnityEngine.Object[] objs)
         {
             if (objs.Length == 0) return;
@@ -27,7 +28,7 @@ public class GameResFactory : View
             {
                 return;
             }
-            GameObject go = Instantiate(prefab) as GameObject;
+            GameObject go = UnityEngine.GameObject.Instantiate(prefab) as GameObject;
             go.name = name;
             go.layer = LayerMask.NameToLayer("Default");
             go.transform.SetParent(parent, false);
@@ -49,12 +50,13 @@ public class GameResFactory : View
 
     public void DestroyUIPrefab(GameObject go)
     {
-        DestroyObject(go);
+        GameObject.Destroy(go);
         mUIList.Remove(go);
     }
 
     protected void GetEffectObj(string effname, System.Action<GameObject> callBack)
     {
+        ResourceManager ResManager = AppFacade.Instance.GetManager<ResourceManager>("ResourceManager");
         ResManager.LoadPrefab(effname, effname, delegate(UnityEngine.Object[] objs)
         {
             GameObject gameobj = null;
@@ -65,7 +67,7 @@ public class GameResFactory : View
             {
                 return;
             }
-            GameObject go = Instantiate(prefab) as GameObject;
+            GameObject go = GameObject.Instantiate(prefab) as GameObject;
             if (callBack != null)
             {
                 callBack(go);
@@ -94,7 +96,7 @@ public class GameResFactory : View
 
     public void DestroyUIEffect(GameObject obj)
     {
-        DestroyObject(obj);
+        GameObject.Destroy(obj);
         mUIEffectsList.Remove(obj);
     }
 
@@ -103,7 +105,7 @@ public class GameResFactory : View
 
         for (int i = 0; i < mUIEffectsList.Count; i++)
         {
-            DestroyObject(mUIEffectsList[i]);
+            GameObject.Destroy(mUIEffectsList[i]);
         }
         mUIEffectsList.Clear();
     }

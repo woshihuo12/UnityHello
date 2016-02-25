@@ -12,6 +12,9 @@ function UIManager:new(o)
 	o = o or {}
 	setmetatable(o, self)
 	self.__index = self
+
+	self.uiSessions = {}
+
 	return o
 end
 
@@ -26,6 +29,16 @@ function UIManager:LayerParent()
  	return UILayer.Instance().mLayerParent
 end
 
-function UIManager:ShowSession()
+function UIManager:ShowUI(uiName, parent, callBack)
+	GameResFactory.Instance():GetUIPrefab(uiName, parent, function(go)
+		self.uiSessions[uiName] = UINoticeSession:new()
+		self.uiSessions[uiName]:Awake(go)
+		self.uiSessions[uiName]:Active()
+		self.uiSessions[uiName]:Refresh()
+		self.uiSessions[uiName]:Hide()
+	end)
+end
+
+function UIManager:HideUI()
 	
 end

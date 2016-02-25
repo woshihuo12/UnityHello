@@ -79,6 +79,9 @@ public class ResourceManager : Manager
         {
             return abName;
         }
+
+        if (mAssetBundleManifest == null) return null;
+
         string[] paths = mAssetBundleManifest.GetAllAssetBundles();
         for (int i = 0; i < paths.Length; i++)
         {
@@ -97,7 +100,7 @@ public class ResourceManager : Manager
     private void LoadAsset<T>(string abName, string[] assetNames, Action<UnityEngine.Object[]> action = null,
         LuaFunction func = null) where T : UnityEngine.Object
     {
-        abName = GetRealAssetPath(abName);
+        //abName = GetRealAssetPath(abName);
 
         LoadAssetRequest request = new LoadAssetRequest();
         request.mAssetType = typeof(T);
@@ -145,7 +148,7 @@ public class ResourceManager : Manager
 
     private string GetAssetBundlePath(string bdName)
     {
-        string platformFolder = "Windows/";
+        string platformFolder = "StandaloneWindows/";
         if (Application.platform == RuntimePlatform.Android)
         {
             platformFolder = "Android/";

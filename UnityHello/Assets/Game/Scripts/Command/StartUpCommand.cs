@@ -3,6 +3,19 @@ using System.Collections;
 
 public class StartUpCommand : ControllerCommand
 {
+    IEnumerator AddLua()
+    {
+        yield return new WaitForSeconds(5f);
+
+        LuaManager luaMgr = AppFacade.Instance.AddManager<LuaManager>("LuaManager");
+        if (luaMgr != null)
+        {
+            luaMgr.InitStart();
+        }
+
+        Debug.Log("hello world.");
+    }
+
     public override void Execute(IMessage message)
     {
         GameObject gameMgr = GameObject.Find("GameManager");
@@ -11,13 +24,11 @@ public class StartUpCommand : ControllerCommand
             AppView appView = gameMgr.AddComponent<AppView>();
         }
 
-        LuaManager luaMgr = AppFacade.Instance.AddManager<LuaManager>("LuaManager");
-        if (luaMgr != null)
-        {
-            luaMgr.InitStart();
-        }
-        AppFacade.Instance.AddManager<ResourceManager>("ResourceManager");
+        ResourceManager resMgr = AppFacade.Instance.AddManager<ResourceManager>("ResourceManager");
+        resMgr.Initialize("StandaloneWindows", () => { Debug.Log("ResourceManager loaded."); });
 
-        Debug.Log("hello world.");
+
+        Globals.Instance.StartCoroutine(AddLua());
+        
     }
 }
