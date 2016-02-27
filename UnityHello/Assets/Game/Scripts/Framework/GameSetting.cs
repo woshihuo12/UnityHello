@@ -3,6 +3,10 @@ using System.Collections;
 
 public class GameSetting
 {
+    public static bool DebugMode = true;
+
+    public const string AppName = "UnityHello";               //应用程序名称
+
     public static string AssetPath
     {
         get

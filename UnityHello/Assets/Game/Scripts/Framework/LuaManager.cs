@@ -4,12 +4,6 @@ using LuaInterface;
 
 public class LuaManager : Manager
 {
-    //public static LuaManager Instance
-    //{
-    //    get;
-    //    private set;
-    //}
-
     private LuaState mLuaState;
 
     private LuaFunction mUpdateFunction = null;
@@ -21,10 +15,29 @@ public class LuaManager : Manager
     public LuaEvent LateUpdateEvent { get; private set; }
     public LuaEvent FixedUpdateEvent { get; private set; }
 
+    private void InitLuaLibrary()
+    {
+        mLuaState.OpenLibs(LuaDLL.luaopen_pb);
+    }
+
+    private void InitLuaPath()
+    {
+        if (GameSetting.DebugMode)
+        {
+            mLuaState.AddSearchPath(Application.dataPath + "/" + "Lua");
+        }
+        else
+        {
+            mLuaState.AddSearchPath(Tools.DataPath + "lua");
+        }
+    }
+
     private void Awake()
     {
         mLuaState = new LuaState();
-        mLuaState.OpenLibs(LuaDLL.luaopen_pb);
+        InitLuaLibrary();
+
+
         LuaBinder.Bind(mLuaState);
         LuaCoroutine.Register(mLuaState, this);
     }
@@ -59,9 +72,14 @@ public class LuaManager : Manager
         FixedUpdateEvent = GetEvent("FixedUpdateBeat");
     }
 
-    public void DoFile(string fn)
+    public object[] CallFunction(string funcName, params object[] args)
     {
-
+        LuaFunction func = mLuaState.GetFunction(funcName);
+        if (func != null)
+        {
+            return func.Call(args);
+        }
+        return null;
     }
 
     private void Update()
@@ -103,6 +121,16 @@ public class LuaManager : Manager
         }
     }
 
+    public object[] DoFile(string filename)
+    {
+        return mLuaState.DoFile(filename);
+    }
+
+    public void LuaGC()
+    {
+        mLuaState.LuaGC(LuaGCOptions.LUA_GCCOLLECT);
+    }
+
     private void SafeRelease(ref LuaFunction luaRef)
     {
         if (luaRef != null)
@@ -121,7 +149,12 @@ public class LuaManager : Manager
         }
     }
 
-    private void OnApplicationQuit()
+    public LuaState GetLuaState()
+    {
+        return mLuaState;
+    }
+
+    public void Close()
     {
         if (mLuaState != null)
         {
@@ -149,12 +182,6 @@ public class LuaManager : Manager
 
             mLuaState.Dispose();
             mLuaState = null;
-            //Instance = null;
         }
-    }
-
-    public LuaState GetLuaState()
-    {
-        return mLuaState;
     }
 }

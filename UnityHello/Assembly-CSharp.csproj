@@ -74,6 +74,8 @@
      <Compile Include="Assets\Game\Scripts\Interface\IManager.cs" />
      <Compile Include="Assets\Game\Scripts\Interface\IMessage.cs" />
      <Compile Include="Assets\Game\Scripts\Interface\IView.cs" />
+     <Compile Include="Assets\Game\Scripts\UI\LayerBase.cs" />
+     <Compile Include="Assets\Game\Scripts\UI\UILayer.cs" />
      <Compile Include="Assets\Source\Generate\DebuggerWrap.cs" />
      <Compile Include="Assets\Source\Generate\DelegateFactory.cs" />
      <Compile Include="Assets\Source\Generate\LuaBinder.cs" />

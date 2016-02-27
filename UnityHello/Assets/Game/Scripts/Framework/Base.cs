@@ -7,6 +7,8 @@ public class Base : MonoBehaviour
     private AppFacade mFacade;
     private ResourceManager mResMgr;
     private LuaManager mLuaMgr;
+    private SimpleTimerManager mTimerManager;
+    private ThreadManager mThreadManager;
 
     protected void RegisterMessage(IView view, List<string> messages)
     {
@@ -20,7 +22,7 @@ public class Base : MonoBehaviour
         Controller.Instance.RemoveViewCommand(view, messages.ToArray());
     }
 
-    protected AppFacade Facade
+    protected AppFacade GameFacade
     {
         get
         {
@@ -38,7 +40,7 @@ public class Base : MonoBehaviour
         {
             if (mResMgr == null)
             {
-                mResMgr = mFacade.GetManager<ResourceManager>("ResourceManager");
+                mResMgr = mFacade.GetManager<ResourceManager>();
             }
             return mResMgr;
         }
@@ -50,9 +52,33 @@ public class Base : MonoBehaviour
         {
             if (mLuaMgr == null)
             {
-                mLuaMgr = mFacade.GetManager<LuaManager>("LuaManager");
+                mLuaMgr = mFacade.GetManager<LuaManager>();
             }
             return mLuaMgr;
+        }
+    }
+
+    protected SimpleTimerManager TimeManager
+    {
+        get
+        {
+            if (mTimerManager == null)
+            {
+                mTimerManager = mFacade.GetManager<SimpleTimerManager>();
+            }
+            return mTimerManager;
+        }
+    }
+
+    protected ThreadManager ThreadMgr
+    {
+        get
+        {
+            if (mThreadManager == null)
+            {
+                mThreadManager = mFacade.GetManager<ThreadManager>();
+            }
+            return mThreadManager;
         }
     }
 }

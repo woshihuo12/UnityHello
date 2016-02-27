@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 using LuaInterface;
 
 public class LuaBehaviour : View
 {
-    protected LuaTable mLuaTable;
+    private Dictionary<string, LuaFunction> mButtonCallbacks = new Dictionary<string, LuaFunction>();
 
     public bool UsingUpdate { get; set; }
     public bool UsingFixedUpdate { get; set; }
@@ -12,16 +14,21 @@ public class LuaBehaviour : View
 
     protected bool mIsLuaReady = false;
 
+    protected void Awake()
+    {
+        Tools.CallMethod(name, "Awake", gameObject);
+    }
+
     protected void Start()
     {
-        CallMethod("Start");
+        Tools.CallMethod(name, "Start");
     }
 
     protected void Update()
     {
         if (UsingUpdate)
         {
-            CallMethod("Update");
+            Tools.CallMethod(name, "Update");
         }
     }
 
@@ -29,7 +36,7 @@ public class LuaBehaviour : View
     {
         if (UsingFixedUpdate)
         {
-            CallMethod("FixedUpdate");
+            Tools.CallMethod(name, "FixedUpdate");
         }
     }
 
@@ -37,97 +44,59 @@ public class LuaBehaviour : View
     {
         if (UsingLateUpdate)
         {
-            CallMethod("LateUpdate");
+            Tools.CallMethod(name, "LateUpdate");
         }
+    }
+
+    protected void OnClick()
+    {
+        Tools.CallMethod(name, "OnClick");
+    }
+
+    protected void OnClickEvent(GameObject go)
+    {
+        Tools.CallMethod(name, "OnClick", go);
+    }
+
+    public void AddClick(GameObject go, LuaFunction luafunc)
+    {
+        if (go == null || luafunc == null) return;
+        mButtonCallbacks.Add(go.name, luafunc);
+        go.GetComponent<Button>().onClick.AddListener(
+            delegate()
+            {
+                luafunc.Call(go);
+            }
+        );
+    }
+
+    public void RemoveClick(GameObject go)
+    {
+        if (go == null) return;
+        LuaFunction luafunc = null;
+        if (mButtonCallbacks.TryGetValue(go.name, out luafunc))
+        {
+            luafunc.Dispose();
+            luafunc = null;
+            mButtonCallbacks.Remove(go.name);
+        }
+    }
+
+    public void ClearClick()
+    {
+        foreach (var de in mButtonCallbacks)
+        {
+            if (de.Value != null)
+            {
+                de.Value.Dispose();
+            }
+        }
+        mButtonCallbacks.Clear();
     }
 
     protected void OnDestroy()
     {
-        CallMethod("OnDestroy");
-        if (mLuaTable != null)
-        {
-            mLuaTable.Dispose();
-            mLuaTable = null;
-        }
-    }
-
-    //设置执行的table对象
-    protected void SetBehaviour(LuaTable myTable)
-    {
-        mLuaTable = myTable;
-
-        mLuaTable["this"] = this;
-        mLuaTable["transform"] = transform;
-        mLuaTable["gameObject"] = gameObject;
-
-        CallMethod("Awake");
-
-        mIsLuaReady = true;
-    }
-
-    //获取绑定的lua脚本
-    public LuaTable GetChunk()
-    {
-        return mLuaTable;
-    }
-
-    //设置lua脚本可直接使用变量
-    public void SetEnv(string key, object val, bool isGlobal = false)
-    {
-        if (isGlobal)
-        {
-            LuaState curState = LuaMgr.GetLuaState();
-            curState[key] = val;
-        }
-        else
-        {
-            if (mLuaTable != null)
-            {
-                mLuaTable[key] = val;
-            }
-        }
-    }
-
-    public object CallMethod(string function)
-    {
-        return CallMethod(function, null);
-    }
-
-    public object CallMethod(string function, params object[] args)
-    {
-        if (mLuaTable == null
-            || mLuaTable[function] == null
-            || !(mLuaTable[function] is LuaFunction))
-        {
-            return null;
-        }
-
-        LuaFunction func = (LuaFunction)mLuaTable[function];
-        if (func == null) return null;
-        try
-        {
-            if (args != null)
-            {
-                return func.Call(args);
-            }
-            else
-            {
-                func.BeginPCall(TracePCall.Ignore);
-                func.PCall();
-                object ret = func.CheckObject(typeof(GameObject));
-                func.EndPCall();
-                return ret;
-            }
-        }
-        catch (System.Exception e)
-        {
-            Debug.LogWarning(FormatException(e), gameObject);
-        }
-        return null;
-    }
-    public static string FormatException(System.Exception e)
-    {
-        string source = (string.IsNullOrEmpty(e.Source)) ? "<no source>" : e.Source.Substring(0, e.Source.Length - 2);
-        return string.Format("{0}\nLua (at {1})", e.Message, source);
+        ClearClick();
+        Tools.CallMethod(name, "OnDestroy");
     }
 }

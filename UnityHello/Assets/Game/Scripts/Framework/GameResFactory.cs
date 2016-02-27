@@ -19,7 +19,7 @@ public class GameResFactory
 
     public void GetUIPrefab(string name, Transform parent, LuaFunction luaCallBack)
     {
-        ResourceManager ResManager = AppFacade.Instance.GetManager<ResourceManager>("ResourceManager");
+        ResourceManager ResManager = AppFacade.Instance.GetManager<ResourceManager>();
         ResManager.LoadPrefab(name, name, delegate(UnityEngine.Object[] objs)
         {
             if (objs.Length == 0) return;
@@ -56,7 +56,7 @@ public class GameResFactory
 
     protected void GetEffectObj(string effname, System.Action<GameObject> callBack)
     {
-        ResourceManager ResManager = AppFacade.Instance.GetManager<ResourceManager>("ResourceManager");
+        ResourceManager ResManager = AppFacade.Instance.GetManager<ResourceManager>();
         ResManager.LoadPrefab(effname, effname, delegate(UnityEngine.Object[] objs)
         {
             GameObject gameobj = null;

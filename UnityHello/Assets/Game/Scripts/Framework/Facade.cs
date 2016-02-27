@@ -75,16 +75,9 @@ public class Facade
         mController.ExecuteCommand(new Message(message, body));
     }
 
-    public void AddManager(string typeName, object obj)
+    public T AddManager<T>() where T : Component
     {
-        if (!mManagers.ContainsKey(typeName))
-        {
-            mManagers.Add(typeName, obj);
-        }
-    }
-
-    public T AddManager<T>(string typeName) where T : Component
-    {
+        string typeName = typeof(T).ToString();
         object result = null;
         mManagers.TryGetValue(typeName, out result);
         if (result != null)
@@ -96,8 +89,9 @@ public class Facade
         return (T)c;
     }
 
-    public T GetManager<T>(string typeName) where T : class
+    public T GetManager<T>() where T : class
     {
+        string typeName = typeof(T).ToString();
         if (!mManagers.ContainsKey(typeName))
         {
             return default(T);
