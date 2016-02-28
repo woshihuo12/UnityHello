@@ -22,22 +22,22 @@ public class AssetBundleBuildTool
 
     static readonly string Tip_Title = "资源包提示";
     static readonly string Tip_CheckSuccess = "资源包检查成功，可以正常导出！";
-    static readonly string Tip_Success = "导出资源包成功！";
-    static readonly string Tip_Success_NoNew = "可能是以下情况\n1.当前资源包是最新版本，无需重新打包！\n2.注意log，也有可能是生成出错!";
+    //static readonly string Tip_Success = "导出资源包成功！";
+    //static readonly string Tip_Success_NoNew = "可能是以下情况\n1.当前资源包是最新版本，无需重新打包！\n2.注意log，也有可能是生成出错!";
     static readonly string Error_NoAssets = "无可导出资源包！";
     static readonly string Error_RepeatAssetPath = "资源路径重复！该资源包有多个！\n资源包名称：";
     static readonly string Error_RepeatAssetPath_Paths = "\n多个文件路径：";
     static readonly string Error_ErrorAssetBundleName = "资源包名称错误！资源包名称不合法！\n资源包名称：";
     static readonly string Error_ErrorAssetName = "资源名称错误！必须和资源包名称保持一致！\n资源包名称：";
     //     static readonly string Error_SceneHasCamera="场景内部错误：场景中不能有摄像机! \n场景名称：";
-    static readonly string Error_SceneHasMeshCollider = "场景内部错误：场景中不能有MeshCollider! \n场景名称：";
-    static readonly string Error_SceneObjNameError = "场景内部错误：没有Scene对象！\n场景名称：";
-    static readonly string Error_NaviObjNameError = "场景内部错误：没有Navi对象！\n场景名称：";
-    static readonly string Error_MarkObjNameError = "场景内部错误：没有Mark对象！\n场景名称：";
+    //static readonly string Error_SceneHasMeshCollider = "场景内部错误：场景中不能有MeshCollider! \n场景名称：";
+    //static readonly string Error_SceneObjNameError = "场景内部错误：没有Scene对象！\n场景名称：";
+    //static readonly string Error_NaviObjNameError = "场景内部错误：没有Navi对象！\n场景名称：";
+    //static readonly string Error_MarkObjNameError = "场景内部错误：没有Mark对象！\n场景名称：";
     //static readonly string Error_StartPointObjNameError="场景内部错误：没有StartPoint对象！\n场景名称：";
     //     static readonly string Error_TerrainObjNameError="场景内部错误：没有Terrain对象！\n场景名称：";
 
-    static readonly string Error_NoEffectInfo = "特效对象错误：没有EffectInfo组件！\n特效名称：";
+    //static readonly string Error_NoEffectInfo = "特效对象错误：没有EffectInfo组件！\n特效名称：";
     //static readonly string Error_NoUIInfo = "UI对象错误：没有UIInfo组件！\nUI名称：";
 
     static bool CheckMarkAssetBundle()
@@ -75,7 +75,7 @@ public class AssetBundleBuildTool
         AssetDatabase.Refresh();
     }
 
-    [MenuItem("ExportAsset/检查资源包正确性")]
+    //[MenuItem("ExportAsset/检查资源包正确性")]
     static void CheckABsDisplay()
     {
         if (CheckABs())
@@ -85,7 +85,7 @@ public class AssetBundleBuildTool
         }
     }
 
-    [MenuItem("ExportAsset/清空资源包")]
+    //[MenuItem("ExportAsset/清空资源包")]
     public static void ClearABs()
     {
         string BuildAssetBundlePath = string.Empty;
@@ -108,21 +108,21 @@ public class AssetBundleBuildTool
         if (Directory.Exists(path)) Directory.Delete(path, true);
     }
 
-    [MenuItem("ExportAsset/生成资源包/Editor")]
+    //[MenuItem("ExportAsset/生成资源包/Editor")]
     public static void MenuItem_BuildABsEditor()
     {
         BuildPlatformABs("", BuildTarget.StandaloneWindows);
         AssetDatabase.Refresh();
     }
 
-    [MenuItem("ExportAsset/生成资源包/Android")]
+    //[MenuItem("ExportAsset/生成资源包/Android")]
     public static void MenuItem_BuildABsAndroid()
     {
         BuildPlatformABs("", BuildTarget.Android);
         AssetDatabase.Refresh();
     }
 
-    [MenuItem("ExportAsset/生成资源包/iOS")]
+    //[MenuItem("ExportAsset/生成资源包/iOS")]
     public static void MenuItem_BuildABsIOS()
     {
         BuildPlatformABs("", BuildTarget.iOS);
@@ -136,7 +136,7 @@ public class AssetBundleBuildTool
         BuildPlatformABs(CommandLineReader.GetCustomArgument("path"), BuildTarget.WebPlayer);
         AssetDatabase.Refresh();
     }
-    
+
     /// <summary>
     /// 检测全部资源包正确性
     /// </summary>
@@ -159,7 +159,10 @@ public class AssetBundleBuildTool
 
         var curActiveScene = EditorSceneManager.GetActiveScene();
         //获取当前场景路径
-        string oldSceneName = curActiveScene != null ? curActiveScene.path : string.Empty;
+        string oldSceneName = string.Empty;
+
+        oldSceneName = curActiveScene.path;
+
         //保存当前场景
         EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo();
         Debug.Log("currentScene:" + oldSceneName);
@@ -290,16 +293,16 @@ public class AssetBundleBuildTool
         if (CheckABs())
         {
             ///设置打包路径
-            string path = BuildAssetSetting(inputPath, targetPlatform);
+            //string path = BuildAssetSetting(inputPath, targetPlatform);
             //资源打包设置
-            BuildAssetBundleOptions assetBundleOptions = BuildAssetBundleOptions.None;
+            //BuildAssetBundleOptions assetBundleOptions = BuildAssetBundleOptions.None;
             //打包全部标记的资源（路径，选项，平台），取得清单中的所有assetBundle构建。
-            if (!string.IsNullOrEmpty(path))
-            {
-                //打包所有assetbundle
-                AssetBundleManifest absinfo = BuildPipeline.BuildAssetBundles(path, assetBundleOptions, targetPlatform);
-                //ReturnsPackagingInfo(path, absinfo);
-            }
+            //if (!string.IsNullOrEmpty(path))
+            //{
+            //打包所有assetbundle
+            //AssetBundleManifest absinfo = BuildPipeline.BuildAssetBundles(path, assetBundleOptions, targetPlatform);
+            //ReturnsPackagingInfo(path, absinfo);
+            //}
         }
     }
 

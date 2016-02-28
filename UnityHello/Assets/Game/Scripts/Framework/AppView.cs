@@ -29,7 +29,7 @@ public class AppView : View
     public override void OnMessage(IMessage message)
     {
         string name = message.Name;
-        object body = message.Body;
+        //object body = message.Body;
         switch (name)
         {
             case NotiConst.UPDATE_MESSAGE:      //更新消息

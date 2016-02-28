@@ -9,6 +9,7 @@ public class Base : MonoBehaviour
     private LuaManager mLuaMgr;
     private SimpleTimerManager mTimerManager;
     private ThreadManager mThreadManager;
+    private GameManager mGameManager;
 
     protected void RegisterMessage(IView view, List<string> messages)
     {
@@ -40,7 +41,7 @@ public class Base : MonoBehaviour
         {
             if (mResMgr == null)
             {
-                mResMgr = mFacade.GetManager<ResourceManager>();
+                mResMgr = GameFacade.GetManager<ResourceManager>();
             }
             return mResMgr;
         }
@@ -52,7 +53,7 @@ public class Base : MonoBehaviour
         {
             if (mLuaMgr == null)
             {
-                mLuaMgr = mFacade.GetManager<LuaManager>();
+                mLuaMgr = GameFacade.GetManager<LuaManager>();
             }
             return mLuaMgr;
         }
@@ -64,7 +65,7 @@ public class Base : MonoBehaviour
         {
             if (mTimerManager == null)
             {
-                mTimerManager = mFacade.GetManager<SimpleTimerManager>();
+                mTimerManager = GameFacade.GetManager<SimpleTimerManager>();
             }
             return mTimerManager;
         }
@@ -76,9 +77,21 @@ public class Base : MonoBehaviour
         {
             if (mThreadManager == null)
             {
-                mThreadManager = mFacade.GetManager<ThreadManager>();
+                mThreadManager = GameFacade.GetManager<ThreadManager>();
             }
             return mThreadManager;
+        }
+    }
+
+    protected GameManager GameMgr
+    {
+        get
+        {
+            if (mGameManager == null)
+            {
+                mGameManager = GameFacade.GetManager<GameManager>();
+            }
+            return mGameManager;
         }
     }
 }

@@ -89,7 +89,7 @@ public class Facade
         return (T)c;
     }
 
-    public T GetManager<T>() where T : class
+    public T GetManager<T>() where T : Component
     {
         string typeName = typeof(T).ToString();
         if (!mManagers.ContainsKey(typeName))

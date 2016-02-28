@@ -4,8 +4,20 @@ using System.Collections;
 public class GameSetting
 {
     public static bool DebugMode = true;
+    public static bool UpdateMode = false;
+
+    public const string WebUrl = "http://localhost:6688/";      //测试更新地址
 
     public const string AppName = "UnityHello";               //应用程序名称
+
+    public const int GameFrameRate = 30;
+
+    public const string AssetDir = "StreamingAssets";           //素材目录 
+    //AB素材扩展名
+    public const string ExtName = ".unity3d";
+
+    public static bool LuaByteMode = true;                     //Lua字节码模式-默认关闭 
+    public static bool LuaBundleMode = true;                    //Lua代码AssetBundle模式
 
     public static string AssetPath
     {
