@@ -70,18 +70,10 @@ public class LuaManager : Manager
             AddBundle("Lua/Lua_math.unity3d");
             AddBundle("Lua/Lua_system.unity3d");
             AddBundle("Lua/Lua_u3d.unity3d");
-            AddBundle("Lua/Lua_Common.unity3d");
-            AddBundle("Lua/Lua_Logic.unity3d");
-            AddBundle("Lua/Lua_View.unity3d");
-            AddBundle("Lua/Lua_Controller.unity3d");
             AddBundle("Lua/Lua_Misc.unity3d");
-
+            AddBundle("Lua/lua_lscripts.unity3d");
+            AddBundle("Lua/lua_socket.unity3d");
             AddBundle("Lua/Lua_protobuf.unity3d");
-            AddBundle("Lua/Lua_3rd_cjson.unity3d");
-            AddBundle("Lua/Lua_3rd_luabitop.unity3d");
-            AddBundle("Lua/Lua_3rd_pbc.unity3d");
-            AddBundle("Lua/Lua_3rd_pblua.unity3d");
-            AddBundle("Lua/Lua_3rd_sproto.unity3d");
         }
     }
 

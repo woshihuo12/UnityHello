@@ -158,11 +158,21 @@ public class LuaFileUtils
             fileName = fileName.Substring(pos + 1);
         }
 
-        zipMap.TryGetValue(zipName, out zipFile);        
+        zipMap.TryGetValue(zipName.ToLower(), out zipFile);        
 
         if (zipFile != null)
         {
 #if UNITY_5
+            string[] names = zipFile.GetAllAssetNames();
+            for (int i = 0; i < names.Length; i++)
+            {
+                if (names[i].EndsWith(fileName.ToLower() + ".bytes"))
+                {
+                    fileName = names[i];
+                    break;
+                }
+            }
+
             TextAsset luaCode = zipFile.LoadAsset<TextAsset>(fileName);
 #else
             TextAsset luaCode = zipFile.Load(fileName, typeof(TextAsset)) as TextAsset;
