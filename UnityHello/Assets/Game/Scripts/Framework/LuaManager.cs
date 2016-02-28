@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using LuaInterface;
+using System.IO;
 
 public class LuaManager : Manager
 {
@@ -42,6 +43,48 @@ public class LuaManager : Manager
         LuaCoroutine.Register(mLuaState, this);
     }
 
+    private void AddBundle(string bundleName)
+    {
+        string url = Tools.DataPath + bundleName;
+        if (File.Exists(url))
+        {
+            AssetBundle bundle = AssetBundle.LoadFromFile(url);
+            if (bundle != null)
+            {
+                bundleName = bundleName.Replace("Lua/", "");
+                bundleName = bundleName.Replace(".unity3d", "");
+                LuaFileUtils.Instance.AddSearchBundle(bundleName.ToLower(), bundle);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 初始化LuaBundle
+    /// </summary>
+    void InitLuaBundle()
+    {
+        LuaFileUtils.Instance.beZip = GameSetting.LuaBundleMode;
+        if (LuaFileUtils.Instance.beZip)
+        {
+            AddBundle("Lua/Lua.unity3d");
+            AddBundle("Lua/Lua_math.unity3d");
+            AddBundle("Lua/Lua_system.unity3d");
+            AddBundle("Lua/Lua_u3d.unity3d");
+            AddBundle("Lua/Lua_Common.unity3d");
+            AddBundle("Lua/Lua_Logic.unity3d");
+            AddBundle("Lua/Lua_View.unity3d");
+            AddBundle("Lua/Lua_Controller.unity3d");
+            AddBundle("Lua/Lua_Misc.unity3d");
+
+            AddBundle("Lua/Lua_protobuf.unity3d");
+            AddBundle("Lua/Lua_3rd_cjson.unity3d");
+            AddBundle("Lua/Lua_3rd_luabitop.unity3d");
+            AddBundle("Lua/Lua_3rd_pbc.unity3d");
+            AddBundle("Lua/Lua_3rd_pblua.unity3d");
+            AddBundle("Lua/Lua_3rd_sproto.unity3d");
+        }
+    }
+
     private LuaEvent GetEvent(string name)
     {
         LuaTable table = mLuaState.GetTable(name);
@@ -53,7 +96,8 @@ public class LuaManager : Manager
 
     public void InitStart()
     {
-        LuaFileUtils.Instance.AddSearchPath("Lua");
+        InitLuaPath();
+        InitLuaBundle();
 
         mLuaState.Start();
         mLuaState.DoFile("Main.lua");
