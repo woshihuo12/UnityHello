@@ -17,29 +17,50 @@ public static class DelegateFactory
 	{
 		dict.Clear();
 		dict.Add(typeof(System.Action), System_Action);
-		dict.Add(typeof(System.Action<UnityEngine.GameObject>), System_Action_UnityEngine_GameObject);
 		dict.Add(typeof(UnityEngine.Events.UnityAction), UnityEngine_Events_UnityAction);
+		dict.Add(typeof(TestEventListener.OnClick), TestEventListener_OnClick);
+		dict.Add(typeof(TestEventListener.VoidDelegate), TestEventListener_VoidDelegate);
 		dict.Add(typeof(UnityEngine.Camera.CameraCallback), UnityEngine_Camera_CameraCallback);
 		dict.Add(typeof(UnityEngine.AudioClip.PCMReaderCallback), UnityEngine_AudioClip_PCMReaderCallback);
 		dict.Add(typeof(UnityEngine.AudioClip.PCMSetPositionCallback), UnityEngine_AudioClip_PCMSetPositionCallback);
 		dict.Add(typeof(UnityEngine.Application.LogCallback), UnityEngine_Application_LogCallback);
-		dict.Add(typeof(UnityEngine.RectTransform.ReapplyDrivenProperties), UnityEngine_RectTransform_ReapplyDrivenProperties);
+		dict.Add(typeof(UnityEngine.Application.AdvertisingIdentifierCallback), UnityEngine_Application_AdvertisingIdentifierCallback);
 	}
 
     [NoToLuaAttribute]
-    public static Delegate CreateDelegate(IntPtr L, Type t, LuaFunction func = null)
+    public static Delegate CreateDelegate(Type t, LuaFunction func = null)
     {
         DelegateValue create = null;
 
         if (!dict.TryGetValue(t, out create))
         {
-            LuaDLL.luaL_error(L, string.Format("Delegate {0} not register", LuaMisc.GetTypeName(t)));
-            return null;
+            throw new LuaException(string.Format("Delegate {0} not register", LuaMisc.GetTypeName(t)));            
         }
         
         return create(func);        
     }
-    
+
+    [NoToLuaAttribute]
+    public static Delegate RemoveDelegate(Delegate obj, LuaFunction func)
+    {
+        LuaState state = func.GetLuaState();
+        Delegate[] ds = obj.GetInvocationList();
+
+        for (int i = 0; i < ds.Length; i++)
+        {
+            LuaDelegate ld = ds[i].Target as LuaDelegate;
+
+            if (ld != null && ld.func == func)
+            {
+                obj = Delegate.Remove(obj, ds[i]);
+                state.DelayDispose(ld.func);
+                break;
+            }
+        }
+
+        return obj;
+    }
+
 	class System_Action_Event : LuaDelegate
 	{
 		public System_Action_Event(LuaFunction func) : base(func) { }
@@ -62,31 +83,6 @@ public static class DelegateFactory
 		return d;
 	}
 
-	class System_Action_UnityEngine_GameObject_Event : LuaDelegate
-	{
-		public System_Action_UnityEngine_GameObject_Event(LuaFunction func) : base(func) { }
-
-		public void Call(UnityEngine.GameObject param0)
-		{
-			func.BeginPCall();
-			func.Push(param0);
-			func.PCall();
-			func.EndPCall();
-		}
-	}
-
-	public static Delegate System_Action_UnityEngine_GameObject(LuaFunction func)
-	{
-		if (func == null)
-		{
-			System.Action<UnityEngine.GameObject> fn = delegate { };
-			return fn;
-		}
-
-		System.Action<UnityEngine.GameObject> d = (new System_Action_UnityEngine_GameObject_Event(func)).Call;
-		return d;
-	}
-
 	class UnityEngine_Events_UnityAction_Event : LuaDelegate
 	{
 		public UnityEngine_Events_UnityAction_Event(LuaFunction func) : base(func) { }
@@ -106,6 +102,56 @@ public static class DelegateFactory
 		}
 
 		UnityEngine.Events.UnityAction d = (new UnityEngine_Events_UnityAction_Event(func)).Call;
+		return d;
+	}
+
+	class TestEventListener_OnClick_Event : LuaDelegate
+	{
+		public TestEventListener_OnClick_Event(LuaFunction func) : base(func) { }
+
+		public void Call(UnityEngine.GameObject param0)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public static Delegate TestEventListener_OnClick(LuaFunction func)
+	{
+		if (func == null)
+		{
+			TestEventListener.OnClick fn = delegate { };
+			return fn;
+		}
+
+		TestEventListener.OnClick d = (new TestEventListener_OnClick_Event(func)).Call;
+		return d;
+	}
+
+	class TestEventListener_VoidDelegate_Event : LuaDelegate
+	{
+		public TestEventListener_VoidDelegate_Event(LuaFunction func) : base(func) { }
+
+		public void Call(UnityEngine.GameObject param0)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public static Delegate TestEventListener_VoidDelegate(LuaFunction func)
+	{
+		if (func == null)
+		{
+			TestEventListener.VoidDelegate fn = delegate { };
+			return fn;
+		}
+
+		TestEventListener.VoidDelegate d = (new TestEventListener_VoidDelegate_Event(func)).Call;
 		return d;
 	}
 
@@ -211,28 +257,30 @@ public static class DelegateFactory
 		return d;
 	}
 
-	class UnityEngine_RectTransform_ReapplyDrivenProperties_Event : LuaDelegate
+	class UnityEngine_Application_AdvertisingIdentifierCallback_Event : LuaDelegate
 	{
-		public UnityEngine_RectTransform_ReapplyDrivenProperties_Event(LuaFunction func) : base(func) { }
+		public UnityEngine_Application_AdvertisingIdentifierCallback_Event(LuaFunction func) : base(func) { }
 
-		public void Call(UnityEngine.RectTransform param0)
+		public void Call(string param0,bool param1,string param2)
 		{
 			func.BeginPCall();
 			func.Push(param0);
+			func.Push(param1);
+			func.Push(param2);
 			func.PCall();
 			func.EndPCall();
 		}
 	}
 
-	public static Delegate UnityEngine_RectTransform_ReapplyDrivenProperties(LuaFunction func)
+	public static Delegate UnityEngine_Application_AdvertisingIdentifierCallback(LuaFunction func)
 	{
 		if (func == null)
 		{
-			UnityEngine.RectTransform.ReapplyDrivenProperties fn = delegate { };
+			UnityEngine.Application.AdvertisingIdentifierCallback fn = delegate { };
 			return fn;
 		}
 
-		UnityEngine.RectTransform.ReapplyDrivenProperties d = (new UnityEngine_RectTransform_ReapplyDrivenProperties_Event(func)).Call;
+		UnityEngine.Application.AdvertisingIdentifierCallback d = (new UnityEngine_Application_AdvertisingIdentifierCallback_Event(func)).Call;
 		return d;
 	}
 

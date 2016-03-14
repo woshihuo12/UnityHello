@@ -124,33 +124,61 @@ public class UnityEngine_TimeWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_fixedDeltaTime(IntPtr L)
 	{
-		float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
-		UnityEngine.Time.fixedDeltaTime = arg0;
-		return 0;
+		try
+		{
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+			UnityEngine.Time.fixedDeltaTime = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_maximumDeltaTime(IntPtr L)
 	{
-		float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
-		UnityEngine.Time.maximumDeltaTime = arg0;
-		return 0;
+		try
+		{
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+			UnityEngine.Time.maximumDeltaTime = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_timeScale(IntPtr L)
 	{
-		float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
-		UnityEngine.Time.timeScale = arg0;
-		return 0;
+		try
+		{
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+			UnityEngine.Time.timeScale = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_captureFramerate(IntPtr L)
 	{
-		int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
-		UnityEngine.Time.captureFramerate = arg0;
-		return 0;
+		try
+		{
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			UnityEngine.Time.captureFramerate = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 }
 

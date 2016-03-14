@@ -18,7 +18,6 @@ public class UnityEngine_ParticleAnimatorWrap
 		L.RegVar("damping", get_damping, set_damping);
 		L.RegVar("autodestruct", get_autodestruct, set_autodestruct);
 		L.RegVar("colorAnimation", get_colorAnimation, set_colorAnimation);
-		L.RegVar("out", get_out, null);
 		L.EndClass();
 	}
 
@@ -44,22 +43,19 @@ public class UnityEngine_ParticleAnimatorWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int op_Equality(IntPtr L)
 	{
-		ToLua.CheckArgsCount(L, 2);
-		UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.ToObject(L, 1);
-		UnityEngine.Object arg1 = (UnityEngine.Object)ToLua.ToObject(L, 2);
-		bool o;
-
 		try
 		{
-			o = arg0 == arg1;
+			ToLua.CheckArgsCount(L, 2);
+			UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.ToObject(L, 1);
+			UnityEngine.Object arg1 = (UnityEngine.Object)ToLua.ToObject(L, 2);
+			bool o = arg0 == arg1;
+			LuaDLL.lua_pushboolean(L, o);
+			return 1;
 		}
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e);
 		}
-
-		LuaDLL.lua_pushboolean(L, o);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
@@ -82,341 +78,343 @@ public class UnityEngine_ParticleAnimatorWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_doesAnimateColor(IntPtr L)
 	{
-		UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)ToLua.ToObject(L, 1);
-		bool ret;
+		object o = null;
 
 		try
 		{
-			ret = obj.doesAnimateColor;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)o;
+			bool ret = obj.doesAnimateColor;
+			LuaDLL.lua_pushboolean(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index doesAnimateColor on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index doesAnimateColor on a nil value" : e.Message);
 		}
-
-		LuaDLL.lua_pushboolean(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_worldRotationAxis(IntPtr L)
 	{
-		UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)ToLua.ToObject(L, 1);
-		UnityEngine.Vector3 ret;
+		object o = null;
 
 		try
 		{
-			ret = obj.worldRotationAxis;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)o;
+			UnityEngine.Vector3 ret = obj.worldRotationAxis;
+			ToLua.Push(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index worldRotationAxis on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index worldRotationAxis on a nil value" : e.Message);
 		}
-
-		ToLua.Push(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_localRotationAxis(IntPtr L)
 	{
-		UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)ToLua.ToObject(L, 1);
-		UnityEngine.Vector3 ret;
+		object o = null;
 
 		try
 		{
-			ret = obj.localRotationAxis;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)o;
+			UnityEngine.Vector3 ret = obj.localRotationAxis;
+			ToLua.Push(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index localRotationAxis on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index localRotationAxis on a nil value" : e.Message);
 		}
-
-		ToLua.Push(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_sizeGrow(IntPtr L)
 	{
-		UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)ToLua.ToObject(L, 1);
-		float ret;
+		object o = null;
 
 		try
 		{
-			ret = obj.sizeGrow;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)o;
+			float ret = obj.sizeGrow;
+			LuaDLL.lua_pushnumber(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index sizeGrow on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index sizeGrow on a nil value" : e.Message);
 		}
-
-		LuaDLL.lua_pushnumber(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_rndForce(IntPtr L)
 	{
-		UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)ToLua.ToObject(L, 1);
-		UnityEngine.Vector3 ret;
+		object o = null;
 
 		try
 		{
-			ret = obj.rndForce;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)o;
+			UnityEngine.Vector3 ret = obj.rndForce;
+			ToLua.Push(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index rndForce on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index rndForce on a nil value" : e.Message);
 		}
-
-		ToLua.Push(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_force(IntPtr L)
 	{
-		UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)ToLua.ToObject(L, 1);
-		UnityEngine.Vector3 ret;
+		object o = null;
 
 		try
 		{
-			ret = obj.force;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)o;
+			UnityEngine.Vector3 ret = obj.force;
+			ToLua.Push(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index force on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index force on a nil value" : e.Message);
 		}
-
-		ToLua.Push(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_damping(IntPtr L)
 	{
-		UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)ToLua.ToObject(L, 1);
-		float ret;
+		object o = null;
 
 		try
 		{
-			ret = obj.damping;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)o;
+			float ret = obj.damping;
+			LuaDLL.lua_pushnumber(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index damping on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index damping on a nil value" : e.Message);
 		}
-
-		LuaDLL.lua_pushnumber(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_autodestruct(IntPtr L)
 	{
-		UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)ToLua.ToObject(L, 1);
-		bool ret;
+		object o = null;
 
 		try
 		{
-			ret = obj.autodestruct;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)o;
+			bool ret = obj.autodestruct;
+			LuaDLL.lua_pushboolean(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index autodestruct on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index autodestruct on a nil value" : e.Message);
 		}
-
-		LuaDLL.lua_pushboolean(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_colorAnimation(IntPtr L)
 	{
-		UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)ToLua.ToObject(L, 1);
-		UnityEngine.Color[] ret = null;
+		object o = null;
 
 		try
 		{
-			ret = obj.colorAnimation;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)o;
+			UnityEngine.Color[] ret = obj.colorAnimation;
+			ToLua.Push(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index colorAnimation on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index colorAnimation on a nil value" : e.Message);
 		}
-
-		ToLua.Push(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_doesAnimateColor(IntPtr L)
 	{
-		UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)ToLua.ToObject(L, 1);
-		bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+		object o = null;
 
 		try
 		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)o;
+			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
 			obj.doesAnimateColor = arg0;
+			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index doesAnimateColor on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index doesAnimateColor on a nil value" : e.Message);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_worldRotationAxis(IntPtr L)
 	{
-		UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)ToLua.ToObject(L, 1);
-		UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
+		object o = null;
 
 		try
 		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)o;
+			UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
 			obj.worldRotationAxis = arg0;
+			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index worldRotationAxis on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index worldRotationAxis on a nil value" : e.Message);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_localRotationAxis(IntPtr L)
 	{
-		UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)ToLua.ToObject(L, 1);
-		UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
+		object o = null;
 
 		try
 		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)o;
+			UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
 			obj.localRotationAxis = arg0;
+			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index localRotationAxis on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index localRotationAxis on a nil value" : e.Message);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_sizeGrow(IntPtr L)
 	{
-		UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)ToLua.ToObject(L, 1);
-		float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+		object o = null;
 
 		try
 		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)o;
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 			obj.sizeGrow = arg0;
+			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index sizeGrow on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index sizeGrow on a nil value" : e.Message);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_rndForce(IntPtr L)
 	{
-		UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)ToLua.ToObject(L, 1);
-		UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
+		object o = null;
 
 		try
 		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)o;
+			UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
 			obj.rndForce = arg0;
+			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index rndForce on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index rndForce on a nil value" : e.Message);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_force(IntPtr L)
 	{
-		UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)ToLua.ToObject(L, 1);
-		UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
+		object o = null;
 
 		try
 		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)o;
+			UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
 			obj.force = arg0;
+			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index force on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index force on a nil value" : e.Message);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_damping(IntPtr L)
 	{
-		UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)ToLua.ToObject(L, 1);
-		float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+		object o = null;
 
 		try
 		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)o;
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 			obj.damping = arg0;
+			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index damping on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index damping on a nil value" : e.Message);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_autodestruct(IntPtr L)
 	{
-		UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)ToLua.ToObject(L, 1);
-		bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+		object o = null;
 
 		try
 		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)o;
+			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
 			obj.autodestruct = arg0;
+			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index autodestruct on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index autodestruct on a nil value" : e.Message);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_colorAnimation(IntPtr L)
 	{
-		UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)ToLua.ToObject(L, 1);
-		UnityEngine.Color[] arg0 = ToLua.CheckObjectArray<UnityEngine.Color>(L, 2);
+		object o = null;
 
 		try
 		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.ParticleAnimator obj = (UnityEngine.ParticleAnimator)o;
+			UnityEngine.Color[] arg0 = ToLua.CheckObjectArray<UnityEngine.Color>(L, 2);
 			obj.colorAnimation = arg0;
+			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index colorAnimation on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index colorAnimation on a nil value" : e.Message);
 		}
-
-		return 0;
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_out(IntPtr L)
-	{
-		ToLua.PushOut<UnityEngine.ParticleAnimator>(L, new LuaOut<UnityEngine.ParticleAnimator>());
-		return 1;
 	}
 }
 

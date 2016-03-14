@@ -34,7 +34,6 @@ public class UnityEngine_RendererWrap
 		L.RegVar("sortingLayerName", get_sortingLayerName, set_sortingLayerName);
 		L.RegVar("sortingLayerID", get_sortingLayerID, set_sortingLayerID);
 		L.RegVar("sortingOrder", get_sortingOrder, set_sortingOrder);
-		L.RegVar("out", get_out, null);
 		L.EndClass();
 	}
 
@@ -60,79 +59,70 @@ public class UnityEngine_RendererWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int SetPropertyBlock(IntPtr L)
 	{
-		ToLua.CheckArgsCount(L, 2);
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.CheckObject(L, 1, typeof(UnityEngine.Renderer));
-		UnityEngine.MaterialPropertyBlock arg0 = (UnityEngine.MaterialPropertyBlock)ToLua.CheckObject(L, 2, typeof(UnityEngine.MaterialPropertyBlock));
-
 		try
 		{
+			ToLua.CheckArgsCount(L, 2);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.CheckObject(L, 1, typeof(UnityEngine.Renderer));
+			UnityEngine.MaterialPropertyBlock arg0 = (UnityEngine.MaterialPropertyBlock)ToLua.CheckObject(L, 2, typeof(UnityEngine.MaterialPropertyBlock));
 			obj.SetPropertyBlock(arg0);
+			return 0;
 		}
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int GetPropertyBlock(IntPtr L)
 	{
-		ToLua.CheckArgsCount(L, 2);
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.CheckObject(L, 1, typeof(UnityEngine.Renderer));
-		UnityEngine.MaterialPropertyBlock arg0 = (UnityEngine.MaterialPropertyBlock)ToLua.CheckObject(L, 2, typeof(UnityEngine.MaterialPropertyBlock));
-
 		try
 		{
+			ToLua.CheckArgsCount(L, 2);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.CheckObject(L, 1, typeof(UnityEngine.Renderer));
+			UnityEngine.MaterialPropertyBlock arg0 = (UnityEngine.MaterialPropertyBlock)ToLua.CheckObject(L, 2, typeof(UnityEngine.MaterialPropertyBlock));
 			obj.GetPropertyBlock(arg0);
+			return 0;
 		}
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int GetClosestReflectionProbes(IntPtr L)
 	{
-		ToLua.CheckArgsCount(L, 2);
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.CheckObject(L, 1, typeof(UnityEngine.Renderer));
-		System.Collections.Generic.List<UnityEngine.Rendering.ReflectionProbeBlendInfo> arg0 = (System.Collections.Generic.List<UnityEngine.Rendering.ReflectionProbeBlendInfo>)ToLua.CheckObject(L, 2, typeof(System.Collections.Generic.List<UnityEngine.Rendering.ReflectionProbeBlendInfo>));
-
 		try
 		{
+			ToLua.CheckArgsCount(L, 2);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.CheckObject(L, 1, typeof(UnityEngine.Renderer));
+			System.Collections.Generic.List<UnityEngine.Rendering.ReflectionProbeBlendInfo> arg0 = (System.Collections.Generic.List<UnityEngine.Rendering.ReflectionProbeBlendInfo>)ToLua.CheckObject(L, 2, typeof(System.Collections.Generic.List<UnityEngine.Rendering.ReflectionProbeBlendInfo>));
 			obj.GetClosestReflectionProbes(arg0);
+			return 0;
 		}
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int op_Equality(IntPtr L)
 	{
-		ToLua.CheckArgsCount(L, 2);
-		UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.ToObject(L, 1);
-		UnityEngine.Object arg1 = (UnityEngine.Object)ToLua.ToObject(L, 2);
-		bool o;
-
 		try
 		{
-			o = arg0 == arg1;
+			ToLua.CheckArgsCount(L, 2);
+			UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.ToObject(L, 1);
+			UnityEngine.Object arg1 = (UnityEngine.Object)ToLua.ToObject(L, 2);
+			bool o = arg0 == arg1;
+			LuaDLL.lua_pushboolean(L, o);
+			return 1;
 		}
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e);
 		}
-
-		LuaDLL.lua_pushboolean(L, o);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
@@ -155,732 +145,742 @@ public class UnityEngine_RendererWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_isPartOfStaticBatch(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		bool ret;
+		object o = null;
 
 		try
 		{
-			ret = obj.isPartOfStaticBatch;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			bool ret = obj.isPartOfStaticBatch;
+			LuaDLL.lua_pushboolean(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index isPartOfStaticBatch on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index isPartOfStaticBatch on a nil value" : e.Message);
 		}
-
-		LuaDLL.lua_pushboolean(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_worldToLocalMatrix(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		UnityEngine.Matrix4x4 ret;
+		object o = null;
 
 		try
 		{
-			ret = obj.worldToLocalMatrix;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			UnityEngine.Matrix4x4 ret = obj.worldToLocalMatrix;
+			ToLua.PushValue(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index worldToLocalMatrix on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index worldToLocalMatrix on a nil value" : e.Message);
 		}
-
-		ToLua.PushValue(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_localToWorldMatrix(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		UnityEngine.Matrix4x4 ret;
+		object o = null;
 
 		try
 		{
-			ret = obj.localToWorldMatrix;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			UnityEngine.Matrix4x4 ret = obj.localToWorldMatrix;
+			ToLua.PushValue(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index localToWorldMatrix on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index localToWorldMatrix on a nil value" : e.Message);
 		}
-
-		ToLua.PushValue(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_enabled(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		bool ret;
+		object o = null;
 
 		try
 		{
-			ret = obj.enabled;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			bool ret = obj.enabled;
+			LuaDLL.lua_pushboolean(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index enabled on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index enabled on a nil value" : e.Message);
 		}
-
-		LuaDLL.lua_pushboolean(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_shadowCastingMode(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		UnityEngine.Rendering.ShadowCastingMode ret;
+		object o = null;
 
 		try
 		{
-			ret = obj.shadowCastingMode;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			UnityEngine.Rendering.ShadowCastingMode ret = obj.shadowCastingMode;
+			ToLua.Push(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index shadowCastingMode on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index shadowCastingMode on a nil value" : e.Message);
 		}
-
-		ToLua.Push(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_receiveShadows(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		bool ret;
+		object o = null;
 
 		try
 		{
-			ret = obj.receiveShadows;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			bool ret = obj.receiveShadows;
+			LuaDLL.lua_pushboolean(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index receiveShadows on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index receiveShadows on a nil value" : e.Message);
 		}
-
-		LuaDLL.lua_pushboolean(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_material(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		UnityEngine.Material ret = null;
+		object o = null;
 
 		try
 		{
-			ret = obj.material;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			UnityEngine.Material ret = obj.material;
+			ToLua.Push(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index material on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index material on a nil value" : e.Message);
 		}
-
-		ToLua.Push(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_sharedMaterial(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		UnityEngine.Material ret = null;
+		object o = null;
 
 		try
 		{
-			ret = obj.sharedMaterial;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			UnityEngine.Material ret = obj.sharedMaterial;
+			ToLua.Push(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index sharedMaterial on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index sharedMaterial on a nil value" : e.Message);
 		}
-
-		ToLua.Push(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_materials(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		UnityEngine.Material[] ret = null;
+		object o = null;
 
 		try
 		{
-			ret = obj.materials;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			UnityEngine.Material[] ret = obj.materials;
+			ToLua.Push(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index materials on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index materials on a nil value" : e.Message);
 		}
-
-		ToLua.Push(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_sharedMaterials(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		UnityEngine.Material[] ret = null;
+		object o = null;
 
 		try
 		{
-			ret = obj.sharedMaterials;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			UnityEngine.Material[] ret = obj.sharedMaterials;
+			ToLua.Push(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index sharedMaterials on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index sharedMaterials on a nil value" : e.Message);
 		}
-
-		ToLua.Push(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_bounds(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		UnityEngine.Bounds ret;
+		object o = null;
 
 		try
 		{
-			ret = obj.bounds;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			UnityEngine.Bounds ret = obj.bounds;
+			ToLua.Push(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index bounds on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index bounds on a nil value" : e.Message);
 		}
-
-		ToLua.Push(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_lightmapIndex(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		int ret;
+		object o = null;
 
 		try
 		{
-			ret = obj.lightmapIndex;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			int ret = obj.lightmapIndex;
+			LuaDLL.lua_pushinteger(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index lightmapIndex on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index lightmapIndex on a nil value" : e.Message);
 		}
-
-		LuaDLL.lua_pushinteger(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_realtimeLightmapIndex(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		int ret;
+		object o = null;
 
 		try
 		{
-			ret = obj.realtimeLightmapIndex;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			int ret = obj.realtimeLightmapIndex;
+			LuaDLL.lua_pushinteger(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index realtimeLightmapIndex on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index realtimeLightmapIndex on a nil value" : e.Message);
 		}
-
-		LuaDLL.lua_pushinteger(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_lightmapScaleOffset(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		UnityEngine.Vector4 ret;
+		object o = null;
 
 		try
 		{
-			ret = obj.lightmapScaleOffset;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			UnityEngine.Vector4 ret = obj.lightmapScaleOffset;
+			ToLua.Push(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index lightmapScaleOffset on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index lightmapScaleOffset on a nil value" : e.Message);
 		}
-
-		ToLua.Push(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_realtimeLightmapScaleOffset(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		UnityEngine.Vector4 ret;
+		object o = null;
 
 		try
 		{
-			ret = obj.realtimeLightmapScaleOffset;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			UnityEngine.Vector4 ret = obj.realtimeLightmapScaleOffset;
+			ToLua.Push(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index realtimeLightmapScaleOffset on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index realtimeLightmapScaleOffset on a nil value" : e.Message);
 		}
-
-		ToLua.Push(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_isVisible(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		bool ret;
+		object o = null;
 
 		try
 		{
-			ret = obj.isVisible;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			bool ret = obj.isVisible;
+			LuaDLL.lua_pushboolean(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index isVisible on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index isVisible on a nil value" : e.Message);
 		}
-
-		LuaDLL.lua_pushboolean(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_useLightProbes(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		bool ret;
+		object o = null;
 
 		try
 		{
-			ret = obj.useLightProbes;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			bool ret = obj.useLightProbes;
+			LuaDLL.lua_pushboolean(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index useLightProbes on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index useLightProbes on a nil value" : e.Message);
 		}
-
-		LuaDLL.lua_pushboolean(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_probeAnchor(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		UnityEngine.Transform ret = null;
+		object o = null;
 
 		try
 		{
-			ret = obj.probeAnchor;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			UnityEngine.Transform ret = obj.probeAnchor;
+			ToLua.Push(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index probeAnchor on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index probeAnchor on a nil value" : e.Message);
 		}
-
-		ToLua.Push(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_reflectionProbeUsage(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		UnityEngine.Rendering.ReflectionProbeUsage ret;
+		object o = null;
 
 		try
 		{
-			ret = obj.reflectionProbeUsage;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			UnityEngine.Rendering.ReflectionProbeUsage ret = obj.reflectionProbeUsage;
+			ToLua.Push(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index reflectionProbeUsage on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index reflectionProbeUsage on a nil value" : e.Message);
 		}
-
-		ToLua.Push(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_sortingLayerName(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		string ret = null;
+		object o = null;
 
 		try
 		{
-			ret = obj.sortingLayerName;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			string ret = obj.sortingLayerName;
+			LuaDLL.lua_pushstring(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index sortingLayerName on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index sortingLayerName on a nil value" : e.Message);
 		}
-
-		LuaDLL.lua_pushstring(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_sortingLayerID(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		int ret;
+		object o = null;
 
 		try
 		{
-			ret = obj.sortingLayerID;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			int ret = obj.sortingLayerID;
+			LuaDLL.lua_pushinteger(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index sortingLayerID on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index sortingLayerID on a nil value" : e.Message);
 		}
-
-		LuaDLL.lua_pushinteger(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_sortingOrder(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		int ret;
+		object o = null;
 
 		try
 		{
-			ret = obj.sortingOrder;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			int ret = obj.sortingOrder;
+			LuaDLL.lua_pushinteger(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index sortingOrder on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index sortingOrder on a nil value" : e.Message);
 		}
-
-		LuaDLL.lua_pushinteger(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_enabled(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+		object o = null;
 
 		try
 		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
 			obj.enabled = arg0;
+			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index enabled on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index enabled on a nil value" : e.Message);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_shadowCastingMode(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		UnityEngine.Rendering.ShadowCastingMode arg0 = (UnityEngine.Rendering.ShadowCastingMode)ToLua.CheckObject(L, 2, typeof(UnityEngine.Rendering.ShadowCastingMode));
+		object o = null;
 
 		try
 		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			UnityEngine.Rendering.ShadowCastingMode arg0 = (UnityEngine.Rendering.ShadowCastingMode)ToLua.CheckObject(L, 2, typeof(UnityEngine.Rendering.ShadowCastingMode));
 			obj.shadowCastingMode = arg0;
+			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index shadowCastingMode on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index shadowCastingMode on a nil value" : e.Message);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_receiveShadows(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+		object o = null;
 
 		try
 		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
 			obj.receiveShadows = arg0;
+			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index receiveShadows on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index receiveShadows on a nil value" : e.Message);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_material(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		UnityEngine.Material arg0 = (UnityEngine.Material)ToLua.CheckUnityObject(L, 2, typeof(UnityEngine.Material));
+		object o = null;
 
 		try
 		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			UnityEngine.Material arg0 = (UnityEngine.Material)ToLua.CheckUnityObject(L, 2, typeof(UnityEngine.Material));
 			obj.material = arg0;
+			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index material on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index material on a nil value" : e.Message);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_sharedMaterial(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		UnityEngine.Material arg0 = (UnityEngine.Material)ToLua.CheckUnityObject(L, 2, typeof(UnityEngine.Material));
+		object o = null;
 
 		try
 		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			UnityEngine.Material arg0 = (UnityEngine.Material)ToLua.CheckUnityObject(L, 2, typeof(UnityEngine.Material));
 			obj.sharedMaterial = arg0;
+			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index sharedMaterial on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index sharedMaterial on a nil value" : e.Message);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_materials(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		UnityEngine.Material[] arg0 = ToLua.CheckObjectArray<UnityEngine.Material>(L, 2);
+		object o = null;
 
 		try
 		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			UnityEngine.Material[] arg0 = ToLua.CheckObjectArray<UnityEngine.Material>(L, 2);
 			obj.materials = arg0;
+			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index materials on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index materials on a nil value" : e.Message);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_sharedMaterials(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		UnityEngine.Material[] arg0 = ToLua.CheckObjectArray<UnityEngine.Material>(L, 2);
+		object o = null;
 
 		try
 		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			UnityEngine.Material[] arg0 = ToLua.CheckObjectArray<UnityEngine.Material>(L, 2);
 			obj.sharedMaterials = arg0;
+			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index sharedMaterials on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index sharedMaterials on a nil value" : e.Message);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_lightmapIndex(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+		object o = null;
 
 		try
 		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
 			obj.lightmapIndex = arg0;
+			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index lightmapIndex on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index lightmapIndex on a nil value" : e.Message);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_realtimeLightmapIndex(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+		object o = null;
 
 		try
 		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
 			obj.realtimeLightmapIndex = arg0;
+			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index realtimeLightmapIndex on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index realtimeLightmapIndex on a nil value" : e.Message);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_lightmapScaleOffset(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		UnityEngine.Vector4 arg0 = ToLua.ToVector4(L, 2);
+		object o = null;
 
 		try
 		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			UnityEngine.Vector4 arg0 = ToLua.ToVector4(L, 2);
 			obj.lightmapScaleOffset = arg0;
+			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index lightmapScaleOffset on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index lightmapScaleOffset on a nil value" : e.Message);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_realtimeLightmapScaleOffset(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		UnityEngine.Vector4 arg0 = ToLua.ToVector4(L, 2);
+		object o = null;
 
 		try
 		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			UnityEngine.Vector4 arg0 = ToLua.ToVector4(L, 2);
 			obj.realtimeLightmapScaleOffset = arg0;
+			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index realtimeLightmapScaleOffset on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index realtimeLightmapScaleOffset on a nil value" : e.Message);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_useLightProbes(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+		object o = null;
 
 		try
 		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
 			obj.useLightProbes = arg0;
+			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index useLightProbes on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index useLightProbes on a nil value" : e.Message);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_probeAnchor(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		UnityEngine.Transform arg0 = (UnityEngine.Transform)ToLua.CheckUnityObject(L, 2, typeof(UnityEngine.Transform));
+		object o = null;
 
 		try
 		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			UnityEngine.Transform arg0 = (UnityEngine.Transform)ToLua.CheckUnityObject(L, 2, typeof(UnityEngine.Transform));
 			obj.probeAnchor = arg0;
+			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index probeAnchor on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index probeAnchor on a nil value" : e.Message);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_reflectionProbeUsage(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		UnityEngine.Rendering.ReflectionProbeUsage arg0 = (UnityEngine.Rendering.ReflectionProbeUsage)ToLua.CheckObject(L, 2, typeof(UnityEngine.Rendering.ReflectionProbeUsage));
+		object o = null;
 
 		try
 		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			UnityEngine.Rendering.ReflectionProbeUsage arg0 = (UnityEngine.Rendering.ReflectionProbeUsage)ToLua.CheckObject(L, 2, typeof(UnityEngine.Rendering.ReflectionProbeUsage));
 			obj.reflectionProbeUsage = arg0;
+			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index reflectionProbeUsage on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index reflectionProbeUsage on a nil value" : e.Message);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_sortingLayerName(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		string arg0 = ToLua.CheckString(L, 2);
+		object o = null;
 
 		try
 		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			string arg0 = ToLua.CheckString(L, 2);
 			obj.sortingLayerName = arg0;
+			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index sortingLayerName on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index sortingLayerName on a nil value" : e.Message);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_sortingLayerID(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+		object o = null;
 
 		try
 		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
 			obj.sortingLayerID = arg0;
+			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index sortingLayerID on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index sortingLayerID on a nil value" : e.Message);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_sortingOrder(IntPtr L)
 	{
-		UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.ToObject(L, 1);
-		int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+		object o = null;
 
 		try
 		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
 			obj.sortingOrder = arg0;
+			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index sortingOrder on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index sortingOrder on a nil value" : e.Message);
 		}
-
-		return 0;
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_out(IntPtr L)
-	{
-		ToLua.PushOut<UnityEngine.Renderer>(L, new LuaOut<UnityEngine.Renderer>());
-		return 1;
 	}
 }
 

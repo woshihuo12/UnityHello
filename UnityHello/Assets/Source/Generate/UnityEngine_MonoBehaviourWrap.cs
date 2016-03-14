@@ -19,354 +19,264 @@ public class UnityEngine_MonoBehaviourWrap
 		L.RegFunction("__eq", op_Equality);
 		L.RegFunction("__tostring", Lua_ToString);
 		L.RegVar("useGUILayout", get_useGUILayout, set_useGUILayout);
-		L.RegVar("out", get_out, null);
 		L.EndClass();
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int _CreateUnityEngine_MonoBehaviour(IntPtr L)
 	{
-		return LuaDLL.luaL_error(L, "UnityEngine.MonoBehaviour class does not have a constructor function");
+		return LuaDLL.tolua_error(L, "UnityEngine.MonoBehaviour class does not have a constructor function");
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int Invoke(IntPtr L)
 	{
-		ToLua.CheckArgsCount(L, 3);
-		UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)ToLua.CheckObject(L, 1, typeof(UnityEngine.MonoBehaviour));
-		string arg0 = ToLua.CheckString(L, 2);
-		float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-
 		try
 		{
+			ToLua.CheckArgsCount(L, 3);
+			UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)ToLua.CheckObject(L, 1, typeof(UnityEngine.MonoBehaviour));
+			string arg0 = ToLua.CheckString(L, 2);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
 			obj.Invoke(arg0, arg1);
+			return 0;
 		}
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int InvokeRepeating(IntPtr L)
 	{
-		ToLua.CheckArgsCount(L, 4);
-		UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)ToLua.CheckObject(L, 1, typeof(UnityEngine.MonoBehaviour));
-		string arg0 = ToLua.CheckString(L, 2);
-		float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-		float arg2 = (float)LuaDLL.luaL_checknumber(L, 4);
-
 		try
 		{
+			ToLua.CheckArgsCount(L, 4);
+			UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)ToLua.CheckObject(L, 1, typeof(UnityEngine.MonoBehaviour));
+			string arg0 = ToLua.CheckString(L, 2);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 4);
 			obj.InvokeRepeating(arg0, arg1, arg2);
+			return 0;
 		}
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int CancelInvoke(IntPtr L)
 	{
-		int count = LuaDLL.lua_gettop(L);
-
-		if (count == 1 && ToLua.CheckTypes(L, 1, typeof(UnityEngine.MonoBehaviour)))
+		try
 		{
-			UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)ToLua.ToObject(L, 1);
+			int count = LuaDLL.lua_gettop(L);
 
-			try
+			if (count == 1 && ToLua.CheckTypes(L, 1, typeof(UnityEngine.MonoBehaviour)))
 			{
+				UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)ToLua.ToObject(L, 1);
 				obj.CancelInvoke();
+				return 0;
 			}
-			catch(Exception e)
+			else if (count == 2 && ToLua.CheckTypes(L, 1, typeof(UnityEngine.MonoBehaviour), typeof(string)))
 			{
-				return LuaDLL.toluaL_exception(L, e);
-			}
-
-			return 0;
-		}
-		else if (count == 2 && ToLua.CheckTypes(L, 1, typeof(UnityEngine.MonoBehaviour), typeof(string)))
-		{
-			UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)ToLua.ToObject(L, 1);
-			string arg0 = ToLua.ToString(L, 2);
-
-			try
-			{
+				UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)ToLua.ToObject(L, 1);
+				string arg0 = ToLua.ToString(L, 2);
 				obj.CancelInvoke(arg0);
+				return 0;
 			}
-			catch(Exception e)
+			else
 			{
-				return LuaDLL.toluaL_exception(L, e);
+				return LuaDLL.tolua_error(L, "invalid arguments to method: UnityEngine.MonoBehaviour.CancelInvoke");
 			}
-
-			return 0;
 		}
-		else
+		catch(Exception e)
 		{
-			LuaDLL.luaL_error(L, "invalid arguments to method: UnityEngine.MonoBehaviour.CancelInvoke");
+			return LuaDLL.toluaL_exception(L, e);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int IsInvoking(IntPtr L)
 	{
-		int count = LuaDLL.lua_gettop(L);
-
-		if (count == 1 && ToLua.CheckTypes(L, 1, typeof(UnityEngine.MonoBehaviour)))
+		try
 		{
-			UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)ToLua.ToObject(L, 1);
-			bool o;
+			int count = LuaDLL.lua_gettop(L);
 
-			try
+			if (count == 1 && ToLua.CheckTypes(L, 1, typeof(UnityEngine.MonoBehaviour)))
 			{
-				o = obj.IsInvoking();
+				UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)ToLua.ToObject(L, 1);
+				bool o = obj.IsInvoking();
+				LuaDLL.lua_pushboolean(L, o);
+				return 1;
 			}
-			catch(Exception e)
+			else if (count == 2 && ToLua.CheckTypes(L, 1, typeof(UnityEngine.MonoBehaviour), typeof(string)))
 			{
-				return LuaDLL.toluaL_exception(L, e);
+				UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)ToLua.ToObject(L, 1);
+				string arg0 = ToLua.ToString(L, 2);
+				bool o = obj.IsInvoking(arg0);
+				LuaDLL.lua_pushboolean(L, o);
+				return 1;
 			}
-
-			LuaDLL.lua_pushboolean(L, o);
-			return 1;
+			else
+			{
+				return LuaDLL.tolua_error(L, "invalid arguments to method: UnityEngine.MonoBehaviour.IsInvoking");
+			}
 		}
-		else if (count == 2 && ToLua.CheckTypes(L, 1, typeof(UnityEngine.MonoBehaviour), typeof(string)))
+		catch(Exception e)
 		{
-			UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)ToLua.ToObject(L, 1);
-			string arg0 = ToLua.ToString(L, 2);
-			bool o;
-
-			try
-			{
-				o = obj.IsInvoking(arg0);
-			}
-			catch(Exception e)
-			{
-				return LuaDLL.toluaL_exception(L, e);
-			}
-
-			LuaDLL.lua_pushboolean(L, o);
-			return 1;
+			return LuaDLL.toluaL_exception(L, e);
 		}
-		else
-		{
-			LuaDLL.luaL_error(L, "invalid arguments to method: UnityEngine.MonoBehaviour.IsInvoking");
-		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int StartCoroutine(IntPtr L)
 	{
-		int count = LuaDLL.lua_gettop(L);
-
-		if (count == 2 && ToLua.CheckTypes(L, 1, typeof(UnityEngine.MonoBehaviour), typeof(string)))
+		try
 		{
-			UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)ToLua.ToObject(L, 1);
-			string arg0 = ToLua.ToString(L, 2);
-			UnityEngine.Coroutine o = null;
+			int count = LuaDLL.lua_gettop(L);
 
-			try
+			if (count == 2 && ToLua.CheckTypes(L, 1, typeof(UnityEngine.MonoBehaviour), typeof(string)))
 			{
-				o = obj.StartCoroutine(arg0);
+				UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)ToLua.ToObject(L, 1);
+				string arg0 = ToLua.ToString(L, 2);
+				UnityEngine.Coroutine o = obj.StartCoroutine(arg0);
+				ToLua.PushObject(L, o);
+				return 1;
 			}
-			catch(Exception e)
+			else if (count == 2 && ToLua.CheckTypes(L, 1, typeof(UnityEngine.MonoBehaviour), typeof(System.Collections.IEnumerator)))
 			{
-				return LuaDLL.toluaL_exception(L, e);
+				UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)ToLua.ToObject(L, 1);
+				System.Collections.IEnumerator arg0 = (System.Collections.IEnumerator)ToLua.ToObject(L, 2);
+				UnityEngine.Coroutine o = obj.StartCoroutine(arg0);
+				ToLua.PushObject(L, o);
+				return 1;
 			}
-
-			ToLua.PushObject(L, o);
-			return 1;
+			else if (count == 3 && ToLua.CheckTypes(L, 1, typeof(UnityEngine.MonoBehaviour), typeof(string), typeof(object)))
+			{
+				UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)ToLua.ToObject(L, 1);
+				string arg0 = ToLua.ToString(L, 2);
+				object arg1 = ToLua.ToVarObject(L, 3);
+				UnityEngine.Coroutine o = obj.StartCoroutine(arg0, arg1);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else
+			{
+				return LuaDLL.tolua_error(L, "invalid arguments to method: UnityEngine.MonoBehaviour.StartCoroutine");
+			}
 		}
-		else if (count == 2 && ToLua.CheckTypes(L, 1, typeof(UnityEngine.MonoBehaviour), typeof(System.Collections.IEnumerator)))
+		catch(Exception e)
 		{
-			UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)ToLua.ToObject(L, 1);
-			System.Collections.IEnumerator arg0 = (System.Collections.IEnumerator)ToLua.ToObject(L, 2);
-			UnityEngine.Coroutine o = null;
-
-			try
-			{
-				o = obj.StartCoroutine(arg0);
-			}
-			catch(Exception e)
-			{
-				return LuaDLL.toluaL_exception(L, e);
-			}
-
-			ToLua.PushObject(L, o);
-			return 1;
+			return LuaDLL.toluaL_exception(L, e);
 		}
-		else if (count == 3 && ToLua.CheckTypes(L, 1, typeof(UnityEngine.MonoBehaviour), typeof(string), typeof(object)))
-		{
-			UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)ToLua.ToObject(L, 1);
-			string arg0 = ToLua.ToString(L, 2);
-			object arg1 = ToLua.ToVarObject(L, 3);
-			UnityEngine.Coroutine o = null;
-
-			try
-			{
-				o = obj.StartCoroutine(arg0, arg1);
-			}
-			catch(Exception e)
-			{
-				return LuaDLL.toluaL_exception(L, e);
-			}
-
-			ToLua.PushObject(L, o);
-			return 1;
-		}
-		else
-		{
-			LuaDLL.luaL_error(L, "invalid arguments to method: UnityEngine.MonoBehaviour.StartCoroutine");
-		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int StartCoroutine_Auto(IntPtr L)
 	{
-		ToLua.CheckArgsCount(L, 2);
-		UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)ToLua.CheckObject(L, 1, typeof(UnityEngine.MonoBehaviour));
-		System.Collections.IEnumerator arg0 = (System.Collections.IEnumerator)ToLua.CheckObject(L, 2, typeof(System.Collections.IEnumerator));
-		UnityEngine.Coroutine o = null;
-
 		try
 		{
-			o = obj.StartCoroutine_Auto(arg0);
+			ToLua.CheckArgsCount(L, 2);
+			UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)ToLua.CheckObject(L, 1, typeof(UnityEngine.MonoBehaviour));
+			System.Collections.IEnumerator arg0 = (System.Collections.IEnumerator)ToLua.CheckObject(L, 2, typeof(System.Collections.IEnumerator));
+			UnityEngine.Coroutine o = obj.StartCoroutine_Auto(arg0);
+			ToLua.PushObject(L, o);
+			return 1;
 		}
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e);
 		}
-
-		ToLua.PushObject(L, o);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int StopCoroutine(IntPtr L)
 	{
-		int count = LuaDLL.lua_gettop(L);
-
-		if (count == 2 && ToLua.CheckTypes(L, 1, typeof(UnityEngine.MonoBehaviour), typeof(UnityEngine.Coroutine)))
+		try
 		{
-			UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)ToLua.ToObject(L, 1);
-			UnityEngine.Coroutine arg0 = (UnityEngine.Coroutine)ToLua.ToObject(L, 2);
+			int count = LuaDLL.lua_gettop(L);
 
-			try
+			if (count == 2 && ToLua.CheckTypes(L, 1, typeof(UnityEngine.MonoBehaviour), typeof(UnityEngine.Coroutine)))
 			{
+				UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)ToLua.ToObject(L, 1);
+				UnityEngine.Coroutine arg0 = (UnityEngine.Coroutine)ToLua.ToObject(L, 2);
 				obj.StopCoroutine(arg0);
+				return 0;
 			}
-			catch(Exception e)
+			else if (count == 2 && ToLua.CheckTypes(L, 1, typeof(UnityEngine.MonoBehaviour), typeof(System.Collections.IEnumerator)))
 			{
-				return LuaDLL.toluaL_exception(L, e);
-			}
-
-			return 0;
-		}
-		else if (count == 2 && ToLua.CheckTypes(L, 1, typeof(UnityEngine.MonoBehaviour), typeof(System.Collections.IEnumerator)))
-		{
-			UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)ToLua.ToObject(L, 1);
-			System.Collections.IEnumerator arg0 = (System.Collections.IEnumerator)ToLua.ToObject(L, 2);
-
-			try
-			{
+				UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)ToLua.ToObject(L, 1);
+				System.Collections.IEnumerator arg0 = (System.Collections.IEnumerator)ToLua.ToObject(L, 2);
 				obj.StopCoroutine(arg0);
+				return 0;
 			}
-			catch(Exception e)
+			else if (count == 2 && ToLua.CheckTypes(L, 1, typeof(UnityEngine.MonoBehaviour), typeof(string)))
 			{
-				return LuaDLL.toluaL_exception(L, e);
-			}
-
-			return 0;
-		}
-		else if (count == 2 && ToLua.CheckTypes(L, 1, typeof(UnityEngine.MonoBehaviour), typeof(string)))
-		{
-			UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)ToLua.ToObject(L, 1);
-			string arg0 = ToLua.ToString(L, 2);
-
-			try
-			{
+				UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)ToLua.ToObject(L, 1);
+				string arg0 = ToLua.ToString(L, 2);
 				obj.StopCoroutine(arg0);
+				return 0;
 			}
-			catch(Exception e)
+			else
 			{
-				return LuaDLL.toluaL_exception(L, e);
+				return LuaDLL.tolua_error(L, "invalid arguments to method: UnityEngine.MonoBehaviour.StopCoroutine");
 			}
-
-			return 0;
 		}
-		else
+		catch(Exception e)
 		{
-			LuaDLL.luaL_error(L, "invalid arguments to method: UnityEngine.MonoBehaviour.StopCoroutine");
+			return LuaDLL.toluaL_exception(L, e);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int StopAllCoroutines(IntPtr L)
 	{
-		ToLua.CheckArgsCount(L, 1);
-		UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)ToLua.CheckObject(L, 1, typeof(UnityEngine.MonoBehaviour));
-
 		try
 		{
+			ToLua.CheckArgsCount(L, 1);
+			UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)ToLua.CheckObject(L, 1, typeof(UnityEngine.MonoBehaviour));
 			obj.StopAllCoroutines();
+			return 0;
 		}
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int print(IntPtr L)
 	{
-		ToLua.CheckArgsCount(L, 1);
-		object arg0 = ToLua.ToVarObject(L, 1);
-
 		try
 		{
+			ToLua.CheckArgsCount(L, 1);
+			object arg0 = ToLua.ToVarObject(L, 1);
 			UnityEngine.MonoBehaviour.print(arg0);
+			return 0;
 		}
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e);
 		}
-
-		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int op_Equality(IntPtr L)
 	{
-		ToLua.CheckArgsCount(L, 2);
-		UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.ToObject(L, 1);
-		UnityEngine.Object arg1 = (UnityEngine.Object)ToLua.ToObject(L, 2);
-		bool o;
-
 		try
 		{
-			o = arg0 == arg1;
+			ToLua.CheckArgsCount(L, 2);
+			UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.ToObject(L, 1);
+			UnityEngine.Object arg1 = (UnityEngine.Object)ToLua.ToObject(L, 2);
+			bool o = arg0 == arg1;
+			LuaDLL.lua_pushboolean(L, o);
+			return 1;
 		}
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e);
 		}
-
-		LuaDLL.lua_pushboolean(L, o);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
@@ -389,45 +299,39 @@ public class UnityEngine_MonoBehaviourWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_useGUILayout(IntPtr L)
 	{
-		UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)ToLua.ToObject(L, 1);
-		bool ret;
+		object o = null;
 
 		try
 		{
-			ret = obj.useGUILayout;
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)o;
+			bool ret = obj.useGUILayout;
+			LuaDLL.lua_pushboolean(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index useGUILayout on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index useGUILayout on a nil value" : e.Message);
 		}
-
-		LuaDLL.lua_pushboolean(L, ret);
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_useGUILayout(IntPtr L)
 	{
-		UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)ToLua.ToObject(L, 1);
-		bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+		object o = null;
 
 		try
 		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.MonoBehaviour obj = (UnityEngine.MonoBehaviour)o;
+			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
 			obj.useGUILayout = arg0;
+			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.luaL_error(L, obj == null ? "attempt to index useGUILayout on a nil value" : e.Message);
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index useGUILayout on a nil value" : e.Message);
 		}
-
-		return 0;
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_out(IntPtr L)
-	{
-		ToLua.PushOut<UnityEngine.MonoBehaviour>(L, new LuaOut<UnityEngine.MonoBehaviour>());
-		return 1;
 	}
 }
 
