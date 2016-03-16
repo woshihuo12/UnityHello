@@ -13,6 +13,17 @@ public class Tools
         return luaMgr.CallFunction(module + "." + func, args);
     }
 
+    public static string GetOS()
+    {
+#if UNITY_STANDALONE
+        return "Win";
+#elif UNITY_ANDROID
+        return "Android";
+#elif UNITY_IPHONE
+        return "iOS";
+#endif
+    }
+
     /// <summary>
     /// 取得数据存放目录
     /// </summary>
@@ -25,10 +36,9 @@ public class Tools
             {
                 return Application.persistentDataPath + "/" + game + "/";
             }
-            if (GameSetting.DebugMode)
+            if (GameSetting.DevelopMode)
             {
-                //return Application.dataPath + "/" + GameSetting.AssetDir + "/";
-                return Application.streamingAssetsPath + "/";
+                return Application.streamingAssetsPath + "/" + GetOS() + "/";
             }
             if (Application.platform == RuntimePlatform.OSXEditor)
             {
@@ -64,10 +74,9 @@ public class Tools
         if (Application.isEditor)
         {
             //return "file://" + System.Environment.CurrentDirectory.Replace("\\", "/") + "/Assets/" + AppConst.AssetDir + "/";
-            return "file://" + Application.streamingAssetsPath + "/";
+            return "file://" + Application.streamingAssetsPath + "/" + GetOS() + "/";
         }
-
-        else if (Application.isMobilePlatform 
+        else if (Application.isMobilePlatform
             || Application.isConsolePlatform)
         {
             return "file:///" + DataPath;
@@ -75,7 +84,7 @@ public class Tools
 
         else // For standalone player.
         {
-            return "file://" + Application.streamingAssetsPath + "/";
+            return "file://" + Application.streamingAssetsPath + "/" + GetOS() + "/";
         }
     }
 

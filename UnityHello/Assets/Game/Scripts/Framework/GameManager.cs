@@ -34,7 +34,7 @@ public class GameManager : Manager
             && Directory.Exists(Tools.DataPath + "lua/")
             && File.Exists(Tools.DataPath + "files.txt");
 
-        if (isExists || GameSetting.DebugMode)
+        if (isExists || GameSetting.DevelopMode)
         {
             StartCoroutine(OnUpdateResource());
             return;   //文件已经解压过了，自己可添加检查文件列表逻辑
@@ -269,7 +269,7 @@ public class GameManager : Manager
     public void OnResourceInited()
     {
 #if ASYNC_MODE
-        ResManager.Initialize(GameSetting.AssetDir, delegate()
+        ResManager.Initialize(Tools.GetOS(), delegate()
         {
             Debug.Log("Initialize OK!!!");
             OnInitialize();
@@ -282,7 +282,6 @@ public class GameManager : Manager
 
     void OnInitialize()
     {
-
         LuaMgr.InitStart();
         //LuaManager.DoFile("Logic/Game");         //加载游戏
         //LuaManager.DoFile("Logic/Network");      //加载网络

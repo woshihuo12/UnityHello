@@ -69,7 +69,7 @@ public class ResourceManager : Manager
 
     private string GetRealAssetPath(string abName)
     {
-        if (abName.Equals(GameSetting.AssetDir))
+        if (abName.Equals(Tools.GetOS()))
         {
             return abName;
         }

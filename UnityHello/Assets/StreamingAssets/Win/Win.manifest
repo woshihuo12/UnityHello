@@ -1,0 +1,27 @@
+ManifestFileVersion: 0
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: lua/lua_cjson.unity3d
+      Dependencies: {}
+    Info_1:
+      Name: lua/lua_math.unity3d
+      Dependencies: {}
+    Info_2:
+      Name: lua/lua_misc.unity3d
+      Dependencies: {}
+    Info_3:
+      Name: lua/lua_protobuf.unity3d
+      Dependencies: {}
+    Info_4:
+      Name: lua/lua_socket.unity3d
+      Dependencies: {}
+    Info_5:
+      Name: lua/lua_system.unity3d
+      Dependencies: {}
+    Info_6:
+      Name: lua/lua_u3d.unity3d
+      Dependencies: {}
+    Info_7:
+      Name: lua/lua.unity3d
+      Dependencies: {}

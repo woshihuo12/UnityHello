@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GameSetting
 {
-    public static bool DebugMode = true;
+    public static bool DevelopMode = true;
     public static bool UpdateMode = false;
 
     public const string WebUrl = "http://localhost:6688/";      //测试更新地址
@@ -16,8 +16,8 @@ public class GameSetting
     //AB素材扩展名
     public const string ExtName = ".unity3d";
 
-    public static bool LuaByteMode = true;                     //Lua字节码模式-默认关闭 
-    public static bool LuaBundleMode = true;                    //Lua代码AssetBundle模式
+    public static bool LuaByteMode = false;                     //Lua字节码模式-默认关闭 
+    public static bool LuaBundleMode = false;                    //Lua代码AssetBundle模式
 
     public static string AssetPath
     {

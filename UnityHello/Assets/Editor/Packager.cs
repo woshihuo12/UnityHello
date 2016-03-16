@@ -38,7 +38,7 @@ public class Packager
     {
         if (EditorApplication.isCompiling)
         {
-            EditorUtility.DisplayDialog("警告", "请等待编辑器完成编译在执行此功能", "确定");
+            EditorUtility.DisplayDialog("警告", "请等待编辑器完成编译再执行此功能", "确定");
             return;
         }
 
@@ -56,7 +56,7 @@ public class Packager
     {
         if (EditorApplication.isCompiling)
         {
-            EditorUtility.DisplayDialog("警告", "请等待编辑器完成编译在执行此功能", "确定");
+            EditorUtility.DisplayDialog("警告", "请等待编辑器完成编译再执行此功能", "确定");
             return;
         }
 
@@ -68,22 +68,39 @@ public class Packager
     {
         if (EditorApplication.isCompiling)
         {
-            EditorUtility.DisplayDialog("警告", "请等待编辑器完成编译在执行此功能", "确定");
+            EditorUtility.DisplayDialog("警告", "请等待编辑器完成编译再执行此功能", "确定");
             return;
         }
 
         BuildAssetResource(BuildTarget.StandaloneWindows);
     }
 
-    static void BuildFileIndex()
+    private static string GetOS()
+    {
+#if UNITY_STANDALONE
+        return "Win";
+#elif UNITY_ANDROID
+        return "Android";
+#elif UNITY_IPHONE
+        return "iOS";
+#endif
+    }
+
+    private static string GetOSStreamAssetPath()
+    {
+        return Application.streamingAssetsPath + "/" + GetOS();
+    }
+
+    private static void BuildFileIndex()
     {
         ///----------------------创建文件列表-----------------------
-        string newFilePath = Application.streamingAssetsPath + "/files.txt";
+        string osStreamPath = GetOSStreamAssetPath();
+        string newFilePath = osStreamPath + "/files.txt";
         if (File.Exists(newFilePath)) File.Delete(newFilePath);
 
         mPaths.Clear();
         mFiles.Clear();
-        Recursive(Application.streamingAssetsPath);
+        Recursive(osStreamPath);
 
         FileStream fs = new FileStream(newFilePath, FileMode.CreateNew);
         StreamWriter sw = new StreamWriter(fs);
@@ -94,7 +111,7 @@ public class Packager
             if (file.EndsWith(".meta") || file.Contains(".DS_Store")) continue;
 
             string md5 = Tools.md5file(file);
-            string value = file.Replace(Application.streamingAssetsPath, string.Empty);
+            string value = file.Replace(osStreamPath, string.Empty);
             sw.WriteLine(value + "|" + md5);
         }
         sw.Close();
@@ -106,17 +123,12 @@ public class Packager
     /// </summary>
     public static void BuildAssetResource(BuildTarget target)
     {
-        if (Directory.Exists(Tools.DataPath))
-        {
-            Directory.Delete(Tools.DataPath, true);
-        }
+        string streamPath = GetOSStreamAssetPath();
 
-        string streamPath = Application.streamingAssetsPath;
         if (Directory.Exists(streamPath))
         {
             Directory.Delete(streamPath, true);
         }
-
         Directory.CreateDirectory(streamPath);
         AssetDatabase.Refresh();
 
@@ -125,21 +137,22 @@ public class Packager
         if (GameSetting.LuaBundleMode)
         {
             HandleLuaBundle();
+
+            //HandleExampleBundle();
+
+            BuildAssetBundleOptions options = BuildAssetBundleOptions.DeterministicAssetBundle |
+                                      BuildAssetBundleOptions.UncompressedAssetBundle;
+            BuildPipeline.BuildAssetBundles(streamPath, mABBMaps.ToArray(), options, target);
         }
         else
         {
             HandleLuaFile();
         }
 
-        HandleExampleBundle();
-
-        BuildAssetBundleOptions options = BuildAssetBundleOptions.DeterministicAssetBundle |
-                                  BuildAssetBundleOptions.UncompressedAssetBundle;
-        BuildPipeline.BuildAssetBundles(Application.streamingAssetsPath, mABBMaps.ToArray(), options, target);
         BuildFileIndex();
 
-        string streamDir = Application.dataPath + "/TmpLua";
-        if (Directory.Exists(streamDir)) Directory.Delete(streamDir, true);
+        string tmpLuaDir = GetTmpLuaDir();
+        if (Directory.Exists(tmpLuaDir)) Directory.Delete(tmpLuaDir, true);
         AssetDatabase.Refresh();
     }
 
@@ -148,12 +161,10 @@ public class Packager
     /// </summary>
     static void HandleExampleBundle()
     {
-
         if (!Directory.Exists(Application.streamingAssetsPath))
         {
             Directory.CreateDirectory(Application.streamingAssetsPath);
         }
-
         AddBuildMap("ui_notice" + GameSetting.ExtName, "*.prefab", "Assets/Game/UIPrefab");
     }
 
@@ -199,17 +210,23 @@ public class Packager
         Directory.SetCurrentDirectory(currDir);
     }
 
+    private static string GetTmpLuaDir()
+    {
+        return Application.dataPath + "/TmpLua/";
+    }
+
     /// <summary>
     /// 处理Lua代码包
     /// </summary>
-    static void HandleLuaBundle()
+    private static void HandleLuaBundle()
     {
         string srcDir = Application.dataPath + "/Lua/";
-        string destDir = Application.dataPath + "/TmpLua/";
+        string srcDir2 = Application.dataPath + "/ToLua/Lua/";
+        string destDir = GetTmpLuaDir();
         if (Directory.Exists(destDir)) Directory.Delete(destDir, true);
         Directory.CreateDirectory(destDir);
 
-        string[] srcDirs = { srcDir };
+        string[] srcDirs = { srcDir, srcDir2 };
 
         for (int i = 0; i < srcDirs.Length; i++)
         {
@@ -260,26 +277,26 @@ public class Packager
         }
         AddBuildMap("lua/lua" + GameSetting.ExtName, "*.bytes", "Assets/TmpLua");
 
-        //-------------------------------处理非Lua文件----------------------------------
-        string luaPath = AppDataPath + "/StreamingAssets/lua/";
-        for (int i = 0; i < srcDirs.Length; i++)
-        {
-            mPaths.Clear();
-            mFiles.Clear();
+        ////-------------------------------处理非Lua文件----------------------------------
+        //string luaPath = AppDataPath + "/StreamingAssets/lua/";
+        //for (int i = 0; i < srcDirs.Length; i++)
+        //{
+        //    mPaths.Clear();
+        //    mFiles.Clear();
 
-            string luaDataPath = srcDirs[i].ToLower();
-            Recursive(luaDataPath);
-            foreach (string f in mFiles)
-            {
-                if (f.EndsWith(".meta") || f.EndsWith(".lua")) continue;
-                string newfile = f.Replace(luaDataPath, "");
-                string path = Path.GetDirectoryName(luaPath + newfile);
-                if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+        //    string luaDataPath = srcDirs[i].ToLower();
+        //    Recursive(luaDataPath);
+        //    foreach (string f in mFiles)
+        //    {
+        //        if (f.EndsWith(".meta") || f.EndsWith(".lua")) continue;
+        //        string newfile = f.Replace(luaDataPath, "");
+        //        string path = Path.GetDirectoryName(luaPath + newfile);
+        //        if (!Directory.Exists(path)) Directory.CreateDirectory(path);
 
-                string destfile = path + "/" + Path.GetFileName(f);
-                File.Copy(f, destfile, true);
-            }
-        }
+        //        string destfile = path + "/" + Path.GetFileName(f);
+        //        File.Copy(f, destfile, true);
+        //    }
+        //}
 
         EditorUtility.ClearProgressBar();
         AssetDatabase.Refresh();
@@ -323,28 +340,33 @@ public class Packager
     /// <summary>
     /// 处理Lua文件
     /// </summary>
-    static void HandleLuaFile()
+    private static void HandleLuaFile()
     {
         string resPath = Application.streamingAssetsPath;
-        string luaPath = resPath + "/lua/";
+        string luaPath = resPath + "/" + GetOS() + "/lua/";
 
         //----------复制Lua文件----------------
         if (!Directory.Exists(luaPath))
         {
             Directory.CreateDirectory(luaPath);
         }
-        string[] luaPaths = { AppDataPath + "/Lua/" };
 
-        for (int i = 0; i < luaPaths.Length; i++)
+        string srcDir = Application.dataPath + "/Lua/";
+        string srcDir2 = Application.dataPath + "/ToLua/Lua/";
+
+        string[] srcDirs = { srcDir, srcDir2 };
+
+        for (int i = 0; i < srcDirs.Length; i++)
         {
             mPaths.Clear();
             mFiles.Clear();
-            string luaDataPath = luaPaths[i].ToLower();
+            string luaDataPath = srcDirs[i].ToLower();
             Recursive(luaDataPath);
             int n = 0;
             foreach (string f in mFiles)
             {
                 if (f.EndsWith(".meta")) continue;
+                if (f.EndsWith(".bat")) continue;
                 string newfile = f.Replace(luaDataPath, "");
                 string newpath = luaPath + newfile;
                 string path = Path.GetDirectoryName(newpath);
