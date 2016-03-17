@@ -1,6 +1,7 @@
 -- 加载常用模块
-require "common/class"
+require "common"
 
+UObject = UnityEngine.Object
 
 --主入口函数。从这里开始lua逻辑
 function Main()					
