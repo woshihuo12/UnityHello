@@ -28,9 +28,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Lua\common\class.lua" />
+    <Compile Include="Lua\common\functions.lua" />
+    <Compile Include="Lua\common\init.lua" />
+    <Compile Include="Lua\common\stack.lua" />
     <Compile Include="Lua\Main.lua" />
-    <Compile Include="Lua\uiscripts\ui_manager.lua" />
-    <Compile Include="Lua\uiscripts\ui_session.lua" />
+    <Compile Include="Lua\uiscripts\UIManager.lua" />
+    <Compile Include="Lua\uiscripts\UISession.lua" />
+    <Compile Include="Lua\uiscripts\UISessionID.lua" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
 </Project>
