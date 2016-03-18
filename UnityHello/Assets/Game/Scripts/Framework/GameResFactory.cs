@@ -9,18 +9,25 @@ public class GameResFactory
         if (sInstance == null)
         {
             sInstance = new GameResFactory();
+            sInstance.mResManager = AppFacade.Instance.GetManager<ResourceManager>();
         }
         return sInstance;
     }
 
+    internal ResourceManager mResManager;
     private List<GameObject> mUIEffectsList = new List<GameObject>();
     private List<GameObject> mUIList = new List<GameObject>();
     //private Dictionary<string, GameObjectCache> mResCaches = new Dictionary<string, GameObjectCache>();
 
     public void GetUIPrefab(string name, Transform parent, LuaFunction luaCallBack)
     {
-        ResourceManager ResManager = AppFacade.Instance.GetManager<ResourceManager>();
-        ResManager.LoadPrefab(name + GameSetting.ExtName, name, delegate(UnityEngine.Object[] objs)
+        if (mResManager == null) return;
+
+        if (GameSetting.DevelopMode)
+        {
+            name = "UIPrefab/" + name;
+        }
+        mResManager.LoadPrefab(name + GameSetting.ExtName, name, delegate(UnityEngine.Object[] objs)
         {
             if (objs.Length == 0) return;
             GameObject prefab = objs[0] as GameObject;
@@ -30,7 +37,7 @@ public class GameResFactory
             }
             GameObject go = UnityEngine.GameObject.Instantiate(prefab) as GameObject;
             go.name = name;
-            go.layer = LayerMask.NameToLayer("Default");
+            go.layer = LayerMask.NameToLayer("UI");
             go.transform.SetParent(parent, false);
             go.transform.localScale = Vector3.one;
             go.transform.localPosition = Vector3.zero;
@@ -43,7 +50,7 @@ public class GameResFactory
                 luaCallBack.PCall();
                 luaCallBack.EndPCall();
             }
-            Debug.LogWarning("CreatePanel::>> " + name + " " + prefab);
+            Debug.Log("CreatePanel::>> " + name + " " + prefab);
             mUIList.Add(go);
         });
     }
@@ -56,8 +63,8 @@ public class GameResFactory
 
     protected void GetEffectObj(string effname, System.Action<GameObject> callBack)
     {
-        ResourceManager ResManager = AppFacade.Instance.GetManager<ResourceManager>();
-        ResManager.LoadPrefab(effname, effname, delegate(UnityEngine.Object[] objs)
+        if (mResManager == null) return;
+        mResManager.LoadPrefab(effname, effname, delegate(UnityEngine.Object[] objs)
         {
             if (objs.Length == 0) return;
             GameObject prefab = objs[0] as GameObject;
@@ -100,8 +107,7 @@ public class GameResFactory
 
     public void DestroyAllUIEffect()
     {
-
-        for (int i = 0; i < mUIEffectsList.Count; i++)
+        for (int i = mUIEffectsList.Count - 1; i >= 0; --i)
         {
             GameObject.Destroy(mUIEffectsList[i]);
         }

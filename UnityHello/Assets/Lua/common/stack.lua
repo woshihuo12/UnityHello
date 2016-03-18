@@ -8,7 +8,7 @@ function Stack:Create()
     local t = { }
     t._et = { }
 
-    function t:push(...)
+    function t:Push(...)
         if ... then
             local targs = { ...}
             for _, v in ipairs(targs) do
@@ -17,7 +17,7 @@ function Stack:Create()
         end
     end
 
-    function t:pop(num)
+    function t:Pop(num)
         local num = num or 1
         local entries = { }
         for i = 1, num do
@@ -28,21 +28,27 @@ function Stack:Create()
                 break
             end
         end
-
         return unpack(entries)
     end
 
-    function t:clear()
+    function t:Peek()
+        if #self._et ~= 0 then
+            return self._et[#self._et]
+        end
+        return nil
+    end
+
+    function t:Clear()
         while #self._et ~= 0 do
             table.remove(self._et)
         end
     end
 
-    function t:getn()
+    function t:Getn()
         return #self._et
     end
 
-    function t:list()
+    function t:List()
         for i, v in pairs(self._et) do
             print(i, v)
         end

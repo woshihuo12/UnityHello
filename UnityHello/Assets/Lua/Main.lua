@@ -1,5 +1,5 @@
 -- 加载常用模块
-require "common"
+require "common/init"
 
 UObject = UnityEngine.Object
 

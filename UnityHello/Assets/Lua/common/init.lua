@@ -4,5 +4,6 @@
 
 require "common/class"
 require "common/stack"
+require "common/functions"
 
 --endregion

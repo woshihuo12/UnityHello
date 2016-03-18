@@ -3,6 +3,7 @@ using System.Collections;
 
 public class GameSetting
 {
+    // 开发模式
     public static bool DevelopMode = true;
     public static bool UpdateMode = false;
 

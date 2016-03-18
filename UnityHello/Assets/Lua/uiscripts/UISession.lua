@@ -1,11 +1,9 @@
 -- region *.lua
 -- Date
 -- 此文件由[BabeLua]插件自动生成
-require "uiscripts/UISessionID"
-
 UISessionType =
 {
-    -- 可推出界面(UIMainMenu,UIRank等)
+    -- 可推出界面(UIMainMenu等)
     EUIST_Normal = 1,
     -- 固定窗口(UITopBar等)
     EUIST_Fixed = 2,
@@ -33,21 +31,24 @@ function UISessionData:init(isStartWindow, sessionType, sessionShowMode)
 end
 
 UIBackSessionSequenceData = class()
-function UIBackSessionSequenceData:init()
+function UIBackSessionSequenceData:init(hideSession, backShowTargets)
+    self.hideTargetSession = hideSession
+    self.backShowTargets = backShowTargets
 end
 
 UIShowSessionData = class()
 -- Reset窗口
 -- Clear导航信息
 -- Object 数据
-function UIShowSessionData:init(isForceResetWindow, isForceClearBackSeqData, sessionData)
+function UIShowSessionData:init(isForceResetWindow, isForceClearBackSeqData, prefabName, sessionData)
     self.isForceResetWindow = isForceResetWindow
     self.isForceClearBackSeqData = isForceClearBackSeqData
+    self.prefabName = prefabName
     self.sessionData = sessionData
 end
 
 UISession = class()
-function UISession:init()
+function UISession:init(sessionData)
     -- 如果需要可以添加一个BoxCollider屏蔽事件
     self.isLock = false
     self.isShown = false
@@ -55,13 +56,10 @@ function UISession:init()
     self.sessionID = UISessionID.EUISID_Invaild
     -- 指向上一级界面ID(BackSequence无内容，返回上一级)
     self.preSessionID = UISessionID.EUISID_Invaild
-
-    self.sessionData = UISessionData()
-
-    self.preReturnHandler = function() end
+    self.sessionData = sessionData
 end
 
-function UISession:Awake(gameObject)
+function UISession:OnPostLoad(gameObject)
     self.gameObject = gameObject
     self.transform = gameObject.transform
 end
@@ -94,6 +92,9 @@ function UISession:HideSession(hideHandler)
     end
 end
 
+function UISession:OnPreDestory()
+end
+
 function UISession:DestroySession(beforeHandler)
     if beforeHandler ~= nil then
         beforeHandler()
@@ -115,4 +116,16 @@ function UISession:CanAddedToBackSeq()
     end
 end
 
+function UISession:IsNeedRefreshBackSeqData()
+    if self.sessionData.sessionShowMode == UISessionShowMode.EUISSM_HideOther
+        or self.sessionData.sessionShowMode == UISessionShowMode.EUISSM_NeedBack then
+        return true
+    else
+        return false
+    end
+end
+
+function UISession:GetSessionID()
+    return self.sessionID;
+end
 -- endregion

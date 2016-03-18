@@ -18,8 +18,6 @@ public static class DelegateFactory
 		dict.Clear();
 		dict.Add(typeof(System.Action), System_Action);
 		dict.Add(typeof(UnityEngine.Events.UnityAction), UnityEngine_Events_UnityAction);
-		dict.Add(typeof(TestEventListener.OnClick), TestEventListener_OnClick);
-		dict.Add(typeof(TestEventListener.VoidDelegate), TestEventListener_VoidDelegate);
 		dict.Add(typeof(UnityEngine.Camera.CameraCallback), UnityEngine_Camera_CameraCallback);
 		dict.Add(typeof(UnityEngine.AudioClip.PCMReaderCallback), UnityEngine_AudioClip_PCMReaderCallback);
 		dict.Add(typeof(UnityEngine.AudioClip.PCMSetPositionCallback), UnityEngine_AudioClip_PCMSetPositionCallback);
@@ -102,56 +100,6 @@ public static class DelegateFactory
 		}
 
 		UnityEngine.Events.UnityAction d = (new UnityEngine_Events_UnityAction_Event(func)).Call;
-		return d;
-	}
-
-	class TestEventListener_OnClick_Event : LuaDelegate
-	{
-		public TestEventListener_OnClick_Event(LuaFunction func) : base(func) { }
-
-		public void Call(UnityEngine.GameObject param0)
-		{
-			func.BeginPCall();
-			func.Push(param0);
-			func.PCall();
-			func.EndPCall();
-		}
-	}
-
-	public static Delegate TestEventListener_OnClick(LuaFunction func)
-	{
-		if (func == null)
-		{
-			TestEventListener.OnClick fn = delegate { };
-			return fn;
-		}
-
-		TestEventListener.OnClick d = (new TestEventListener_OnClick_Event(func)).Call;
-		return d;
-	}
-
-	class TestEventListener_VoidDelegate_Event : LuaDelegate
-	{
-		public TestEventListener_VoidDelegate_Event(LuaFunction func) : base(func) { }
-
-		public void Call(UnityEngine.GameObject param0)
-		{
-			func.BeginPCall();
-			func.Push(param0);
-			func.PCall();
-			func.EndPCall();
-		}
-	}
-
-	public static Delegate TestEventListener_VoidDelegate(LuaFunction func)
-	{
-		if (func == null)
-		{
-			TestEventListener.VoidDelegate fn = delegate { };
-			return fn;
-		}
-
-		TestEventListener.VoidDelegate d = (new TestEventListener_VoidDelegate_Event(func)).Call;
 		return d;
 	}
 

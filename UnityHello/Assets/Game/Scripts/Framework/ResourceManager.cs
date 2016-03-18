@@ -106,25 +106,44 @@ public class ResourceManager : Manager
     private void LoadAsset<T>(string abName, string[] assetNames, Action<UnityEngine.Object[]> action = null,
         LuaFunction func = null) where T : UnityEngine.Object
     {
-        abName = GetRealAssetPath(abName);
-
-        LoadAssetRequest request = new LoadAssetRequest();
-        request.mAssetType = typeof(T);
-        request.mAssetNames = assetNames;
-        request.mLuaFunc = func;
-        request.mSharpFunc = action;
-
-        List<LoadAssetRequest> requests = null;
-        if (!mLoadRequests.TryGetValue(abName, out requests))
+        if (GameSetting.DevelopMode)
         {
-            requests = new List<LoadAssetRequest>();
-            requests.Add(request);
-            mLoadRequests.Add(abName, requests);
-            StartCoroutine(DoLoadAsset<T>(abName));
+            if (assetNames.Length > 0)
+            {
+                string prefabPath = assetNames[0];
+                GameObject prefab = Resources.Load<GameObject>(prefabPath);
+                if (prefab != null)
+                {
+                    GameObject uiObject = (GameObject)GameObject.Instantiate(prefab);
+                    if (action != null)
+                    {
+                        action(new GameObject[] { uiObject });
+                    }
+                }
+            }
         }
         else
         {
-            requests.Add(request);
+            abName = GetRealAssetPath(abName);
+
+            LoadAssetRequest request = new LoadAssetRequest();
+            request.mAssetType = typeof(T);
+            request.mAssetNames = assetNames;
+            request.mLuaFunc = func;
+            request.mSharpFunc = action;
+
+            List<LoadAssetRequest> requests = null;
+            if (!mLoadRequests.TryGetValue(abName, out requests))
+            {
+                requests = new List<LoadAssetRequest>();
+                requests.Add(request);
+                mLoadRequests.Add(abName, requests);
+                StartCoroutine(DoLoadAsset<T>(abName));
+            }
+            else
+            {
+                requests.Add(request);
+            }
         }
     }
 

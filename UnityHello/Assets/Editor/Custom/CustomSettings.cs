@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
 using LuaInterface;
 
 using BindType = ToLuaMenu.BindType;
+using UnityEngine.EventSystems;
 
 public static class CustomSettings
 {
@@ -34,8 +36,11 @@ public static class CustomSettings
         //_DT(typeof(Action<GameObject>)).SetAbrName("ActionGo"),
         _DT(typeof(UnityEngine.Events.UnityAction)),       
         
-        _DT(typeof(TestEventListener.OnClick)),
-        _DT(typeof(TestEventListener.VoidDelegate)),
+        //_DT(typeof(TestEventListener.OnClick)),
+        //_DT(typeof(TestEventListener.VoidDelegate)),
+
+        //////////////////////////////////////////////
+
     };
 
     //在这里添加你要导出注册到lua的类型列表
@@ -60,27 +65,27 @@ public static class CustomSettings
         _GT(typeof(Camera)),   
         _GT(typeof(CameraClearFlags)),           
         _GT(typeof(Material)),
-        _GT(typeof(Renderer)),        
-        _GT(typeof(MeshRenderer)),
-        _GT(typeof(SkinnedMeshRenderer)),
-        _GT(typeof(Light)),
-        _GT(typeof(LightType)),     
+        //_GT(typeof(Renderer)),        
+        //_GT(typeof(MeshRenderer)),
+        //_GT(typeof(SkinnedMeshRenderer)),
+        //_GT(typeof(Light)),
+        //_GT(typeof(LightType)),     
         _GT(typeof(ParticleEmitter)),
-        _GT(typeof(ParticleRenderer)),
+        //_GT(typeof(ParticleRenderer)),
         _GT(typeof(ParticleAnimator)),   
         _GT(typeof(ParticleSystem)),                
-        _GT(typeof(Physics)),
+        //_GT(typeof(Physics)),
         _GT(typeof(Collider)),
         _GT(typeof(BoxCollider)),
-        _GT(typeof(MeshCollider)),
-        _GT(typeof(SphereCollider)),        
+        //_GT(typeof(MeshCollider)),
+        //_GT(typeof(SphereCollider)),        
         _GT(typeof(CharacterController)),
         _GT(typeof(Animation)),             
         _GT(typeof(AnimationClip)),
         _GT(typeof(TrackedReference)),
         _GT(typeof(AnimationState)),  
-        _GT(typeof(QueueMode)),  
-        _GT(typeof(PlayMode)),                          
+        //_GT(typeof(QueueMode)),  
+        //_GT(typeof(PlayMode)),                          
         _GT(typeof(AudioClip)),
         _GT(typeof(AudioSource)),                        
         _GT(typeof(Application)),
@@ -88,28 +93,45 @@ public static class CustomSettings
         _GT(typeof(KeyCode)),             
         _GT(typeof(Screen)),
         _GT(typeof(Time)),
-        _GT(typeof(RenderSettings)),
+        //_GT(typeof(RenderSettings)),
         _GT(typeof(SleepTimeout)),                        
         _GT(typeof(AsyncOperation)),
         _GT(typeof(AssetBundle)),   
-        _GT(typeof(BlendWeights)),   
+        //_GT(typeof(BlendWeights)),   
         _GT(typeof(QualitySettings)),          
-        _GT(typeof(AnimationBlendMode)),  
+        //_GT(typeof(AnimationBlendMode)),  
         _GT(typeof(RenderTexture)),
-        _GT(typeof(Rigidbody)), 
-        _GT(typeof(CapsuleCollider)),
+        //_GT(typeof(Rigidbody)), 
+        //_GT(typeof(CapsuleCollider)),
         _GT(typeof(WrapMode)),
         _GT(typeof(Texture)),
         _GT(typeof(Shader)),
         _GT(typeof(Texture2D)),
         _GT(typeof(WWW)),
+
+        ////////////////////////////////////////////
+        _GT(typeof(Graphic)),
+        _GT(typeof(MaskableGraphic)),
+        _GT(typeof(Image)),
+
+        _GT(typeof(RectTransformUtility)),
+
+        _GT(typeof(UIBehaviour)),
+        _GT(typeof(Selectable)),
+        _GT(typeof(Button)),
+        _GT(typeof(UIRoot)),
+
+        _GT(typeof(LuaBehaviour)),
+        _GT(typeof(GameResFactory)),
+        _GT(typeof(LuaHelper)),
+
     };
 
     //重载函数，相同参数个数，相同位置out参数匹配出问题时, 需要强制匹配解决
     //使用方法参见例子14
     public static List<Type> outList = new List<Type>()
     {
-        
+
     };
 
     static BindType _GT(Type t)
@@ -120,5 +142,5 @@ public static class CustomSettings
     static DelegateType _DT(Type t)
     {
         return new DelegateType(t);
-    }    
+    }
 }
