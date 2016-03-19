@@ -24,9 +24,16 @@ UISessionShowMode =
 }
 
 UICommonHandler = class()
-function UICommonHandler:init(beforeHandler, afterHander)
+function UICommonHandler:init(beforeHandler, afterHandler)
     self.beforeHandler = beforeHandler
-    self.afterHander = afterHander
+    self.afterHandler = afterHandler
+end
+
+UIAnimHandler = class()
+function UIAnimHandler:init(beforeHandler, resetHandler, afterHandler)
+    self.beforeHandler = beforeHandler
+    self.resetHandler = resetHandler
+    self.afterHandler = afterHandler
 end
 
 UISessionData = class()
@@ -46,11 +53,11 @@ UIShowSessionData = class()
 -- Reset窗口
 -- Clear导航信息
 -- Object 数据
-function UIShowSessionData:init(isForceResetWindow, isForceClearBackSeqData, prefabName, sessionData)
+function UIShowSessionData:init(isForceResetWindow, isForceClearBackSeqData, prefabName, showData)
     self.isForceResetWindow = isForceResetWindow
     self.isForceClearBackSeqData = isForceClearBackSeqData
     self.prefabName = prefabName
-    self.sessionData = sessionData
+    self.showData = showData
 end
 
 UISession = class()
@@ -97,7 +104,7 @@ function UISession:HideSession(uiCommmonHandler)
         self.gameObject:SetActive(false)
     end
     if uiCommmonHandler and uiCommmonHandler.afterHandler then
-        uiCommmonHandler.beforeHandler()
+        uiCommmonHandler.afterHandler()
     end
 end
 
@@ -109,7 +116,7 @@ function UISession:DestroySession(uiCommmonHandler)
     UObject.Destroy(self.gameObject)
 
     if uiCommmonHandler and uiCommmonHandler.afterHandler then
-        uiCommmonHandler.beforeHandler()
+        uiCommmonHandler.afterHandler()
     end
 end
 

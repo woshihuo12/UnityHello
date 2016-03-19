@@ -71,7 +71,7 @@ function UIManager:PrepareShowSession(sessionID, uiSession, showSessionData, don
 
     local cacheSession = self.allSessions[sessionID]
     if not cacheSession then
-        local parentRt = self:GetSessionRoot(showSessionData.sessionData.sessionType)
+        local parentRt = self:GetSessionRoot(uiSession.sessionData.sessionType)
         GameResFactory.Instance():GetUIPrefab(showSessionData.prefabName, parentRt,
         function(go)
             if not uiSession then

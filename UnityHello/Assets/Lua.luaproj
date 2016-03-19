@@ -32,6 +32,7 @@
     <Compile Include="Lua\common\init.lua" />
     <Compile Include="Lua\common\stack.lua" />
     <Compile Include="Lua\Main.lua" />
+    <Compile Include="Lua\uiscripts\init.lua" />
     <Compile Include="Lua\uiscripts\UIManager.lua" />
     <Compile Include="Lua\uiscripts\UISession.lua" />
     <Compile Include="Lua\uiscripts\UISessionID.lua" />
