@@ -23,6 +23,12 @@ UISessionShowMode =
     EUISSM_NoNeedBack = 4,
 }
 
+UICommonHandler = class()
+function UICommonHandler:init(beforeHandler, afterHander)
+    self.beforeHandler = beforeHandler
+    self.afterHander = afterHander
+end
+
 UISessionData = class()
 function UISessionData:init(isStartWindow, sessionType, sessionShowMode)
     self.isStartWindow = isStartWindow
@@ -81,25 +87,30 @@ function UISession:HideSessionDirectly()
     end
 end
 
-function UISession:HideSession(hideHandler)
+function UISession:HideSession(uiCommmonHandler)
+    if uiCommmonHandler and uiCommmonHandler.beforeHandler then
+        uiCommmonHandler.beforeHandler()
+    end
     self.isLock = true
     self.isShown = false
     if not tolua.isnull(self.gameObject) then
         self.gameObject:SetActive(false)
     end
-    if hideHandler ~= nil then
-        hideHandler()
+    if uiCommmonHandler and uiCommmonHandler.afterHandler then
+        uiCommmonHandler.beforeHandler()
     end
 end
 
-function UISession:OnPreDestory()
-end
-
-function UISession:DestroySession(beforeHandler)
-    if beforeHandler ~= nil then
-        beforeHandler()
+function UISession:DestroySession(uiCommmonHandler)
+    if uiCommmonHandler and uiCommmonHandler.beforeHandler then
+        uiCommmonHandler.beforeHandler()
     end
+
     UObject.Destroy(self.gameObject)
+
+    if uiCommmonHandler and uiCommmonHandler.afterHandler then
+        uiCommmonHandler.beforeHandler()
+    end
 end
 
 

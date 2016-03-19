@@ -114,6 +114,7 @@ public static class CustomSettings
         _GT(typeof(MaskableGraphic)),
         _GT(typeof(Image)),
 
+        _GT(typeof(RectTransform)),
         _GT(typeof(RectTransformUtility)),
 
         _GT(typeof(UIBehaviour)),

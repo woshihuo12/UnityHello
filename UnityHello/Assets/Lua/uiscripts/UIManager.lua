@@ -43,20 +43,24 @@ function UIManager:ShowSession(sessionID, uiSession, showSessionData)
     end )
 end
 
-function UIManager:ShowSessionDelay(delayTime, sessionID, showSessionData)
-    coroutine.wait(delayTime)
-    self:ShowSession(sessionID, showSessionData)
+local function CoShowSessionDelay(self, delayTime, sessionID, uiSession, showSessionData)
+      coroutine.wait(delayTime)
+      self:ShowSession(sessionID, uiSession, showSessionData)
+end
+
+function UIManager:ShowSessionDelay(delayTime, sessionID, uiSession, showSessionData)
+    coroutine.start(CoShowSessionDelay, self, delayTime, sessionID, uiSession, showSessionData)
 end
 
 function UIManager:GetSessionRoot(sessionType)
     if sessionType == UISessionType.EUIST_Fixed then
-        return UIRoot.Instance.mFixedRootRt
+        return UIRoot.Instance().mFixedRootRt
     elseif sessionType == UISessionType.EUIST_Normal then
-        return UIRoot.Instance.mNormalRootRt
+        return UIRoot.Instance().mNormalRootRt
     elseif sessionType == UISessionType.EUIST_PopUp then
-        return UIRoot.Instance.mPopupRootRt
+        return UIRoot.Instance().mPopupRootRt
     else
-        return UIRoot.Instance.mNormalRootRt
+        return UIRoot.Instance().mNormalRootRt
     end
 end
 
@@ -68,7 +72,7 @@ function UIManager:PrepareShowSession(sessionID, uiSession, showSessionData, don
     local cacheSession = self.allSessions[sessionID]
     if not cacheSession then
         local parentRt = self:GetSessionRoot(showSessionData.sessionData.sessionType)
-        GameResFactory.Instance:GetUIPrefab(showSessionData.prefabName, parentRt,
+        GameResFactory.Instance():GetUIPrefab(showSessionData.prefabName, parentRt,
         function(go)
             if not uiSession then
                 error("ui session id:" .. sessionID .. "is null.")
@@ -81,7 +85,7 @@ function UIManager:PrepareShowSession(sessionID, uiSession, showSessionData, don
             uiSession:ResetWindow()
 
             -- 导航系统数据更新
-            RefreshBackSequenceData(uiSession)
+            self:RefreshBackSequenceData(uiSession)
 
             if doneHandler ~= nil then
                 doneHandler(uiSession)

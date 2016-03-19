@@ -38,7 +38,7 @@ public class ResourceManager : Manager
     public void Initialize(string manifestName, Action initOK)
     {
         mBaseDownloadingURL = Tools.GetRelativePath();
-        LoadAsset<AssetBundleManifest>(manifestName, new string[] { "AssetBundleManifest" },
+        LoadAssetBundleManifest(manifestName,
             delegate(UnityEngine.Object[] objs)
             {
                 if (objs.Length > 0)
@@ -98,6 +98,31 @@ public class ResourceManager : Manager
         }
         Debug.LogError("GetRealAssetPath Error:>>" + abName);
         return null;
+    }
+
+    private void LoadAssetBundleManifest(string manifestName,Action<UnityEngine.Object[]> action = null,
+        LuaFunction func = null)
+    {
+        manifestName = GetRealAssetPath(manifestName);
+
+        LoadAssetRequest request = new LoadAssetRequest();
+        request.mAssetType = typeof(AssetBundleManifest);
+        request.mAssetNames = new string[] { "AssetBundleManifest" };
+        request.mLuaFunc = func;
+        request.mSharpFunc = action;
+
+        List<LoadAssetRequest> requests = null;
+        if (!mLoadRequests.TryGetValue(manifestName, out requests))
+        {
+            requests = new List<LoadAssetRequest>();
+            requests.Add(request);
+            mLoadRequests.Add(manifestName, requests);
+            StartCoroutine(DoLoadAsset<AssetBundleManifest>(manifestName));
+        }
+        else
+        {
+            requests.Add(request);
+        }
     }
 
     /// <summary>

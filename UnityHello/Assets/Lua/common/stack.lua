@@ -53,6 +53,8 @@ function Stack:Create()
             print(i, v)
         end
     end
+
+    return t
 end
 
 -- endregion
