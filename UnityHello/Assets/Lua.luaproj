@@ -34,6 +34,7 @@
     <Compile Include="Lua\Main.lua" />
     <Compile Include="Lua\uiscripts\init.lua" />
     <Compile Include="Lua\uiscripts\UIManager.lua" />
+    <Compile Include="Lua\uiscripts\UINotice.lua" />
     <Compile Include="Lua\uiscripts\UISession.lua" />
     <Compile Include="Lua\uiscripts\UISessionID.lua" />
   </ItemGroup>

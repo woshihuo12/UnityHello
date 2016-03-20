@@ -83,6 +83,10 @@ end
 
 -- 显示窗口
 function UISession:ShowSession()
+    self.isShown = true
+    if not tolua.isnull(self.gameObject) then
+        self.gameObject:SetActive(true)
+    end
 end
 
 -- 隐藏窗口
