@@ -9,7 +9,7 @@ UObject = UnityEngine.Object
 -- 主入口函数。从这里开始lua逻辑
 function Main()
     print("hello world")
-    local topBar = UITopbar(UISessionData(false, UISessionType.EUIST_Fixed, UISessionShowMode.EUISSM_DoNothing))
+    local topBar = ui_topbar(UISessionData(false, UISessionType.EUIST_Fixed, UISessionShowMode.EUISSM_DoNothing))
     UIManager:Instance():ShowSession(UISessionID.EUISID_TopBar,
     topBar,
     UIShowSessionData(false, false, "ui_topbar"))
