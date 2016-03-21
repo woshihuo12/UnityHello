@@ -52,6 +52,7 @@ end
 UIShowSessionData = class()
 -- Reset窗口
 -- Clear导航信息
+-- Prefab名字
 -- Object 数据
 function UIShowSessionData:init(isForceResetWindow, isForceClearBackSeqData, prefabName, showData)
     self.isForceResetWindow = isForceResetWindow
@@ -115,6 +116,10 @@ end
 function UISession:DestroySession(uiCommmonHandler)
     if uiCommmonHandler and uiCommmonHandler.beforeHandler then
         uiCommmonHandler.beforeHandler()
+    end
+
+    if self.OnPreDestroy ~= nil then
+        self:OnPreDestroy()
     end
 
     UObject.Destroy(self.gameObject)

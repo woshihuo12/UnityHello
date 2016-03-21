@@ -100,7 +100,7 @@ public class ResourceManager : Manager
         return null;
     }
 
-    private void LoadAssetBundleManifest(string manifestName,Action<UnityEngine.Object[]> action = null,
+    private void LoadAssetBundleManifest(string manifestName, Action<UnityEngine.Object[]> action = null,
         LuaFunction func = null)
     {
         manifestName = GetRealAssetPath(manifestName);
@@ -139,10 +139,9 @@ public class ResourceManager : Manager
                 GameObject prefab = Resources.Load<GameObject>(prefabPath);
                 if (prefab != null)
                 {
-                    GameObject uiObject = (GameObject)GameObject.Instantiate(prefab);
                     if (action != null)
                     {
-                        action(new GameObject[] { uiObject });
+                        action(new GameObject[] { prefab });
                     }
                 }
             }

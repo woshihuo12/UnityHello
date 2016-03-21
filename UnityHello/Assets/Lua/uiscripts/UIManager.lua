@@ -9,11 +9,6 @@ function UIManager:init()
     -- 当前正在显示的 Session
     self.shownSessions = { }
     self.backSequence = Stack:Create()
-
-    --  是否等待关闭结束
-    --  开启:等待界面关闭结束,处理后续逻辑
-    --  关闭:不等待界面关闭结束，处理后续逻辑
-    self.isNeedWaitHideOver = true
 end
 
 function UIManager:Instance()
@@ -30,10 +25,10 @@ function UIManager:Reset()
 end
 
 function UIManager:ShowSession(sessionID, uiSession, showSessionData)
-    self:PrepareShowSession(sessionID, uiSession, showSessionData,
+    self:_InternalShowSession(sessionID, uiSession, showSessionData,
     function(prepareSession)
         if prepareSession ~= nil then
-            self:RealShowSession(prepareSession, sessionID)
+            self:RealShowSession(sessionID, prepareSession)
             -- 是否清空当前导航信息(回到主菜单)
             if prepareSession.sessionData.isStartWindow or
                 (showSessionData ~= nil and showSessionData.isForceClearBackSeqData) then
@@ -44,8 +39,8 @@ function UIManager:ShowSession(sessionID, uiSession, showSessionData)
 end
 
 local function CoShowSessionDelay(self, delayTime, sessionID, uiSession, showSessionData)
-      coroutine.wait(delayTime)
-      self:ShowSession(sessionID, uiSession, showSessionData)
+    coroutine.wait(delayTime)
+    self:ShowSession(sessionID, uiSession, showSessionData)
 end
 
 function UIManager:ShowSessionDelay(delayTime, sessionID, uiSession, showSessionData)
@@ -64,7 +59,7 @@ function UIManager:GetSessionRoot(sessionType)
     end
 end
 
-function UIManager:PrepareShowSession(sessionID, uiSession, showSessionData, doneHandler)
+function UIManager:_InternalShowSession(sessionID, uiSession, showSessionData, doneHandler)
     if self.shownSessions[sessionID] ~= nil then
         return
     end
@@ -75,7 +70,7 @@ function UIManager:PrepareShowSession(sessionID, uiSession, showSessionData, don
         GameResFactory.Instance():GetUIPrefab(showSessionData.prefabName, parentRt,
         function(go)
             if not uiSession then
-                error("ui session id:" .. sessionID .. "is null.")
+                error("ui session id:" .. sessionID .. " is null.")
                 return
             end
 
@@ -112,7 +107,7 @@ function UIManager:RefreshBackSequenceData(uiSession)
         if self.curShownNormalSession ~= nil then
             if self.curShownNormalSession.sessionData.sessionShowMode == UISessionShowMode.EUISSM_NoNeedBack then
                 dealBackSeq = false
-                HideSession(uiSession:GetSessionID())
+                self:HideSession(uiSession:GetSessionID())
             end
         end
 
@@ -194,7 +189,7 @@ function UIManager:CheckBackSequenceData(uiSession)
     end
 end
 
-function UIManager:RealShowSession(uiSession, sessionID)
+function UIManager:RealShowSession(sessionID, uiSession)
     uiSession:ShowSession()
     self.shownSessions[sessionID] = uiSession
     if uiSession.sessionData.sessionType == UISessionType.EUIST_Normal then
@@ -204,27 +199,13 @@ function UIManager:RealShowSession(uiSession, sessionID)
 end
 
 
-function UIManager:HideSession(sessionID, completeHandler)
+function UIManager:HideSession(sessionID, uicommonHandler)
     if self.shownSessions[sessionID] == nil then
         return
     end
-    if not self.isNeedWaitHideOver then
-        if completeHandler ~= nil then
-            completeHandler()
-        end
-        self.shownSessions[sessionID]:HideSession()
-        self.shownSessions[sessionID] = nil
-    else
-        if completeHandler ~= nil then
-            self.shownSessions[sessionID]:HideSession( function()
-                completeHandler()
-                self.shownSessions[sessionID] = nil
-            end )
-        else
-            self.shownSessions[sessionID]:HideSession()
-            self.shownSessions[sessionID] = nil
-        end
-    end
+
+    self.shownSessions[sessionID]:HideSession(uicommonHandler)
+    self.shownSessions[sessionID] = nil
 end
 
 function UIManager:DoGoBack()
@@ -235,12 +216,12 @@ function UIManager:DoGoBack()
             return false
         end
 
-        local preSessionId = self.curShownNormalSession.preSessionID;
+        local preSessionId = self.curShownNormalSession.preSessionID
         if preSessionId ~= UISessionID.EUISID_Invaild then
             self:HideSession(self.curShownNormalSession:GetSessionID(),
-            function()
-                self:ShowSession(preSessionId, null)
-            end )
+            UICommonHandler(nil, function()
+                self:ShowSession(preSessionId, nil)
+            end ))
         end
 
         return false
@@ -250,7 +231,9 @@ function UIManager:DoGoBack()
     if backData ~= nil and backData.hideTargetSession ~= nil then
         local hideID = backData.hideTargetSession:GetSessionID()
         if self.shownSessions[hideID] ~= nil then
-            self:HideSession(hideID, function()
+            self:HideSession(hideID,
+            UICommonHandler(nil,
+            function()
                 if backData.backShowTargets ~= nil then
                     for i, v in ipairs(backData.backShowTargets) do
                         self:ShowSessionForBack(v)
@@ -260,9 +243,8 @@ function UIManager:DoGoBack()
                         end
                     end
                 end
-
                 self.backSequence:Pop()
-            end )
+            end ))
         else
             return false
         end

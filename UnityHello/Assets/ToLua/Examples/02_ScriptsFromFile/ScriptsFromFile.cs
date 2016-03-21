@@ -36,12 +36,16 @@ public class ScriptsFromFile : MonoBehaviour
         if (GUI.Button(new Rect(50, 50, 120, 45), "DoFile"))
         {
             strLog = "";
-            lua.DoFile("ScriptsFromFile.lua");            
+            lua.DoFile("ScriptsFromFile.lua");
+
+            lua.GetFunction("Scripts.AA");
         }
         else if (GUI.Button(new Rect(50, 150, 120, 45), "Require"))
         {
             strLog = "";
             lua.Require("ScriptsFromFile");
+
+            lua.GetFunction("UITopbar.AA");
         }
     }
 

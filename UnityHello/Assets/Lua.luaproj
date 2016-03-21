@@ -34,9 +34,10 @@
     <Compile Include="Lua\Main.lua" />
     <Compile Include="Lua\uiscripts\init.lua" />
     <Compile Include="Lua\uiscripts\UIManager.lua" />
-    <Compile Include="Lua\uiscripts\UINotice.lua" />
+    <Compile Include="Lua\uiscripts\ui_notice.lua" />
     <Compile Include="Lua\uiscripts\UISession.lua" />
     <Compile Include="Lua\uiscripts\UISessionID.lua" />
+    <Compile Include="Lua\uiscripts\ui_topbar.lua" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
 </Project>

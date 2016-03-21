@@ -5,7 +5,8 @@
 UISessionID =
 {
     EUISID_Invaild = 1,
-    EUISID_Notice = 2,
+    EUISID_TopBar = 2,
+    EUISID_Notice = 3,
 }
 
 -- endregion

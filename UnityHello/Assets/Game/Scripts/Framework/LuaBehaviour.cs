@@ -95,7 +95,7 @@ public class LuaBehaviour : MonoBehaviour
 
     private string GetFuncName(string funcName)
     {
-        return mSb.Remove(0, mSb.Length).Append(name).Append(".").Append(funcName).ToString();
+        return mSb.Remove(0, mSb.Length).Append(gameObject.name).Append(".").Append(funcName).ToString();
     }
 
     protected void Awake()

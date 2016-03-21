@@ -2,17 +2,16 @@
 require "common/init"
 require "uiscripts/init"
 
-require "uiscripts/UINotice"
+require "uiscripts/ui_topbar"
 
 UObject = UnityEngine.Object
 
 -- 主入口函数。从这里开始lua逻辑
 function Main()
     print("hello world")
-    UIManager:Instance():ShowSessionDelay(3,
-    UISessionID.EUISID_Notice,
-    UINotice(UISessionData(true, UISessionType.EUIST_PopUp, UISessionShowMode.EUISSM_HideOther)),
-    UIShowSessionData(true, true, "ui_notice"))
+    UIManager:Instance():ShowSession(UISessionID.EUISID_TopBar,
+    UITopbar(UISessionData(false, UISessionType.EUIST_Fixed, UISessionShowMode.EUISSM_DoNothing)),
+    UIShowSessionData(false, false, "ui_topbar"))
 end
 
 -- 场景切换通知

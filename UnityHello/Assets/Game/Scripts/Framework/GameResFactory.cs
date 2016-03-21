@@ -19,15 +19,16 @@ public class GameResFactory
     private List<GameObject> mUIList = new List<GameObject>();
     //private Dictionary<string, GameObjectCache> mResCaches = new Dictionary<string, GameObjectCache>();
 
-    public void GetUIPrefab(string name, Transform parent, LuaFunction luaCallBack)
+    public void GetUIPrefab(string assetName, Transform parent, LuaFunction luaCallBack)
     {
         if (mResManager == null) return;
 
+        string tmpAssetName = assetName;
         if (GameSetting.DevelopMode)
         {
-            name = "UIPrefab/" + name;
+            tmpAssetName = "UIPrefab/" + assetName;
         }
-        mResManager.LoadPrefab(name + GameSetting.ExtName, name, delegate(UnityEngine.Object[] objs)
+        mResManager.LoadPrefab(assetName + GameSetting.ExtName, tmpAssetName, delegate(UnityEngine.Object[] objs)
         {
             if (objs.Length == 0) return;
             GameObject prefab = objs[0] as GameObject;
@@ -36,7 +37,7 @@ public class GameResFactory
                 return;
             }
             GameObject go = UnityEngine.GameObject.Instantiate(prefab) as GameObject;
-            go.name = name;
+            go.name = assetName;
             go.layer = LayerMask.NameToLayer("UI");
             go.transform.SetParent(parent, false);
             go.transform.localScale = Vector3.one;
@@ -50,7 +51,7 @@ public class GameResFactory
                 luaCallBack.PCall();
                 luaCallBack.EndPCall();
             }
-            Debug.Log("CreatePanel::>> " + name + " " + prefab);
+            Debug.Log("CreatePanel::>> " + assetName + " " + prefab);
             mUIList.Add(go);
         });
     }
