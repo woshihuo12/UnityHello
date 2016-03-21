@@ -16,7 +16,7 @@ public class GameResFactory
 
     internal ResourceManager mResManager;
     private List<GameObject> mUIEffectsList = new List<GameObject>();
-    private List<GameObject> mUIList = new List<GameObject>();
+    //private List<GameObject> mUIList = new List<GameObject>();
     //private Dictionary<string, GameObjectCache> mResCaches = new Dictionary<string, GameObjectCache>();
 
     public void GetUIPrefab(string assetName, Transform parent, LuaFunction luaCallBack)
@@ -71,14 +71,14 @@ public class GameResFactory
                 luaCallBack.EndPCall();
             }
             Debug.Log("CreatePanel::>> " + assetName + " " + prefab);
-            mUIList.Add(go);
+            //mUIList.Add(go);
         });
     }
 
     public void DestroyUIPrefab(GameObject go)
     {
         GameObject.Destroy(go);
-        mUIList.Remove(go);
+        //mUIList.Remove(go);
     }
 
     protected void GetEffectObj(string effname, System.Action<GameObject> callBack)
@@ -107,7 +107,7 @@ public class GameResFactory
         {
             if (Obj != null)
             {
-                mUIList.Add(Obj);
+                mUIEffectsList.Add(Obj);
             }
             if (luaCallBack != null)
             {
@@ -122,7 +122,7 @@ public class GameResFactory
     public void DestroyUIEffect(GameObject obj)
     {
         GameObject.Destroy(obj);
-        mUIEffectsList.Remove(obj);
+        //mUIEffectsList.Remove(obj);
     }
 
     public void DestroyAllUIEffect()
