@@ -4,14 +4,14 @@
 
 require "uiscripts/ui_notice"
 
-UITopbar = class(UISession)
+ui_topbar = class(UISession)
 
-function UITopbar:init(sessionData)
+function ui_topbar:init(sessionData)
     self._base.init(self, sessionData)
     self.sessionID = UISessionID.EUISID_TopBar
 end
 
-function UITopbar:OnPostLoad(go)
+function ui_topbar:OnPostLoad(go)
     self.gameObject = go
     self.transform = go.transform
 
@@ -24,7 +24,7 @@ function UITopbar:OnPostLoad(go)
     end )
 end
 
-function UITopbar:OnPreDestroy(go)
+function ui_topbar:OnPreDestroy(go)
     print("UITopBar:OnPreDestroy" .. go.name)
 end
 -- endregion

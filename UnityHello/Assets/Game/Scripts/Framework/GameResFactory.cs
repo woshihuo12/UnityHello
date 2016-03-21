@@ -39,9 +39,28 @@ public class GameResFactory
             GameObject go = UnityEngine.GameObject.Instantiate(prefab) as GameObject;
             go.name = assetName;
             go.layer = LayerMask.NameToLayer("UI");
+
+            Vector3 anchorPos = Vector3.zero;
+            Vector2 sizeDel = Vector2.zero;
+            Vector3 scale = Vector3.one;
+
+            RectTransform rtTr = go.GetComponent<RectTransform>();
+            if (rtTr != null)
+            {
+                anchorPos = rtTr.anchoredPosition;
+                sizeDel = rtTr.sizeDelta;
+                scale = rtTr.localScale;
+            }
+
             go.transform.SetParent(parent, false);
-            go.transform.localScale = Vector3.one;
-            go.transform.localPosition = Vector3.zero;
+
+            if (rtTr != null)
+            {
+                rtTr.anchoredPosition = anchorPos;
+                rtTr.sizeDelta = sizeDel;
+                rtTr.localScale = scale;
+            }
+
             go.AddComponent<LuaBehaviour>();
 
             if (luaCallBack != null)
