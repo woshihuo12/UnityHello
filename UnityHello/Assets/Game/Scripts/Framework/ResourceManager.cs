@@ -54,12 +54,12 @@ public class ResourceManager : Manager
 
     public void LoadPrefab(string abName, string assetName, Action<UnityEngine.Object[]> func)
     {
-        LoadAsset<GameObject>(abName, new string[] { assetName }, func);
+        LoadAsset<GameObject>(abName, new string[] { assetName }, func, null);
     }
 
     public void LoadPrefab(string abName, string[] assetNames, Action<UnityEngine.Object[]> func)
     {
-        LoadAsset<GameObject>(abName, assetNames, func);
+        LoadAsset<GameObject>(abName, assetNames, func, null);
     }
 
     public void LoadPrefab(string abName, string[] assetNames, LuaFunction func)
@@ -128,8 +128,8 @@ public class ResourceManager : Manager
     /// <summary>
     /// 载入素材
     /// </summary>
-    private void LoadAsset<T>(string abName, string[] assetNames, Action<UnityEngine.Object[]> action = null,
-        LuaFunction func = null) where T : UnityEngine.Object
+    private void LoadAsset<T>(string abName, string[] assetNames, Action<UnityEngine.Object[]> action,
+        LuaFunction func) where T : UnityEngine.Object
     {
         if (GameSetting.DevelopMode)
         {
