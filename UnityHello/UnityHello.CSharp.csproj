@@ -69,6 +69,9 @@
     <Reference Include="Debugger">
       <HintPath>Assets\Plugins\Debugger.dll</HintPath>
     </Reference>
+    <Reference Include="DOTween">
+      <HintPath>Assets\DOTween\DOTween.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Game\Scripts\Command\StartUpCommand.cs" />
@@ -106,6 +109,7 @@
     <Compile Include="Assets\Game\Scripts\Interface\IManager.cs" />
     <Compile Include="Assets\Game\Scripts\Interface\IMessage.cs" />
     <Compile Include="Assets\Game\Scripts\Interface\IView.cs" />
+    <Compile Include="Assets\Game\Scripts\UI\TweenHelper.cs" />
     <Compile Include="Assets\Game\Scripts\UI\UIRoot.cs" />
     <Compile Include="Assets\Source\Generate\DebuggerWrap.cs" />
     <Compile Include="Assets\Source\Generate\DelegateFactory.cs" />
@@ -245,6 +249,9 @@
     <Compile Include="Assets\ToLua\Misc\LuaResLoader.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\DOTween\DOTween.XML" />
+    <None Include="Assets\DOTween\Editor\DOTweenEditor.XML" />
+    <None Include="Assets\DOTween\readme.txt" />
     <None Include="Assets\Editor\TPImport\SettingsTexturePackerImporter.txt" />
     <None Include="Assets\StreamingAssets\Win\files.txt" />
     <None Include="Assets\ToLua\readme.txt" />
