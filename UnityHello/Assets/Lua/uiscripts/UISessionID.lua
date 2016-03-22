@@ -4,9 +4,9 @@
 
 UISessionID =
 {
-    EUISID_Invaild = 1,
-    EUISID_TopBar = 2,
-    EUISID_Notice = 3,
+    Invaild = 1,
+    UITopbar = 2,
+    UINotice = 3,
 }
 
 -- endregion

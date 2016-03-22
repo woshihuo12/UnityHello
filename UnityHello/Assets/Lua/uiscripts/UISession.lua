@@ -4,23 +4,23 @@
 UISessionType =
 {
     -- 可推出界面(UIMainMenu等)
-    EUIST_Normal = 1,
+    Normal = 1,
     -- 固定窗口(UITopBar等)
-    EUIST_Fixed = 2,
+    Fixed = 2,
     -- 弹窗
-    EUIST_PopUp = 3
+    PopUp = 3
 }
 
-UISessionShowMode =
+UIShowMode =
 {
     --
-    EUISSM_DoNothing = 1,
+    DoNothing = 1,
     -- 关闭其他界面
-    EUISSM_HideOther = 2,
+    HideOther = 2,
     -- 点击返回按钮关闭当前,不关闭其他界面(需要调整好层级关系)
-    EUISSM_NeedBack = 3,
+    NeedBack = 3,
     -- 关闭TopBar,关闭其他界面,不加入backSequence队列
-    EUISSM_NoNeedBack = 4,
+    NoNeedBack = 4,
 }
 
 UICommonHandler = class()
@@ -43,18 +43,18 @@ function UISessionData:init(isStartWindow, sessionType, sessionShowMode)
     self.sessionShowMode = sessionShowMode
 end
 
-UIBackSessionSequenceData = class()
-function UIBackSessionSequenceData:init(hideSession, backShowTargets)
+UIBackSequenceData = class()
+function UIBackSequenceData:init(hideSession, backShowTargets)
     self.hideTargetSession = hideSession
     self.backShowTargets = backShowTargets
 end
 
-UIShowSessionData = class()
+UIShowParam = class()
 -- Reset窗口
 -- Clear导航信息
 -- Prefab名字
 -- Object 数据
-function UIShowSessionData:init(isForceResetWindow, isForceClearBackSeqData, prefabName, showData)
+function UIShowParam:init(isForceResetWindow, isForceClearBackSeqData, prefabName, showData)
     self.isForceResetWindow = isForceResetWindow
     self.isForceClearBackSeqData = isForceClearBackSeqData
     self.prefabName = prefabName
@@ -67,9 +67,9 @@ function UISession:init(sessionData)
     self.isLock = false
     self.isShown = false
     -- 当前界面ID
-    self.sessionID = UISessionID.EUISID_Invaild
+    self.sessionID = UISessionID.Invaild
     -- 指向上一级界面ID(BackSequence无内容，返回上一级)
-    self.preSessionID = UISessionID.EUISID_Invaild
+    self.preSessionID = UISessionID.Invaild
     self.sessionData = sessionData
 end
 
@@ -132,11 +132,11 @@ end
 
 -- 能否添加到导航数据中
 function UISession:CanAddedToBackSeq()
-    if self.sessionData.sessionType == UISessionType.EUIST_PopUp then
+    if self.sessionData.sessionType == UISessionType.PopUp then
         return false
-    elseif self.sessionData.sessionType == UISessionType.EUIST_Fixed then
+    elseif self.sessionData.sessionType == UISessionType.Fixed then
         return false
-    elseif self.sessionData.sessionShowMode == UISessionShowMode.EUISSM_NoNeedBack then
+    elseif self.sessionData.sessionShowMode == UIShowMode.NoNeedBack then
         return false
     else
         return true
@@ -144,8 +144,8 @@ function UISession:CanAddedToBackSeq()
 end
 
 function UISession:IsNeedRefreshBackSeqData()
-    if self.sessionData.sessionShowMode == UISessionShowMode.EUISSM_HideOther
-        or self.sessionData.sessionShowMode == UISessionShowMode.EUISSM_NeedBack then
+    if self.sessionData.sessionShowMode == UIShowMode.HideOther
+        or self.sessionData.sessionShowMode == UIShowMode.NeedBack then
         return true
     else
         return false

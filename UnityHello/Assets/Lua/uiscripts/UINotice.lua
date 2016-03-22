@@ -2,9 +2,9 @@
 --Date
 --此文件由[BabeLua]插件自动生成
 
-ui_notice = class(UISession)
+UINotice = class(UISession)
 
-function ui_notice:OnPostLoad(go)
+function UINotice:OnPostLoad(go)
     print("UINotice:OnPostLoad" .. go.name)
 end
 

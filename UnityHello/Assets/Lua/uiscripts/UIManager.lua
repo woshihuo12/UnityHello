@@ -48,11 +48,11 @@ function UIManager:ShowSessionDelay(delayTime, sessionID, uiSession, showSession
 end
 
 function UIManager:GetSessionRoot(sessionType)
-    if sessionType == UISessionType.EUIST_Fixed then
+    if sessionType == UISessionType.Fixed then
         return UIRoot.Instance().mFixedRootRt
-    elseif sessionType == UISessionType.EUIST_Normal then
+    elseif sessionType == UISessionType.Normal then
         return UIRoot.Instance().mNormalRootRt
-    elseif sessionType == UISessionType.EUIST_PopUp then
+    elseif sessionType == UISessionType.PopUp then
         return UIRoot.Instance().mPopupRootRt
     else
         return UIRoot.Instance().mNormalRootRt
@@ -105,7 +105,7 @@ function UIManager:RefreshBackSequenceData(uiSession)
     if uiSession:IsNeedRefreshBackSeqData() then
         local dealBackSeq = true
         if self.curShownNormalSession ~= nil then
-            if self.curShownNormalSession.sessionData.sessionShowMode == UISessionShowMode.EUISSM_NoNeedBack then
+            if self.curShownNormalSession.sessionData.sessionShowMode == UIShowMode.NoNeedBack then
                 dealBackSeq = false
                 self:HideSession(uiSession:GetSessionID())
             end
@@ -117,8 +117,8 @@ function UIManager:RefreshBackSequenceData(uiSession)
 
             for k, v in pairs(self.shownSessions) do
                 local needToHide = true
-                if sessionData.sessionShowMode == UISessionShowMode.EUISSM_NeedBack
-                    or v.sessionData.sessionType == UISessionType.EUIST_Fixed then
+                if sessionData.sessionShowMode == UIShowMode.NeedBack
+                    or v.sessionData.sessionType == UISessionType.Fixed then
                     needToHide = false
                 end
 
@@ -134,11 +134,11 @@ function UIManager:RefreshBackSequenceData(uiSession)
             end
 
             if #newPushList > 0 then
-                local backData = UIBackSessionSequenceData(uiSession, newPushList)
+                local backData = UIBackSequenceData(uiSession, newPushList)
                 self.backSequence:Push(backData)
             end
         end
-    elseif sessionData.sessionShowMode == UISessionShowMode.EUISSM_NoNeedBack then
+    elseif sessionData.sessionShowMode == UIShowMode.NoNeedBack then
         self:HideAllShownSessions(true)
     end
 
@@ -172,7 +172,7 @@ function UIManager:CheckBackSequenceData(uiSession)
                     self:CheckBackSequenceData()
                 else
                     -- NeedBack类型要将backShowTargets界面显示
-                    if sessionData.sessionShowMode == UISessionShowMode.EUISSM_NeedBack
+                    if sessionData.sessionShowMode == UIShowMode.NeedBack
                         and backData.backShowTargets ~= nil then
                         for i, v in ipairs(backData.backShowTargets) do
                             -- 保证最上面为currentShownWindow
@@ -192,7 +192,7 @@ end
 function UIManager:RealShowSession(sessionID, uiSession)
     uiSession:ShowSession()
     self.shownSessions[sessionID] = uiSession
-    if uiSession.sessionData.sessionType == UISessionType.EUIST_Normal then
+    if uiSession.sessionData.sessionType == UISessionType.Normal then
         self.lastShownNormalSession = self.curShownNormalSession
         self.curShownNormalSession = uiSession
     end
@@ -217,7 +217,7 @@ function UIManager:DoGoBack()
         end
 
         local preSessionId = self.curShownNormalSession.preSessionID
-        if preSessionId ~= UISessionID.EUISID_Invaild then
+        if preSessionId ~= UISessionID.Invaild then
             self:HideSession(self.curShownNormalSession:GetSessionID(),
             UICommonHandler(nil, function()
                 self:ShowSession(preSessionId, nil)
@@ -280,7 +280,7 @@ end
 function UIManager:HideAllShownSessions(includeFixed)
     if not includeFixed then
         for k, v in pairs(self.shownSessions) do
-            if v.sessionData.sessionType ~= UISessionType.EUIST_Fixed then
+            if v.sessionData.sessionType ~= UISessionType.Fixed then
                 v:HideSessionDirectly()
                 self.shownSessions[k] = nil
             end
