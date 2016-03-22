@@ -4,6 +4,13 @@ using DG.Tweening;
 using LuaInterface;
 public class TweenHelper
 {
+    private static void SetTween<T>(T tweenCore, int easeType, LuaTable callBacks) where T : Tween
+    {
+        tweenCore.SetEase((Ease)easeType);
+        if (callBacks == null) return;
+        SetTweenCallBacks<Tween>(tweenCore, callBacks);
+    }
+
     private static void SetTweenCallBacks<T>(T tweenCore, LuaTable callBacks) where T : Tween
     {
         if (callBacks == null) return;
@@ -36,6 +43,11 @@ public class TweenHelper
                 onUpdate = null;
             });
         }
+    }
+
+    public static void SetTweensCapacity(int tweenersCapacity, int sequencesCapacity)
+    {
+        DOTween.SetTweensCapacity(tweenersCapacity, sequencesCapacity);
     }
 
     public static void SetDefaultAutoKill(bool isAuto)
@@ -128,15 +140,103 @@ public class TweenHelper
         return DOTween.PauseAll();
     }
 
-    
+    public static int Play(object targetOrId)
+    {
+        return DOTween.Play(targetOrId);
+    }
+
+    public static int Play(object target, object id)
+    {
+        return DOTween.Play(target, id);
+    }
+
+    public static int PlayAll()
+    {
+        return DOTween.PlayAll();
+    }
+
+    public static int PlayBackwards(object targetOrId)
+    {
+        return DOTween.PlayBackwards(targetOrId);
+    }
+
+    public static int PlayBackwardsAll()
+    {
+        return DOTween.PlayBackwardsAll();
+    }
+
+    public static int PlayForward(object targetOrId)
+    {
+        return DOTween.PlayForward(targetOrId);
+    }
+
+    public static int PlayForwardAll()
+    {
+        return DOTween.PlayForwardAll();
+    }
+
+    public static int Restart(object targetOrId, bool includeDelay)
+    {
+        return DOTween.Restart(targetOrId, includeDelay);
+    }
+
+    public static int Restart(object target, object id, bool includeDelay)
+    {
+        return DOTween.Restart(target, id, includeDelay);
+    }
+
+    public static int RestartAll(bool includeDelay)
+    {
+        return DOTween.RestartAll(includeDelay);
+    }
+
+    public static int Rewind(object targetOrId, bool includeDelay)
+    {
+        return DOTween.Rewind(targetOrId, includeDelay);
+    }
+
+    public static int RewindAll(bool includeDelay)
+    {
+        return DOTween.RewindAll(includeDelay);
+    }
+
+    public static int SmoothRewind(object targetOrId)
+    {
+        return DOTween.SmoothRewind(targetOrId);
+    }
+
+    public static int SmoothRewindAll()
+    {
+        return DOTween.SmoothRewindAll();
+    }
+
+    public static void To(Color tweenValue, Color endValue, float duration, int easeType, LuaTable callBacks)
+    {
+        var tweenCore = DOTween.To(() => tweenValue, x => tweenValue = x, endValue, duration);
+        if (tweenCore == null) return;
+        SetTween(tweenCore, easeType, callBacks);
+    }
 
     public static void To(Vector3 tweenValue, Vector3 endValue, float duration, int easeType, LuaTable callBacks)
     {
         var tweenCore = DOTween.To(() => tweenValue, x => tweenValue = x, endValue, duration);
         if (tweenCore == null) return;
-        tweenCore.SetEase((Ease)easeType);
-        if (callBacks == null) return;
-        SetTweenCallBacks<Tween>(tweenCore, callBacks);
+        SetTween(tweenCore, easeType, callBacks);
+    }
+
+    public static void Shake(Vector3 tweenValue, float duration, Vector3 strength, int vibrato, float randomness, int easeType, LuaTable callBacks)
+    {
+        var tweenCore = DOTween.Shake(() => tweenValue, x => tweenValue = x, duration, strength, vibrato, randomness);
+        if (tweenCore == null) return;
+        SetTween(tweenCore, easeType, callBacks);
+    }
+
+    public static void ShakeIgnoreZ(Vector3 tweenValue, float duration, float strength, int vibrato, float randomness,
+        bool ignoreZAxis, int easeType, LuaTable callBacks)
+    {
+        var tweenCore = DOTween.Shake(() => tweenValue, x => tweenValue = x, duration, strength, vibrato, randomness, ignoreZAxis);
+        if (tweenCore == null) return;
+        SetTween(tweenCore, easeType, callBacks);
     }
 
     public static void MoveLocalX(Transform transform,
@@ -145,8 +245,6 @@ public class TweenHelper
     {
         var tweenCore = transform.DOLocalMoveX(endPos, duration, isSnaped);
         if (tweenCore == null) return;
-        tweenCore.SetEase((Ease)easeType);
-        if (callBacks == null) return;
-        SetTweenCallBacks<Tween>(tweenCore, callBacks);
+        SetTween(tweenCore, easeType, callBacks);
     }
 }
