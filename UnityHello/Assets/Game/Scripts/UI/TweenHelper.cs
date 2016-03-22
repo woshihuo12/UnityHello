@@ -2,6 +2,7 @@
 using System.Collections;
 using DG.Tweening;
 using LuaInterface;
+using System.Collections.Generic;
 public class TweenHelper
 {
     private static void SetTween<T>(T tweenCore, int easeType, LuaTable callBacks) where T : Tween
@@ -210,7 +211,83 @@ public class TweenHelper
         return DOTween.SmoothRewindAll();
     }
 
+    public static int TogglePause(object targetOrId)
+    {
+        return DOTween.TogglePause(targetOrId);
+    }
+
+    public static int TogglePauseAll()
+    {
+        return DOTween.TogglePauseAll();
+    }
+
+    public static List<Tween> TweensById(object id, bool playingOnly)
+    {
+        return DOTween.TweensById(id, playingOnly);
+    }
+
+    public static List<Tween> TweensByTarget(object target, bool playingOnly)
+    {
+        return DOTween.TweensByTarget(target, playingOnly);
+    }
+
     public static void To(Color tweenValue, Color endValue, float duration, int easeType, LuaTable callBacks)
+    {
+        var tweenCore = DOTween.To(() => tweenValue, x => tweenValue = x, endValue, duration);
+        if (tweenCore == null) return;
+        SetTween(tweenCore, easeType, callBacks);
+    }
+
+    public static void To(double tweenValue, double endValue, float duration, int easeType, LuaTable callBacks)
+    {
+        var tweenCore = DOTween.To(() => tweenValue, x => tweenValue = x, endValue, duration);
+        if (tweenCore == null) return;
+        SetTween(tweenCore, easeType, callBacks);
+    }
+
+    public static void To(float tweenValue, float endValue, float duration, int easeType, LuaTable callBacks)
+    {
+        var tweenCore = DOTween.To(() => tweenValue, x => tweenValue = x, endValue, duration);
+        if (tweenCore == null) return;
+        SetTween(tweenCore, easeType, callBacks);
+    }
+
+    public static void To(int tweenValue, int endValue, float duration, int easeType, LuaTable callBacks)
+    {
+        var tweenCore = DOTween.To(() => tweenValue, x => tweenValue = x, endValue, duration);
+        if (tweenCore == null) return;
+        SetTween(tweenCore, easeType, callBacks);
+    }
+
+    public static void To(long tweenValue, long endValue, float duration, int easeType, LuaTable callBacks)
+    {
+        var tweenCore = DOTween.To(() => tweenValue, x => tweenValue = x, endValue, duration);
+        if (tweenCore == null) return;
+        SetTween(tweenCore, easeType, callBacks);
+    }
+
+    public static void To(Rect tweenValue, Rect endValue, float duration, int easeType, LuaTable callBacks)
+    {
+        var tweenCore = DOTween.To(() => tweenValue, x => tweenValue = x, endValue, duration);
+        if (tweenCore == null) return;
+        SetTween(tweenCore, easeType, callBacks);
+    }
+
+    public static void To(RectOffset tweenValue, RectOffset endValue, float duration, int easeType, LuaTable callBacks)
+    {
+        var tweenCore = DOTween.To(() => tweenValue, x => tweenValue = x, endValue, duration);
+        if (tweenCore == null) return;
+        SetTween(tweenCore, easeType, callBacks);
+    }
+
+    public static void To(string tweenValue, string endValue, float duration, int easeType, LuaTable callBacks)
+    {
+        var tweenCore = DOTween.To(() => tweenValue, x => tweenValue = x, endValue, duration);
+        if (tweenCore == null) return;
+        SetTween(tweenCore, easeType, callBacks);
+    }
+
+    public static void To(Vector2 tweenValue, Vector2 endValue, float duration, int easeType, LuaTable callBacks)
     {
         var tweenCore = DOTween.To(() => tweenValue, x => tweenValue = x, endValue, duration);
         if (tweenCore == null) return;
@@ -220,6 +297,20 @@ public class TweenHelper
     public static void To(Vector3 tweenValue, Vector3 endValue, float duration, int easeType, LuaTable callBacks)
     {
         var tweenCore = DOTween.To(() => tweenValue, x => tweenValue = x, endValue, duration);
+        if (tweenCore == null) return;
+        SetTween(tweenCore, easeType, callBacks);
+    }
+
+    public static void To(Vector4 tweenValue, Vector4 endValue, float duration, int easeType, LuaTable callBacks)
+    {
+        var tweenCore = DOTween.To(() => tweenValue, x => tweenValue = x, endValue, duration);
+        if (tweenCore == null) return;
+        SetTween(tweenCore, easeType, callBacks);
+    }
+
+    public static void ToAlpha(Color tweenValue, float endValue, float duration, int easeType, LuaTable callBacks)
+    {
+        var tweenCore = DOTween.ToAlpha(() => tweenValue, x => tweenValue = x, endValue, duration);
         if (tweenCore == null) return;
         SetTween(tweenCore, easeType, callBacks);
     }
