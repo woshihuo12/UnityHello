@@ -3,14 +3,13 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using LuaInterface;
-using System.Text;
 
 public class LuaBehaviour : MonoBehaviour
 {
     private LuaState mLuaState = null;
-    private Dictionary<string, LuaFunction> mButtonCallbacks = new Dictionary<string, LuaFunction>();
+    private LuaTable mLuaTable = null;
 
-    private StringBuilder mSb = new StringBuilder(42);
+    private Dictionary<string, LuaFunction> mButtonCallbacks = new Dictionary<string, LuaFunction>();
 
     private bool mUsingUpdate = false;
     public bool UsingUpdate
@@ -51,7 +50,7 @@ public class LuaBehaviour : MonoBehaviour
         }
     }
 
-    protected bool mUsingOnEnable = false;
+    private bool mUsingOnEnable = false;
     public bool UsingOnEnable
     {
         get
@@ -64,7 +63,7 @@ public class LuaBehaviour : MonoBehaviour
         }
     }
 
-    protected bool mUsingOnDisable = false;
+    private bool mUsingOnDisable = false;
     public bool UsingOnDisable
     {
         get
@@ -82,31 +81,54 @@ public class LuaBehaviour : MonoBehaviour
     private LuaFunction mLateUpdateFunc = null;
     private LuaFunction mOnEnableFunc = null;
     private LuaFunction mOnDisableFunc = null;
-    private LuaFunction mOnClickFunc = null;
 
-    private void SafeRelease(ref LuaFunction luaRef)
+    private void SafeRelease(ref LuaFunction func)
     {
-        if (luaRef != null)
+        if (func != null)
         {
-            luaRef.Dispose();
-            luaRef = null;
+            func.Dispose();
+            func = null;
         }
     }
 
-    private string GetFuncName(string funcName)
+    private void SafeRelease(ref LuaTable table)
     {
-        return mSb.Remove(0, mSb.Length).Append(gameObject.name).Append(".").Append(funcName).ToString();
+        if (table != null)
+        {
+            table.Dispose();
+            table = null;
+        }
     }
 
-    protected void Awake()
+    private bool CheckValid()
+    {
+        if (mLuaState == null) return false;
+        if (mLuaTable == null) return false;
+        return true;
+    }
+
+    private void Awake()
     {
         mLuaState = SimpleLuaClient.GetMainState();
         if (mLuaState == null) return;
-        LuaFunction awakeFunc = mLuaState.GetFunction(GetFuncName("Awake"));
+
+        mLuaTable = mLuaState.GetTable(name);
+
+        if (mLuaTable == null)
+        {
+            Debug.LogWarning("mLuaTable is null:" + name);
+            return;
+        }
+
+        mLuaTable["gameObject"] = gameObject;
+        mLuaTable["transform"] = transform;
+        mLuaTable["this"] = this;
+
+        LuaFunction awakeFunc = mLuaTable.GetLuaFunction("Awake") as LuaFunction;
         if (awakeFunc != null)
         {
             awakeFunc.BeginPCall();
-            awakeFunc.Push(gameObject);
+            awakeFunc.Push(mLuaTable);
             awakeFunc.PCall();
             awakeFunc.EndPCall();
 
@@ -115,13 +137,15 @@ public class LuaBehaviour : MonoBehaviour
         }
     }
 
-    protected void Start()
+    private void Start()
     {
-        if (mLuaState == null) return;
-        LuaFunction startFunc = mLuaState.GetFunction(GetFuncName("Start"));
+        if (!CheckValid()) return;
+
+        LuaFunction startFunc = mLuaTable.GetLuaFunction("Start") as LuaFunction;
         if (startFunc != null)
         {
             startFunc.BeginPCall();
+            startFunc.Push(mLuaTable);
             startFunc.PCall();
             startFunc.EndPCall();
 
@@ -130,15 +154,15 @@ public class LuaBehaviour : MonoBehaviour
         }
     }
 
-    protected void Update()
+    private void Update()
     {
         if (UsingUpdate)
         {
-            if (mLuaState == null) return;
+            if (!CheckValid()) return;
 
             if (mUpdateFunc == null)
             {
-                mUpdateFunc = SimpleLuaClient.GetMainState().GetFunction(GetFuncName("Update"));
+                mUpdateFunc = mLuaTable.GetLuaFunction("Update") as LuaFunction;
             }
             if (mUpdateFunc != null)
             {
@@ -151,14 +175,14 @@ public class LuaBehaviour : MonoBehaviour
         }
     }
 
-    protected void FixedUpdate()
+    private void FixedUpdate()
     {
         if (UsingFixedUpdate)
         {
-            if (mLuaState == null) return;
+            if (!CheckValid()) return;
             if (mFixedUpdateFunc == null)
             {
-                mFixedUpdateFunc = SimpleLuaClient.GetMainState().GetFunction(GetFuncName("FixedUpdate"));
+                mFixedUpdateFunc = mLuaTable.GetLuaFunction("FixedUpdate") as LuaFunction;
             }
             if (mFixedUpdateFunc != null)
             {
@@ -170,14 +194,14 @@ public class LuaBehaviour : MonoBehaviour
         }
     }
 
-    protected void LateUpdate()
+    private void LateUpdate()
     {
         if (UsingLateUpdate)
         {
-            if (mLuaState == null) return;
+            if (!CheckValid()) return;
             if (mLateUpdateFunc == null)
             {
-                mLateUpdateFunc = SimpleLuaClient.GetMainState().GetFunction(GetFuncName("LateUpdate"));
+                mLateUpdateFunc = mLuaTable.GetLuaFunction("LateUpdate") as LuaFunction;
             }
             if (mLateUpdateFunc != null)
             {
@@ -188,15 +212,15 @@ public class LuaBehaviour : MonoBehaviour
         }
     }
 
-    protected void OnEnable()
+    private void OnEnable()
     {
         if (UsingOnEnable)
         {
-            if (mLuaState == null) return;
+            if (!CheckValid()) return;
 
             if (mOnEnableFunc == null)
             {
-                mOnEnableFunc = SimpleLuaClient.GetMainState().GetFunction(GetFuncName("OnEnable"));
+                mOnEnableFunc = mLuaTable.GetLuaFunction("OnEnable") as LuaFunction;
             }
             if (mOnEnableFunc != null)
             {
@@ -207,15 +231,15 @@ public class LuaBehaviour : MonoBehaviour
         }
     }
 
-    protected void OnDisable()
+    private void OnDisable()
     {
         if (UsingOnDisable)
         {
-            if (mLuaState == null) return;
+            if (!CheckValid()) return;
 
             if (mOnDisableFunc == null)
             {
-                mOnDisableFunc = SimpleLuaClient.GetMainState().GetFunction(GetFuncName("OnDisable"));
+                mOnDisableFunc = mLuaTable.GetLuaFunction("OnDisable") as LuaFunction;
             }
             if (mOnDisableFunc != null)
             {
@@ -226,25 +250,9 @@ public class LuaBehaviour : MonoBehaviour
         }
     }
 
-    protected void OnClickEvent(GameObject go)
-    {
-        if (mLuaState == null) return;
-        if (mOnClickFunc == null)
-        {
-            mOnClickFunc = mLuaState.GetFunction(GetFuncName("OnClick"));
-        }
-        if (mOnClickFunc != null)
-        {
-            mOnClickFunc.BeginPCall();
-            mOnClickFunc.Push(go);
-            mOnClickFunc.PCall();
-            mOnClickFunc.EndPCall();
-        }
-    }
-
     public void AddClick(GameObject go, LuaFunction luafunc)
     {
-        if (mLuaState == null) return;
+        if (!CheckValid()) return;
         if (go == null || luafunc == null) return;
         if (!mButtonCallbacks.ContainsKey(go.name))
         {
@@ -260,7 +268,7 @@ public class LuaBehaviour : MonoBehaviour
 
     public void RemoveClick(GameObject go)
     {
-        if (mLuaState == null) return;
+        if (!CheckValid()) return;
         if (go == null) return;
         LuaFunction luafunc = null;
         if (mButtonCallbacks.TryGetValue(go.name, out luafunc))
@@ -273,7 +281,6 @@ public class LuaBehaviour : MonoBehaviour
 
     public void ClearClick()
     {
-        if (mLuaState == null) return;
         foreach (var de in mButtonCallbacks)
         {
             if (de.Value != null)
@@ -284,11 +291,11 @@ public class LuaBehaviour : MonoBehaviour
         mButtonCallbacks.Clear();
     }
 
-    protected void OnDestroy()
+    private void OnDestroy()
     {
-        if (mLuaState == null) return;
+        if (!CheckValid()) return;
         ClearClick();
-        LuaFunction destroyFunc = mLuaState.GetFunction(GetFuncName("OnDestroy"));
+        LuaFunction destroyFunc = mLuaTable.GetLuaFunction("OnDestroy") as LuaFunction;
         if (destroyFunc != null)
         {
             destroyFunc.BeginPCall();
@@ -304,6 +311,6 @@ public class LuaBehaviour : MonoBehaviour
         SafeRelease(ref mLateUpdateFunc);
         SafeRelease(ref mOnEnableFunc);
         SafeRelease(ref mOnDisableFunc);
-        SafeRelease(ref mOnClickFunc);
+        SafeRelease(ref mLuaTable);
     }
 }
