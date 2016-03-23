@@ -1,6 +1,7 @@
 -- region *.lua
 -- Date
 -- 此文件由[BabeLua]插件自动生成
+
 function table.nums(t)
     local count = 0
     for k, v in pairs(t) do
@@ -48,4 +49,8 @@ function table.removebyvalue(array, value, removeall)
     return c
 end
 
+
+function PlayOpenWindowAnim(trans, uiAnimHandler)
+    trans.localScale = Vector3.zero
+end
 -- endregion

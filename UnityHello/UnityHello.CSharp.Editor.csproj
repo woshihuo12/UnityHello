@@ -99,12 +99,6 @@
     <Reference Include="UnityEditor.iOS.Extensions.Common">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
     </Reference>
-    <Reference Include="DOTween">
-      <HintPath>Assets\DOTween\DOTween.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTweenEditor">
-      <HintPath>Assets\DOTween\Editor\DOTweenEditor.dll</HintPath>
-    </Reference>
     <Reference Include="TexturePackerImporter">
       <HintPath>Assets\Editor\TPImport\TexturePackerImporter.dll</HintPath>
     </Reference>
@@ -122,6 +116,7 @@
     <Compile Include="Assets\Editor\AssetBundleBuildTool.cs" />
     <Compile Include="Assets\Editor\CommandLineReader.cs" />
     <Compile Include="Assets\Editor\Custom\CustomSettings.cs" />
+    <Compile Include="Assets\Editor\LeanTween\LeanTweenDocumentationEditor.cs" />
     <Compile Include="Assets\Editor\PackResTool.cs" />
     <Compile Include="Assets\Editor\Packager.cs" />
     <Compile Include="Assets\ToLua\Editor\Extend\ToLua_LuaInterface_EventObject.cs" />
@@ -137,9 +132,6 @@
     <Compile Include="Assets\ToLua\Editor\ToLuaTree.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\DOTween\DOTween.XML" />
-    <None Include="Assets\DOTween\Editor\DOTweenEditor.XML" />
-    <None Include="Assets\DOTween\readme.txt" />
     <None Include="Assets\Editor\TPImport\SettingsTexturePackerImporter.txt" />
     <None Include="Assets\StreamingAssets\Win\files.txt" />
     <None Include="Assets\ToLua\readme.txt" />

@@ -22,20 +22,20 @@ function UIMessageBox:init(sessionData)
 end
 
 function UIMessageBox:OnPostLoad()
-    local contentTr = self.transform:Find("content")
-    local closeBtnGo = contentTr:Find("btnClose").gameObject
+    self.contentTr = self.transform:Find("content")
+    local closeBtnGo = self.contentTr:Find("btnClose").gameObject
     self.luaBehaviour:AddClick(closeBtnGo, function()
         UIMessageBox.Close()
     end )
-    self.contentLb = contentTr:Find("desc"):GetComponent(typeof(Text))
+    self.contentLb = self.contentTr:Find("desc"):GetComponent(typeof(Text))
 
-    self.leftBtnGo = contentTr:Find("btnLeft").gameObject
+    self.leftBtnGo = self.contentTr:Find("btnLeft").gameObject
     self.leftBtnTxt = self.leftBtnGo.transform:Find("txt"):GetComponent(typeof(Text))
 
-    self.centerBtnGo = contentTr:Find("btnCenter").gameObject
+    self.centerBtnGo = self.contentTr:Find("btnCenter").gameObject
     self.centerBtnTxt = self.centerBtnGo.transform:Find("txt"):GetComponent(typeof(Text))
 
-    self.rightBtnGo = contentTr:Find("btnRight").gameObject
+    self.rightBtnGo = self.contentTr:Find("btnRight").gameObject
     self.rightBtnTxt = self.rightBtnGo.transform:Find("txt"):GetComponent(typeof(Text))
 end
 
@@ -143,6 +143,8 @@ function UIMessageBox:ResetWindow(showParam)
             self:_onEnterBtn1(showParam.args)
         end
     end
+
+--    PlayOpenWindowAnim(self.contentTr)
 end
 
 function UIMessageBox:OnPreDestroy()

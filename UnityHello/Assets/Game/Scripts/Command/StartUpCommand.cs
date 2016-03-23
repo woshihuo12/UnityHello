@@ -11,12 +11,12 @@ public class StartUpCommand : ControllerCommand
             gameMgr.AddComponent<AppView>();
         }
 
-
         AppFacade.Instance.AddManager<LuaManager>();
         AppFacade.Instance.AddManager<ResourceManager>();
         AppFacade.Instance.AddManager<ThreadManager>();
         AppFacade.Instance.AddManager<SimpleTimerManager>();
         AppFacade.Instance.AddManager<GameManager>();
+
 
         Debug.Log(Application.dataPath);
         Debug.Log(Application.streamingAssetsPath);

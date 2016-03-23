@@ -66,9 +66,6 @@
     <Reference Include="UnityEditor.iOS.Extensions.Common">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
     </Reference>
-    <Reference Include="DOTween">
-      <HintPath>Assets\DOTween\DOTween.dll</HintPath>
-    </Reference>
     <Reference Include="Debugger">
       <HintPath>Assets\Plugins\Debugger.dll</HintPath>
     </Reference>
@@ -109,11 +106,21 @@
     <Compile Include="Assets\Game\Scripts\Interface\IManager.cs" />
     <Compile Include="Assets\Game\Scripts\Interface\IMessage.cs" />
     <Compile Include="Assets\Game\Scripts\Interface\IView.cs" />
-    <Compile Include="Assets\Game\Scripts\UI\TweenHelper.cs" />
     <Compile Include="Assets\Game\Scripts\UI\UIRoot.cs" />
+    <Compile Include="Assets\LeanTween\ILeanTween.cs" />
+    <Compile Include="Assets\LeanTween\LTDescr.cs" />
+    <Compile Include="Assets\LeanTween\LeanAudio.cs" />
+    <Compile Include="Assets\LeanTween\LeanTween.cs" />
     <Compile Include="Assets\Source\Generate\DebuggerWrap.cs" />
     <Compile Include="Assets\Source\Generate\DelegateFactory.cs" />
     <Compile Include="Assets\Source\Generate\GameResFactoryWrap.cs" />
+    <Compile Include="Assets\Source\Generate\LTBezierPathWrap.cs" />
+    <Compile Include="Assets\Source\Generate\LTBezierWrap.cs" />
+    <Compile Include="Assets\Source\Generate\LTEventWrap.cs" />
+    <Compile Include="Assets\Source\Generate\LTRectWrap.cs" />
+    <Compile Include="Assets\Source\Generate\LTSplineWrap.cs" />
+    <Compile Include="Assets\Source\Generate\LeanTweenTypeWrap.cs" />
+    <Compile Include="Assets\Source\Generate\LeanTweenWrap.cs" />
     <Compile Include="Assets\Source\Generate\LuaBehaviourWrap.cs" />
     <Compile Include="Assets\Source\Generate\LuaBinder.cs" />
     <Compile Include="Assets\Source\Generate\LuaHelperWrap.cs" />
@@ -252,9 +259,6 @@
     <Compile Include="Assets\ToLua\Misc\LuaResLoader.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\DOTween\DOTween.XML" />
-    <None Include="Assets\DOTween\Editor\DOTweenEditor.XML" />
-    <None Include="Assets\DOTween\readme.txt" />
     <None Include="Assets\Editor\TPImport\SettingsTexturePackerImporter.txt" />
     <None Include="Assets\StreamingAssets\Win\files.txt" />
     <None Include="Assets\ToLua\readme.txt" />
