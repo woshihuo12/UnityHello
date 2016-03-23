@@ -14,14 +14,15 @@ end
 function UITopbar:OnPostLoad()
     local leftBtn = self.transform:Find("leftBtn").gameObject
     self.luaBehaviour:AddClick(leftBtn, function()
-        --        UIManager:Instance():ShowSession(UISessionID.UINotice,
-        --        UINotice(UISessionData(false, UISessionType.PopUp, UIShowMode.DoNothing)),
-        --        UIShowParam(false, false, "UINotice"))
-        print("hello world.")
+        UIMessageBox.Show( {
+            contentStr = "你好，范特西",
+            btnNum = 1,
+            centerBtnStr = "确定",
+            centerBtnHandler = function()
+                print("hello world.")
+            end
+        } )
     end )
-
-    local ll = leftBtn.transform:Find("txt"):GetComponent("Text")
-    ll.text = "mmmmm"
 end
 
 function UITopbar:OnPreDestroy()

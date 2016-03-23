@@ -40,10 +40,10 @@ function UIManager:ShowSession(sessionID, uiSession, showSessionData, doneHandle
                 return
             end
 
-            uiSession:OnPostLoad(go)
+            uiSession:OnPostLoad()
             self.allSessions[sessionID] = uiSession
 
-            uiSession:ResetWindow()
+            uiSession:ResetWindow(showSessionData)
 
             -- 导航系统数据更新
             self:RefreshBackSequenceData(uiSession)
@@ -54,6 +54,10 @@ function UIManager:ShowSession(sessionID, uiSession, showSessionData, doneHandle
                 (showSessionData ~= nil and showSessionData.isForceClearBackSeqData) then
                 self:ClearBackSequence()
             end
+
+            if doneHandler then
+                doneHandler()
+            end
         end )
     else
         if showSessionData ~= nil and showSessionData.isForceResetWindow then
@@ -63,11 +67,15 @@ function UIManager:ShowSession(sessionID, uiSession, showSessionData, doneHandle
         -- 导航系统数据更新
         RefreshBackSequenceData(cacheSession)
 
-        self:RealShowSession(sessionID, uiSession)
+        self:RealShowSession(sessionID, cacheSession)
         -- 是否清空当前导航信息(回到主菜单)
-        if uiSession.sessionData.isStartWindow or
+        if cacheSession.sessionData.isStartWindow or
             (showSessionData ~= nil and showSessionData.isForceClearBackSeqData) then
             self:ClearBackSequence()
+        end
+
+        if doneHandler then
+            doneHandler()
         end
     end
 end
@@ -90,47 +98,6 @@ function UIManager:GetSessionRoot(sessionType)
         return UIRoot.Instance().mPopupRootRt
     else
         return UIRoot.Instance().mNormalRootRt
-    end
-end
-
-function UIManager:_InternalShowSession(sessionID, uiSession, showSessionData, doneHandler)
-    if self.shownSessions[sessionID] ~= nil then
-        return
-    end
-
-    local cacheSession = self.allSessions[sessionID]
-    if not cacheSession then
-        local parentRt = self:GetSessionRoot(uiSession.sessionData.sessionType)
-        GameResFactory.Instance():GetUIPrefab(showSessionData.prefabName, parentRt,
-        function(go)
-            if not uiSession then
-                error("ui session id:" .. sessionID .. " is null.")
-                return
-            end
-
-            uiSession:OnPostLoad(go)
-            self.allSessions[sessionID] = uiSession
-
-            uiSession:ResetWindow()
-
-            -- 导航系统数据更新
-            self:RefreshBackSequenceData(uiSession)
-
-            if doneHandler ~= nil then
-                doneHandler(uiSession)
-            end
-        end )
-    else
-        if showSessionData ~= nil and showSessionData.isForceResetWindow then
-            cacheSession:ResetWindow()
-        end
-
-        -- 导航系统数据更新
-        RefreshBackSequenceData(cacheSession)
-
-        if doneHandler ~= nil then
-            doneHandler(cacheSession)
-        end
     end
 end
 
@@ -242,6 +209,17 @@ function UIManager:HideSession(sessionID, uicommonHandler)
     self.shownSessions[sessionID] = nil
 end
 
+function UIManager:DestroySession(sessionID, uicommonHandler)
+    if not self.allSessions[sessionID] then
+        return
+    end
+    if self.shownSessions[sessionID] then
+        self.shownSessions[sessionID] = nil
+    end
+    self.allSessions[sessionID]:DestroySession(uicommonHandler)
+    self.allSessions[sessionID] = nil
+end
+
 function UIManager:DoGoBack()
     if self.backSequence:Getn() == 0 then
         -- 如果当前BackSequenceData 不存在返回数据
@@ -304,7 +282,7 @@ end
 
 function UIManager:ClearAllSession()
     for _, v in pairs(self.allSessions) do
-        v.DestroySession()
+        v:DestroySession()
     end
     self.allSessions = { }
     self.shownSessions = { }

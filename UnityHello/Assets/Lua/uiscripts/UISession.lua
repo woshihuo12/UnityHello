@@ -54,11 +54,11 @@ UIShowParam = class()
 -- Clear导航信息
 -- Prefab名字
 -- Object 数据
-function UIShowParam:init(isForceResetWindow, isForceClearBackSeqData, prefabName, showData)
+function UIShowParam:init(isForceResetWindow, isForceClearBackSeqData, prefabName, args)
     self.isForceResetWindow = isForceResetWindow
     self.isForceClearBackSeqData = isForceClearBackSeqData
     self.prefabName = prefabName
-    self.showData = showData
+    self.args = args
 end
 
 UISession = class()
