@@ -129,14 +129,15 @@ public static class CustomSettings
         _GT(typeof(GameResFactory)),
         _GT(typeof(LuaHelper)), 
 
-        /////////////////////////////////////LeanTween
-        _GT(typeof(LeanTween)),
+        /////////////////////////////////////LeanTween     
         _GT(typeof(LeanTweenType)),
         _GT(typeof(LTBezier)),
         _GT(typeof(LTBezierPath)),
         _GT(typeof(LTEvent)),
-        _GT(typeof(LTRect)),
         _GT(typeof(LTSpline)),
+        _GT(typeof(LeanTween)),
+        _GT(typeof(LeanAudio)),
+
     };
 
     public static List<Type> dynamicList = new List<Type>()

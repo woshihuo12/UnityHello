@@ -14,13 +14,13 @@ public static class LuaBinder
 		LuaBehaviourWrap.Register(L);
 		GameResFactoryWrap.Register(L);
 		LuaHelperWrap.Register(L);
-		LeanTweenWrap.Register(L);
 		LeanTweenTypeWrap.Register(L);
 		LTBezierWrap.Register(L);
 		LTBezierPathWrap.Register(L);
 		LTEventWrap.Register(L);
-		LTRectWrap.Register(L);
 		LTSplineWrap.Register(L);
+		LeanTweenWrap.Register(L);
+		LeanAudioWrap.Register(L);
 		L.BeginModule("UnityEngine");
 		UnityEngine_ComponentWrap.Register(L);
 		UnityEngine_BehaviourWrap.Register(L);
