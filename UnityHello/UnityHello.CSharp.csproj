@@ -176,8 +176,11 @@
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_ButtonWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_GraphicWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_ImageWrap.cs" />
+    <Compile Include="Assets\Source\Generate\UnityEngine_UI_InputFieldWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_MaskableGraphicWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_SelectableWrap.cs" />
+    <Compile Include="Assets\Source\Generate\UnityEngine_UI_TextWrap.cs" />
+    <Compile Include="Assets\Source\Generate\UnityEngine_UI_ToggleWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_WWWWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_WrapModeWrap.cs" />
     <Compile Include="Assets\Source\LuaConst.cs" />

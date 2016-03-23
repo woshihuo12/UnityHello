@@ -6,7 +6,7 @@ UISessionID =
 {
     Invaild = 1,
     UITopbar = 2,
-    UINotice = 3,
+    UIMessageBox = 3,
 }
 
 -- endregion

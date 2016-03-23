@@ -24,18 +24,52 @@ function UIManager:Reset()
     self.backSequence:Clear()
 end
 
-function UIManager:ShowSession(sessionID, uiSession, showSessionData)
-    self:_InternalShowSession(sessionID, uiSession, showSessionData,
-    function(prepareSession)
-        if prepareSession ~= nil then
-            self:RealShowSession(sessionID, prepareSession)
+function UIManager:ShowSession(sessionID, uiSession, showSessionData, doneHandler)
+
+    if self.shownSessions[sessionID] ~= nil then
+        return
+    end
+
+    local cacheSession = self.allSessions[sessionID]
+    if not cacheSession then
+        local parentRt = self:GetSessionRoot(uiSession.sessionData.sessionType)
+        GameResFactory.Instance():GetUIPrefab(showSessionData.prefabName, parentRt,
+        function(go)
+            if not uiSession then
+                error("ui session id:" .. sessionID .. " is null.")
+                return
+            end
+
+            uiSession:OnPostLoad(go)
+            self.allSessions[sessionID] = uiSession
+
+            uiSession:ResetWindow()
+
+            -- 导航系统数据更新
+            self:RefreshBackSequenceData(uiSession)
+
+            self:RealShowSession(sessionID, uiSession)
             -- 是否清空当前导航信息(回到主菜单)
-            if prepareSession.sessionData.isStartWindow or
+            if uiSession.sessionData.isStartWindow or
                 (showSessionData ~= nil and showSessionData.isForceClearBackSeqData) then
                 self:ClearBackSequence()
             end
+        end )
+    else
+        if showSessionData ~= nil and showSessionData.isForceResetWindow then
+            cacheSession:ResetWindow()
         end
-    end )
+
+        -- 导航系统数据更新
+        RefreshBackSequenceData(cacheSession)
+
+        self:RealShowSession(sessionID, uiSession)
+        -- 是否清空当前导航信息(回到主菜单)
+        if uiSession.sessionData.isStartWindow or
+            (showSessionData ~= nil and showSessionData.isForceClearBackSeqData) then
+            self:ClearBackSequence()
+        end
+    end
 end
 
 local function CoShowSessionDelay(self, delayTime, sessionID, uiSession, showSessionData)

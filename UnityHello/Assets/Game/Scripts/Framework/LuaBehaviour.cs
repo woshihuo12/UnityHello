@@ -122,7 +122,7 @@ public class LuaBehaviour : MonoBehaviour
 
         mLuaTable["gameObject"] = gameObject;
         mLuaTable["transform"] = transform;
-        mLuaTable["this"] = this;
+        mLuaTable["luaBehaviour"] = this;
 
         LuaFunction awakeFunc = mLuaTable.GetLuaFunction("Awake") as LuaFunction;
         if (awakeFunc != null)
