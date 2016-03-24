@@ -116,6 +116,7 @@
     <Compile Include="Assets\Source\Generate\GameResFactoryWrap.cs" />
     <Compile Include="Assets\Source\Generate\LTBezierPathWrap.cs" />
     <Compile Include="Assets\Source\Generate\LTBezierWrap.cs" />
+    <Compile Include="Assets\Source\Generate\LTDescrImplWrap.cs" />
     <Compile Include="Assets\Source\Generate\LTEventWrap.cs" />
     <Compile Include="Assets\Source\Generate\LTSplineWrap.cs" />
     <Compile Include="Assets\Source\Generate\LeanAudioWrap.cs" />

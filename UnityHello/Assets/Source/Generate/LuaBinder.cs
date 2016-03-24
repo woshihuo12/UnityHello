@@ -15,6 +15,7 @@ public static class LuaBinder
 		GameResFactoryWrap.Register(L);
 		LuaHelperWrap.Register(L);
 		LeanTweenTypeWrap.Register(L);
+		LTDescrImplWrap.Register(L);
 		LTBezierWrap.Register(L);
 		LTBezierPathWrap.Register(L);
 		LTEventWrap.Register(L);
@@ -86,13 +87,14 @@ public static class LuaBinder
 		L.EndModule();
 		L.BeginModule("System");
 		L.RegFunction("Action", System_Action);
-		L.RegFunction("Action_object", System_Action_object);
 		L.RegFunction("Action_float", System_Action_float);
 		L.RegFunction("Action_float_float", System_Action_float_float);
-		L.RegFunction("Action_UnityEngine_Color", System_Action_UnityEngine_Color);
+		L.RegFunction("Action_float_object", System_Action_float_object);
 		L.RegFunction("Action_UnityEngine_Vector2", System_Action_UnityEngine_Vector2);
 		L.RegFunction("Action_UnityEngine_Vector3", System_Action_UnityEngine_Vector3);
-		L.RegFunction("Action_float_object", System_Action_float_object);
+		L.RegFunction("Action_UnityEngine_Vector3_object", System_Action_UnityEngine_Vector3_object);
+		L.RegFunction("Action_UnityEngine_Color", System_Action_UnityEngine_Color);
+		L.RegFunction("Action_object", System_Action_object);
 		L.RegFunction("Action_LTEvent", System_Action_LTEvent);
 		L.EndModule();
 		L.EndModule();
@@ -149,22 +151,6 @@ public static class LuaBinder
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int System_Action_object(IntPtr L)
-	{
-		try
-		{
-			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
-			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(System.Action<object>), func);
-			ToLua.Push(L, arg1);
-			return 1;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int System_Action_float(IntPtr L)
 	{
 		try
@@ -197,12 +183,12 @@ public static class LuaBinder
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int System_Action_UnityEngine_Color(IntPtr L)
+	static int System_Action_float_object(IntPtr L)
 	{
 		try
 		{
 			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
-			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(System.Action<UnityEngine.Color>), func);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(System.Action<float,object>), func);
 			ToLua.Push(L, arg1);
 			return 1;
 		}
@@ -245,12 +231,44 @@ public static class LuaBinder
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int System_Action_float_object(IntPtr L)
+	static int System_Action_UnityEngine_Vector3_object(IntPtr L)
 	{
 		try
 		{
 			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
-			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(System.Action<float,object>), func);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(System.Action<UnityEngine.Vector3,object>), func);
+			ToLua.Push(L, arg1);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int System_Action_UnityEngine_Color(IntPtr L)
+	{
+		try
+		{
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(System.Action<UnityEngine.Color>), func);
+			ToLua.Push(L, arg1);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int System_Action_object(IntPtr L)
+	{
+		try
+		{
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(System.Action<object>), func);
 			ToLua.Push(L, arg1);
 			return 1;
 		}

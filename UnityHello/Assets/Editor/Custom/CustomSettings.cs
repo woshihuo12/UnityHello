@@ -37,6 +37,9 @@ public static class CustomSettings
         
         //_DT(typeof(TestEventListener.OnClick)),
         //_DT(typeof(TestEventListener.VoidDelegate)),
+        /////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////
+        //_DT(typeof(Action))
     };
 
     //在这里添加你要导出注册到lua的类型列表
@@ -131,6 +134,7 @@ public static class CustomSettings
 
         /////////////////////////////////////LeanTween     
         _GT(typeof(LeanTweenType)),
+        _GT(typeof(LTDescrImpl)),
         _GT(typeof(LTBezier)),
         _GT(typeof(LTBezierPath)),
         _GT(typeof(LTEvent)),

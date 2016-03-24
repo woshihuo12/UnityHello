@@ -144,7 +144,14 @@ function UIMessageBox:ResetWindow(showParam)
         end
     end
 
---    PlayOpenWindowAnim(self.contentTr)
+    PlayOpenWindowAnim(self.contentTr, {
+        beforeHandler = function()
+            print("before handler")
+        end,
+        afterHandler = function()
+            print("after handler")
+        end
+    } )
 end
 
 function UIMessageBox:OnPreDestroy()
