@@ -34,9 +34,9 @@ public class LTSplineWrap
 		{
 			int count = LuaDLL.lua_gettop(L);
 
-			if (count == 1)
+			if (TypeChecker.CheckParamsType(L, typeof(UnityEngine.Vector3), 1, count))
 			{
-				UnityEngine.Vector3[] arg0 = ToLua.CheckObjectArray<UnityEngine.Vector3>(L, 1);
+				UnityEngine.Vector3[] arg0 = ToLua.CheckParamsObject<UnityEngine.Vector3>(L, 1, count);
 				LTSpline obj = new LTSpline(arg0);
 				ToLua.PushObject(L, obj);
 				return 1;
