@@ -105,6 +105,12 @@
     <Reference Include="Debugger">
       <HintPath>Assets\Plugins\Debugger.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>Assets\Editor\ExcelReader\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Excel">
+      <HintPath>Assets\Editor\ExcelReader\Excel.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="UnityHello.CSharp.csproj">
