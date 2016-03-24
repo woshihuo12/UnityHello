@@ -30,6 +30,7 @@
     <Compile Include="Lua\common\class.lua" />
     <Compile Include="Lua\common\functions.lua" />
     <Compile Include="Lua\common\init.lua" />
+    <Compile Include="Lua\common\simple_state_machine.lua" />
     <Compile Include="Lua\common\stack.lua" />
     <Compile Include="Lua\Main.lua" />
     <Compile Include="Lua\uiscripts\init.lua" />
