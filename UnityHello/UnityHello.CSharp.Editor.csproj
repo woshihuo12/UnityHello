@@ -99,17 +99,17 @@
     <Reference Include="UnityEditor.iOS.Extensions.Common">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
     </Reference>
+    <Reference Include="Excel">
+      <HintPath>Assets\Editor\ExcelReader\Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>Assets\Editor\ExcelReader\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="TexturePackerImporter">
       <HintPath>Assets\Editor\TPImport\TexturePackerImporter.dll</HintPath>
     </Reference>
     <Reference Include="Debugger">
       <HintPath>Assets\Plugins\Debugger.dll</HintPath>
-    </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>Assets\Editor\ExcelReader\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Excel">
-      <HintPath>Assets\Editor\ExcelReader\Excel.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -122,6 +122,7 @@
     <Compile Include="Assets\Editor\AssetBundleBuildTool.cs" />
     <Compile Include="Assets\Editor\CommandLineReader.cs" />
     <Compile Include="Assets\Editor\Custom\CustomSettings.cs" />
+    <Compile Include="Assets\Editor\ExcelReader\StringTableTool.cs" />
     <Compile Include="Assets\Editor\LeanTween\LeanTweenDocumentationEditor.cs" />
     <Compile Include="Assets\Editor\PackResTool.cs" />
     <Compile Include="Assets\Editor\Packager.cs" />
