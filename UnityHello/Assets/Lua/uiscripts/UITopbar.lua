@@ -17,7 +17,7 @@ function UITopbar:OnPostLoad()
         UIMessageBox.Show( {
             contentStr = "你好，范特西",
             btnNum = 1,
-            centerBtnStr = "确定",
+            centerBtnStr = StringTable.GetText("okTxt"),
             centerBtnHandler = function()
                 print("hello world.")
             end

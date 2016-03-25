@@ -116,6 +116,7 @@
     <Compile Include="Assets\Editor\AssetBundleBuildTool.cs" />
     <Compile Include="Assets\Editor\CommandLineReader.cs" />
     <Compile Include="Assets\Editor\Custom\CustomSettings.cs" />
+    <Compile Include="Assets\Editor\CustomEditorTool.cs" />
     <Compile Include="Assets\Editor\LeanTween\LeanTweenDocumentationEditor.cs" />
     <Compile Include="Assets\Editor\PackResTool.cs" />
     <Compile Include="Assets\Editor\Packager.cs" />

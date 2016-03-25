@@ -1,5 +1,8 @@
 -- 加载常用模块
 require "common/init"
+
+StringTable = require "globalization/zh/StringTable"
+
 require "uiscripts/init"
 
 require "uiscripts/UITopbar"
