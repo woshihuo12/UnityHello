@@ -24,6 +24,9 @@
   <ItemGroup>
     <Folder Include="Lua\" />
     <Folder Include="Lua\common\" />
+    <Folder Include="Lua\globalization\" />
+    <Folder Include="Lua\globalization\en\" />
+    <Folder Include="Lua\globalization\zh\" />
     <Folder Include="Lua\uiscripts\" />
   </ItemGroup>
   <ItemGroup>
@@ -32,11 +35,12 @@
     <Compile Include="Lua\common\init.lua" />
     <Compile Include="Lua\common\simple_state_machine.lua" />
     <Compile Include="Lua\common\stack.lua" />
+    <Compile Include="Lua\globalization\en\StringTable.lua" />
+    <Compile Include="Lua\globalization\zh\StringTable.lua" />
     <Compile Include="Lua\Main.lua" />
     <Compile Include="Lua\uiscripts\init.lua" />
     <Compile Include="Lua\uiscripts\UIManager.lua" />
     <Compile Include="Lua\uiscripts\UIMessageBox.lua" />
-    <Compile Include="Lua\uiscripts\UINotice.lua" />
     <Compile Include="Lua\uiscripts\UISession.lua" />
     <Compile Include="Lua\uiscripts\UISessionID.lua" />
     <Compile Include="Lua\uiscripts\UITopbar.lua" />
