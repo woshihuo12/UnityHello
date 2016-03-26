@@ -4,9 +4,9 @@
 
 UISessionID =
 {
-    Invaild = 1,
-    UITopbar = 2,
-    UIMessageBox = 3,
+    Invaild = "Invaild",
+    UITopbar = "UITopbar",
+    UIMessageBox = "UIMessageBox",
 }
 
 -- endregion

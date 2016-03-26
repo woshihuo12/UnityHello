@@ -7,13 +7,11 @@ local Text = UnityEngine.UI.Text
 UIMessageBox = class(UISession)
 
 function UIMessageBox.Show(args)
-    UIManager:Instance():ShowPopUp(UISessionID.UIMessageBox,
-    UIMessageBox(UISessionData(UISessionType.PopUp, UIShowMode.DoNothing)),
-    "UIMessageBox", true, args)
+    UIManager:Instance():ShowPopUp(UIMessageBox(UISessionData(UISessionType.PopUp, UISessionID.UIMessageBox)), true, args)
 end
 
 function UIMessageBox.Close()
-    UIManager:Instance():ClosePopUp(UISessionID.UIMessageBox)
+    UIManager:Instance():ClosePopUp()
 end
 
 function UIMessageBox:init(sessionData)
@@ -124,7 +122,7 @@ function UIMessageBox:_onEnterBtn3(args)
     end
 end
 
-function UIMessageBox:ResetWindow(showParam)
+function UIMessageBox:ResetWindow(args)
     self.contentLb.text = ""
     self.leftBtnTxt.text = ""
     self.centerBtnTxt.text = ""
@@ -134,24 +132,15 @@ function UIMessageBox:ResetWindow(showParam)
     self.centerBtnGo:SetActive(false)
     self.rightBtnGo:SetActive(false)
 
-    if showParam and showParam.args then
-        if showParam.btnNum == 2 then
-            self:_onEnterBtn2(showParam.args)
-        elseif showParam.btnNum == 3 then
-            self:_onEnterBtn3(showParam.args)
+    if args then
+        if args.btnNum == 2 then
+            self:_onEnterBtn2(args)
+        elseif args.btnNum == 3 then
+            self:_onEnterBtn3(args)
         else
-            self:_onEnterBtn1(showParam.args)
+            self:_onEnterBtn1(args)
         end
     end
-
-    PlayOpenWindowAnim(self.contentTr, {
-        beforeHandler = function()
-            print("before handler")
-        end,
-        afterHandler = function()
-            print("after handler")
-        end
-    } )
 end
 
 function UIMessageBox:EnterAnim(doneHandler)

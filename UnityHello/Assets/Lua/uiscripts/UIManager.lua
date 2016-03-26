@@ -15,7 +15,9 @@ function UIManager:init()
     -- 管理器级的锁定操作
     self.isLocked = false
 
-    self.uiLayer = UGameObject.Find("UILayer").transform
+    local uiLayerGo = UGameObject.Find("UILayer")
+    self.uiLayer = uiLayerGo.transform
+    UObject.DontDestroyOnLoad(uiLayerGo);
 
     assert(not tolua.isnull(self.uiLayer), "UILayer is cannot find~~~~~~")
 end
@@ -31,9 +33,12 @@ function UIManager:Reset()
     self.allSessions = { }
     self.shownSessions = { }
     self.backSequence:Clear()
+    self.popUpBackSequence:Clear()
 end
 
-function UIManager:ShowPopUp(sessionID, uiSession, isCloseCur, args, uiCommonHandler)
+function UIManager:ShowPopUp(uiSession, isCloseCur, args, uiCommonHandler)
+    if not uiSession then return end
+    local sessionID = uiSession.sessionID
 
     if self.shownSessions[sessionID] ~= nil then
         return
@@ -107,14 +112,17 @@ function UIManager:CloseCurrentSession()
 
         local curTopSession = self.backSequence:Peek()
         local curTopSessionID = curTopSession:GetSessionID()
-        self:DestroySession(curTopSessionID, uicommonHandler)
+        self:DestroySession(curTopSessionID)
         if curSessionID == curTopSessionID then
             self.backSequence:Pop()
         end
     end
 end
 
-function UIManager:ShowSession(sessionID, uiSession, args, doneHandler)
+function UIManager:ShowSession(uiSession, args, doneHandler)
+    if not uiSession then return end
+    local sessionID = uiSession.sessionID
+
     if self.shownSessions[sessionID] ~= nil then
         return
     end
@@ -135,12 +143,14 @@ function UIManager:ShowSession(sessionID, uiSession, args, doneHandler)
 
         uiSession:ResetWindow(args)
         uiSession:ShowSession()
+        uiSession:EnterAnim()
+
         self.shownSessions[sessionID] = uiSession
 
         self.lastSession = self.currentSession
         self.currentSession = uiSession
 
-        self.backSequence:Push(sessionID)
+        self.backSequence:Push(uiSession)
 
         if doneHandler then
             doneHandler()
@@ -148,13 +158,13 @@ function UIManager:ShowSession(sessionID, uiSession, args, doneHandler)
     end )
 end
 
-local function CoShowSessionDelay(self, delayTime, sessionID, uiSession, prefabName, args)
+local function CoShowSessionDelay(self, delayTime, uiSession, args)
     coroutine.wait(delayTime)
-    self:ShowSession(sessionID, uiSession, prefabName, args)
+    self:ShowSession(uiSession, args)
 end
 
-function UIManager:ShowSessionDelay(delayTime, sessionID, uiSession, prefabName, args)
-    coroutine.start(CoShowSessionDelay, self, delayTime, sessionID, uiSession, prefabName, args)
+function UIManager:ShowSessionDelay(delayTime, uiSession, args)
+    coroutine.start(CoShowSessionDelay, self, delayTime, uiSession, args)
 end
 
 function UIManager:ChangeChildLayer(go, layer)
@@ -252,16 +262,15 @@ function UIManager:DestroySession(sessionID, uicommonHandler)
 end
 
 function UIManager:DoGoBack()
-    if not self.currentSession then
-        return false
-    end
+    if not self.currentSession then return false end
+
     if self.backSequence:Getn() == 0 then
         -- 如果当前BackSequenceData 不存在返回数据
         -- 检测lastSession
         local preSessionId = self.lastSession and self.lastSession:GetSessionID() or UISessionID.Invaild
         if preSessionId ~= UISessionID.Invaild then
             self:CloseCurrentSession()
-            self:ShowSession(preSessionId, self.lastSession)
+            self:ShowSession(self.lastSession)
             return true
         else
             return false
@@ -270,7 +279,7 @@ function UIManager:DoGoBack()
         local backSession = self.backSequence:Peek()
         if backSession then
             self:CloseCurrentSession()
-            self:ShowSession(backSession:GetSessionID(), backSession)
+            self:ShowSession(backSession)
         else
             return false
         end

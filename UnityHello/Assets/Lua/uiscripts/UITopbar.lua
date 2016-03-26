@@ -6,6 +6,10 @@ require "uiscripts/UIMessageBox"
 
 UITopbar = class(UISession)
 
+function UITopbar.ShowMe()
+    UIManager:Instance():ShowSession(UITopbar(UISessionData(UISessionType.Fixed, UISessionID.UITopbar)))
+end
+
 function UITopbar:init(sessionData)
     self._base.init(self, sessionData)
     self.sessionID = UISessionID.UITopbar

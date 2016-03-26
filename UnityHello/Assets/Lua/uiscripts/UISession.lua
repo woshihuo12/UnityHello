@@ -39,15 +39,6 @@ function UISessionData:init(sessionType, prefabName)
     self.prefabName = prefabName
 end
 
-UIShowParam = class()
--- Reset窗口
--- Clear导航信息
--- Prefab名字
--- Object 数据
-function UIShowParam:init(prefabName, args)
-    self.args = args
-end
-
 UISession = class()
 function UISession:init(sessionData)
     -- 如果需要可以添加一个BoxCollider屏蔽事件
@@ -55,8 +46,6 @@ function UISession:init(sessionData)
     self.isShown = false
     -- 当前界面ID
     self.sessionID = UISessionID.Invaild
-    -- 指向上一级界面ID(BackSequence无内容，返回上一级)
-    self.preSessionID = UISessionID.Invaild
     self.sessionData = sessionData
 end
 
