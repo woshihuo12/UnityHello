@@ -119,6 +119,7 @@ public static class CustomSettings
         _GT(typeof(Text)),
         _GT(typeof(Toggle)),
         _GT(typeof(InputField)),
+        _GT(typeof(Rect)),
 
         _GT(typeof(RectTransform)),
         _GT(typeof(RectTransformUtility)),
@@ -126,7 +127,8 @@ public static class CustomSettings
         _GT(typeof(UIBehaviour)),
         _GT(typeof(Selectable)),
         _GT(typeof(Button)),
-        _GT(typeof(UIRoot)),
+        _GT(typeof(Canvas)),        
+        _GT(typeof(GraphicRaycaster)),
 
         _GT(typeof(LuaBehaviour)),
         _GT(typeof(GameResFactory)),

@@ -4,11 +4,20 @@
 
 UIManager = class()
 function UIManager:init()
-    -- 所有 Session
+    -- 所有已加载的 Session
     self.allSessions = { }
     -- 当前正在显示的 Session
     self.shownSessions = { }
+    -- 普通窗口用来导航用到的堆栈
     self.backSequence = Stack:Create()
+    -- 弹出窗口用来导航用到的堆栈
+    self.popUpBackSequence = Stack:Create()
+    -- 管理器级的锁定操作
+    self.isLocked = false
+
+    self.uiLayer = UGameObject.Find("UILayer").transform
+
+    assert(not tolua.isnull(self.uiLayer), "UILayer is cannot find~~~~~~")
 end
 
 function UIManager:Instance()
@@ -89,15 +98,78 @@ function UIManager:ShowSessionDelay(delayTime, sessionID, uiSession, showSession
     coroutine.start(CoShowSessionDelay, self, delayTime, sessionID, uiSession, showSessionData)
 end
 
+function UIManager:ChangeChildLayer(go, layer)
+    go.layer = layer
+    local tmpTr = go.transform
+    for i = 0, tmpTr.childCount - 1 do
+        local child = tmpTr:GetChild(i)
+        child.gameObject.layer = layer
+        self:ChangeChildLayer(child, layer)
+    end
+end
+
+function UIManager:CreateLayerRoot(goName, sortOrder)
+    local tmpGo = UGameObject(goName)
+
+    local rtTransform = tmpGo:AddComponent(typeof(UnityEngine.RectTransform))
+
+    rtTransform:SetParent(self.uiLayer, false)
+
+    self:ChangeChildLayer(tmpGo, LayerMask.NameToLayer("UI"))
+
+    rtTransform.anchorMin = Vector2.zero
+    rtTransform.anchorMax = Vector2.one
+
+    rtTransform.offsetMax = Vector2.zero
+    rtTransform.offsetMin = Vector2.zero
+
+    local tmpCanvas = tmpGo:AddComponent(typeof(UnityEngine.Canvas))
+    tmpCanvas.overrideSorting = true
+    tmpCanvas.sortingOrder = sortOrder
+    tmpGo:AddComponent(typeof(UnityEngine.UI.GraphicRaycaster))
+
+    return rtTransform
+end
+
 function UIManager:GetSessionRoot(sessionType)
-    if sessionType == UISessionType.Fixed then
-        return UIRoot.Instance().mFixedRootRt
+
+    if sessionType == UISessionType.BackGround then
+        if not self.backGroundRoot then
+            self.backGroundRoot = self:CreateLayerRoot("BackGroundRoot", 2)
+        end
+        return self.backGroundRoot
     elseif sessionType == UISessionType.Normal then
-        return UIRoot.Instance().mNormalRootRt
+        if not self.normalRoot then
+            self.normalRoot = self:CreateLayerRoot("NormalRoot", 10)
+        end
+        return self.normalRoot
+    elseif sessionType == UISessionType.Fixed then
+        if not self.fixedRoot then
+            self.fixedRoot = self:CreateLayerRoot("FixedRoot", 250)
+        end
+        return self.fixedRoot
     elseif sessionType == UISessionType.PopUp then
-        return UIRoot.Instance().mPopupRootRt
+        if not self.popUpRoot then
+            self.popUpRoot = self:CreateLayerRoot("PopUpRoot", 500)
+        end
+        return self.popUpRoot
+    elseif sessionType == UISessionType.AbovePopUp then
+        if not self.abovePopUpRoot then
+            self.abovePopUpRoot = self:CreateLayerRoot("AbovePopUpRoot", 750)
+        end
+        return self.abovePopUpRoot
+    elseif sessionType == UISessionType.Tutorial then
+        if not self.tutorialRoot then
+            self.tutorialRoot = self:CreateLayerRoot("TutorialRoot", 1000)
+        end
+        return self.tutorialRoot
+    elseif sessionType == UISessionType.AboveTutorial then
+        if not self.aboveTutorialRoot then
+            self.aboveTutorialRoot = self:CreateLayerRoot("AboveTutorialRoot", 1250)
+        end
+        return self.aboveTutorialRoot
     else
-        return UIRoot.Instance().mNormalRootRt
+        return self.uiLayer
     end
 end
 

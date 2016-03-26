@@ -26,6 +26,7 @@ public static class DelegateFactory
 		dict.Add(typeof(UnityEngine.AudioClip.PCMSetPositionCallback), UnityEngine_AudioClip_PCMSetPositionCallback);
 		dict.Add(typeof(UnityEngine.UI.InputField.OnValidateInput), UnityEngine_UI_InputField_OnValidateInput);
 		dict.Add(typeof(UnityEngine.RectTransform.ReapplyDrivenProperties), UnityEngine_RectTransform_ReapplyDrivenProperties);
+		dict.Add(typeof(UnityEngine.Canvas.WillRenderCanvases), UnityEngine_Canvas_WillRenderCanvases);
 		dict.Add(typeof(System.Action<float>), System_Action_float);
 		dict.Add(typeof(System.Action<float,float>), System_Action_float_float);
 		dict.Add(typeof(System.Action<float,object>), System_Action_float_object);
@@ -295,6 +296,28 @@ public static class DelegateFactory
 		}
 
 		UnityEngine.RectTransform.ReapplyDrivenProperties d = (new UnityEngine_RectTransform_ReapplyDrivenProperties_Event(func)).Call;
+		return d;
+	}
+
+	class UnityEngine_Canvas_WillRenderCanvases_Event : LuaDelegate
+	{
+		public UnityEngine_Canvas_WillRenderCanvases_Event(LuaFunction func) : base(func) { }
+
+		public void Call()
+		{
+			func.Call();
+		}
+	}
+
+	public static Delegate UnityEngine_Canvas_WillRenderCanvases(LuaFunction func)
+	{
+		if (func == null)
+		{
+			UnityEngine.Canvas.WillRenderCanvases fn = delegate { };
+			return fn;
+		}
+
+		UnityEngine.Canvas.WillRenderCanvases d = (new UnityEngine_Canvas_WillRenderCanvases_Event(func)).Call;
 		return d;
 	}
 

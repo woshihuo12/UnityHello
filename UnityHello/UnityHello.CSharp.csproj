@@ -125,7 +125,6 @@
     <Compile Include="Assets\Source\Generate\LuaBehaviourWrap.cs" />
     <Compile Include="Assets\Source\Generate\LuaBinder.cs" />
     <Compile Include="Assets\Source\Generate\LuaHelperWrap.cs" />
-    <Compile Include="Assets\Source\Generate\UIRootWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_AnimationBlendModeWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_AnimationClipWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_AnimationStateWrap.cs" />
@@ -141,6 +140,7 @@
     <Compile Include="Assets\Source\Generate\UnityEngine_BoxColliderWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_CameraClearFlagsWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_CameraWrap.cs" />
+    <Compile Include="Assets\Source\Generate\UnityEngine_CanvasWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_CapsuleColliderWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_CharacterControllerWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_ColliderWrap.cs" />
@@ -166,6 +166,7 @@
     <Compile Include="Assets\Source\Generate\UnityEngine_QueueModeWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_RectTransformUtilityWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_RectTransformWrap.cs" />
+    <Compile Include="Assets\Source\Generate\UnityEngine_RectWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_RenderSettingsWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_RenderTextureWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_RendererWrap.cs" />
@@ -182,6 +183,7 @@
     <Compile Include="Assets\Source\Generate\UnityEngine_TrackedReferenceWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_TransformWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_ButtonWrap.cs" />
+    <Compile Include="Assets\Source\Generate\UnityEngine_UI_GraphicRaycasterWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_GraphicWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_ImageWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_InputFieldWrap.cs" />

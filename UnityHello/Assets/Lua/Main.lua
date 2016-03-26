@@ -7,6 +7,7 @@ require "uiscripts/init"
 
 require "uiscripts/UITopbar"
 
+UGameObject = UnityEngine.GameObject
 UObject = UnityEngine.Object
 
 -- 主入口函数。从这里开始lua逻辑

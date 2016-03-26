@@ -3,12 +3,20 @@
 -- 此文件由[BabeLua]插件自动生成
 UISessionType =
 {
-    -- 可推出界面(UIMainMenu等)
-    Normal = 1,
+    -- 背景层
+    BackGround = 1,
+    -- 普通界面(UIMainMenu等)
+    Normal = 2,
     -- 固定窗口(UITopBar等)
-    Fixed = 2,
+    Fixed = 3,
     -- 弹窗
-    PopUp = 3
+    PopUp = 4,
+    -- 游戏中需显示到弹窗上的
+    AbovePopUp = 5,
+    -- 新手指引
+    Tutorial = 6,
+    -- 新手指引上的比如跑马灯新闻
+    AboveTutorial = 7,
 }
 
 UIShowMode =
@@ -73,9 +81,12 @@ function UISession:init(sessionData)
     self.sessionData = sessionData
 end
 
-function UISession:OnPostLoad(gameObject)
-    self.gameObject = gameObject
-    self.transform = gameObject.transform
+-- 界面被加载后
+function UISession:OnPostLoad()
+end
+
+-- 界面被销毁前 
+function UISession:OnPreDestroy()
 end
 
 -- 重置窗口
@@ -84,6 +95,7 @@ end
 
 -- 显示窗口
 function UISession:ShowSession()
+    self.isLock = false
     self.isShown = true
     if not tolua.isnull(self.gameObject) then
         self.gameObject:SetActive(true)
@@ -118,9 +130,7 @@ function UISession:DestroySession(uiCommmonHandler)
         uiCommmonHandler.beforeHandler()
     end
 
-    if self.OnPreDestroy ~= nil then
-        self:OnPreDestroy()
-    end
+    self:OnPreDestroy()
 
     UObject.Destroy(self.gameObject)
 
