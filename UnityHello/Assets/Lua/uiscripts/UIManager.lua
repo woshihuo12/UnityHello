@@ -33,69 +33,128 @@ function UIManager:Reset()
     self.backSequence:Clear()
 end
 
-function UIManager:ShowSession(sessionID, uiSession, showSessionData, doneHandler)
+function UIManager:ShowPopUp(sessionID, uiSession, isCloseCur, args, uiCommonHandler)
 
     if self.shownSessions[sessionID] ~= nil then
         return
     end
 
-    local cacheSession = self.allSessions[sessionID]
-    if not cacheSession then
-        local parentRt = self:GetSessionRoot(uiSession.sessionData.sessionType)
-        GameResFactory.Instance():GetUIPrefab(showSessionData.prefabName, parentRt,
-        function(go)
-            if not uiSession then
-                error("ui session id:" .. sessionID .. " is null.")
+    local sessionData = uiSession.sessionData
+    if not sessionData then return end
+
+    if sessionData.sessionType ~= UISessionType.PopUp then
+        return
+    end
+
+    if isCloseCur then
+        local curTopPopSession = self.popUpBackSequence:Peek()
+        if curTopPopSession then
+            local curTopPopId = curTopPopSession:GetSessionID()
+            if curTopPopId == sessionID then
                 return
+            else
+                self.shownSessions[curTopPopId]:DestroySession()
+                self.shownSessions[curTopPopId] = nil
+                self.allSessions[curTopPopId] = nil
+                self.popUpBackSequence:Pop()
             end
-
-            uiSession:OnPostLoad()
-            self.allSessions[sessionID] = uiSession
-
-            uiSession:ResetWindow(showSessionData)
-
-            -- 导航系统数据更新
-            self:RefreshBackSequenceData(uiSession)
-
-            self:RealShowSession(sessionID, uiSession)
-            -- 是否清空当前导航信息(回到主菜单)
-            if uiSession.sessionData.isStartWindow or
-                (showSessionData ~= nil and showSessionData.isForceClearBackSeqData) then
-                self:ClearBackSequence()
-            end
-
-            if doneHandler then
-                doneHandler()
-            end
-        end )
-    else
-        if showSessionData ~= nil and showSessionData.isForceResetWindow then
-            cacheSession:ResetWindow()
         end
+    end
 
-        -- 导航系统数据更新
-        RefreshBackSequenceData(cacheSession)
+    if uiCommonHandler and uiCommonHandler.beforeHandler then
+        uiCommonHandler.beforeHandler()
+    end
 
-        self:RealShowSession(sessionID, cacheSession)
-        -- 是否清空当前导航信息(回到主菜单)
-        if cacheSession.sessionData.isStartWindow or
-            (showSessionData ~= nil and showSessionData.isForceClearBackSeqData) then
-            self:ClearBackSequence()
+    GameResFactory.Instance():GetUIPrefab(sessionData.prefabName, self:GetSessionRoot(UISessionType.PopUp),
+    function(go)
+        uiSession:OnPostLoad()
+        self.allSessions[sessionID] = uiSession
+
+        uiSession:ResetWindow(args)
+        uiSession:ShowSession()
+        uiSession:EnterAnim()
+
+        self.shownSessions[sessionID] = uiSession
+        self.popUpBackSequence:Push(uiSession)
+
+        if uiCommonHandler and uiCommonHandler.afterHandler then
+            uiCommonHandler.afterHandler()
         end
+    end )
+end
 
-        if doneHandler then
-            doneHandler()
+-- 关闭栈顶弹窗
+function UIManager:ClosePopUp(uiCommonHandler)
+    local topPopSession = self.popUpBackSequence:Peek()
+    if not topPopSession then
+        return
+    end
+
+    local topPopSessionID = topPopSession:GetSessionID()
+    topPopSession:QuitAnim( function()
+        topPopSession:DestroySession()
+        self.shownSessions[topPopSessionID] = nil
+        self.allSessions[topPopSessionID] = nil
+        self.popUpBackSequence:Pop()
+    end )
+end
+
+function UIManager:CloseCurrentSession()
+    -- 关闭当前界面
+    if self.currentSession then
+        local curSessionID = self.currentSession:GetSessionID()
+        if not curSessionID then return end
+
+        local curTopSession = self.backSequence:Peek()
+        local curTopSessionID = curTopSession:GetSessionID()
+        self:DestroySession(curTopSessionID, uicommonHandler)
+        if curSessionID == curTopSessionID then
+            self.backSequence:Pop()
         end
     end
 end
 
-local function CoShowSessionDelay(self, delayTime, sessionID, uiSession, showSessionData)
-    coroutine.wait(delayTime)
-    self:ShowSession(sessionID, uiSession, showSessionData)
+function UIManager:ShowSession(sessionID, uiSession, args, doneHandler)
+    if self.shownSessions[sessionID] ~= nil then
+        return
+    end
+
+    local sessionData = uiSession.sessionData
+    if not sessionData then return end
+
+    if sessionData.sessionType == UISessionType.PopUp then
+        return
+    end
+
+    self:CloseCurrentSession()
+
+    GameResFactory.Instance():GetUIPrefab(sessionData.prefabName, self:GetSessionRoot(sessionData.sessionType),
+    function(go)
+        uiSession:OnPostLoad()
+        self.allSessions[sessionID] = uiSession
+
+        uiSession:ResetWindow(args)
+        uiSession:ShowSession()
+        self.shownSessions[sessionID] = uiSession
+
+        self.lastSession = self.currentSession
+        self.currentSession = uiSession
+
+        self.backSequence:Push(sessionID)
+
+        if doneHandler then
+            doneHandler()
+        end
+    end )
 end
 
-function UIManager:ShowSessionDelay(delayTime, sessionID, uiSession, showSessionData)
-    coroutine.start(CoShowSessionDelay, self, delayTime, sessionID, uiSession, showSessionData)
+local function CoShowSessionDelay(self, delayTime, sessionID, uiSession, prefabName, args)
+    coroutine.wait(delayTime)
+    self:ShowSession(sessionID, uiSession, prefabName, args)
+end
+
+function UIManager:ShowSessionDelay(delayTime, sessionID, uiSession, prefabName, args)
+    coroutine.start(CoShowSessionDelay, self, delayTime, sessionID, uiSession, prefabName, args)
 end
 
 function UIManager:ChangeChildLayer(go, layer)
@@ -173,110 +232,10 @@ function UIManager:GetSessionRoot(sessionType)
     end
 end
 
-function UIManager:RefreshBackSequenceData(uiSession)
-    local sessionData = uiSession.sessionData
-    if uiSession:IsNeedRefreshBackSeqData() then
-        local dealBackSeq = true
-        if self.curShownNormalSession ~= nil then
-            if self.curShownNormalSession.sessionData.sessionShowMode == UIShowMode.NoNeedBack then
-                dealBackSeq = false
-                self:HideSession(uiSession:GetSessionID())
-            end
-        end
-
-        if dealBackSeq and table.nums(self.shownSessions) > 0 then
-
-            local newPushList = { }
-
-            for k, v in pairs(self.shownSessions) do
-                local needToHide = true
-                if sessionData.sessionShowMode == UIShowMode.NeedBack
-                    or v.sessionData.sessionType == UISessionType.Fixed then
-                    needToHide = false
-                end
-
-                if needToHide then
-                    -- HideOther类型 直接隐藏其他窗口
-                    v:HideSessionDirectly();
-                    self.shownSessions[k] = nil
-                end
-
-                if v:CanAddedToBackSeq() then
-                    table.insert(newPushList, v:GetSessionID())
-                end
-            end
-
-            if #newPushList > 0 then
-                local backData = UIBackSequenceData(uiSession, newPushList)
-                self.backSequence:Push(backData)
-            end
-        end
-    elseif sessionData.sessionShowMode == UIShowMode.NoNeedBack then
-        self:HideAllShownSessions(true)
-    end
-
-    self:CheckBackSequenceData(uiSession);
-end
-
--- 直接打开窗口
-function UIManager:ShowSessionForBack(sessionID)
-    if self.shownSessions[sessionID] ~= nil then
-        return
-    end
-
-    local uiSession = self.allSessions[sessionID]
-    if uiSession ~= nil then
-        uiSession:ShowSession()
-        self.shownSessions[sessionID] = uiSession;
-    end
-end
-
---  如果当前存在BackSequence数据
---  1.栈顶界面不是当前要显示的界面需要清空BackSequence(导航被重置)
---  2.栈顶界面是当前显示界面,如果类型为(NeedBack)则需要显示所有backShowTargets界面
-function UIManager:CheckBackSequenceData(uiSession)
-    local sessionData = uiSession.sessionData
-    if uiSession:IsNeedRefreshBackSeqData() then
-        if self.backSequence:Getn() > 0 then
-            local backData = self.backSequence:Peek()
-            if backData ~= nil then
-                -- 栈顶不是即将显示界面(导航序列被打断)
-                if backData.hideTargetSession:GetSessionID() ~= uiSession:GetSessionID() then
-                    self:CheckBackSequenceData()
-                else
-                    -- NeedBack类型要将backShowTargets界面显示
-                    if sessionData.sessionShowMode == UIShowMode.NeedBack
-                        and backData.backShowTargets ~= nil then
-                        for i, v in ipairs(backData.backShowTargets) do
-                            -- 保证最上面为currentShownWindow
-                            if i == #backData.backShowTargets then
-                                self.lastShownNormalSession = self.curShownNormalSession
-                                self.curShownNormalSession = self.allSessions[v]
-                            end
-                            self:ShowSessionForBack(v)
-                        end
-                    end
-                end
-            end
-        end
-    end
-end
-
-function UIManager:RealShowSession(sessionID, uiSession)
-    uiSession:ShowSession()
-    self.shownSessions[sessionID] = uiSession
-    if uiSession.sessionData.sessionType == UISessionType.Normal then
-        self.lastShownNormalSession = self.curShownNormalSession
-        self.curShownNormalSession = uiSession
-    end
-end
-
-
 function UIManager:HideSession(sessionID, uicommonHandler)
     if self.shownSessions[sessionID] == nil then
         return
     end
-
     self.shownSessions[sessionID]:HideSession(uicommonHandler)
     self.shownSessions[sessionID] = nil
 end
@@ -293,63 +252,47 @@ function UIManager:DestroySession(sessionID, uicommonHandler)
 end
 
 function UIManager:DoGoBack()
-    if self.backSequence:Getn() == 0 then
-        -- 如果当前BackSequenceData 不存在返回数据
-        -- 检测当前Window的preWindowId是否指向上一级合法菜单
-        if not self.curShownNormalSession then
-            return false
-        end
-
-        local preSessionId = self.curShownNormalSession.preSessionID
-        if preSessionId ~= UISessionID.Invaild then
-            self:HideSession(self.curShownNormalSession:GetSessionID(),
-            UICommonHandler(nil, function()
-                self:ShowSession(preSessionId, nil)
-            end ))
-        end
-
+    if not self.currentSession then
         return false
     end
-
-    local backData = self.backSequence:Peek()
-    if backData ~= nil and backData.hideTargetSession ~= nil then
-        local hideID = backData.hideTargetSession:GetSessionID()
-        if self.shownSessions[hideID] ~= nil then
-            self:HideSession(hideID,
-            UICommonHandler(nil,
-            function()
-                if backData.backShowTargets ~= nil then
-                    for i, v in ipairs(backData.backShowTargets) do
-                        self:ShowSessionForBack(v)
-                        if i == #backData.backShowTargets then
-                            self.lastShownNormalSession = self.curShownNormalSession
-                            self.curShownNormalSession = self.allSessions[v]
-                        end
-                    end
-                end
-                self.backSequence:Pop()
-            end ))
+    if self.backSequence:Getn() == 0 then
+        -- 如果当前BackSequenceData 不存在返回数据
+        -- 检测lastSession
+        local preSessionId = self.lastSession and self.lastSession:GetSessionID() or UISessionID.Invaild
+        if preSessionId ~= UISessionID.Invaild then
+            self:CloseCurrentSession()
+            self:ShowSession(preSessionId, self.lastSession)
+            return true
+        else
+            return false
+        end
+    else
+        local backSession = self.backSequence:Peek()
+        if backSession then
+            self:CloseCurrentSession()
+            self:ShowSession(backSession:GetSessionID(), backSession)
         else
             return false
         end
     end
-
-    return true
 end
 
 function UIManager:GoBack(preGoBackHandler)
-    if preGoBackHandler ~= nil then
+    if not preGoBackHandler then
         local needReturn = preGoBackHandler()
         if not needReturn then
             return false
         end
     end
-
     return self:DoGoBack()
 end
 
 function UIManager:ClearBackSequence()
     self.backSequence:Clear()
+end
+
+function UIManager:ClearPopUpBackSequence()
+    self.popUpBackSequence:Clear()
 end
 
 function UIManager:ClearAllSession()
@@ -359,6 +302,7 @@ function UIManager:ClearAllSession()
     self.allSessions = { }
     self.shownSessions = { }
     self.backSequence:Clear()
+    self.popUpBackSequence:Clear()
 end
 
 function UIManager:HideAllShownSessions(includeFixed)

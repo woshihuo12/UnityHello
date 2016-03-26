@@ -14,6 +14,7 @@ end
 function UITopbar:OnPostLoad()
     local leftBtn = self.transform:Find("leftBtn").gameObject
     self.luaBehaviour:AddClick(leftBtn, function()
+        print("hello world")
         UIMessageBox.Show( {
             contentStr = "你好，范特西",
             btnNum = 1,

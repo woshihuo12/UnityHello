@@ -7,13 +7,13 @@ local Text = UnityEngine.UI.Text
 UIMessageBox = class(UISession)
 
 function UIMessageBox.Show(args)
-    UIManager:Instance():ShowSession(UISessionID.UIMessageBox,
-    UIMessageBox(UISessionData(false, UISessionType.PopUp, UIShowMode.DoNothing)),
-    UIShowParam(true, false, "UIMessageBox", args))
+    UIManager:Instance():ShowPopUp(UISessionID.UIMessageBox,
+    UIMessageBox(UISessionData(UISessionType.PopUp, UIShowMode.DoNothing)),
+    "UIMessageBox", true, args)
 end
 
 function UIMessageBox.Close()
-    UIManager:Instance():DestroySession(UISessionID.UIMessageBox)
+    UIManager:Instance():ClosePopUp(UISessionID.UIMessageBox)
 end
 
 function UIMessageBox:init(sessionData)
@@ -152,6 +152,31 @@ function UIMessageBox:ResetWindow(showParam)
             print("after handler")
         end
     } )
+end
+
+function UIMessageBox:EnterAnim(doneHandler)
+    self:ResetAnim()
+    PlayOpenWindowAnim(self.contentTr, {
+        beforeHandler = function()
+            print("before handler")
+        end,
+        afterHandler = function()
+            print("after handler")
+            if doneHandler then
+                doneHandler()
+            end
+        end
+    } )
+end
+
+function UIMessageBox:ResetAnim(doneHandler)
+    self.contentTr.localScale = Vector3.zero
+end
+
+function UIMessageBox:QuitAnim(doneHandler)
+    if doneHandler then
+        doneHandler()
+    end
 end
 
 function UIMessageBox:OnPreDestroy()

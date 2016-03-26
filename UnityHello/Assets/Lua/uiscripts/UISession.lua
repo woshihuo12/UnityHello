@@ -19,18 +19,6 @@ UISessionType =
     AboveTutorial = 7,
 }
 
-UIShowMode =
-{
-    --
-    DoNothing = 1,
-    -- 关闭其他界面
-    HideOther = 2,
-    -- 点击返回按钮关闭当前,不关闭其他界面(需要调整好层级关系)
-    NeedBack = 3,
-    -- 关闭TopBar,关闭其他界面,不加入backSequence队列
-    NoNeedBack = 4,
-}
-
 UICommonHandler = class()
 function UICommonHandler:init(beforeHandler, afterHandler)
     self.beforeHandler = beforeHandler
@@ -44,17 +32,11 @@ function UIAnimHandler:init(beforeHandler, resetHandler, afterHandler)
     self.afterHandler = afterHandler
 end
 
+-- 界面状态数据
 UISessionData = class()
-function UISessionData:init(isStartWindow, sessionType, sessionShowMode)
-    self.isStartWindow = isStartWindow
+function UISessionData:init(sessionType, prefabName)
     self.sessionType = sessionType
-    self.sessionShowMode = sessionShowMode
-end
-
-UIBackSequenceData = class()
-function UIBackSequenceData:init(hideSession, backShowTargets)
-    self.hideTargetSession = hideSession
-    self.backShowTargets = backShowTargets
+    self.prefabName = prefabName
 end
 
 UIShowParam = class()
@@ -62,10 +44,7 @@ UIShowParam = class()
 -- Clear导航信息
 -- Prefab名字
 -- Object 数据
-function UIShowParam:init(isForceResetWindow, isForceClearBackSeqData, prefabName, args)
-    self.isForceResetWindow = isForceResetWindow
-    self.isForceClearBackSeqData = isForceClearBackSeqData
-    self.prefabName = prefabName
+function UIShowParam:init(prefabName, args)
     self.args = args
 end
 
@@ -102,6 +81,18 @@ function UISession:ShowSession()
     end
 end
 
+-- 显示动画
+function UISession:EnterAnim(doneHandler)
+end
+
+-- 退出动画
+function UISession:QuitAnim(doneHandler)
+end
+
+-- 重置动画
+function UISession:ResetAnim(doneHandler)
+end
+
 -- 隐藏窗口
 function UISession:HideSessionDirectly()
     self.isLock = true
@@ -136,29 +127,6 @@ function UISession:DestroySession(uiCommmonHandler)
 
     if uiCommmonHandler and uiCommmonHandler.afterHandler then
         uiCommmonHandler.afterHandler()
-    end
-end
-
-
--- 能否添加到导航数据中
-function UISession:CanAddedToBackSeq()
-    if self.sessionData.sessionType == UISessionType.PopUp then
-        return false
-    elseif self.sessionData.sessionType == UISessionType.Fixed then
-        return false
-    elseif self.sessionData.sessionShowMode == UIShowMode.NoNeedBack then
-        return false
-    else
-        return true
-    end
-end
-
-function UISession:IsNeedRefreshBackSeqData()
-    if self.sessionData.sessionShowMode == UIShowMode.HideOther
-        or self.sessionData.sessionShowMode == UIShowMode.NeedBack then
-        return true
-    else
-        return false
     end
 end
 
