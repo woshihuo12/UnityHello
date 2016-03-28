@@ -67,6 +67,11 @@ public class ResourceManager : Manager
         LoadAsset<GameObject>(abName, assetNames, null, func);
     }
 
+    public void LoadAssetPacker(string abName, string assetName, Action<UnityEngine.Object[]> func)
+    {
+        LoadAsset<AssetPacker>(abName, new string[] { assetName }, func, null);
+    }
+
     private string GetRealAssetPath(string abName)
     {
         if (abName.Equals(Tools.GetOS()))
@@ -136,12 +141,12 @@ public class ResourceManager : Manager
             if (assetNames.Length > 0)
             {
                 string prefabPath = assetNames[0];
-                GameObject prefab = Resources.Load<GameObject>(prefabPath);
+                T prefab = Resources.Load<T>(prefabPath);
                 if (prefab != null)
                 {
                     if (action != null)
                     {
-                        action(new GameObject[] { prefab });
+                        action(new T[] { prefab });
                     }
                 }
             }

@@ -12,7 +12,6 @@ public static class LuaBinder
 		DebuggerWrap.Register(L);
 		LuaBehaviourWrap.Register(L);
 		GameResFactoryWrap.Register(L);
-		LuaHelperWrap.Register(L);
 		LeanTweenTypeWrap.Register(L);
 		LTDescrImplWrap.Register(L);
 		LTBezierWrap.Register(L);
@@ -60,6 +59,7 @@ public static class LuaBinder
 		UnityEngine_WrapModeWrap.Register(L);
 		UnityEngine_QualitySettingsWrap.Register(L);
 		UnityEngine_RenderSettingsWrap.Register(L);
+		UnityEngine_SpriteWrap.Register(L);
 		UnityEngine_RectWrap.Register(L);
 		UnityEngine_RectTransformWrap.Register(L);
 		UnityEngine_RectTransformUtilityWrap.Register(L);

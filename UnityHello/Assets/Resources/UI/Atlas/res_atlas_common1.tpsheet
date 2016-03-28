@@ -4,10 +4,10 @@
 # To import these sprites into your Unity project, download "TexturePackerImporter":
 # http://www.codeandweb.com/texturepacker/unity
 #
-# $TexturePacker:SmartUpdate:bb03f7f2334f6d45e532222d59be9691:498d9f4f7990b29a5f2e1dafe2dec160:1407625d46fa8abff8e780c29cbbc19f$
+# $TexturePacker:SmartUpdate:f141a7decafef0f0dcee807edd4b7737:498d9f4f7990b29a5f2e1dafe2dec160:a6387c162a036e953e08ee779e0111bc$
 #
 :format=40000
-:texture=Common1.png
+:texture=res_atlas_common1.png
 :size=128x128
 
 blueBtn;1;61;32;32;0.5;0.5; 4;32;0;0;0;0;32;32;32; 2;1;2;3;0;1;3

@@ -17,11 +17,10 @@ function ui_topbar:init(session_data)
 end
 
 function ui_topbar:on_post_load()
-    print("hello on_post_load")
+
     local left_btn = self.transform:Find("leftBtn").gameObject
 
     self.lua_behaviour:AddClick(left_btn, function(go)
-        print("hello world")
         ui_messagebox.show( {
             content_str = "你好，范特西",
             btn_num = 1,
@@ -30,6 +29,13 @@ function ui_topbar:on_post_load()
                 print("hello world.")
             end
         } )
+    end )
+
+    local right_btn = self.transform:Find("rightBtn").gameObject
+    local right_btn_sp = right_btn:GetComponent(typeof(UImage))
+
+    self.lua_behaviour:AddClick(right_btn, function(go)
+         right_btn_sp.sprite = GameResFactory.Instance():GetResSprite("redBtn")
     end )
 end
 

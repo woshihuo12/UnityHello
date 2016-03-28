@@ -113,7 +113,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Editor\AssetBundleBuildTool.cs" />
     <Compile Include="Assets\Editor\CommandLineReader.cs" />
     <Compile Include="Assets\Editor\Custom\CustomSettings.cs" />
     <Compile Include="Assets\Editor\CustomEditorTool.cs" />

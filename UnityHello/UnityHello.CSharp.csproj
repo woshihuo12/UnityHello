@@ -86,7 +86,6 @@
     <Compile Include="Assets\Game\Scripts\Framework\GameSetting.cs" />
     <Compile Include="Assets\Game\Scripts\Framework\Locker.cs" />
     <Compile Include="Assets\Game\Scripts\Framework\LuaBehaviour.cs" />
-    <Compile Include="Assets\Game\Scripts\Framework\LuaHelper.cs" />
     <Compile Include="Assets\Game\Scripts\Framework\LuaManager.cs" />
     <Compile Include="Assets\Game\Scripts\Framework\Manager.cs" />
     <Compile Include="Assets\Game\Scripts\Framework\Message.cs" />
@@ -124,7 +123,6 @@
     <Compile Include="Assets\Source\Generate\LeanTweenWrap.cs" />
     <Compile Include="Assets\Source\Generate\LuaBehaviourWrap.cs" />
     <Compile Include="Assets\Source\Generate\LuaBinder.cs" />
-    <Compile Include="Assets\Source\Generate\LuaHelperWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_AnimationBlendModeWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_AnimationClipWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_AnimationStateWrap.cs" />
@@ -177,6 +175,7 @@
     <Compile Include="Assets\Source\Generate\UnityEngine_SleepTimeoutWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_SpaceWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_SphereColliderWrap.cs" />
+    <Compile Include="Assets\Source\Generate\UnityEngine_SpriteWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_Texture2DWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_TextureWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_TimeWrap.cs" />

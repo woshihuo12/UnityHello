@@ -117,6 +117,7 @@ public static class CustomSettings
         _GT(typeof(MaskableGraphic)),
         _GT(typeof(Image)),
         _GT(typeof(Text)),
+        _GT(typeof(Sprite)),
         _GT(typeof(Toggle)),
         _GT(typeof(InputField)),
         _GT(typeof(Rect)),
@@ -132,7 +133,6 @@ public static class CustomSettings
 
         _GT(typeof(LuaBehaviour)),
         _GT(typeof(GameResFactory)),
-        _GT(typeof(LuaHelper)), 
 
         /////////////////////////////////////LeanTween     
         _GT(typeof(LeanTweenType)),

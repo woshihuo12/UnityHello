@@ -15,7 +15,6 @@ public class testbbb : MonoBehaviour
     void Start()
     {
         Debug.Log("Start");
-        transform.GetComponent<Button>().onClick.AddListener(() => { Debug.Log("hhhhhhhhhhhhhhhhhh"); });
     }
 
     private void OnEnable()

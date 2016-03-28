@@ -1,22 +1,17 @@
 fileFormatVersion: 2
-guid: 638084fb7ee525a46bc0c6722265f781
-timeCreated: 1458547476
+guid: efc3ce76bcfc0384db13c736d10a77f6
+timeCreated: 1459155257
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName:
     21300000: blueBtn
-    21300002: darkBg
-    21300004: greenBtn
-    21300006: redBtn
-    21300008: yellowBtn
-    21300010: 1
-    21300012: 2
-    21300014: 3
-    21300016: 4
+    21300002: greenBtn
+    21300004: redBtn
+    21300006: yellowBtn
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -68,7 +63,7 @@ TextureImporter:
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 5, y: 5, z: 5, w: 5}
       outline:
       - - {x: -16, y: 16}
         - {x: -16, y: -16}
@@ -122,5 +117,5 @@ TextureImporter:
     outline: []
   spritePackingTag: 
   userData: 
-  assetBundleName: 
+  assetBundleName: res_atlas_common1
   assetBundleVariant: 
