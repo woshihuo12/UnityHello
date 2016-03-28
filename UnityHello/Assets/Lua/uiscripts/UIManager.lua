@@ -267,8 +267,8 @@ function UIManager:DoGoBack()
     if self.backSequence:Getn() == 0 then
         -- 如果当前BackSequenceData 不存在返回数据
         -- 检测lastSession
-        local preSessionId = self.lastSession and self.lastSession:GetSessionID() or UISessionID.Invaild
-        if preSessionId ~= UISessionID.Invaild then
+        local preSessionId = self.lastSession and self.lastSession:GetSessionID() or ui_session_id.invalid
+        if preSessionId ~= ui_session_id.invalid then
             self:CloseCurrentSession()
             self:ShowSession(self.lastSession)
             return true

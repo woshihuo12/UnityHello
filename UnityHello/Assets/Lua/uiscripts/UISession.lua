@@ -45,7 +45,7 @@ function UISession:init(sessionData)
     self.isLock = false
     self.isShown = false
     -- 当前界面ID
-    self.sessionID = UISessionID.Invaild
+    self.sessionID = ui_session_id.invalid
     self.sessionData = sessionData
 end
 

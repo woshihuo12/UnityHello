@@ -4,26 +4,26 @@
 
 local Text = UnityEngine.UI.Text
 
-UIMessageBox = class(UISession)
+ui_messagebox = class(UISession)
 
-function UIMessageBox.Show(args)
-    UIManager:Instance():ShowPopUp(UIMessageBox(UISessionData(UISessionType.PopUp, UISessionID.UIMessageBox)), true, args)
+function ui_messagebox.Show(args)
+    UIManager:Instance():ShowPopUp(ui_messagebox(UISessionData(UISessionType.PopUp, ui_session_id.ui_messagebox)), true, args)
 end
 
-function UIMessageBox.Close()
+function ui_messagebox.Close()
     UIManager:Instance():ClosePopUp()
 end
 
-function UIMessageBox:init(sessionData)
+function ui_messagebox:init(sessionData)
     self._base.init(self, sessionData)
-    self.sessionID = UISessionID.UIMessageBox
+    self.sessionID = ui_session_id.ui_messagebox
 end
 
-function UIMessageBox:OnPostLoad()
+function ui_messagebox:OnPostLoad()
     self.contentTr = self.transform:Find("content")
     local closeBtnGo = self.contentTr:Find("btnClose").gameObject
     self.luaBehaviour:AddClick(closeBtnGo, function()
-        UIMessageBox.Close()
+        ui_messagebox.Close()
     end )
     self.contentLb = self.contentTr:Find("desc"):GetComponent(typeof(Text))
 
@@ -37,7 +37,7 @@ function UIMessageBox:OnPostLoad()
     self.rightBtnTxt = self.rightBtnGo.transform:Find("txt"):GetComponent(typeof(Text))
 end
 
-function UIMessageBox:_onEnterBtn1(args)
+function ui_messagebox:_onEnterBtn1(args)
     self.centerBtnGo:SetActive(true)
     if args.centerBtnHandler then
         self.luaBehaviour:AddClick(self.centerBtnGo, function()
@@ -54,7 +54,7 @@ function UIMessageBox:_onEnterBtn1(args)
     end
 end
 
-function UIMessageBox:_onEnterBtn2(args)
+function ui_messagebox:_onEnterBtn2(args)
     self.leftBtnGo:SetActive(true)
     self.rightBtnGo:SetActive(true)
     if args.leftBtnHandler then
@@ -82,7 +82,7 @@ function UIMessageBox:_onEnterBtn2(args)
     end
 end
 
-function UIMessageBox:_onEnterBtn3(args)
+function ui_messagebox:_onEnterBtn3(args)
     self.leftBtnGo:SetActive(true)
     self.centerBtnGo:SetActive(true)
     self.rightBtnGo:SetActive(true)
@@ -122,7 +122,7 @@ function UIMessageBox:_onEnterBtn3(args)
     end
 end
 
-function UIMessageBox:ResetWindow(args)
+function ui_messagebox:ResetWindow(args)
     self.contentLb.text = ""
     self.leftBtnTxt.text = ""
     self.centerBtnTxt.text = ""
@@ -143,9 +143,9 @@ function UIMessageBox:ResetWindow(args)
     end
 end
 
-function UIMessageBox:EnterAnim(doneHandler)
+function ui_messagebox:EnterAnim(doneHandler)
     self:ResetAnim()
-    PlayOpenWindowAnim(self.contentTr, {
+    play_open_window_anim(self.contentTr, {
         beforeHandler = function()
             print("before handler")
         end,
@@ -158,17 +158,17 @@ function UIMessageBox:EnterAnim(doneHandler)
     } )
 end
 
-function UIMessageBox:ResetAnim(doneHandler)
+function ui_messagebox:ResetAnim(doneHandler)
     self.contentTr.localScale = Vector3.zero
 end
 
-function UIMessageBox:QuitAnim(doneHandler)
+function ui_messagebox:QuitAnim(doneHandler)
     if doneHandler then
         doneHandler()
     end
 end
 
-function UIMessageBox:OnPreDestroy()
+function ui_messagebox:OnPreDestroy()
     print("UIMessageBox:OnPreDestroy" .. self.gameObject.name)
 end
 -- endregion

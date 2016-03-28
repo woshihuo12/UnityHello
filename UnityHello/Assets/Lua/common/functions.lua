@@ -50,14 +50,14 @@ function table.removebyvalue(array, value, removeall)
 end
 
 
-function PlayOpenWindowAnim(trans, uiAnimHandler)
-    if uiAnimHandler and uiAnimHandler.beforeHandler then
-        uiAnimHandler.beforeHandler()
+function play_open_window_anim(trans, ui_animhandler)
+    if ui_animhandler and ui_animhandler.beforehandler then
+        ui_animhandler.beforehandler()
     end
     trans.localScale = Vector3.zero
     local ltDescr = LeanTween.scale(trans, Vector3.one, 0.2):setEase(LeanTweenType.easeOutBack)
-    if ltDescr and uiAnimHandler and uiAnimHandler.afterHandler then
-        ltDescr:setOnComplete(System.Action(uiAnimHandler.afterHandler))
+    if ltDescr and ui_animhandler and ui_animhandler.afterhandler then
+        ltDescr:setOnComplete(System.Action(ui_animhandler.afterhandler))
     end
 end
 -- endregion

@@ -2,24 +2,24 @@
 -- Date
 -- 此文件由[BabeLua]插件自动生成
 
-require "uiscripts/UIMessageBox"
+require "uiscripts/ui_messagebox"
 
-UITopbar = class(UISession)
+ui_topbar = class(UISession)
 
-function UITopbar.ShowMe()
-    UIManager:Instance():ShowSession(UITopbar(UISessionData(UISessionType.Fixed, UISessionID.UITopbar)))
+function ui_topbar.ShowMe()
+    UIManager:Instance():ShowSession(ui_topbar(UISessionData(UISessionType.Fixed, ui_session_id.ui_topbar)))
 end
 
-function UITopbar:init(sessionData)
+function ui_topbar:init(sessionData)
     self._base.init(self, sessionData)
-    self.sessionID = UISessionID.UITopbar
+    self.sessionID = ui_session_id.ui_topbar
 end
 
-function UITopbar:OnPostLoad()
+function ui_topbar:OnPostLoad()
     local leftBtn = self.transform:Find("leftBtn").gameObject
     self.luaBehaviour:AddClick(leftBtn, function()
         print("hello world")
-        UIMessageBox.Show( {
+        ui_messagebox.Show( {
             contentStr = "你好，范特西",
             btnNum = 1,
             centerBtnStr = StringTable.GetText("okTxt"),
@@ -30,7 +30,7 @@ function UITopbar:OnPostLoad()
     end )
 end
 
-function UITopbar:OnPreDestroy()
+function ui_topbar:OnPreDestroy()
     print("UITopBar:OnPreDestroy" .. self.gameObject.name)
 end
 -- endregion
