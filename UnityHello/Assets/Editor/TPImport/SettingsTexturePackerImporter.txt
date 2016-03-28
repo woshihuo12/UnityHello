@@ -1,5 +1,8 @@
 version: 2
 importPivots: 1
 tpsheetFileNames:
+- Assets/Resources/UI/Atlas/res_atlas_common1.tpsheet
 textureFileNames:
+- Assets/Resources/UI/Atlas/res_atlas_common1.png
 normalmapFileNames:
+- 
