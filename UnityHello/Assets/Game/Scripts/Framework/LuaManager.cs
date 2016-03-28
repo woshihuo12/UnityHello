@@ -127,7 +127,7 @@ public class SimpleLuaClient : LuaClient
 
     public void OnLuaFilesLoaded()
     {
-        //OpenZbsDebugger();
+        OpenZbsDebugger();
 
         luaState.Start();
         StartLooper();

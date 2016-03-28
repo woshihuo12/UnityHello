@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class testbbb : MonoBehaviour
@@ -14,6 +15,7 @@ public class testbbb : MonoBehaviour
     void Start()
     {
         Debug.Log("Start");
+        transform.GetComponent<Button>().onClick.AddListener(() => { Debug.Log("hhhhhhhhhhhhhhhhhh"); });
     }
 
     private void OnEnable()
@@ -29,6 +31,6 @@ public class testbbb : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Update");
+        //Debug.Log("Update");
     }
 }

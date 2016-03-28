@@ -122,7 +122,7 @@ public class LuaBehaviour : MonoBehaviour
 
         mLuaTable["gameObject"] = gameObject;
         mLuaTable["transform"] = transform;
-        mLuaTable["luaBehaviour"] = this;
+        mLuaTable["lua_behaviour"] = this;
 
         LuaFunction awakeFunc = mLuaTable.GetLuaFunction("Awake") as LuaFunction;
         if (awakeFunc != null)
@@ -260,7 +260,10 @@ public class LuaBehaviour : MonoBehaviour
             go.GetComponent<Button>().onClick.AddListener(
                 delegate()
                 {
-                    luafunc.Call(go);
+                    luafunc.BeginPCall();
+                    luafunc.Push(go);
+                    luafunc.PCall();
+                    luafunc.EndPCall();
                 }
             );
         }

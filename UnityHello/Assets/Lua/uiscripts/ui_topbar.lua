@@ -4,33 +4,36 @@
 
 require "uiscripts/ui_messagebox"
 
-ui_topbar = class(UISession)
+ui_topbar = class(ui_session)
 
-function ui_topbar.ShowMe()
-    UIManager:Instance():ShowSession(ui_topbar(UISessionData(UISessionType.Fixed, ui_session_id.ui_topbar)))
+function ui_topbar.show_me()
+    local sd = ui_session_data(ui_session_type.fixed, ui_session_id.ui_topbar)
+    ui_manager:instance():show_session(ui_topbar(sd))
 end
 
-function ui_topbar:init(sessionData)
-    self._base.init(self, sessionData)
-    self.sessionID = ui_session_id.ui_topbar
+function ui_topbar:init(session_data)
+    self._base.init(self, session_data)
+    self.session_id = ui_session_id.ui_topbar
 end
 
-function ui_topbar:OnPostLoad()
-    local leftBtn = self.transform:Find("leftBtn").gameObject
-    self.luaBehaviour:AddClick(leftBtn, function()
+function ui_topbar:on_post_load()
+    print("hello on_post_load")
+    local left_btn = self.transform:Find("leftBtn").gameObject
+
+    self.lua_behaviour:AddClick(left_btn, function(go)
         print("hello world")
-        ui_messagebox.Show( {
-            contentStr = "你好，范特西",
-            btnNum = 1,
-            centerBtnStr = StringTable.GetText("okTxt"),
-            centerBtnHandler = function()
+        ui_messagebox.show( {
+            content_str = "你好，范特西",
+            btn_num = 1,
+            center_btn_str = string_table.get_text("okTxt"),
+            center_btn_handler = function()
                 print("hello world.")
             end
         } )
     end )
 end
 
-function ui_topbar:OnPreDestroy()
-    print("UITopBar:OnPreDestroy" .. self.gameObject.name)
+function ui_topbar:on_pre_destroy()
+    print("ui_topbar:on_pre_destroy" .. self.gameObject.name)
 end
 -- endregion

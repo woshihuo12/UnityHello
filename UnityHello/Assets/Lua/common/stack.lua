@@ -2,13 +2,13 @@
 -- Date
 -- 此文件由[BabeLua]插件自动生成
 
-Stack = { }
+stack = { }
 
-function Stack:Create()
+function stack:create()
     local t = { }
     t._et = { }
 
-    function t:Push(...)
+    function t:push(...)
         if ... then
             local targs = { ...}
             for _, v in ipairs(targs) do
@@ -17,7 +17,7 @@ function Stack:Create()
         end
     end
 
-    function t:Pop(num)
+    function t:pop(num)
         local num = num or 1
         local entries = { }
         for i = 1, num do
@@ -31,24 +31,24 @@ function Stack:Create()
         return unpack(entries)
     end
 
-    function t:Peek()
+    function t:peek()
         if #self._et ~= 0 then
             return self._et[#self._et]
         end
         return nil
     end
 
-    function t:Clear()
+    function t:clear()
         while #self._et ~= 0 do
             table.remove(self._et)
         end
     end
 
-    function t:Getn()
+    function t:getn()
         return #self._et
     end
 
-    function t:List()
+    function t:list()
         for i, v in pairs(self._et) do
             print(i, v)
         end

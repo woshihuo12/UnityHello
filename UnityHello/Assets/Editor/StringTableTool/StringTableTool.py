@@ -26,7 +26,7 @@ def handle_one_sheet(excel, sheet):
     sheet_name = sheet.name.replace(" ", "_")
     if not sheet_name.startswith("OUT_"):
         return
-    sheet_name = sheet_name[4:]
+    sheet_name = sheet_name[4:].lower()
     print(sheet_name + " sheet")
     excel["data"][sheet_name] = {}
 
@@ -64,6 +64,7 @@ def get_string(value):
 
 
 def write_sheet_to_lua_script(output_path, sheet_name, sheet):
+    sheet_name = sheet_name.lower()
     if not os.path.exists(output_path):
         os.mkdir(output_path)
     output_filename = output_path + "/" + sheet_name + ".lua"
@@ -86,9 +87,9 @@ def write_sheet_to_lua_script(output_path, sheet_name, sheet):
 
     outfp.write("}\n")
     outfp.write("\nfunction " + sheet_name +
-                ".GetText(key, ...)\n\treturn string.format(" + sheet_name + "[key], ...);\nend\n")
+                ".get_text(key, ...)\n\treturn string.format(" + sheet_name + "[key], ...);\nend\n")
     outfp.write("\nfunction " + sheet_name +
-                ".GetTempText(key, ...)\n\treturn string.format(key, ...);\nend\n")
+                ".get_temp_text(key, ...)\n\treturn string.format(key, ...);\nend\n")
 
     outfp.write("\nreturn " + sheet_name)
 
@@ -100,7 +101,7 @@ def write_to_lua_script(excel, output_path):
         os.mkdir(output_path)
     for (sheet_name, sheet) in excel["data"].items():
         global_dir = output_path + "\\" + sheet_name[12:]
-        write_sheet_to_lua_script(global_dir, "StringTable", sheet)
+        write_sheet_to_lua_script(global_dir, "string_table", sheet)
 
 
 def main():

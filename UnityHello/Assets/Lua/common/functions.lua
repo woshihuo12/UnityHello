@@ -51,13 +51,13 @@ end
 
 
 function play_open_window_anim(trans, ui_animhandler)
-    if ui_animhandler and ui_animhandler.beforehandler then
-        ui_animhandler.beforehandler()
+    if ui_animhandler and ui_animhandler.before_handler then
+        ui_animhandler.before_handler()
     end
     trans.localScale = Vector3.zero
     local ltDescr = LeanTween.scale(trans, Vector3.one, 0.2):setEase(LeanTweenType.easeOutBack)
-    if ltDescr and ui_animhandler and ui_animhandler.afterhandler then
-        ltDescr:setOnComplete(System.Action(ui_animhandler.afterhandler))
+    if ltDescr and ui_animhandler and ui_animhandler.after_handler then
+        ltDescr:setOnComplete(System.Action(ui_animhandler.after_handler))
     end
 end
 -- endregion
