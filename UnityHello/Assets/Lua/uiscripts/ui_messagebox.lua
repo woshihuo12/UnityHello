@@ -2,8 +2,6 @@
 -- Date
 -- 此文件由[BabeLua]插件自动生成
 
-local Text = UnityEngine.UI.Text
-
 ui_messagebox = class(ui_session)
 
 function ui_messagebox.show(args)
@@ -25,16 +23,16 @@ function ui_messagebox:on_post_load()
     self.lua_behaviour:AddClick(close_btn_go, function()
         ui_messagebox.close()
     end )
-    self.content_lb = self.content_tr:Find("desc"):GetComponent(typeof(Text))
+    self.content_lb = self.content_tr:Find("desc"):GetComponent(typeof(UText))
 
     self.left_btn_go = self.content_tr:Find("btnLeft").gameObject
-    self.left_btn_txt = self.left_btn_go.transform:Find("txt"):GetComponent(typeof(Text))
+    self.left_btn_txt = self.left_btn_go.transform:Find("txt"):GetComponent(typeof(UText))
 
     self.center_btn_go = self.content_tr:Find("btnCenter").gameObject
-    self.center_btn_txt = self.center_btn_go.transform:Find("txt"):GetComponent(typeof(Text))
+    self.center_btn_txt = self.center_btn_go.transform:Find("txt"):GetComponent(typeof(UText))
 
     self.right_btn_go = self.content_tr:Find("btnRight").gameObject
-    self.right_btn_txt = self.right_btn_go.transform:Find("txt"):GetComponent(typeof(Text))
+    self.right_btn_txt = self.right_btn_go.transform:Find("txt"):GetComponent(typeof(UText))
 end
 
 function ui_messagebox:_on_enter_btn1(args)
