@@ -23,6 +23,22 @@ public class CustomEditorTool : MonoBehaviour
         Process pro = Process.Start(info);
         pro.WaitForExit();
     }
+
+    [MenuItem("CustomEditorTool/Protobuf-Gen-Lua", false, 110)]
+    private static void ProtobufGenLua()
+    {
+        string dirName = Application.dataPath + "/Editor/protoc-gen-lua/example";
+        ProcessStartInfo info = new ProcessStartInfo();
+        info.FileName = dirName + "/make_proto.bat";
+        //info.Arguments = "";
+        info.WindowStyle = ProcessWindowStyle.Hidden;
+        info.UseShellExecute = true;
+        info.WorkingDirectory = dirName;
+        info.ErrorDialog = true;
+        UnityEngine.Debug.Log(info.WorkingDirectory);
+        Process pro = Process.Start(info);
+        pro.WaitForExit();
+    }
     //////////////
     //////////////
     /////////////
