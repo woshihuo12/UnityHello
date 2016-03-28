@@ -40,6 +40,14 @@ function ui_topbar:on_post_load()
                 msg.id = 1024
                 msg.name = 'foo'
                 msg.email = 'bar'
+                
+
+                local tmp_phtone = person_pb.Phone()
+                tmp_phtone.num = "5555"
+                tmp_phtone.type = 2
+
+                table.insert(msg.extensions[10], tmp_phtone)
+
                 self.pb_data = msg:SerializeToString()
                 print(self.pb_data)
             end,
@@ -47,7 +55,7 @@ function ui_topbar:on_post_load()
             right_btn_handler = function()
                 local msg = person_pb.Person()
                 msg:ParseFromString(self.pb_data)
-                print('person_pb decoder: ' .. tostring(msg))
+--                print('person_pb decoder: ' .. tostring(msg.phones[1].num))
             end
         } )
     end )

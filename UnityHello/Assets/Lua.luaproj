@@ -27,6 +27,7 @@
     <Folder Include="Lua\globalization\" />
     <Folder Include="Lua\globalization\en\" />
     <Folder Include="Lua\globalization\zh\" />
+    <Folder Include="Lua\protol\" />
     <Folder Include="Lua\uiscripts\" />
   </ItemGroup>
   <ItemGroup>
@@ -38,6 +39,7 @@
     <Compile Include="Lua\globalization\en\string_table.lua" />
     <Compile Include="Lua\globalization\zh\string_table.lua" />
     <Compile Include="Lua\Main.lua" />
+    <Compile Include="Lua\protol\person_pb.lua" />
     <Compile Include="Lua\uiscripts\init.lua" />
     <Compile Include="Lua\uiscripts\ui_manager.lua" />
     <Compile Include="Lua\uiscripts\ui_messagebox.lua" />
