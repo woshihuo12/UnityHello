@@ -6,13 +6,13 @@ PERSON = protobuf.Descriptor();
 PERSON_ID_FIELD = protobuf.FieldDescriptor();
 PERSON_NAME_FIELD = protobuf.FieldDescriptor();
 PERSON_EMAIL_FIELD = protobuf.FieldDescriptor();
+PERSON_PHONES_FIELD = protobuf.FieldDescriptor();
 PHONE = protobuf.Descriptor();
 PHONE_PHONE_TYPE = protobuf.EnumDescriptor();
 PHONE_PHONE_TYPE_MOBILE_ENUM = protobuf.EnumValueDescriptor();
 PHONE_PHONE_TYPE_HOME_ENUM = protobuf.EnumValueDescriptor();
 PHONE_NUM_FIELD = protobuf.FieldDescriptor();
 PHONE_TYPE_FIELD = protobuf.FieldDescriptor();
-PHONE_PHONES_FIELD = protobuf.FieldDescriptor();
 
 PERSON_ID_FIELD.name = "id"
 PERSON_ID_FIELD.full_name = ".Person.id"
@@ -44,11 +44,22 @@ PERSON_EMAIL_FIELD.default_value = ""
 PERSON_EMAIL_FIELD.type = 9
 PERSON_EMAIL_FIELD.cpp_type = 9
 
+PERSON_PHONES_FIELD.name = "phones"
+PERSON_PHONES_FIELD.full_name = ".Person.phones"
+PERSON_PHONES_FIELD.number = 10
+PERSON_PHONES_FIELD.index = 3
+PERSON_PHONES_FIELD.label = 3
+PERSON_PHONES_FIELD.has_default_value = false
+PERSON_PHONES_FIELD.default_value = {}
+PERSON_PHONES_FIELD.message_type = PHONE
+PERSON_PHONES_FIELD.type = 11
+PERSON_PHONES_FIELD.cpp_type = 10
+
 PERSON.name = "Person"
 PERSON.full_name = ".Person"
 PERSON.nested_types = {}
 PERSON.enum_types = {}
-PERSON.fields = {PERSON_ID_FIELD, PERSON_NAME_FIELD, PERSON_EMAIL_FIELD}
+PERSON.fields = {PERSON_ID_FIELD, PERSON_NAME_FIELD, PERSON_EMAIL_FIELD, PERSON_PHONES_FIELD}
 PERSON.is_extendable = true
 PERSON.extensions = {}
 PHONE_PHONE_TYPE_MOBILE_ENUM.name = "MOBILE"
@@ -81,26 +92,14 @@ PHONE_TYPE_FIELD.enum_type = PHONE_PHONE_TYPE
 PHONE_TYPE_FIELD.type = 14
 PHONE_TYPE_FIELD.cpp_type = 8
 
-PHONE_PHONES_FIELD.name = "phones"
-PHONE_PHONES_FIELD.full_name = ".Phone.phones"
-PHONE_PHONES_FIELD.number = 10
-PHONE_PHONES_FIELD.index = 0
-PHONE_PHONES_FIELD.label = 3
-PHONE_PHONES_FIELD.has_default_value = false
-PHONE_PHONES_FIELD.default_value = {}
-PHONE_PHONES_FIELD.message_type = PHONE
-PHONE_PHONES_FIELD.type = 11
-PHONE_PHONES_FIELD.cpp_type = 10
-
 PHONE.name = "Phone"
 PHONE.full_name = ".Phone"
 PHONE.nested_types = {}
 PHONE.enum_types = {PHONE_PHONE_TYPE}
 PHONE.fields = {PHONE_NUM_FIELD, PHONE_TYPE_FIELD}
 PHONE.is_extendable = false
-PHONE.extensions = {PHONE_PHONES_FIELD}
+PHONE.extensions = {}
 
 Person = protobuf.Message(PERSON)
 Phone = protobuf.Message(PHONE)
 
-Person.RegisterExtension(PHONE_PHONES_FIELD)

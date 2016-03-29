@@ -5,7 +5,7 @@
 ui_messagebox = class(ui_session)
 
 function ui_messagebox.show(args)
-    ui_manager:instance():show_popup(ui_messagebox(ui_session_data(ui_session_type.popup, ui_session_id.ui_messagebox)), true, args)
+    ui_manager:instance():show_popup(ui_messagebox(ui_session_data(ui_session_type.POPUP, ui_session_id.UI_MESSAGEBOX)), true, args)
 end
 
 function ui_messagebox.close()
@@ -14,7 +14,7 @@ end
 
 function ui_messagebox:init(sessionData)
     self._base.init(self, sessionData)
-    self.session_id = ui_session_id.ui_messagebox
+    self.session_id = ui_session_id.UI_MESSAGEBOX
 end
 
 function ui_messagebox:on_post_load()

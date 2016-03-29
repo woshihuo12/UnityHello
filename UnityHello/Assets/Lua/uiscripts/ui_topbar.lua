@@ -9,13 +9,13 @@ require "uiscripts/ui_messagebox"
 ui_topbar = class(ui_session)
 
 function ui_topbar.show_me()
-    local sd = ui_session_data(ui_session_type.fixed, ui_session_id.ui_topbar)
+    local sd = ui_session_data(ui_session_type.FIXED, ui_session_id.UI_TOPBAR)
     ui_manager:instance():show_session(ui_topbar(sd))
 end
 
 function ui_topbar:init(session_data)
     self._base.init(self, session_data)
-    self.session_id = ui_session_id.ui_topbar
+    self.session_id = ui_session_id.UI_TOPBAR
 end
 
 function ui_topbar:on_post_load()
@@ -42,12 +42,17 @@ function ui_topbar:on_post_load()
                 msg.name = 'foo'
                 msg.email = 'bar'
 
+                --                local tmp_phtone = msg.Extensions[person_pb.Phone.phones]:add()
 
-                local tmp_phtone = msg.Extensions[person_pb.Phone.phones]:add()
-
+                --                tmp_phtone.num = "12306"
+                --                tmp_phtone.type = person_pb.Phone.HOME
+                local tmp_phtone = msg.phones:add()
                 tmp_phtone.num = "12306"
                 tmp_phtone.type = person_pb.Phone.HOME
 
+                tmp_phtone = msg.phones:add()
+                tmp_phtone.num = "12308"
+                tmp_phtone.type = person_pb.Phone.MOBILE
 
                 self.pb_data = msg:SerializeToString()
                 print(self.pb_data)
@@ -56,7 +61,7 @@ function ui_topbar:on_post_load()
             right_btn_handler = function()
                 local msg = person_pb.Person()
                 msg:ParseFromString(self.pb_data)
-                print('person_pb decoder: ' .. tostring(msg.Extensions[person_pb.Phone.phones].num))
+                print('person_pb decoder: ' .. tostring(msg.phones[2].num))
             end
         } )
     end )

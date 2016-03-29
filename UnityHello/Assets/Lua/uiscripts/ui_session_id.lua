@@ -4,9 +4,9 @@
 
 ui_session_id =
 {
-    invalid = "invalid",
-    ui_topbar = "ui_topbar",
-    ui_messagebox = "ui_messagebox",
+    INVALID = "invalid",
+    UI_TOPBAR = "ui_topbar",
+    UI_MESSAGEBOX = "ui_messagebox",
 }
 
 -- endregion

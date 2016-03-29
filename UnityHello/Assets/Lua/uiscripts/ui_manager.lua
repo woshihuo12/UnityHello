@@ -48,7 +48,7 @@ function ui_manager:show_popup(ui_session, is_close_cur, args, uicommon_handler)
     local session_data = ui_session.session_data
     if not session_data then return end
 
-    if session_data.session_type ~= ui_session_type.popup then
+    if session_data.session_type ~= ui_session_type.POPUP then
         return
     end
 
@@ -71,7 +71,7 @@ function ui_manager:show_popup(ui_session, is_close_cur, args, uicommon_handler)
         uicommon_handler.before_handler()
     end
 
-    GameResFactory.Instance():GetUIPrefab(session_data.prefab_name, self:get_session_root(ui_session_type.popup),
+    GameResFactory.Instance():GetUIPrefab(session_data.prefab_name, self:get_session_root(ui_session_type.POPUP),
     function(go)
         ui_session:on_post_load()
         self._all_sessions[session_id] = ui_session
@@ -131,7 +131,7 @@ function ui_manager:show_session(ui_session, args, done_handler)
     local session_data = ui_session.session_data
     if not session_data then return end
 
-    if session_data.session_type == ui_session_type.popup then
+    if session_data.session_type == ui_session_type.POPUP then
         return
     end
 
@@ -203,37 +203,37 @@ end
 
 function ui_manager:get_session_root(session_type)
 
-    if session_type == ui_session_type.background then
+    if session_type == ui_session_type.BACKGROUND then
         if not self.background_root then
             self.background_root = self:create_layer_root("BackGroundRoot", 2)
         end
         return self.background_root
-    elseif session_type == ui_session_type.normal then
+    elseif session_type == ui_session_type.NORMAL then
         if not self.normal_root then
             self.normal_root = self:create_layer_root("NormalRoot", 10)
         end
         return self.normal_root
-    elseif session_type == ui_session_type.fixed then
+    elseif session_type == ui_session_type.FIXED then
         if not self.fixed_root then
             self.fixed_root = self:create_layer_root("FixedRoot", 250)
         end
         return self.fixed_root
-    elseif session_type == ui_session_type.popup then
+    elseif session_type == ui_session_type.POPUP then
         if not self.popup_root then
             self.popup_root = self:create_layer_root("PopUpRoot", 500)
         end
         return self.popup_root
-    elseif session_type == ui_session_type.above_popup then
+    elseif session_type == ui_session_type.ABOVE_POPUP then
         if not self.above_popup_root then
             self.above_popup_root = self:create_layer_root("AbovePopUpRoot", 750)
         end
         return self.above_popup_root
-    elseif session_type == ui_session_type.tutorial then
+    elseif session_type == ui_session_type.TUTORIAL then
         if not self.tutorial_root then
             self.tutorial_root = self:create_layer_root("TutorialRoot", 1000)
         end
         return self.tutorial_root
-    elseif session_type == ui_session_type.above_tutorial then
+    elseif session_type == ui_session_type.ABOVE_TUTORIAL then
         if not self.above_tutorial_root then
             self.above_tutorial_root = self:create_layer_root("AboveTutorialRoot", 1250)
         end
@@ -268,8 +268,8 @@ function ui_manager:do_go_back()
     if self._back_sequence:getn() == 0 then
         -- 如果当前BackSequenceData 不存在返回数据
         -- 检测lastSession
-        local pre_session_id = self.last_session and self.last_session:get_session_id() or ui_session_id.invalid
-        if pre_session_id ~= ui_session_id.invalid then
+        local pre_session_id = self.last_session and self.last_session:get_session_id() or ui_session_id.INVALID
+        if pre_session_id ~= ui_session_id.INVALID then
             self:close_current_session()
             self:show_session(self.last_session)
             return true
@@ -318,7 +318,7 @@ end
 function ui_manager:hide_all_shown_sessions(include_fixed)
     if not include_fixed then
         for k, v in pairs(self._shown_sessions) do
-            if v.session_data.session_type ~= ui_session_type.fixed then
+            if v.session_data.session_type ~= ui_session_type.FIXED then
                 v:hide_session_directly()
                 self._shown_sessions[k] = nil
             end

@@ -4,19 +4,19 @@
 ui_session_type =
 {
     -- 背景层
-    background = 1,
+    BACKGROUND = 1,
     -- 普通界面(UIMainMenu等)
-    normal = 2,
+    NORMAL = 2,
     -- 固定窗口(UITopBar等)
-    fixed = 3,
+    FIXED = 3,
     -- 弹窗
-    popup = 4,
+    POPUP = 4,
     -- 游戏中需显示到弹窗上的
-    above_popup = 5,
+    ABOVE_POPUP = 5,
     -- 新手指引
-    tutorial = 6,
+    TUTORIAL = 6,
     -- 新手指引上的比如跑马灯新闻
-    above_tutorial = 7,
+    ABOVE_TUTORIAL = 7,
 }
 
 ui_common_handler = class()
@@ -45,7 +45,7 @@ function ui_session:init(session_data)
     self.is_lock = false
     self.is_shown = false
     -- 当前界面ID
-    self.session_id = ui_session_id.invalid
+    self.session_id = ui_session_id.INVALID
     self.session_data = session_data
 end
 
