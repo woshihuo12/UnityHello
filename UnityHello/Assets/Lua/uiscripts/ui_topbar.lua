@@ -62,6 +62,10 @@ function ui_topbar:on_post_load()
                 local msg = person_pb.Person()
                 msg:ParseFromString(self.pb_data)
                 print('person_pb decoder: ' .. tostring(msg.phones[2].num))
+                for _, v in ipairs(msg.phones) do
+                    print(v.num)
+                    print(v.type)
+                end
             end
         } )
     end )
