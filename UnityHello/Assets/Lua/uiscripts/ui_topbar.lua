@@ -19,6 +19,7 @@ function ui_topbar:init(session_data)
 end
 
 function ui_topbar:on_post_load()
+    self._center_txt = self.transform:Find("centerTxt"):GetComponent(typeof(UText))
 
     local left_btn = self.transform:Find("leftBtn").gameObject
 
@@ -40,7 +41,7 @@ function ui_topbar:on_post_load()
                 msg.id = 1024
                 msg.name = 'foo'
                 msg.email = 'bar'
-                
+
 
                 local tmp_phtone = msg.Extensions[person_pb.Phone.phones]:add()
 
@@ -65,7 +66,20 @@ function ui_topbar:on_post_load()
 
     self.lua_behaviour:AddClick(right_btn, function(go)
         right_btn_sp.sprite = GameResFactory.Instance():GetResSprite("redBtn")
+        if self._cd_timer then
+            self._cd_timer:Stop()
+        end
     end )
+end
+
+function ui_topbar:reset_window(args)
+    self._center_txt.text = ""
+    self._cd_time = 60
+    self._cd_timer = Timer.New( function()
+        self._center_txt.text = tostring(self._cd_time)
+        self._cd_time = self._cd_time > 0 and self._cd_time - 1 or 0
+    end , 1, -1, false)
+    self._cd_timer:Start()
 end
 
 function ui_topbar:on_pre_destroy()
