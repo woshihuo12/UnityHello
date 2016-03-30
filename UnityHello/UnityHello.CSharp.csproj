@@ -93,6 +93,7 @@
     <Compile Include="Assets\Game\Scripts\Framework\ObjectCache.cs" />
     <Compile Include="Assets\Game\Scripts\Framework\ResourceManager.cs" />
     <Compile Include="Assets\Game\Scripts\Framework\SimpleDispose.cs" />
+    <Compile Include="Assets\Game\Scripts\Framework\SimplePoolManager.cs" />
     <Compile Include="Assets\Game\Scripts\Framework\SimpleTimerManager.cs" />
     <Compile Include="Assets\Game\Scripts\Framework\Singleton.cs" />
     <Compile Include="Assets\Game\Scripts\Framework\ThreadManager.cs" />
