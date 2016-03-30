@@ -22,7 +22,10 @@ https://github.com/chuxiang9007/xlsx2lua-language.git
 
 6：ZeroBraneStudio 调试lua程序：LuaManager.cs 下 SimpleLuaClient类 的public void OnLuaFilesLoaded() 方法里，将   //OpenZbsDebugger();注释解掉，将ZeroBraneStudio 下载到 D盘根目录，按照调试步骤就可以调试了。。
 
-关于Lua代码风格想说两句</br>
+</br>
+</br>
+</br>
+<b>关于Lua代码风格想说两句</b></br>
 自己之前也没接触过lua，当然也没写过。
 群里大神说ios和android都有不同程度的文件名大小写敏感问题，所以为了想避免打assetbundle过程中可能出现的潜在的坑位，我们需要对代码风格做出一些约束。由于随着程序员工人数的增多，基于lua语言的特点，为了方便大家交流，故做出一些风格上的约束：
 
