@@ -237,7 +237,7 @@ namespace SimplePM
         }
 
         private bool mDontDestroyOnLoad = false;
-        public bool DontDestroyOnLoad
+        public bool IsDontDestroyOnLoad
         {
             get
             {
@@ -332,7 +332,7 @@ namespace SimplePM
 
         private void Awake()
         {
-            if (DontDestroyOnLoad)
+            if (IsDontDestroyOnLoad)
             {
                 Object.DontDestroyOnLoad(gameObject);
             }
@@ -1090,7 +1090,7 @@ namespace SimplePM
                 }
                 else
                 {
-                    return LogMessages;
+                    return mLogMessages;
                 }
             }
         }
@@ -1285,6 +1285,7 @@ namespace SimplePM
         {
             return SpawnNew(Vector3.zero, Quaternion.identity);
         }
+
 
         public Transform SpawnNew(Vector3 pos, Quaternion rot)
         {

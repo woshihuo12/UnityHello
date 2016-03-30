@@ -81,6 +81,7 @@ public static class CustomSettings
         _GT(typeof(Light)),
         _GT(typeof(LightType)),
         _GT(typeof(SleepTimeout)),
+        _GT(typeof(UnityEngine.Experimental.Director.DirectorPlayer)),
         _GT(typeof(Animator)),
         _GT(typeof(Input)),
         _GT(typeof(KeyCode)),
@@ -121,6 +122,11 @@ public static class CustomSettings
         _GT(typeof(Toggle)),
         _GT(typeof(InputField)),
         _GT(typeof(Rect)),
+        _GT(typeof(VerticalLayoutGroup)),
+        _GT(typeof(HorizontalLayoutGroup)),
+        _GT(typeof(ContentSizeFitter)),
+        _GT(typeof(RectMask2D)),
+        _GT(typeof(LayoutElement)),
 
         _GT(typeof(RectTransform)),
         _GT(typeof(RectTransformUtility)),
@@ -143,7 +149,7 @@ public static class CustomSettings
         _GT(typeof(LTSpline)),
         _GT(typeof(LeanTween)),
         _GT(typeof(LeanAudio)),
-
+        /////////////////////////////////////LeanTween  end
     };
 
     public static List<Type> dynamicList = new List<Type>()
