@@ -27,6 +27,7 @@
     <Folder Include="Lua\globalization\" />
     <Folder Include="Lua\globalization\en\" />
     <Folder Include="Lua\globalization\zh\" />
+    <Folder Include="Lua\eventsystem\" />
     <Folder Include="Lua\protol\" />
     <Folder Include="Lua\uiscripts\" />
   </ItemGroup>
@@ -36,6 +37,10 @@
     <Compile Include="Lua\common\init.lua" />
     <Compile Include="Lua\common\simple_state_machine.lua" />
     <Compile Include="Lua\common\stack.lua" />
+    <Compile Include="Lua\eventsystem\event_define.lua" />
+    <Compile Include="Lua\eventsystem\event_dispatcher.lua" />
+    <Compile Include="Lua\eventsystem\event_manager.lua" />
+    <Compile Include="Lua\eventsystem\init.lua" />
     <Compile Include="Lua\globalization\en\string_table.lua" />
     <Compile Include="Lua\globalization\zh\string_table.lua" />
     <Compile Include="Lua\Main.lua" />
