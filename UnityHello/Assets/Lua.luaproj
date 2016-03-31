@@ -46,6 +46,7 @@
     <Compile Include="Lua\Main.lua" />
     <Compile Include="Lua\protol\person_pb.lua" />
     <Compile Include="Lua\uiscripts\init.lua" />
+    <Compile Include="Lua\uiscripts\ui_mainmenu.lua" />
     <Compile Include="Lua\uiscripts\ui_manager.lua" />
     <Compile Include="Lua\uiscripts\ui_messagebox.lua" />
     <Compile Include="Lua\uiscripts\ui_session.lua" />

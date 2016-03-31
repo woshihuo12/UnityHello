@@ -81,9 +81,13 @@ public static class LuaBinder
 		UnityEngine_UI_ContentSizeFitterWrap.Register(L);
 		UnityEngine_UI_RectMask2DWrap.Register(L);
 		UnityEngine_UI_LayoutElementWrap.Register(L);
+		UnityEngine_UI_ScrollbarWrap.Register(L);
 		UnityEngine_UI_SelectableWrap.Register(L);
 		UnityEngine_UI_ButtonWrap.Register(L);
 		UnityEngine_UI_GraphicRaycasterWrap.Register(L);
+		UnityEngine_UI_LoopScrollRectWrap.Register(L);
+		UnityEngine_UI_LoopVerticalScrollRectWrap.Register(L);
+		UnityEngine_UI_LoopHorizontalScrollRectWrap.Register(L);
 		L.EndModule();
 		L.BeginModule("EventSystems");
 		UnityEngine_EventSystems_UIBehaviourWrap.Register(L);

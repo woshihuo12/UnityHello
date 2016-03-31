@@ -111,8 +111,8 @@ public static class CustomSettings
         _GT(typeof(RenderSettings)),                                                   
         _GT(typeof(BlendWeights)),           
         _GT(typeof(RenderTexture)),
-        _GT(typeof(Rigidbody)),     
-    
+        _GT(typeof(Rigidbody)),
+
         ////////////////////////////////////////////
         _GT(typeof(Graphic)),
         _GT(typeof(MaskableGraphic)),
@@ -127,6 +127,7 @@ public static class CustomSettings
         _GT(typeof(ContentSizeFitter)),
         _GT(typeof(RectMask2D)),
         _GT(typeof(LayoutElement)),
+        _GT(typeof(Scrollbar)),
 
         _GT(typeof(RectTransform)),
         _GT(typeof(RectTransformUtility)),
@@ -139,6 +140,10 @@ public static class CustomSettings
 
         _GT(typeof(LuaBehaviour)),
         _GT(typeof(GameResFactory)),
+
+        _GT(typeof(LoopScrollRect)),
+        _GT(typeof(LoopVerticalScrollRect)),
+        _GT(typeof(LoopHorizontalScrollRect)),
 
         /////////////////////////////////////LeanTween     
         _GT(typeof(LeanTweenType)),

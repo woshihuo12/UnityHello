@@ -106,6 +106,9 @@
     <Compile Include="Assets\Game\Scripts\Interface\IManager.cs" />
     <Compile Include="Assets\Game\Scripts\Interface\IMessage.cs" />
     <Compile Include="Assets\Game\Scripts\Interface\IView.cs" />
+    <Compile Include="Assets\Game\Scripts\UI\LoopHorizontalScrollRect.cs" />
+    <Compile Include="Assets\Game\Scripts\UI\LoopScrollRect.cs" />
+    <Compile Include="Assets\Game\Scripts\UI\LoopVerticalScrollRect.cs" />
     <Compile Include="Assets\Game\Scripts\UI\UIRoot.cs" />
     <Compile Include="Assets\LeanTween\ILeanTween.cs" />
     <Compile Include="Assets\LeanTween\LTDescr.cs" />
@@ -190,8 +193,12 @@
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_ImageWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_InputFieldWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_LayoutElementWrap.cs" />
+    <Compile Include="Assets\Source\Generate\UnityEngine_UI_LoopHorizontalScrollRectWrap.cs" />
+    <Compile Include="Assets\Source\Generate\UnityEngine_UI_LoopScrollRectWrap.cs" />
+    <Compile Include="Assets\Source\Generate\UnityEngine_UI_LoopVerticalScrollRectWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_MaskableGraphicWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_RectMask2DWrap.cs" />
+    <Compile Include="Assets\Source\Generate\UnityEngine_UI_ScrollbarWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_SelectableWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_TextWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_ToggleWrap.cs" />

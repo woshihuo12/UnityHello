@@ -135,7 +135,9 @@ function ui_manager:show_session(ui_session, args, done_handler)
         return
     end
 
-    self:close_current_session()
+    if session_data.session_type == ui_session_type.NORMAL then
+        self:close_current_session()
+    end
 
     GameResFactory.Instance():GetUIPrefab(session_data.prefab_name, self:get_session_root(session_data.session_type),
     function(go)
@@ -148,8 +150,10 @@ function ui_manager:show_session(ui_session, args, done_handler)
 
         self._shown_sessions[session_id] = ui_session
 
-        self.last_session = self.current_session
-        self.current_session = ui_session
+        if session_data.session_type == ui_session_type.NORMAL then
+            self.last_session = self.current_session
+            self.current_session = ui_session
+        end
 
         self._back_sequence:push(ui_session)
 
