@@ -368,6 +368,17 @@ namespace UnityEngine.UI
             }
             mSpawnPool.MatchPoolScale = true;
             mSpawnPool.MatchPoolLayer = true;
+
+            SimplePM.PrefabPool pfPool = new SimplePM.PrefabPool(mCellPerfabGo.transform);
+            pfPool.PreLoadAmount = 2;
+            pfPool.PreLoadTime = false;
+            pfPool.LimitInstances = true;
+            pfPool.LimitAmount = 10;
+            pfPool.LimitFIFO = true;
+            pfPool.CullDespawned = false;
+
+            mSpawnPool.CreatePrefabPool(pfPool);
+            mSpawnPool.Add(mCellPerfabGo.transform, CellPrefabName, true, true);
         }
 
         protected virtual void DoInit()

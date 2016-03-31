@@ -34,7 +34,7 @@ end
 
 function ui_mainmenu_scene:on_post_load()
     self._loop_scroll_rect = self.transform:Find("contentPanel"):GetComponent(typeof(UnityEngine.UI.LoopVerticalScrollRect))
---    self:_load_cellbtn_prefab()
+    self:_load_cellbtn_prefab()
 end
 
 function ui_mainmenu_scene:reset_window(args)
