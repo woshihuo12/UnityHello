@@ -20,7 +20,9 @@ https://github.com/chuxiang9007/xlsx2lua-language.git
 
 5：leantween小示例：messagebox弹出动画就是leantween做的，为什么用leantween而没用dotween，是因为dotween不好导入tolua，leantween直接导就能用，所以就不纠结了。
 
-6：ZeroBraneStudio 调试lua程序：LuaManager.cs 下 SimpleLuaClient类 的public void OnLuaFilesLoaded() 方法里，将   //OpenZbsDebugger();注释解掉，将ZeroBraneStudio 下载到 D盘根目录，按照调试步骤就可以调试了。。
+6：ZeroBraneStudio 调试lua程序：LuaManager.cs 下 SimpleLuaClient类 的public void OnLuaFilesLoaded() 方法里，将   //OpenZbsDebugger();注释解掉，将ZeroBraneStudio 下载到 D盘根目录，按照调试步骤就可以调试了。
+
+5: Event使用小示例：点topbar右边按钮，顶部会有倒计时出现
 
 </br>
 </br>
