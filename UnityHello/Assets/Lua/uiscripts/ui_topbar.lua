@@ -4,9 +4,9 @@
 
 local person_pb = require "protol/person_pb"
 
-require "uiscripts/ui_messagebox"
+local ui_messagebox = require "uiscripts/ui_messagebox"
 
-ui_topbar = class(ui_session)
+local ui_topbar = class(ui_session)
 
 function ui_topbar.show_me()
     local sd = ui_session_data(ui_session_type.FIXED, ui_session_id.UI_TOPBAR)
@@ -101,4 +101,6 @@ end
 function ui_topbar:on_pre_destroy()
     print("ui_topbar:on_pre_destroy" .. self.gameObject.name)
 end
+
+return ui_topbar
 -- endregion

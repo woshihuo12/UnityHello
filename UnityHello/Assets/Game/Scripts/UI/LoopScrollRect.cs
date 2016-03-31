@@ -360,7 +360,7 @@ namespace UnityEngine.UI
 
         private void InitPerfabPool()
         {
-            mSpawnPool = SimplePM.SimplePoolManager.Instance().CreateSpawnPool(CellPrefabName, gameObject);
+            mSpawnPool = SimplePM.SimplePoolManager.Instance().CreateSpawnPool(CellPrefabName);
             if (mSpawnPool == null)
             {
                 Debug.LogWarning("mSpawnPool is null......");
@@ -567,8 +567,8 @@ namespace UnityEngine.UI
 
         private RectTransform InstantiateNextItem(int itemIdx)
         {
-            RectTransform nextItem = mSpawnPool.Spawn(mCellPerfabGo).GetComponent<RectTransform>();
-            nextItem.transform.SetParent(content, false);
+            RectTransform nextItem = mSpawnPool.Spawn(mCellPerfabGo, content).GetComponent<RectTransform>();
+            //nextItem.transform.SetParent(content, false);
             nextItem.gameObject.SetActive(true);
             nextItem.SendMessage("ScrollCellIndex", itemIdx, SendMessageOptions.DontRequireReceiver);
             return nextItem;

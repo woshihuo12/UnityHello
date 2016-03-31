@@ -1,16 +1,8 @@
 -- 加载常用模块
-require "common/init"
+require "init"
 
-string_table = require "globalization/zh/string_table"
-
-require "uiscripts/init"
-require "eventsystem/init"
-
-require "uiscripts/ui_topbar"
-require "uiscripts/ui_mainmenu_scene"
-
-UGameObject = UnityEngine.GameObject
-UObject = UnityEngine.Object
+local ui_topbar = require "uiscripts/ui_topbar"
+local ui_mainmenu_scene = require "uiscripts/ui_mainmenu_scene"
 
 -- 主入口函数。从这里开始lua逻辑
 function Main()

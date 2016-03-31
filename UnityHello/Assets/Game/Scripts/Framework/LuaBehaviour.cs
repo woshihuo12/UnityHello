@@ -107,19 +107,24 @@ public class LuaBehaviour : MonoBehaviour
         return true;
     }
 
-    private void Awake()
+    public void Init(LuaTable tb)
     {
         mLuaState = SimpleLuaClient.GetMainState();
         if (mLuaState == null) return;
 
-        mLuaTable = mLuaState.GetTable(name);
-
+        if (tb == null)
+        {
+            mLuaTable = mLuaState.GetTable(name);
+        }
+        else
+        {
+            mLuaTable = tb;
+        }
         if (mLuaTable == null)
         {
             Debug.LogWarning("mLuaTable is null:" + name);
             return;
         }
-
         mLuaTable["gameObject"] = gameObject;
         mLuaTable["transform"] = transform;
         mLuaTable["lua_behaviour"] = this;
@@ -136,6 +141,36 @@ public class LuaBehaviour : MonoBehaviour
             awakeFunc = null;
         }
     }
+
+    //private void Awake()
+    //{
+    //    mLuaState = SimpleLuaClient.GetMainState();
+    //    if (mLuaState == null) return;
+
+    //    mLuaTable = mLuaState.GetTable(name, false);
+
+    //    if (mLuaTable == null)
+    //    {
+    //        //Debug.LogWarning("mLuaTable is null:" + name);
+    //        return;
+    //    }
+
+    //    mLuaTable["gameObject"] = gameObject;
+    //    mLuaTable["transform"] = transform;
+    //    mLuaTable["lua_behaviour"] = this;
+
+    //    LuaFunction awakeFunc = mLuaTable.GetLuaFunction("Awake") as LuaFunction;
+    //    if (awakeFunc != null)
+    //    {
+    //        awakeFunc.BeginPCall();
+    //        awakeFunc.Push(mLuaTable);
+    //        awakeFunc.PCall();
+    //        awakeFunc.EndPCall();
+
+    //        awakeFunc.Dispose();
+    //        awakeFunc = null;
+    //    }
+    //}
 
     private void Start()
     {

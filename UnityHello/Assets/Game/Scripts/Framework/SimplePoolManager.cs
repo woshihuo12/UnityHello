@@ -607,11 +607,15 @@ namespace SimplePM
                 inst = tmpPool.SpawnInstance(pos, rot);
                 if (parent != null)
                 {
-                    inst.parent = parent;
+                    var worldPositionStays = !(inst is RectTransform);
+                    inst.SetParent(parent, worldPositionStays);
+                    //inst.parent = parent;
                 }
                 else
                 {
-                    inst.parent = Group;
+                    var worldPositionStays = !(inst is RectTransform);
+                    inst.SetParent(Group, worldPositionStays);
+                    //inst.parent = Group;
                 }
 
                 mSpawned.Add(inst);
@@ -757,10 +761,12 @@ namespace SimplePM
             return emitter;
         }
 
-        public void Despawn(Transform instance, Transform parent)
+        public void Despawn(Transform inst, Transform parent)
         {
-            instance.parent = parent;
-            Despawn(instance);
+            //instance.parent = parent;
+            var worldPositionStays = !(inst is RectTransform);
+            inst.SetParent(parent, worldPositionStays);
+            Despawn(inst);
         }
 
         private IEnumerator DoDespawnAfterSeconds(Transform instance, float seconds, bool useParent, Transform parent)

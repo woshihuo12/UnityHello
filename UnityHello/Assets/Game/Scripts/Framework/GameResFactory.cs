@@ -30,7 +30,7 @@ public class GameResFactory
         return mAssetPacker.GetSprite(spName);
     }
 
-    public void GetUIPrefab(string assetName, Transform parent, LuaFunction luaCallBack)
+    public void GetUIPrefab(string assetName, Transform parent, LuaTable luaTable, LuaFunction luaCallBack)
     {
         if (mResManager == null) return;
 
@@ -72,7 +72,8 @@ public class GameResFactory
                 rtTr.localScale = scale;
             }
 
-            go.AddComponent<LuaBehaviour>();
+            LuaBehaviour tmpBehaviour = go.AddComponent<LuaBehaviour>();
+            tmpBehaviour.Init(luaTable);
 
             if (luaCallBack != null)
             {

@@ -83,12 +83,13 @@ public class GameResFactoryWrap
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 4);
+			ToLua.CheckArgsCount(L, 5);
 			GameResFactory obj = (GameResFactory)ToLua.CheckObject(L, 1, typeof(GameResFactory));
 			string arg0 = ToLua.CheckString(L, 2);
 			UnityEngine.Transform arg1 = (UnityEngine.Transform)ToLua.CheckUnityObject(L, 3, typeof(UnityEngine.Transform));
-			LuaFunction arg2 = ToLua.CheckLuaFunction(L, 4);
-			obj.GetUIPrefab(arg0, arg1, arg2);
+			LuaTable arg2 = ToLua.CheckLuaTable(L, 4);
+			LuaFunction arg3 = ToLua.CheckLuaFunction(L, 5);
+			obj.GetUIPrefab(arg0, arg1, arg2, arg3);
 			return 0;
 		}
 		catch(Exception e)

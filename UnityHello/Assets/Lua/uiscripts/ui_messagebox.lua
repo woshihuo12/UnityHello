@@ -2,7 +2,7 @@
 -- Date
 -- 此文件由[BabeLua]插件自动生成
 
-ui_messagebox = class(ui_session)
+local ui_messagebox = class(ui_session)
 
 function ui_messagebox.show(args)
     ui_manager:instance():show_popup(ui_messagebox(ui_session_data(ui_session_type.POPUP, ui_session_id.UI_MESSAGEBOX)), true, args)
@@ -169,4 +169,6 @@ end
 function ui_messagebox:on_pre_destroy()
     print("ui_messagebox:on_pre_destroy" .. self.gameObject.name)
 end
+
+return ui_messagebox
 -- endregion

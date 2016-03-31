@@ -25,6 +25,7 @@ public class UnityEngine_CanvasWrap
 		L.RegVar("overrideSorting", get_overrideSorting, set_overrideSorting);
 		L.RegVar("sortingOrder", get_sortingOrder, set_sortingOrder);
 		L.RegVar("targetDisplay", get_targetDisplay, set_targetDisplay);
+		L.RegVar("sortingGridNormalizedSize", get_sortingGridNormalizedSize, set_sortingGridNormalizedSize);
 		L.RegVar("sortingLayerID", get_sortingLayerID, set_sortingLayerID);
 		L.RegVar("cachedSortingLayerValue", get_cachedSortingLayerValue, null);
 		L.RegVar("sortingLayerName", get_sortingLayerName, set_sortingLayerName);
@@ -371,6 +372,25 @@ public class UnityEngine_CanvasWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_sortingGridNormalizedSize(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Canvas obj = (UnityEngine.Canvas)o;
+			int ret = obj.sortingGridNormalizedSize;
+			LuaDLL.lua_pushinteger(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index sortingGridNormalizedSize on a nil value" : e.Message);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_sortingLayerID(IntPtr L)
 	{
 		object o = null;
@@ -621,6 +641,25 @@ public class UnityEngine_CanvasWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index targetDisplay on a nil value" : e.Message);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_sortingGridNormalizedSize(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Canvas obj = (UnityEngine.Canvas)o;
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			obj.sortingGridNormalizedSize = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index sortingGridNormalizedSize on a nil value" : e.Message);
 		}
 	}
 

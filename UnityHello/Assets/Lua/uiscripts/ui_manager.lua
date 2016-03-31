@@ -72,7 +72,7 @@ function ui_manager:show_popup(ui_session, is_close_cur, args, uicommon_handler)
     end
 
     GameResFactory.Instance():GetUIPrefab(session_data.prefab_name, self:get_session_root(ui_session_type.POPUP),
-    function(go)
+    ui_session, function(go)
         ui_session:on_post_load()
         self._all_sessions[session_id] = ui_session
 
@@ -140,7 +140,7 @@ function ui_manager:show_session(ui_session, args, done_handler)
     end
 
     GameResFactory.Instance():GetUIPrefab(session_data.prefab_name, self:get_session_root(session_data.session_type),
-    function(go)
+    ui_session, function(go)
         ui_session:on_post_load()
         self._all_sessions[session_id] = ui_session
 
