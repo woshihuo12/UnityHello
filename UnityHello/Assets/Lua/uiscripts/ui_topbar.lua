@@ -56,6 +56,10 @@ function ui_topbar:on_post_load()
 
                 self.pb_data = msg:SerializeToString()
                 print(self.pb_data)
+
+                if self._cd_timer then
+                    self._cd_timer:Stop()
+                end
             end,
             right_btn_str = string_table.get_text("noTxt"),
             right_btn_handler = function()
@@ -66,6 +70,7 @@ function ui_topbar:on_post_load()
                     print(v.num)
                     print(v.type)
                 end
+
             end
         } )
     end )
@@ -75,9 +80,8 @@ function ui_topbar:on_post_load()
 
     self.lua_behaviour:AddClick(right_btn, function(go)
         right_btn_sp.sprite = GameResFactory.Instance():GetResSprite("redBtn")
-        if self._cd_timer then
-            self._cd_timer:Stop()
-        end
+
+        event_dispatcher:instance().ui_event_manager:trigger_event(event_define.UI_EVENT_TEST)
     end )
 end
 
@@ -88,7 +92,10 @@ function ui_topbar:reset_window(args)
         self._center_txt.text = tostring(self._cd_time)
         self._cd_time = self._cd_time > 0 and self._cd_time - 1 or 0
     end , 1, -1, false)
-    self._cd_timer:Start()
+
+    event_dispatcher:instance().ui_event_manager:add_event_listener(event_define.UI_EVENT_TEST, function()
+        self._cd_timer:Start()
+    end )
 end
 
 function ui_topbar:on_pre_destroy()

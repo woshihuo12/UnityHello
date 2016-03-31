@@ -4,6 +4,7 @@ require "common/init"
 string_table = require "globalization/zh/string_table"
 
 require "uiscripts/init"
+require "eventsystem/init"
 
 require "uiscripts/ui_topbar"
 
