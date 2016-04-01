@@ -269,11 +269,18 @@ public class GameManager : Manager
     public void OnResourceInited()
     {
 #if ASYNC_MODE
-        ResManager.Initialize(Tools.GetOS(), delegate()
+        if (GameSetting.DevelopMode)
         {
-            Debug.Log("Initialize OK!!!");
             OnInitialize();
-        });
+        }
+        else
+        {
+            ResManager.Initialize(Tools.GetOS(), delegate()
+            {
+                Debug.Log("Initialize OK!!!");
+                OnInitialize();
+            });
+        }
 #else
         ResManager.Initialize();
         OnInitialize();
