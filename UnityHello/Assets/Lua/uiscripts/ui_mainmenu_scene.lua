@@ -27,7 +27,8 @@ function ui_mainmenu_scene:_load_cellbtn_prefab()
     GameResFactory.Instance():GetUIPrefab("ui_mainmenu_cellbtn", self._loop_scroll_rect.transform,
     ui_mainmenu_cellbtn(),
     function(go)
-         self._loop_scroll_rect.TotalCount = 10
+         self._loop_scroll_rect.InitInStart = false
+         self._loop_scroll_rect.TotalCount = 30
          self._loop_scroll_rect:Init(go) 
     end )
 end

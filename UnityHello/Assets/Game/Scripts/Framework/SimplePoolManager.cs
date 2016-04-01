@@ -1135,7 +1135,7 @@ namespace SimplePM
 
                 for (int i = 0; i < mSpawned.Count; ++i)
                 {
-                    tmp = mDespawned[i];
+                    tmp = mSpawned[i];
                     if (tmp == null) continue;
                     mSpawnPool.DestroyInstance(tmp.gameObject);
                 }

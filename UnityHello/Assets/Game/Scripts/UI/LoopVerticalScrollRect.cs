@@ -34,6 +34,8 @@ namespace UnityEngine.UI
 
         protected override bool UpdateItems(Bounds viewBounds, Bounds contentBounds)
         {
+            Debug.Log("mItemTypeStart:" + mItemTypeStart);
+            Debug.Log("mItemTypeEnd:" + mItemTypeEnd);
             bool changed = false;
             if (viewBounds.min.y < contentBounds.min.y + 1)
             {
