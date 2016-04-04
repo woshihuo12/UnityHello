@@ -497,7 +497,7 @@ namespace UnityEngine.UI
             {
                 RectTransform oldItem = content.GetChild(0) as RectTransform;
                 size = Mathf.Max(GetSize(oldItem), size);
-                mSpawnPool.Despawn(oldItem);
+                mSpawnPool.Despawn(oldItem, transform);
 
                 mItemTypeStart++;
 
@@ -557,7 +557,7 @@ namespace UnityEngine.UI
                 RectTransform oldItem = content.GetChild(content.childCount - 1) as RectTransform;
                 size = Mathf.Max(GetSize(oldItem), size);
                 //oldItem.SendMessage("ScrollCellReturn", SendMessageOptions.DontRequireReceiver);
-                mSpawnPool.Despawn(oldItem);
+                mSpawnPool.Despawn(oldItem, transform);
 
                 mItemTypeEnd--;
                 if (mItemTypeEnd % ContentConstraintCount == 0 || content.childCount == 0)
