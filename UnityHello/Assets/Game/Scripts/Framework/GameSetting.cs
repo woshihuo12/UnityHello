@@ -20,6 +20,9 @@ public class GameSetting
     public static bool LuaByteMode = false;                     //Lua字节码模式-默认关闭 
     public static bool LuaBundleMode = false;                    //Lua代码AssetBundle模式
 
+    public static int SocketPort = 0;                           //Socket服务器端口
+    public static string SocketAddress = string.Empty;          //Socket服务器地址
+
     public static string AssetPath
     {
         get

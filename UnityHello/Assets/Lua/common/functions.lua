@@ -49,6 +49,18 @@ function table.removebyvalue(array, value, removeall)
     return c
 end
 
+function get_data_by_sec(sec)
+    sec = sec < 0 and 0 or sec
+    local data =
+    {
+        day = math.floor(sec / 3600 / 24),
+        hour = math.floor(sec / 3600) % 24,
+        min = math.floor(sec % 3600 / 60),
+        sec = sec % 60,
+    }
+    return data
+end
+
 
 function play_open_window_anim(trans, ui_animhandler)
     if ui_animhandler and ui_animhandler.before_handler then

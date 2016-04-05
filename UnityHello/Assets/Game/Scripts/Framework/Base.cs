@@ -10,6 +10,7 @@ public class Base : MonoBehaviour
     private SimpleTimerManager mTimerManager;
     private ThreadManager mThreadManager;
     private GameManager mGameManager;
+    private NetworkManager mNetworkManager;
 
     protected void RegisterMessage(IView view, List<string> messages)
     {
@@ -92,6 +93,18 @@ public class Base : MonoBehaviour
                 mGameManager = GameFacade.GetManager<GameManager>();
             }
             return mGameManager;
+        }
+    }
+
+    protected NetworkManager NetManager
+    {
+        get
+        {
+            if (mNetworkManager == null)
+            {
+                mNetworkManager = GameFacade.GetManager<NetworkManager>();
+            }
+            return mNetworkManager;
         }
     }
 }

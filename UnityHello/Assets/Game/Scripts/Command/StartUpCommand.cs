@@ -14,6 +14,8 @@ public class StartUpCommand : ControllerCommand
 
         AppFacade.Instance.AddManager<LuaManager>();
         ResourceManager resMgr = AppFacade.Instance.AddManager<ResourceManager>();
+
+        AppFacade.Instance.AddManager<NetworkManager>();
         AppFacade.Instance.AddManager<ThreadManager>();
         AppFacade.Instance.AddManager<SimpleTimerManager>();
 
