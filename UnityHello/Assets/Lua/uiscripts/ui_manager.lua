@@ -110,19 +110,22 @@ function ui_manager:close_current_session()
     if self.current_session then
         local cur_session_id = self.current_session:get_session_id()
         if not cur_session_id then return end
-
-        local cur_top_session = self._back_sequence:peek()
-        if cur_top_session then
-            local cur_top_session_id = cur_top_session:get_session_id()
-            self:destroy_session(cur_top_session_id)
-            if cur_session_id == cur_top_session_id then
-                self._back_sequence:pop()
-            end
-        end
+        if cur_session_id == ui_session_id.INVALID then return end
+        --        if self._back_sequence:getn() <= 1 then return end
+        --        local cur_top_session = self._back_sequence:peek()
+        --        if cur_top_session then
+        --            local cur_top_session_id = cur_top_session:get_session_id()
+        --            if cur_session_id == cur_top_session_id then
+        --                self._back_sequence:pop()
+        --            end
+        --        end
+        self:destroy_session(cur_session_id)
     end
 end
 
-function ui_manager:show_session(ui_session, args, done_handler)
+function ui_manager:show_session(ui_session, need_push, args, done_handler)
+    if need_push == nil then need_push = true end
+
     if not ui_session then return end
     local session_id = ui_session:get_session_id()
 
@@ -153,9 +156,16 @@ function ui_manager:show_session(ui_session, args, done_handler)
         self._shown_sessions[session_id] = ui_session
 
         if session_data.session_type == ui_session_type.NORMAL then
-            self.last_session = self.current_session
+            if session_data.is_first_session then
+                self._back_sequence:clear()
+                self.last_session = nil
+            else
+                if need_push then
+                    self.last_session = self.current_session
+                    self._back_sequence:push(ui_session)
+                end
+            end
             self.current_session = ui_session
-            self._back_sequence:push(ui_session)
         end
 
         if done_handler then
@@ -164,9 +174,9 @@ function ui_manager:show_session(ui_session, args, done_handler)
     end )
 end
 
-local function co_show_session_delay(self, delay_time, ui_session, args)
+local function co_show_session_delay(self, delay_time, ui_session, need_push, args)
     coroutine.wait(delay_time)
-    self:show_session(ui_session, args)
+    self:show_session(ui_session, need_push, args)
 end
 
 function ui_manager:show_session_delay(delay_time, ui_session, args)
@@ -267,39 +277,45 @@ function ui_manager:destroy_session(session_id, uicommon_handler)
     self._all_sessions[session_id] = nil
 end
 
-function ui_manager:do_go_back()
+function ui_manager:do_go_back(args)
     if not self.current_session then return false end
 
     if self._back_sequence:getn() <= 1 then
         -- 如果当前BackSequenceData 不存在返回数据
         -- 检测lastSession
         local pre_session_id = self.last_session and self.last_session:get_session_id() or ui_session_id.INVALID
+
+        if pre_session_id == ui_session_id.INVALID then
+            pre_session_id = self.current_session.pre_session_id
+        end
+
         if pre_session_id ~= ui_session_id.INVALID then
-            self:close_current_session()
-            self:show_session(self.last_session)
+            self:show_session(self.last_session, false, args)
             return true
         else
+
             return false
         end
     else
         self._back_sequence:pop()
+
         local back_session = self._back_sequence:peek()
         if back_session then
-            self:show_session(back_session)
+            self:show_session(back_session, false, args)
         else
             return false
         end
     end
 end
 
-function ui_manager:go_back(pre_goback_handler)
+function ui_manager:go_back(pre_goback_handler, args)
     if pre_goback_handler then
         local need_return = pre_goback_handler()
         if not need_return then
             return false
         end
     end
-    return self:do_go_back()
+    return self:do_go_back(args)
 end
 
 function ui_manager:clear_back_sequence()

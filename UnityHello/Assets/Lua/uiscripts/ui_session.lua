@@ -34,9 +34,10 @@ end
 
 -- 界面状态数据
 ui_session_data = class()
-function ui_session_data:init(session_type, prefab_name)
+function ui_session_data:init(session_type, prefab_name, is_first_session)
     self.session_type = session_type
     self.prefab_name = prefab_name
+    self.is_first_session = is_first_session or false
 end
 
 ui_session = class()
@@ -46,6 +47,8 @@ function ui_session:init(session_data)
     self.is_shown = false
     -- 当前界面ID
     self.session_id = ui_session_id.INVALID
+    -- 最基本情况下此界面的上一界面id,用来应对back导航出现问题的时候
+    self.pre_session_id = ui_session_id.INVALID
     self.session_data = session_data
 end
 
