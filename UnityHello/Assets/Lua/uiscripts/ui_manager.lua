@@ -112,10 +112,12 @@ function ui_manager:close_current_session()
         if not cur_session_id then return end
 
         local cur_top_session = self._back_sequence:peek()
-        local cur_top_session_id = cur_top_session:get_session_id()
-        self:destroy_session(cur_top_session_id)
-        if cur_session_id == cur_top_session_id then
-            self._back_sequence:pop()
+        if cur_top_session then
+            local cur_top_session_id = cur_top_session:get_session_id()
+            self:destroy_session(cur_top_session_id)
+            if cur_session_id == cur_top_session_id then
+                self._back_sequence:pop()
+            end
         end
     end
 end
@@ -153,9 +155,8 @@ function ui_manager:show_session(ui_session, args, done_handler)
         if session_data.session_type == ui_session_type.NORMAL then
             self.last_session = self.current_session
             self.current_session = ui_session
+            self._back_sequence:push(ui_session)
         end
-
-        self._back_sequence:push(ui_session)
 
         if done_handler then
             done_handler()
@@ -269,7 +270,7 @@ end
 function ui_manager:do_go_back()
     if not self.current_session then return false end
 
-    if self._back_sequence:getn() == 0 then
+    if self._back_sequence:getn() <= 1 then
         -- 如果当前BackSequenceData 不存在返回数据
         -- 检测lastSession
         local pre_session_id = self.last_session and self.last_session:get_session_id() or ui_session_id.INVALID
@@ -281,9 +282,9 @@ function ui_manager:do_go_back()
             return false
         end
     else
+        self._back_sequence:pop()
         local back_session = self._back_sequence:peek()
         if back_session then
-            self:close_current_session()
             self:show_session(back_session)
         else
             return false
@@ -292,7 +293,7 @@ function ui_manager:do_go_back()
 end
 
 function ui_manager:go_back(pre_goback_handler)
-    if not pre_goback_handler then
+    if pre_goback_handler then
         local need_return = pre_goback_handler()
         if not need_return then
             return false

@@ -52,6 +52,7 @@
     <Compile Include="Lua\uiscripts\ui_messagebox.lua" />
     <Compile Include="Lua\uiscripts\ui_session.lua" />
     <Compile Include="Lua\uiscripts\ui_session_id.lua" />
+    <Compile Include="Lua\uiscripts\ui_teammanage_scene.lua" />
     <Compile Include="Lua\uiscripts\ui_topbar.lua" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />

@@ -14,23 +14,25 @@ https://github.com/chuxiang9007/xlsx2lua-language.git
 
 </br>
 
-1：基于texturepacker的ugui的使用，为什么用tp，实验它打的图集要比ugui的紧凑（整体都是用texturepacker打的图集拼的界面，framedebug可以看到dc是3（1个是默认就有的，说白了就是2个），topbar右边按钮点击下会变红色背景） 
+1：基于texturepacker的ugui的使用，为什么用tp，实验它打的图集要比ugui的紧凑，按钮2 点击下会变红色背景） 
 
-2:proto-gen-lua 基本使用，topbar左边按钮点出 messagebox, 左边按钮 encode， 右边按钮decode，顺序不要反哦，proto生成文件位于Asset/Editor下，已经继承到菜单    [MenuItem("CustomEditorTool/Protobuf-Gen-Lua", false, 110)]  中，方便使用
+2:proto-gen-lua 基本使用，按钮1点出 messagebox, messagebox左边按钮 encode， 右边按钮decode，顺序不要反哦，proto生成文件位于Asset/Editor下，已经继承到菜单    [MenuItem("CustomEditorTool/Protobuf-Gen-Lua", false, 110)]  中，方便使用
 
 3:string_table 本地化。 集成到菜单[MenuItem("CustomEditorTool/StringTableTool", false, 100)] ，方便使用，就是将xlsl表转lua，messagebox的按钮文字就是从 stringtable取得。
 
-4：timer用法。topbar顶部的倒计时就是 timer的小例子，按右边按钮会 停止计时
+4：timer用法。按钮2 就是 timer的小例子，messagebox 左边按钮会 停止计时
 
 5：leantween小示例：messagebox弹出动画就是leantween做的，为什么用leantween而没用dotween，是因为dotween不好导入tolua，leantween直接导就能用，所以就不纠结了。
 
 6：ZeroBraneStudio 调试lua程序：LuaManager.cs 下 SimpleLuaClient类 的public void OnLuaFilesLoaded() 方法里，将   //OpenZbsDebugger();注释解掉，将ZeroBraneStudio 下载到 D盘根目录，按照调试步骤就可以调试了。
 
-5: Event使用小示例：点topbar右边按钮，顶部会有倒计时出现
+5: Event使用小示例：点按钮2 ，顶部会有倒计时出现
 
 6: 添加滚动列表小例子
 
 7: 添加 按钮文字 Gradient Shadow小示例
+
+8: 点击 按钮3，就会跳转到另外一个场景，然后点击topbar的左边的按钮，会跳转回原场景
 
 </br>
 </br>
