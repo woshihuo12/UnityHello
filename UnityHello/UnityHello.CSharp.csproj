@@ -105,6 +105,7 @@
     <Compile Include="Assets\Game\Scripts\UI\LoopVerticalScrollRect.cs" />
     <Compile Include="Assets\Game\Scripts\UI\UIRoot.cs" />
     <Compile Include="Assets\Game\Scripts\UI\UITextGradient.cs" />
+    <Compile Include="Assets\Game\Scripts\UI\UITextOutline.cs" />
     <Compile Include="Assets\LeanTween\ILeanTween.cs" />
     <Compile Include="Assets\LeanTween\LTDescr.cs" />
     <Compile Include="Assets\LeanTween\LeanAudio.cs" />
