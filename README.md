@@ -30,6 +30,8 @@ https://github.com/chuxiang9007/xlsx2lua-language.git
 
 6: 添加无限滚动小例子
 
+7: 添加 Gradient 小示例
+
 </br>
 </br>
 </br>
