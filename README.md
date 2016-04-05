@@ -28,9 +28,9 @@ https://github.com/chuxiang9007/xlsx2lua-language.git
 
 5: Event使用小示例：点topbar右边按钮，顶部会有倒计时出现
 
-6: 添加无限滚动小例子
+6: 添加滚动列表小例子
 
-7: 添加 Gradient 小示例
+7: 添加 按钮文字 Gradient Shadow小示例
 
 </br>
 </br>
