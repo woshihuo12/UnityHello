@@ -5,23 +5,80 @@ using UnityEngine.UI;
 
 public partial class UITextGradient : BaseMeshEffect
 {
-    public Color32 topColor = Color.white;
-    public Color32 bottomColor = Color.black;
-
-    public override void ModifyMesh(VertexHelper helper)
+    private enum Direction
     {
-        if (!this.IsActive() || helper.currentVertCount == 0)
-            return;
+        Vertical,
+        Horizontal,
+    }
 
-        List<UIVertex> vertexs = new List<UIVertex>();
-        helper.GetUIVertexStream(vertexs);
+    [SerializeField]
+    private Direction mDirection;
 
-        float bottomY = vertexs[0].position.y;
-        float topY = vertexs[0].position.y;
+    [SerializeField]
+    private Gradient mGradient;
 
-        for (int i = 1; i < vertexs.Count; i++)
+    //public Color32 topColor = Color.white;
+    //public Color32 bottomColor = Color.black;
+
+    //public override void ModifyMesh(VertexHelper helper)
+    //{
+    //    if (!this.IsActive() || helper.currentVertCount == 0)
+    //        return;
+
+    //    List<UIVertex> vertexs = new List<UIVertex>();
+    //    helper.GetUIVertexStream(vertexs);
+
+    //    float bottomY = vertexs[0].position.y;
+    //    float topY = vertexs[0].position.y;
+
+    //    for (int i = 1; i < vertexs.Count; i++)
+    //    {
+    //        float y = vertexs[i].position.y;
+    //        if (y > topY)
+    //        {
+    //            topY = y;
+    //        }
+    //        else if (y < bottomY)
+    //        {
+    //            bottomY = y;
+    //        }
+    //    }
+
+    //    float uiElementHeight = topY - bottomY;
+
+    //    UIVertex v = new UIVertex();
+
+    //    for (int i = 0; i < helper.currentVertCount; i++)
+    //    {
+    //        helper.PopulateUIVertex(ref v, i);
+    //        v.color = Color32.Lerp(bottomColor, topColor, (v.position.y - bottomY) / uiElementHeight);
+    //        helper.SetUIVertex(v, i);
+    //    }
+    //}
+    public override void ModifyMesh(VertexHelper vh)
+    {
+        if (!IsActive() || mGradient == null)
         {
-            float y = vertexs[i].position.y;
+            return;
+        }
+
+        List<UIVertex> vertexList = new List<UIVertex>();
+        vh.GetUIVertexStream(vertexList);
+
+        if (vertexList == null || vertexList.Count == 0)
+        {
+            return;
+        }
+
+        float leftX = vertexList[0].position.x;
+        float rightX = vertexList[0].position.x;
+
+        float bottomY = vertexList[0].position.y;
+        float topY = vertexList[0].position.y;
+
+        for (int i = 1; i < vertexList.Count; i++)
+        {
+            float y = vertexList[i].position.y;
             if (y > topY)
             {
                 topY = y;
@@ -30,17 +87,33 @@ public partial class UITextGradient : BaseMeshEffect
             {
                 bottomY = y;
             }
+
+            float x = vertexList[i].position.x;
+            if (x > rightX)
+            {
+                rightX = x;
+            }
+            else if (x < leftX)
+            {
+                leftX = x;
+            }
         }
 
-        float uiElementHeight = topY - bottomY;
-
-        UIVertex v = new UIVertex();
-
-        for (int i = 0; i < helper.currentVertCount; i++)
+        for (int i = 0; i < vertexList.Count; i++)
         {
-            helper.PopulateUIVertex(ref v, i);
-            v.color = Color32.Lerp(bottomColor, topColor, (v.position.y - bottomY) / uiElementHeight);
-            helper.SetUIVertex(v, i);
+            UIVertex uiVertex = vertexList[i];
+            if (mDirection == Direction.Vertical)
+            {
+                uiVertex.color = mGradient.Evaluate((uiVertex.position.y - bottomY) / (topY - bottomY));
+            }
+            else
+            {
+                uiVertex.color = mGradient.Evaluate((uiVertex.position.x - leftX) / (rightX - leftX));
+            }
+            vertexList[i] = uiVertex;
         }
+
+        vh.Clear();
+        vh.AddUIVertexTriangleStream(vertexList);
     }
 }
