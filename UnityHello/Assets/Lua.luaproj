@@ -28,6 +28,7 @@
     <Folder Include="Lua\globalization\en\" />
     <Folder Include="Lua\globalization\zh\" />
     <Folder Include="Lua\eventsystem\" />
+    <Folder Include="Lua\manager\" />
     <Folder Include="Lua\protol\" />
     <Folder Include="Lua\uiscripts\" />
   </ItemGroup>
@@ -45,6 +46,7 @@
     <Compile Include="Lua\globalization\zh\string_table.lua" />
     <Compile Include="Lua\init.lua" />
     <Compile Include="Lua\Main.lua" />
+    <Compile Include="Lua\manager\network_manager.lua" />
     <Compile Include="Lua\protol\person_pb.lua" />
     <Compile Include="Lua\uiscripts\init.lua" />
     <Compile Include="Lua\uiscripts\ui_mainmenu_scene.lua" />
