@@ -14,6 +14,7 @@ public static class LuaBinder
 		GameResFactoryWrap.Register(L);
 		BaseWrap.Register(L);
 		ManagerWrap.Register(L);
+		ByteBufferWrap.Register(L);
 		NetworkManagerWrap.Register(L);
 		LuaHelperWrap.Register(L);
 		LeanTweenTypeWrap.Register(L);

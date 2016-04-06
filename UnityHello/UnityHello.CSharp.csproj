@@ -116,6 +116,7 @@
     <Compile Include="Assets\LeanTween\LeanAudio.cs" />
     <Compile Include="Assets\LeanTween\LeanTween.cs" />
     <Compile Include="Assets\Source\Generate\BaseWrap.cs" />
+    <Compile Include="Assets\Source\Generate\ByteBufferWrap.cs" />
     <Compile Include="Assets\Source\Generate\DebuggerWrap.cs" />
     <Compile Include="Assets\Source\Generate\DelegateFactory.cs" />
     <Compile Include="Assets\Source\Generate\GameResFactoryWrap.cs" />

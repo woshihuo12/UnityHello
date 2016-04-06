@@ -78,6 +78,11 @@ function ui_mainmenu_scene:on_post_load()
                 self.pb_data = msg:SerializeToString()
                 print(self.pb_data)
 
+                local buffer = ByteBuffer.New()
+                buffer:WriteBuffer(self.pb_data)
+
+                UNetworkManager:SendMessage(buffer)
+
                 if self._cd_timer then
                     self._cd_timer:Stop()
                 end

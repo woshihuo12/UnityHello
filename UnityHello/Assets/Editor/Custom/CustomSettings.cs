@@ -148,6 +148,7 @@ public static class CustomSettings
 
         _GT(typeof(Base)),
         _GT(typeof(Manager)),
+        _GT(typeof(ByteBuffer)),
         _GT(typeof(NetworkManager)),
 
         _GT(typeof(LuaHelper)),

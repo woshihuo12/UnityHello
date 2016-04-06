@@ -68,6 +68,7 @@ public class NetworkManager : Manager
 
     public void SendMessage(ByteBuffer buffer)
     {
+        Debug.Log(buffer.ToBytes());
         SocketClient.SendMessage(buffer);
     }
 
