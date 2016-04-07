@@ -23,6 +23,8 @@ public class GameSetting
     public static int SocketPort = 0;                           //Socket服务器端口
     public static string SocketAddress = string.Empty;          //Socket服务器地址
 
+    public static bool EnableLuaDebug = false;
+
     public static string AssetPath
     {
         get

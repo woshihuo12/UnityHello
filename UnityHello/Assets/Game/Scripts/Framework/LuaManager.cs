@@ -127,7 +127,10 @@ public class SimpleLuaClient : LuaClient
 
     public void OnLuaFilesLoaded()
     {
-        //OpenZbsDebugger();
+        if (GameSetting.EnableLuaDebug)
+        {
+            OpenZbsDebugger();
+        } 
 
         luaState.Start();
         StartLooper();
