@@ -130,7 +130,7 @@ public class SimpleLuaClient : LuaClient
         if (GameSetting.EnableLuaDebug)
         {
             OpenZbsDebugger();
-        } 
+        }
 
         luaState.Start();
         StartLooper();
@@ -144,15 +144,7 @@ public class LuaManager : Manager
 
     private void InitLuaPath()
     {
-        if (GameSetting.DevelopMode)
-        {
-            SimpleLuaClient.GetMainState().AddSearchPath(Application.dataPath + "/ToLua/Lua");
-            SimpleLuaClient.GetMainState().AddSearchPath(Application.dataPath + "/Lua");
-        }
-        else
-        {
-            SimpleLuaClient.GetMainState().AddSearchPath(Tools.DataPath + "lua");
-        }
+        SimpleLuaClient.GetMainState().AddSearchPath(Tools.DataPath + "lua");
     }
 
     private void Awake()
