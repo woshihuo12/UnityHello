@@ -121,13 +121,20 @@ public static class CustomSettings
         _GT(typeof(Text)),
         _GT(typeof(Sprite)),
         _GT(typeof(Toggle)),
+        _GT(typeof(ToggleGroup)),
         _GT(typeof(InputField)),
         _GT(typeof(Rect)),
         _GT(typeof(VerticalLayoutGroup)),
         _GT(typeof(HorizontalLayoutGroup)),
         _GT(typeof(ContentSizeFitter)),
-        _GT(typeof(RectMask2D)),
+
+        _GT(typeof(Dropdown)),
+        _GT(typeof(Mask)),
+
         _GT(typeof(LayoutElement)),
+
+        _GT(typeof(Slider)),
+
         _GT(typeof(Scrollbar)),
 
         _GT(typeof(RectTransform)),
@@ -142,6 +149,7 @@ public static class CustomSettings
         _GT(typeof(LuaBehaviour)),
         _GT(typeof(GameResFactory)),
 
+        _GT(typeof(ScrollRect)),
         _GT(typeof(LoopScrollRect)),
         _GT(typeof(LoopVerticalScrollRect)),
         _GT(typeof(LoopHorizontalScrollRect)),

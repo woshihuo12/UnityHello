@@ -193,6 +193,7 @@
     <Compile Include="Assets\Source\Generate\UnityEngine_TransformWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_ButtonWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_ContentSizeFitterWrap.cs" />
+    <Compile Include="Assets\Source\Generate\UnityEngine_UI_DropdownWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_GraphicRaycasterWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_GraphicWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_HorizontalLayoutGroupWrap.cs" />
@@ -202,11 +203,14 @@
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_LoopHorizontalScrollRectWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_LoopScrollRectWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_LoopVerticalScrollRectWrap.cs" />
+    <Compile Include="Assets\Source\Generate\UnityEngine_UI_MaskWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_MaskableGraphicWrap.cs" />
-    <Compile Include="Assets\Source\Generate\UnityEngine_UI_RectMask2DWrap.cs" />
+    <Compile Include="Assets\Source\Generate\UnityEngine_UI_ScrollRectWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_ScrollbarWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_SelectableWrap.cs" />
+    <Compile Include="Assets\Source\Generate\UnityEngine_UI_SliderWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_TextWrap.cs" />
+    <Compile Include="Assets\Source\Generate\UnityEngine_UI_ToggleGroupWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_ToggleWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_VerticalLayoutGroupWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_WWWWrap.cs" />
