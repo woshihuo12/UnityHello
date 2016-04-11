@@ -144,7 +144,10 @@ public class LuaManager : Manager
 
     private void InitLuaPath()
     {
-        SimpleLuaClient.GetMainState().AddSearchPath(Tools.DataPath + "lua");
+        if (!GameSetting.DevelopMode)
+        {
+            SimpleLuaClient.GetMainState().AddSearchPath(Tools.DataPath + "lua");
+        }
     }
 
     private void Awake()

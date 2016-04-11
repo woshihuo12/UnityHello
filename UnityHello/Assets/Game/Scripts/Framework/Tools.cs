@@ -36,10 +36,12 @@ public class Tools
             {
                 return Application.persistentDataPath + "/" + game + "/";
             }
+
             if (GameSetting.DevelopMode)
             {
                 return Application.streamingAssetsPath + "/" + GetOS() + "/";
             }
+
             if (Application.platform == RuntimePlatform.OSXEditor)
             {
                 int i = Application.dataPath.LastIndexOf('/');
