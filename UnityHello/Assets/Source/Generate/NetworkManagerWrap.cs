@@ -8,6 +8,7 @@ public class NetworkManagerWrap
 	{
 		L.BeginClass(typeof(NetworkManager), typeof(Manager));
 		L.RegFunction("SetLuaTable", SetLuaTable);
+		L.RegFunction("OnSocketData", OnSocketData);
 		L.RegFunction("SendConnect", SendConnect);
 		L.RegFunction("SendMessage", SendMessage);
 		L.RegFunction("AddEvent", AddEvent);
@@ -27,6 +28,24 @@ public class NetworkManagerWrap
 			NetworkManager obj = (NetworkManager)ToLua.CheckObject(L, 1, typeof(NetworkManager));
 			LuaTable arg0 = ToLua.CheckLuaTable(L, 2);
 			obj.SetLuaTable(arg0);
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int OnSocketData(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			NetworkManager obj = (NetworkManager)ToLua.CheckObject(L, 1, typeof(NetworkManager));
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			ByteBuffer arg1 = (ByteBuffer)ToLua.CheckObject(L, 3, typeof(ByteBuffer));
+			obj.OnSocketData(arg0, arg1);
 			return 0;
 		}
 		catch(Exception e)
