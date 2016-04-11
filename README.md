@@ -34,6 +34,8 @@ https://github.com/chuxiang9007/xlsx2lua-language.git
 
 8: 点击 按钮3，就会跳转到另外一个场景，然后点击topbar的左边的按钮，会跳转回原场景
 
+9: 添加UI_Lua 类图描述
+
 </br>
 </br>
 </br>
