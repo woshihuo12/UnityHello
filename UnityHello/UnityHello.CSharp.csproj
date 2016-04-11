@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Game\Scripts\AssetSupport\AssetPacker.cs" />
+    <Compile Include="Assets\Game\Scripts\Command\SocketCommand.cs" />
     <Compile Include="Assets\Game\Scripts\Command\StartUpCommand.cs" />
     <Compile Include="Assets\Game\Scripts\Framework\AppFacade.cs" />
     <Compile Include="Assets\Game\Scripts\Framework\AppView.cs" />

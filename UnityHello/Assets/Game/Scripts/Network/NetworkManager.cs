@@ -8,6 +8,8 @@ public class NetworkManager : Manager
     private LuaState mLuaState = null;
     private LuaTable mLuaTable = null;
 
+    private LuaFunction mLuaOnSocketDataFunc = null;
+
     private SocketClient mSocketClient;
     static Queue<KeyValuePair<int, ByteBuffer>> sEvents = new Queue<KeyValuePair<int, ByteBuffer>>();
 
@@ -51,6 +53,22 @@ public class NetworkManager : Manager
         {
             Debug.LogWarning("NetworkManager is null:");
             return;
+        }
+        else
+        {
+            mLuaOnSocketDataFunc = mLuaTable.GetLuaFunction("on_socket_data") as LuaFunction;
+        }
+    }
+
+    public void OnSocketData(int key, ByteBuffer value)
+    {
+        if (mLuaOnSocketDataFunc != null)
+        {
+            mLuaOnSocketDataFunc.BeginPCall();
+            mLuaOnSocketDataFunc.Push(key);
+            mLuaOnSocketDataFunc.Push(value);
+            mLuaOnSocketDataFunc.PCall();
+            mLuaOnSocketDataFunc.EndPCall();
         }
     }
 
@@ -97,6 +115,12 @@ public class NetworkManager : Manager
         OnUnLoad();
         SocketClient.OnRemove();
         Debug.Log("~NetworkManager was destroy");
+
+        if (mLuaOnSocketDataFunc != null)
+        {
+            mLuaOnSocketDataFunc.Dispose();
+            mLuaOnSocketDataFunc = null;
+        }
 
         if (mLuaTable != null)
         {
