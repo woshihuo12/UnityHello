@@ -109,6 +109,7 @@
     <Compile Include="Assets\Game\Scripts\UI\LoopHorizontalScrollRect.cs" />
     <Compile Include="Assets\Game\Scripts\UI\LoopScrollRect.cs" />
     <Compile Include="Assets\Game\Scripts\UI\LoopVerticalScrollRect.cs" />
+    <Compile Include="Assets\Game\Scripts\UI\UILongPressButton.cs" />
     <Compile Include="Assets\Game\Scripts\UI\UIRoot.cs" />
     <Compile Include="Assets\Game\Scripts\UI\UITextGradient.cs" />
     <Compile Include="Assets\Game\Scripts\UI\UITextOutline.cs" />
