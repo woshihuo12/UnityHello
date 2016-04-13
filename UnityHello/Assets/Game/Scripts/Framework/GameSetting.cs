@@ -11,7 +11,7 @@ public class GameSetting
 
     public const string AppName = "UnityHello";               //应用程序名称
 
-    public const int GameFrameRate = 30;
+    public const int GameFrameRate = 60;
 
     public const string AssetDir = "StreamingAssets";           //素材目录 
     //AB素材扩展名
