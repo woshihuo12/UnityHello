@@ -20,10 +20,10 @@ public class Globals : MonoBehaviour
         deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
     }
 
-    void OnGUI()
-    {
-        DrawFps();
-    }
+    //void OnGUI()
+    //{
+    //    DrawFps();
+    //}
 
     float deltaTime = 0.0f;
 
