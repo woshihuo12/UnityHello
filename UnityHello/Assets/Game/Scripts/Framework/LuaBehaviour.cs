@@ -11,44 +11,12 @@ public class LuaBehaviour : MonoBehaviour
 
     private Dictionary<string, LuaFunction> mButtonCallbacks = new Dictionary<string, LuaFunction>();
 
-    private bool mUsingUpdate = false;
-    public bool UsingUpdate
-    {
-        get
-        {
-            return mUsingUpdate;
-        }
-        set
-        {
-            mUsingUpdate = value;
-        }
-    }
+    private LuaFunction mFixedUpdateFunc = null;
+    private LuaFunction mUpdateFunc = null;
+    private LuaFunction mLateUpdateFunc = null;
 
-    private bool mUsingFixedUpdate = false;
-    public bool UsingFixedUpdate
-    {
-        get
-        {
-            return mUsingFixedUpdate;
-        }
-        set
-        {
-            mUsingFixedUpdate = value;
-        }
-    }
-
-    private bool mUsingLateUpdate = false;
-    public bool UsingLateUpdate
-    {
-        get
-        {
-            return mUsingLateUpdate;
-        }
-        set
-        {
-            mUsingLateUpdate = value;
-        }
-    }
+    private LuaFunction mOnEnableFunc = null;
+    private LuaFunction mOnDisableFunc = null;
 
     private bool mUsingOnEnable = false;
     public bool UsingOnEnable
@@ -76,11 +44,7 @@ public class LuaBehaviour : MonoBehaviour
         }
     }
 
-    private LuaFunction mFixedUpdateFunc = null;
-    private LuaFunction mUpdateFunc = null;
-    private LuaFunction mLateUpdateFunc = null;
-    private LuaFunction mOnEnableFunc = null;
-    private LuaFunction mOnDisableFunc = null;
+    private bool mIsStarted = false;
 
     private void SafeRelease(ref LuaFunction func)
     {
@@ -140,6 +104,10 @@ public class LuaBehaviour : MonoBehaviour
             awakeFunc.Dispose();
             awakeFunc = null;
         }
+
+        mUpdateFunc = mLuaTable.GetLuaFunction("Update") as LuaFunction;
+        mFixedUpdateFunc = mLuaTable.GetLuaFunction("FixedUpdate") as LuaFunction;
+        mLateUpdateFunc = mLuaTable.GetLuaFunction("LateUpdate") as LuaFunction;
     }
 
     private void Start()
@@ -157,63 +125,52 @@ public class LuaBehaviour : MonoBehaviour
             startFunc.Dispose();
             startFunc = null;
         }
+
+        AddUpdate();
+        mIsStarted = true;
     }
 
-    private void Update()
+    private void AddUpdate()
     {
-        if (UsingUpdate)
-        {
-            if (!CheckValid()) return;
+        if (!CheckValid()) return;
 
-            if (mUpdateFunc == null)
-            {
-                mUpdateFunc = mLuaTable.GetLuaFunction("Update") as LuaFunction;
-            }
-            if (mUpdateFunc != null)
-            {
-                mUpdateFunc.BeginPCall();
-                mUpdateFunc.Push(Time.deltaTime);
-                mUpdateFunc.Push(Time.unscaledDeltaTime);
-                mUpdateFunc.PCall();
-                mUpdateFunc.EndPCall();
-            }
+        LuaLooper luaLooper = SimpleLuaClient.Instance.GetLooper();
+        if (luaLooper == null) return;
+
+        if (mUpdateFunc != null)
+        {
+            luaLooper.UpdateEvent.Add(mUpdateFunc, mLuaTable);
+        }
+
+        if (mLateUpdateFunc != null)
+        {
+            luaLooper.LateUpdateEvent.Add(mLateUpdateFunc, mLuaTable);
+        }
+
+        if (mFixedUpdateFunc != null)
+        {
+            luaLooper.FixedUpdateEvent.Add(mFixedUpdateFunc, mLuaTable);
         }
     }
 
-    private void FixedUpdate()
+    private void RemoveUpdate()
     {
-        if (UsingFixedUpdate)
-        {
-            if (!CheckValid()) return;
-            if (mFixedUpdateFunc == null)
-            {
-                mFixedUpdateFunc = mLuaTable.GetLuaFunction("FixedUpdate") as LuaFunction;
-            }
-            if (mFixedUpdateFunc != null)
-            {
-                mFixedUpdateFunc.BeginPCall();
-                mFixedUpdateFunc.Push(Time.fixedDeltaTime);
-                mFixedUpdateFunc.PCall();
-                mFixedUpdateFunc.EndPCall();
-            }
-        }
-    }
+        if (!CheckValid()) return;
 
-    private void LateUpdate()
-    {
-        if (UsingLateUpdate)
+        LuaLooper luaLooper = SimpleLuaClient.Instance.GetLooper();
+        if (luaLooper == null) return;
+
+        if (mUpdateFunc != null)
         {
-            if (!CheckValid()) return;
-            if (mLateUpdateFunc == null)
-            {
-                mLateUpdateFunc = mLuaTable.GetLuaFunction("LateUpdate") as LuaFunction;
-            }
-            if (mLateUpdateFunc != null)
-            {
-                mLateUpdateFunc.BeginPCall();
-                mLateUpdateFunc.PCall();
-                mLateUpdateFunc.EndPCall();
-            }
+            luaLooper.UpdateEvent.Remove(mUpdateFunc, mLuaTable);
+        }
+        if (mLateUpdateFunc != null)
+        {
+            luaLooper.LateUpdateEvent.Remove(mLateUpdateFunc, mLuaTable);
+        }
+        if (mFixedUpdateFunc != null)
+        {
+            luaLooper.FixedUpdateEvent.Remove(mFixedUpdateFunc, mLuaTable);
         }
     }
 
@@ -234,6 +191,11 @@ public class LuaBehaviour : MonoBehaviour
                 mOnEnableFunc.EndPCall();
             }
         }
+
+        if (mIsStarted)
+        {
+            AddUpdate();
+        }
     }
 
     private void OnDisable()
@@ -253,6 +215,8 @@ public class LuaBehaviour : MonoBehaviour
                 mOnDisableFunc.EndPCall();
             }
         }
+
+        RemoveUpdate();
     }
 
     public void AddClick(GameObject go, LuaFunction luafunc)
