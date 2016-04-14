@@ -69,6 +69,7 @@
     <Compile Include="Assets\Game\Scripts\Command\SocketCommand.cs" />
     <Compile Include="Assets\Game\Scripts\Command\StartUpCommand.cs" />
     <Compile Include="Assets\Game\Scripts\DTPathFind\DetourCommon.cs" />
+    <Compile Include="Assets\Game\Scripts\DTPathFind\DetourNode.cs" />
     <Compile Include="Assets\Game\Scripts\DTPathFind\DetourStatus.cs" />
     <Compile Include="Assets\Game\Scripts\Framework\AppFacade.cs" />
     <Compile Include="Assets\Game\Scripts\Framework\AppView.cs" />
