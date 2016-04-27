@@ -137,7 +137,6 @@ public class UnityEngine_RectWrap
 				UnityEngine.Rect obj = (UnityEngine.Rect)ToLua.ToObject(L, 1);
 				string o = obj.ToString();
 				LuaDLL.lua_pushstring(L, o);
-				ToLua.SetBack(L, 1, obj);
 				return 1;
 			}
 			else if (count == 2 && TypeChecker.CheckTypes(L, 1, typeof(UnityEngine.Rect), typeof(string)))
@@ -146,7 +145,6 @@ public class UnityEngine_RectWrap
 				string arg0 = ToLua.ToString(L, 2);
 				string o = obj.ToString(arg0);
 				LuaDLL.lua_pushstring(L, o);
-				ToLua.SetBack(L, 1, obj);
 				return 1;
 			}
 			else

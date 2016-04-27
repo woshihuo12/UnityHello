@@ -1253,7 +1253,14 @@ public class UnityEngine_AnimatorWrap
 		{
 			int count = LuaDLL.lua_gettop(L);
 
-			if (count == 2 && TypeChecker.CheckTypes(L, 1, typeof(UnityEngine.Animator), typeof(int)))
+			if (count == 2 && TypeChecker.CheckTypes(L, 1, typeof(UnityEngine.Animator), typeof(UnityEngine.Experimental.Director.Playable)))
+			{
+				UnityEngine.Animator obj = (UnityEngine.Animator)ToLua.ToObject(L, 1);
+				UnityEngine.Experimental.Director.Playable arg0 = (UnityEngine.Experimental.Director.Playable)ToLua.ToObject(L, 2);
+				obj.Play(arg0);
+				return 0;
+			}
+			else if (count == 2 && TypeChecker.CheckTypes(L, 1, typeof(UnityEngine.Animator), typeof(int)))
 			{
 				UnityEngine.Animator obj = (UnityEngine.Animator)ToLua.ToObject(L, 1);
 				int arg0 = (int)LuaDLL.lua_tonumber(L, 2);
@@ -1280,6 +1287,14 @@ public class UnityEngine_AnimatorWrap
 				UnityEngine.Animator obj = (UnityEngine.Animator)ToLua.ToObject(L, 1);
 				string arg0 = ToLua.ToString(L, 2);
 				int arg1 = (int)LuaDLL.lua_tonumber(L, 3);
+				obj.Play(arg0, arg1);
+				return 0;
+			}
+			else if (count == 3 && TypeChecker.CheckTypes(L, 1, typeof(UnityEngine.Animator), typeof(UnityEngine.Experimental.Director.Playable), typeof(object)))
+			{
+				UnityEngine.Animator obj = (UnityEngine.Animator)ToLua.ToObject(L, 1);
+				UnityEngine.Experimental.Director.Playable arg0 = (UnityEngine.Experimental.Director.Playable)ToLua.ToObject(L, 2);
+				object arg1 = ToLua.ToVarObject(L, 3);
 				obj.Play(arg0, arg1);
 				return 0;
 			}

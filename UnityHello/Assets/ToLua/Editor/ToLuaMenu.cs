@@ -40,7 +40,9 @@ public static class ToLuaMenu
     public static List<Type> dropType = new List<Type>
     {
         typeof(ValueType),                                  //不需要
+#if !UNITY_5
         typeof(Motion),                                     //很多平台只是空类
+#endif
         typeof(UnityEngine.YieldInstruction),               //无需导出的类      
         typeof(UnityEngine.WaitForEndOfFrame),              //内部支持
         typeof(UnityEngine.WaitForFixedUpdate),
@@ -59,10 +61,10 @@ public static class ToLuaMenu
         typeof(RaycastHit),                                 
         typeof(TouchPhase),     
         typeof(LuaInterface.LuaOutMetatable),               //手写支持
-        typeof(LuaInterface.NullObject),     
-        typeof(LuaInterface.LuaOutMetatable),    
+        typeof(LuaInterface.NullObject),             
         typeof(System.Array),                        
         typeof(System.Reflection.MemberInfo),    
+        typeof(System.Reflection.BindingFlags),
         typeof(LuaClient),
         typeof(LuaInterface.LuaFunction),
         typeof(LuaInterface.LuaTable),
@@ -82,6 +84,10 @@ public static class ToLuaMenu
         typeof(System.Collections.IEnumerator),
         typeof(UnityEngine.Object),
         typeof(LuaInterface.EventObject),
+        typeof(LuaInterface.LuaMethod),
+        typeof(LuaInterface.LuaProperty),
+        typeof(LuaInterface.LuaField),
+        typeof(LuaInterface.LuaConstructor),        
     };
 
     private static bool beAutoGen = false;
@@ -129,6 +135,8 @@ public static class ToLuaMenu
         public Type baseType = null;
         public string nameSpace = null;     //注册到lua的table层级
 
+        public List<Type> extendList = new List<Type>();
+
         public BindType(Type t)
         {
             type = t;                        
@@ -169,6 +177,16 @@ public static class ToLuaMenu
         public BindType SetBaseType(Type t)
         {
             baseType = t;
+            return this;
+        }
+
+        public BindType AddExtendType(Type t)
+        {
+            if (!extendList.Contains(t))
+            {
+                extendList.Add(t);
+            }
+
             return this;
         }
 
@@ -220,7 +238,7 @@ public static class ToLuaMenu
             {
                 if (t.IsInterface)
                 {
-                    Debugger.LogWarning("{0} has a base type {1} is Interface", list[i].name, t.FullName);
+                    Debugger.LogWarning("{0} has a base type {1} is Interface, use SetBaseType to jump it", list[i].name, t.FullName);
                     list[i].baseType = t.BaseType;       
                 }
                 else if (dropType.IndexOf(t) >= 0)
@@ -260,7 +278,7 @@ public static class ToLuaMenu
     {
         if (!beAutoGen && EditorApplication.isCompiling)
         {
-            EditorUtility.DisplayDialog("警告", "请等待编辑器完成编译在执行此功能", "确定");
+            EditorUtility.DisplayDialog("警告", "请等待编辑器完成编译再执行此功能", "确定");
             return;
         }
 
@@ -281,6 +299,7 @@ public static class ToLuaMenu
             ToLuaExport.baseType = list[i].baseType;
             ToLuaExport.wrapClassName = list[i].wrapName;
             ToLuaExport.libClassName = list[i].libName;
+            ToLuaExport.extendList = list[i].extendList;
             ToLuaExport.Generate(CustomSettings.saveDir);
         }
 
@@ -346,6 +365,7 @@ public static class ToLuaMenu
                 for (int k = 0; k < pifs.Length; k++)
                 {
                     Type t = pifs[k].ParameterType;
+                    if (t.IsByRef) t = t.GetElementType();
 
                     if (typeof(System.MulticastDelegate).IsAssignableFrom(t))
                     {
@@ -364,7 +384,7 @@ public static class ToLuaMenu
     {
         if (!beAutoGen && EditorApplication.isCompiling)
         {
-            EditorUtility.DisplayDialog("警告", "请等待编辑器完成编译在执行此功能", "确定");
+            EditorUtility.DisplayDialog("警告", "请等待编辑器完成编译再执行此功能", "确定");
             return;
         }
 
@@ -433,7 +453,7 @@ public static class ToLuaMenu
                 parent.childs.Add(node);
                 node.parent = parent;
                 //加入pos跟root里的pos比较，只有位置相同才是统一命名空间节点
-                node.pos = j;
+                node.layer = j;
                 parent = node;
             }
             else
@@ -476,7 +496,7 @@ public static class ToLuaMenu
     {
         if (!beAutoGen && EditorApplication.isCompiling)
         {
-            EditorUtility.DisplayDialog("警告", "请等待编辑器完成编译在执行此功能", "确定");
+            EditorUtility.DisplayDialog("警告", "请等待编辑器完成编译再执行此功能", "确定");
             return;
         }
 
@@ -632,14 +652,14 @@ public static class ToLuaMenu
         sb.AppendFormat("\tstatic int {0}(IntPtr L)\r\n", funcName);
         sb.AppendLineEx("\t{");
         sb.AppendLineEx("\t\ttry");
-        sb.AppendLineEx("\t\t{");
-        sb.AppendLineEx("\t\t\tint top = LuaDLL.lua_gettop(L);");
+        sb.AppendLineEx("\t\t{");        
         sb.AppendLineEx("\t\t\tLuaState state = LuaState.Get(L);");
         sb.AppendFormat("\t\t\tint preTop = state.BeginPreModule(\"{0}\");\r\n", bt.nameSpace);
         sb.AppendFormat("\t\t\t{0}Wrap.Register(state);\r\n", bt.wrapName);
         sb.AppendLineEx("\t\t\tstate.EndPreModule(preTop);");
-        sb.AppendLineEx("\t\t\tLuaDLL.lua_settop(L, top);");
-        sb.AppendLineEx("\t\t\treturn 0;");
+        sb.AppendFormat("\t\t\tint reference = state.GetMetaReference(typeof({0}));\r\n", bt.name);
+        sb.AppendLineEx("\t\t\tLuaDLL.lua_getref(L, reference);");
+        sb.AppendLineEx("\t\t\treturn 1;");
         sb.AppendLineEx("\t\t}");
         sb.AppendLineEx("\t\tcatch(Exception e)");
         sb.AppendLineEx("\t\t{");
@@ -650,15 +670,7 @@ public static class ToLuaMenu
 
     static string GetOS()
     {
-#if UNITY_STANDALONE
-        return "Win";
-#elif UNITY_ANDROID
-        return "Android";
-#elif UNITY_IPHONE
-        return "iOS";
-#else
-        return "";
-#endif
+        return LuaConst.osDir;
     }
 
     static void CreateStreamDir(string dir)
@@ -755,7 +767,7 @@ public static class ToLuaMenu
     {
         if (EditorApplication.isCompiling)
         {
-            EditorUtility.DisplayDialog("警告", "请等待编辑器完成编译在执行此功能", "确定");
+            EditorUtility.DisplayDialog("警告", "请等待编辑器完成编译再执行此功能", "确定");
             return;
         }
 
@@ -771,7 +783,7 @@ public static class ToLuaMenu
     {
         if (EditorApplication.isCompiling)
         {
-            EditorUtility.DisplayDialog("警告", "请等待编辑器完成编译在执行此功能", "确定");
+            EditorUtility.DisplayDialog("警告", "请等待编辑器完成编译再执行此功能", "确定");
             return;
         }
 
@@ -978,7 +990,7 @@ public static class ToLuaMenu
     {
         if (!beAutoGen && EditorApplication.isCompiling)
         {
-            EditorUtility.DisplayDialog("警告", "请等待编辑器完成编译在执行此功能", "确定");
+            EditorUtility.DisplayDialog("警告", "请等待编辑器完成编译再执行此功能", "确定");
             return;
         }
 
@@ -1051,6 +1063,10 @@ public static class ToLuaMenu
         CreateDefaultWrapFile(CustomSettings.toluaBaseType, "System_Collections_IEnumeratorWrap");
         CreateDefaultWrapFile(CustomSettings.toluaBaseType, "UnityEngine_ObjectWrap");
         CreateDefaultWrapFile(CustomSettings.toluaBaseType, "LuaInterface_EventObjectWrap");
+        CreateDefaultWrapFile(CustomSettings.toluaBaseType, "LuaInterface_LuaMethodWrap");
+        CreateDefaultWrapFile(CustomSettings.toluaBaseType, "LuaInterface_LuaPropertyWrap");
+        CreateDefaultWrapFile(CustomSettings.toluaBaseType, "LuaInterface_LuaFieldWrap");
+        CreateDefaultWrapFile(CustomSettings.toluaBaseType, "LuaInterface_LuaConstructorWrap");        
 
         Debug.Log("Clear base type wrap files over");
         AssetDatabase.Refresh();

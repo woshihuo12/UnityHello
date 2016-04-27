@@ -75,11 +75,51 @@ public class NetworkManagerWrap
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 2);
-			NetworkManager obj = (NetworkManager)ToLua.CheckObject(L, 1, typeof(NetworkManager));
-			ByteBuffer arg0 = (ByteBuffer)ToLua.CheckObject(L, 2, typeof(ByteBuffer));
-			obj.SendMessage(arg0);
-			return 0;
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 2 && TypeChecker.CheckTypes(L, 1, typeof(NetworkManager), typeof(string)))
+			{
+				NetworkManager obj = (NetworkManager)ToLua.ToObject(L, 1);
+				string arg0 = ToLua.ToString(L, 2);
+				obj.SendMessage(arg0);
+				return 0;
+			}
+			else if (count == 2 && TypeChecker.CheckTypes(L, 1, typeof(NetworkManager), typeof(ByteBuffer)))
+			{
+				NetworkManager obj = (NetworkManager)ToLua.ToObject(L, 1);
+				ByteBuffer arg0 = (ByteBuffer)ToLua.ToObject(L, 2);
+				obj.SendMessage(arg0);
+				return 0;
+			}
+			else if (count == 3 && TypeChecker.CheckTypes(L, 1, typeof(NetworkManager), typeof(string), typeof(UnityEngine.SendMessageOptions)))
+			{
+				NetworkManager obj = (NetworkManager)ToLua.ToObject(L, 1);
+				string arg0 = ToLua.ToString(L, 2);
+				UnityEngine.SendMessageOptions arg1 = (UnityEngine.SendMessageOptions)ToLua.ToObject(L, 3);
+				obj.SendMessage(arg0, arg1);
+				return 0;
+			}
+			else if (count == 3 && TypeChecker.CheckTypes(L, 1, typeof(NetworkManager), typeof(string), typeof(object)))
+			{
+				NetworkManager obj = (NetworkManager)ToLua.ToObject(L, 1);
+				string arg0 = ToLua.ToString(L, 2);
+				object arg1 = ToLua.ToVarObject(L, 3);
+				obj.SendMessage(arg0, arg1);
+				return 0;
+			}
+			else if (count == 4 && TypeChecker.CheckTypes(L, 1, typeof(NetworkManager), typeof(string), typeof(object), typeof(UnityEngine.SendMessageOptions)))
+			{
+				NetworkManager obj = (NetworkManager)ToLua.ToObject(L, 1);
+				string arg0 = ToLua.ToString(L, 2);
+				object arg1 = ToLua.ToVarObject(L, 3);
+				UnityEngine.SendMessageOptions arg2 = (UnityEngine.SendMessageOptions)ToLua.ToObject(L, 4);
+				obj.SendMessage(arg0, arg1, arg2);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: NetworkManager.SendMessage");
+			}
 		}
 		catch(Exception e)
 		{

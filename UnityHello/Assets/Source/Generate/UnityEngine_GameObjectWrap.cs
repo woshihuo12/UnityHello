@@ -525,7 +525,7 @@ public class UnityEngine_GameObjectWrap
                 {
                     string error = LuaDLL.lua_tostring(L, -1);
                     LuaDLL.lua_pop(L, 1);
-                    throw new LuaException(error, LuaException.luaStack);
+                    throw new LuaException(error, LuaException.GetLastError());
                 }
                 
                 return 0;
@@ -542,7 +542,7 @@ public class UnityEngine_GameObjectWrap
                 {
                     string error = LuaDLL.lua_tostring(L, -1);
                     LuaDLL.lua_pop(L, 1);
-                    throw new LuaException(error, LuaException.luaStack);
+                    throw new LuaException(error, LuaException.GetLastError());
                 }
 
                 return 0;
@@ -559,7 +559,7 @@ public class UnityEngine_GameObjectWrap
                 {
                     string error = LuaDLL.lua_tostring(L, -1);
                     LuaDLL.lua_pop(L, 1);
-                    throw new LuaException(error, LuaException.luaStack);
+                    throw new LuaException(error, LuaException.GetLastError());
                 }
 
                 return 0;
@@ -577,7 +577,7 @@ public class UnityEngine_GameObjectWrap
                 {
                     string error = LuaDLL.lua_tostring(L, -1);
                     LuaDLL.lua_pop(L, 1);
-                    throw new LuaException(error, LuaException.luaStack);
+                    throw new LuaException(error, LuaException.GetLastError());
                 }
 
                 return 0;

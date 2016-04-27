@@ -1,22 +1,19 @@
 ﻿using UnityEngine;
 using LuaInterface;
+using System;
 
 public class HelloWorld : MonoBehaviour
 {
     void Awake()
     {
         LuaState lua = new LuaState();
+        lua.Start();
         string hello =
-            @"               
-                aa = {}
-                 
-                print('hello tolua#, 广告招租')                
+            @"                
+                print('hello tolua#')                          
             ";
-
-        lua.DoString(hello, "hello");
-
-        lua.GetFunction("aa.Awake");
-
+        
+        lua.DoString(hello, "HelloWorld.cs");
         lua.CheckTop();
         lua.Dispose();
         lua = null;
