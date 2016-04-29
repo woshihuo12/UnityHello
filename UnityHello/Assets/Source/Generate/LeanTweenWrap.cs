@@ -295,16 +295,23 @@ public class LeanTweenWrap
 				LeanTween.cancel(arg0, arg1);
 				return 0;
 			}
-			else if (count == 2 && TypeChecker.CheckTypes(L, 1, typeof(UnityEngine.GameObject), typeof(int)))
+			else if (count == 2 && TypeChecker.CheckTypes(L, 1, typeof(LTRect), typeof(int)))
 			{
-				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.ToObject(L, 1);
+				LTRect arg0 = (LTRect)ToLua.ToObject(L, 1);
 				int arg1 = (int)LuaDLL.lua_tonumber(L, 2);
 				LeanTween.cancel(arg0, arg1);
 				return 0;
 			}
-			else if (count == 2 && TypeChecker.CheckTypes(L, 1, typeof(LTRect), typeof(int)))
+			else if (count == 2 && TypeChecker.CheckTypes(L, 1, typeof(UnityEngine.GameObject), typeof(bool)))
 			{
-				LTRect arg0 = (LTRect)ToLua.ToObject(L, 1);
+				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.ToObject(L, 1);
+				bool arg1 = LuaDLL.lua_toboolean(L, 2);
+				LeanTween.cancel(arg0, arg1);
+				return 0;
+			}
+			else if (count == 2 && TypeChecker.CheckTypes(L, 1, typeof(UnityEngine.GameObject), typeof(int)))
+			{
+				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.ToObject(L, 1);
 				int arg1 = (int)LuaDLL.lua_tonumber(L, 2);
 				LeanTween.cancel(arg0, arg1);
 				return 0;

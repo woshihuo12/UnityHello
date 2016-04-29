@@ -158,6 +158,7 @@
     <Compile Include="Assets\Source\Generate\UnityEngine_CharacterControllerWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_ColliderWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_ComponentWrap.cs" />
+    <Compile Include="Assets\Source\Generate\UnityEngine_EventSystems_BaseRaycasterWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_EventSystems_UIBehaviourWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_Experimental_Director_DirectorPlayerWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_GameObjectWrap.cs" />
@@ -202,9 +203,11 @@
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_GraphicRaycasterWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_GraphicWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_HorizontalLayoutGroupWrap.cs" />
+    <Compile Include="Assets\Source\Generate\UnityEngine_UI_HorizontalOrVerticalLayoutGroupWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_ImageWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_InputFieldWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_LayoutElementWrap.cs" />
+    <Compile Include="Assets\Source\Generate\UnityEngine_UI_LayoutGroupWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_LoopHorizontalScrollRectWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_LoopScrollRectWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_UI_LoopVerticalScrollRectWrap.cs" />

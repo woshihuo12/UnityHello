@@ -6,7 +6,7 @@ public class UnityEngine_UI_GraphicRaycasterWrap
 {
 	public static void Register(LuaState L)
 	{
-		L.BeginClass(typeof(UnityEngine.UI.GraphicRaycaster), typeof(UnityEngine.EventSystems.UIBehaviour));
+		L.BeginClass(typeof(UnityEngine.UI.GraphicRaycaster), typeof(UnityEngine.EventSystems.BaseRaycaster));
 		L.RegFunction("Raycast", Raycast);
 		L.RegFunction("__eq", op_Equality);
 		L.RegFunction("__tostring", Lua_ToString);

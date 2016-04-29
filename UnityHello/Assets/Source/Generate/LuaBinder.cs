@@ -97,6 +97,8 @@ public static class LuaBinder
 		UnityEngine_UI_ToggleWrap.Register(L);
 		UnityEngine_UI_ToggleGroupWrap.Register(L);
 		UnityEngine_UI_InputFieldWrap.Register(L);
+		UnityEngine_UI_LayoutGroupWrap.Register(L);
+		UnityEngine_UI_HorizontalOrVerticalLayoutGroupWrap.Register(L);
 		UnityEngine_UI_VerticalLayoutGroupWrap.Register(L);
 		UnityEngine_UI_HorizontalLayoutGroupWrap.Register(L);
 		UnityEngine_UI_ContentSizeFitterWrap.Register(L);
@@ -115,6 +117,7 @@ public static class LuaBinder
 		L.EndModule();
 		L.BeginModule("EventSystems");
 		UnityEngine_EventSystems_UIBehaviourWrap.Register(L);
+		UnityEngine_EventSystems_BaseRaycasterWrap.Register(L);
 		L.EndModule();
 		L.BeginModule("Events");
 		L.RegFunction("UnityAction", UnityEngine_Events_UnityAction);

@@ -19,6 +19,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+//打开开关没有写入导出列表的纯虚类自动跳过
+//#define JUMP_NODEFINED_ABSTRACT         
+
 using UnityEngine;
 using UnityEditor;
 using System;
@@ -252,18 +255,24 @@ public static class ToLuaMenu
 
                     if (index < 0)
                     {
-                        if (!t.IsAbstract)
+#if JUMP_NODEFINED_ABSTRACT
+                        if (t.IsAbstract && !t.IsSealed)
+                        {
+                            Debugger.LogWarning("not defined bindtype for {0}, it is abstract class, jump it, child class is {1}", t.FullName, list[i].name);
+                            list[i].baseType = t.BaseType;
+                        }
+                        else
                         {
                             Debugger.LogWarning("not defined bindtype for {0}, autogen it, child class is {1}", t.FullName, list[i].name);
                             BindType bt = new BindType(t);
                             allTypes.Add(bt);
                         }
-                        else
-                        {
-                            Debugger.LogWarning("not defined bindtype for {0}, it is abstract class, jump it, child class is {1}", t.FullName, list[i].name);
-                            list[i].baseType = t.BaseType;
-                        }
-                    }                  
+#else
+                        Debugger.LogWarning("not defined bindtype for {0}, autogen it, child class is {1}", t.FullName, list[i].name);
+                        BindType bt = new BindType(t);
+                        allTypes.Add(bt);
+#endif
+                    }
                 }
 
                 t = t.BaseType;
@@ -289,6 +298,12 @@ public static class ToLuaMenu
 
         allTypes.Clear();
         BindType[] list = GenBindTypes(CustomSettings.customTypeList);
+        ToLuaExport.allTypes.AddRange(baseType);
+
+        for (int i = 0; i < list.Length; i++)
+        {
+            ToLuaExport.allTypes.Add(list[i].type);
+        }
 
         for (int i = 0; i < list.Length; i++)
         {
@@ -303,9 +318,9 @@ public static class ToLuaMenu
             ToLuaExport.Generate(CustomSettings.saveDir);
         }
 
-        EditorApplication.isPlaying = false;
         Debug.Log("Generate lua binding files over");
-        allTypes.Clear();
+        ToLuaExport.allTypes.Clear();
+        allTypes.Clear();        
         AssetDatabase.Refresh();
     }
 
@@ -689,7 +704,7 @@ public static class ToLuaMenu
 
         string[] files = Directory.GetFiles("Assets/StreamingAssets/Lua/" + dir, "*.lua.bytes");
         List<Object> list = new List<Object>();
-        string bundleName = dir == null ? "Lua.unity3d" : "Lua_" + dir + ".unity3d";
+        string bundleName = dir == null ? "Lua.unity3d" : "Lua_" + dir.Replace('/', '_') + ".unity3d";        
 
         for (int i = 0; i < files.Length; i++)
         {
@@ -857,6 +872,16 @@ public static class ToLuaMenu
         Debug.Log("Copy lua files over");
     }
 
+    static void GetAllDirs(string dir, List<string> list)
+    {
+        string[] dirs = Directory.GetDirectories(dir);
+        list.AddRange(dirs);
+
+        for (int i = 0; i < dirs.Length; i++)
+        {
+            GetAllDirs(dirs[i], list);
+        }
+    }
 
     [MenuItem("Lua/Build bundle files not jit", false, 53)]
     public static void BuildNotJitBundles()
@@ -876,12 +901,13 @@ public static class ToLuaMenu
         CopyLuaBytesFiles(Application.dataPath + "/ToLua/Lua", streamDir);
 
         AssetDatabase.Refresh();
-        string[] dirs = Directory.GetDirectories(streamDir);
+        List<string> dirs = new List<string>();
+        GetAllDirs(streamDir, dirs);
 
-        for (int i = 0; i < dirs.Length; i++)
+        for (int i = 0; i < dirs.Count; i++)
         {
             string str = dirs[i].Remove(0, streamDir.Length + 1);
-            BuildLuaBundle(str);
+            BuildLuaBundle(str.Replace('\\', '/'));
         }
 
         BuildLuaBundle(null);

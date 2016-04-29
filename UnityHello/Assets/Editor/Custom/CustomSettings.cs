@@ -128,6 +128,8 @@ public static class CustomSettings
         _GT(typeof(ToggleGroup)),
         _GT(typeof(InputField)),
         _GT(typeof(Rect)),
+        _GT(typeof(LayoutGroup)),
+        _GT(typeof(HorizontalOrVerticalLayoutGroup)),
         _GT(typeof(VerticalLayoutGroup)),
         _GT(typeof(HorizontalLayoutGroup)),
         _GT(typeof(ContentSizeFitter)),
@@ -148,6 +150,7 @@ public static class CustomSettings
         _GT(typeof(Selectable)),
         _GT(typeof(Button)),
         _GT(typeof(Canvas)),        
+        _GT(typeof(BaseRaycaster)),
         _GT(typeof(GraphicRaycaster)),
 
         _GT(typeof(LuaBehaviour)),
@@ -178,7 +181,7 @@ public static class CustomSettings
     };
 
     public static List<Type> dynamicList = new List<Type>()
-    {        
+    {
         /*typeof(MeshRenderer),
         typeof(ParticleEmitter),
         typeof(ParticleRenderer),
@@ -203,7 +206,7 @@ public static class CustomSettings
     //使用方法参见例子14
     public static List<Type> outList = new List<Type>()
     {
-        
+
     };
 
     static BindType _GT(Type t)
@@ -214,5 +217,5 @@ public static class CustomSettings
     static DelegateType _DT(Type t)
     {
         return new DelegateType(t);
-    }    
+    }
 }

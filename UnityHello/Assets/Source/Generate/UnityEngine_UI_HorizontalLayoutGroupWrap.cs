@@ -6,7 +6,7 @@ public class UnityEngine_UI_HorizontalLayoutGroupWrap
 {
 	public static void Register(LuaState L)
 	{
-		L.BeginClass(typeof(UnityEngine.UI.HorizontalLayoutGroup), typeof(UnityEngine.EventSystems.UIBehaviour));
+		L.BeginClass(typeof(UnityEngine.UI.HorizontalLayoutGroup), typeof(UnityEngine.UI.HorizontalOrVerticalLayoutGroup));
 		L.RegFunction("CalculateLayoutInputHorizontal", CalculateLayoutInputHorizontal);
 		L.RegFunction("CalculateLayoutInputVertical", CalculateLayoutInputVertical);
 		L.RegFunction("SetLayoutHorizontal", SetLayoutHorizontal);
