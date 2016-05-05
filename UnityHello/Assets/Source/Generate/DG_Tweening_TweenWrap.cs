@@ -7,7 +7,7 @@ public class DG_Tweening_TweenWrap
 {
 	public static void Register(LuaState L)
 	{
-		L.BeginClass(typeof(DG.Tweening.Tween), typeof(DG.Tweening.Core.ABSSequentiable));
+		L.BeginClass(typeof(DG.Tweening.Tween), typeof(System.Object));
 		L.RegFunction("PathLength", PathLength);
 		L.RegFunction("PathGetDrawPoints", PathGetDrawPoints);
 		L.RegFunction("PathGetPoint", PathGetPoint);

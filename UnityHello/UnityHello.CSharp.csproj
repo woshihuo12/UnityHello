@@ -135,7 +135,6 @@
     <Compile Include="Assets\LeanTween\LeanTween.cs" />
     <Compile Include="Assets\Source\Generate\BaseWrap.cs" />
     <Compile Include="Assets\Source\Generate\ByteBufferWrap.cs" />
-    <Compile Include="Assets\Source\Generate\DG_Tweening_Core_ABSSequentiableWrap.cs" />
     <Compile Include="Assets\Source\Generate\DG_Tweening_DOTweenWrap.cs" />
     <Compile Include="Assets\Source\Generate\DG_Tweening_LoopTypeWrap.cs" />
     <Compile Include="Assets\Source\Generate\DG_Tweening_SequenceWrap.cs" />

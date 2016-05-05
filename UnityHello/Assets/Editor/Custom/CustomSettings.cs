@@ -53,7 +53,7 @@ public static class CustomSettings
         //-------------------------------------------------------------------        
                   
         _GT(typeof(DG.Tweening.DOTween)),
-        _GT(typeof(DG.Tweening.Tween)).AddExtendType(typeof(DG.Tweening.TweenExtensions)),
+        _GT(typeof(DG.Tweening.Tween)).SetBaseType(typeof(System.Object)).AddExtendType(typeof(DG.Tweening.TweenExtensions)),
         _GT(typeof(DG.Tweening.Sequence)).AddExtendType(typeof(DG.Tweening.TweenSettingsExtensions)),        
         _GT(typeof(DG.Tweening.Tweener)),
         _GT(typeof(DG.Tweening.LoopType)),       
