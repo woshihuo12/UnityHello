@@ -82,7 +82,6 @@ function ui_mainmenu_scene:on_post_load()
                 print(self.pb_data)
 
                 local buffer = ByteBuffer.New()
-                buffer:WriteInt()
                 buffer:WriteBuffer(self.pb_data)
 
                 UNetworkManager:SendMessage(buffer)

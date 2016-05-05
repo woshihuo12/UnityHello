@@ -85,7 +85,7 @@ public class SocketClient
             }
             else
             {
-                Debug.LogError("mTcpClient.connected----->>false");
+                Debug.LogWarning("mTcpClient.connected----->>false");
             }
         }
     }
