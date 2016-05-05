@@ -18,6 +18,7 @@
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.4p5</UnityVersion>
     <RootNamespace></RootNamespace>
+    <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -59,6 +60,18 @@
     </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween">
+      <HintPath>Assets\DOTween\DOTween.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween43">
+      <HintPath>Assets\DOTween\DOTween43.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween46">
+      <HintPath>Assets\DOTween\DOTween46.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween50">
+      <HintPath>Assets\DOTween\DOTween50.dll</HintPath>
     </Reference>
     <Reference Include="Debugger">
       <HintPath>Assets\Plugins\Debugger.dll</HintPath>
@@ -122,6 +135,12 @@
     <Compile Include="Assets\LeanTween\LeanTween.cs" />
     <Compile Include="Assets\Source\Generate\BaseWrap.cs" />
     <Compile Include="Assets\Source\Generate\ByteBufferWrap.cs" />
+    <Compile Include="Assets\Source\Generate\DG_Tweening_Core_ABSSequentiableWrap.cs" />
+    <Compile Include="Assets\Source\Generate\DG_Tweening_DOTweenWrap.cs" />
+    <Compile Include="Assets\Source\Generate\DG_Tweening_LoopTypeWrap.cs" />
+    <Compile Include="Assets\Source\Generate\DG_Tweening_SequenceWrap.cs" />
+    <Compile Include="Assets\Source\Generate\DG_Tweening_TweenWrap.cs" />
+    <Compile Include="Assets\Source\Generate\DG_Tweening_TweenerWrap.cs" />
     <Compile Include="Assets\Source\Generate\DebuggerWrap.cs" />
     <Compile Include="Assets\Source\Generate\DelegateFactory.cs" />
     <Compile Include="Assets\Source\Generate\GameResFactoryWrap.cs" />
@@ -304,6 +323,12 @@
     <Compile Include="Assets\testbbb.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\DOTween\DOTween.XML" />
+    <None Include="Assets\DOTween\DOTween43.xml" />
+    <None Include="Assets\DOTween\DOTween46.xml" />
+    <None Include="Assets\DOTween\DOTween50.xml" />
+    <None Include="Assets\DOTween\Editor\DOTweenEditor.XML" />
+    <None Include="Assets\DOTween\readme.txt" />
     <None Include="Assets\Editor\TPImport\SettingsTexturePackerImporter.txt" />
     <None Include="Assets\StreamingAssets\Win\files.txt" />
     <None Include="Assets\ToLua\readme.txt" />

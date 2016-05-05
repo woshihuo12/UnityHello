@@ -1990,71 +1990,141 @@ public class LeanTweenWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_throwErrors(IntPtr L)
 	{
-		LuaDLL.lua_pushboolean(L, LeanTween.throwErrors);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushboolean(L, LeanTween.throwErrors);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_tau(IntPtr L)
 	{
-		LuaDLL.lua_pushnumber(L, LeanTween.tau);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushnumber(L, LeanTween.tau);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_dtManual(IntPtr L)
 	{
-		LuaDLL.lua_pushnumber(L, LeanTween.dtManual);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushnumber(L, LeanTween.dtManual);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_startSearch(IntPtr L)
 	{
-		LuaDLL.lua_pushinteger(L, LeanTween.startSearch);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushinteger(L, LeanTween.startSearch);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_d(IntPtr L)
 	{
-		ToLua.PushObject(L, LeanTween.d);
-		return 1;
+		try
+		{
+			ToLua.PushObject(L, LeanTween.d);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_EVENTS_MAX(IntPtr L)
 	{
-		LuaDLL.lua_pushinteger(L, LeanTween.EVENTS_MAX);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushinteger(L, LeanTween.EVENTS_MAX);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_LISTENERS_MAX(IntPtr L)
 	{
-		LuaDLL.lua_pushinteger(L, LeanTween.LISTENERS_MAX);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushinteger(L, LeanTween.LISTENERS_MAX);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_maxSearch(IntPtr L)
 	{
-		LuaDLL.lua_pushinteger(L, LeanTween.maxSearch);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushinteger(L, LeanTween.maxSearch);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_tweensRunning(IntPtr L)
 	{
-		LuaDLL.lua_pushinteger(L, LeanTween.tweensRunning);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushinteger(L, LeanTween.tweensRunning);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_tweenEmpty(IntPtr L)
 	{
-		ToLua.Push(L, LeanTween.tweenEmpty);
-		return 1;
+		try
+		{
+			ToLua.Push(L, LeanTween.tweenEmpty);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

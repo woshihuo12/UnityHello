@@ -19,6 +19,34 @@ public static class DelegateFactory
 		dict.Clear();
 		dict.Add(typeof(System.Action), System_Action);
 		dict.Add(typeof(UnityEngine.Events.UnityAction), UnityEngine_Events_UnityAction);
+		dict.Add(typeof(DG.Tweening.Core.DOGetter<float>), DG_Tweening_Core_DOGetter_float);
+		dict.Add(typeof(DG.Tweening.Core.DOSetter<float>), DG_Tweening_Core_DOSetter_float);
+		dict.Add(typeof(DG.Tweening.Core.DOGetter<double>), DG_Tweening_Core_DOGetter_double);
+		dict.Add(typeof(DG.Tweening.Core.DOSetter<double>), DG_Tweening_Core_DOSetter_double);
+		dict.Add(typeof(DG.Tweening.Core.DOGetter<int>), DG_Tweening_Core_DOGetter_int);
+		dict.Add(typeof(DG.Tweening.Core.DOSetter<int>), DG_Tweening_Core_DOSetter_int);
+		dict.Add(typeof(DG.Tweening.Core.DOGetter<uint>), DG_Tweening_Core_DOGetter_uint);
+		dict.Add(typeof(DG.Tweening.Core.DOSetter<uint>), DG_Tweening_Core_DOSetter_uint);
+		dict.Add(typeof(DG.Tweening.Core.DOGetter<long>), DG_Tweening_Core_DOGetter_long);
+		dict.Add(typeof(DG.Tweening.Core.DOSetter<long>), DG_Tweening_Core_DOSetter_long);
+		dict.Add(typeof(DG.Tweening.Core.DOGetter<ulong>), DG_Tweening_Core_DOGetter_ulong);
+		dict.Add(typeof(DG.Tweening.Core.DOSetter<ulong>), DG_Tweening_Core_DOSetter_ulong);
+		dict.Add(typeof(DG.Tweening.Core.DOGetter<string>), DG_Tweening_Core_DOGetter_string);
+		dict.Add(typeof(DG.Tweening.Core.DOSetter<string>), DG_Tweening_Core_DOSetter_string);
+		dict.Add(typeof(DG.Tweening.Core.DOGetter<UnityEngine.Vector2>), DG_Tweening_Core_DOGetter_UnityEngine_Vector2);
+		dict.Add(typeof(DG.Tweening.Core.DOSetter<UnityEngine.Vector2>), DG_Tweening_Core_DOSetter_UnityEngine_Vector2);
+		dict.Add(typeof(DG.Tweening.Core.DOGetter<UnityEngine.Vector3>), DG_Tweening_Core_DOGetter_UnityEngine_Vector3);
+		dict.Add(typeof(DG.Tweening.Core.DOSetter<UnityEngine.Vector3>), DG_Tweening_Core_DOSetter_UnityEngine_Vector3);
+		dict.Add(typeof(DG.Tweening.Core.DOGetter<UnityEngine.Vector4>), DG_Tweening_Core_DOGetter_UnityEngine_Vector4);
+		dict.Add(typeof(DG.Tweening.Core.DOSetter<UnityEngine.Vector4>), DG_Tweening_Core_DOSetter_UnityEngine_Vector4);
+		dict.Add(typeof(DG.Tweening.Core.DOGetter<UnityEngine.Quaternion>), DG_Tweening_Core_DOGetter_UnityEngine_Quaternion);
+		dict.Add(typeof(DG.Tweening.Core.DOSetter<UnityEngine.Quaternion>), DG_Tweening_Core_DOSetter_UnityEngine_Quaternion);
+		dict.Add(typeof(DG.Tweening.Core.DOGetter<UnityEngine.Color>), DG_Tweening_Core_DOGetter_UnityEngine_Color);
+		dict.Add(typeof(DG.Tweening.Core.DOSetter<UnityEngine.Color>), DG_Tweening_Core_DOSetter_UnityEngine_Color);
+		dict.Add(typeof(DG.Tweening.Core.DOGetter<UnityEngine.Rect>), DG_Tweening_Core_DOGetter_UnityEngine_Rect);
+		dict.Add(typeof(DG.Tweening.Core.DOSetter<UnityEngine.Rect>), DG_Tweening_Core_DOSetter_UnityEngine_Rect);
+		dict.Add(typeof(DG.Tweening.Core.DOGetter<UnityEngine.RectOffset>), DG_Tweening_Core_DOGetter_UnityEngine_RectOffset);
+		dict.Add(typeof(DG.Tweening.Core.DOSetter<UnityEngine.RectOffset>), DG_Tweening_Core_DOSetter_UnityEngine_RectOffset);
 		dict.Add(typeof(UnityEngine.Application.LogCallback), UnityEngine_Application_LogCallback);
 		dict.Add(typeof(UnityEngine.Application.AdvertisingIdentifierCallback), UnityEngine_Application_AdvertisingIdentifierCallback);
 		dict.Add(typeof(UnityEngine.Camera.CameraCallback), UnityEngine_Camera_CameraCallback);
@@ -113,6 +141,692 @@ public static class DelegateFactory
 		}
 
 		UnityEngine.Events.UnityAction d = (new UnityEngine_Events_UnityAction_Event(func)).Call;
+		return d;
+	}
+
+	class DG_Tweening_Core_DOGetter_float_Event : LuaDelegate
+	{
+		public DG_Tweening_Core_DOGetter_float_Event(LuaFunction func) : base(func) { }
+
+		public float Call()
+		{
+			func.Call();
+		float ret = (float)func.CheckNumber();
+			return ret;
+		}
+	}
+
+	public static Delegate DG_Tweening_Core_DOGetter_float(LuaFunction func)
+	{
+		if (func == null)
+		{
+			DG.Tweening.Core.DOGetter<float> fn = delegate { return 0; };
+			return fn;
+		}
+
+		DG.Tweening.Core.DOGetter<float> d = (new DG_Tweening_Core_DOGetter_float_Event(func)).Call;
+		return d;
+	}
+
+	class DG_Tweening_Core_DOSetter_float_Event : LuaDelegate
+	{
+		public DG_Tweening_Core_DOSetter_float_Event(LuaFunction func) : base(func) { }
+
+		public void Call(float param0)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public static Delegate DG_Tweening_Core_DOSetter_float(LuaFunction func)
+	{
+		if (func == null)
+		{
+			DG.Tweening.Core.DOSetter<float> fn = delegate { };
+			return fn;
+		}
+
+		DG.Tweening.Core.DOSetter<float> d = (new DG_Tweening_Core_DOSetter_float_Event(func)).Call;
+		return d;
+	}
+
+	class DG_Tweening_Core_DOGetter_double_Event : LuaDelegate
+	{
+		public DG_Tweening_Core_DOGetter_double_Event(LuaFunction func) : base(func) { }
+
+		public double Call()
+		{
+			func.Call();
+		double ret = (double)func.CheckNumber();
+			return ret;
+		}
+	}
+
+	public static Delegate DG_Tweening_Core_DOGetter_double(LuaFunction func)
+	{
+		if (func == null)
+		{
+			DG.Tweening.Core.DOGetter<double> fn = delegate { return 0; };
+			return fn;
+		}
+
+		DG.Tweening.Core.DOGetter<double> d = (new DG_Tweening_Core_DOGetter_double_Event(func)).Call;
+		return d;
+	}
+
+	class DG_Tweening_Core_DOSetter_double_Event : LuaDelegate
+	{
+		public DG_Tweening_Core_DOSetter_double_Event(LuaFunction func) : base(func) { }
+
+		public void Call(double param0)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public static Delegate DG_Tweening_Core_DOSetter_double(LuaFunction func)
+	{
+		if (func == null)
+		{
+			DG.Tweening.Core.DOSetter<double> fn = delegate { };
+			return fn;
+		}
+
+		DG.Tweening.Core.DOSetter<double> d = (new DG_Tweening_Core_DOSetter_double_Event(func)).Call;
+		return d;
+	}
+
+	class DG_Tweening_Core_DOGetter_int_Event : LuaDelegate
+	{
+		public DG_Tweening_Core_DOGetter_int_Event(LuaFunction func) : base(func) { }
+
+		public int Call()
+		{
+			func.Call();
+		int ret = (int)func.CheckNumber();
+			return ret;
+		}
+	}
+
+	public static Delegate DG_Tweening_Core_DOGetter_int(LuaFunction func)
+	{
+		if (func == null)
+		{
+			DG.Tweening.Core.DOGetter<int> fn = delegate { return 0; };
+			return fn;
+		}
+
+		DG.Tweening.Core.DOGetter<int> d = (new DG_Tweening_Core_DOGetter_int_Event(func)).Call;
+		return d;
+	}
+
+	class DG_Tweening_Core_DOSetter_int_Event : LuaDelegate
+	{
+		public DG_Tweening_Core_DOSetter_int_Event(LuaFunction func) : base(func) { }
+
+		public void Call(int param0)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public static Delegate DG_Tweening_Core_DOSetter_int(LuaFunction func)
+	{
+		if (func == null)
+		{
+			DG.Tweening.Core.DOSetter<int> fn = delegate { };
+			return fn;
+		}
+
+		DG.Tweening.Core.DOSetter<int> d = (new DG_Tweening_Core_DOSetter_int_Event(func)).Call;
+		return d;
+	}
+
+	class DG_Tweening_Core_DOGetter_uint_Event : LuaDelegate
+	{
+		public DG_Tweening_Core_DOGetter_uint_Event(LuaFunction func) : base(func) { }
+
+		public uint Call()
+		{
+			func.Call();
+		uint ret = (uint)func.CheckNumber();
+			return ret;
+		}
+	}
+
+	public static Delegate DG_Tweening_Core_DOGetter_uint(LuaFunction func)
+	{
+		if (func == null)
+		{
+			DG.Tweening.Core.DOGetter<uint> fn = delegate { return 0; };
+			return fn;
+		}
+
+		DG.Tweening.Core.DOGetter<uint> d = (new DG_Tweening_Core_DOGetter_uint_Event(func)).Call;
+		return d;
+	}
+
+	class DG_Tweening_Core_DOSetter_uint_Event : LuaDelegate
+	{
+		public DG_Tweening_Core_DOSetter_uint_Event(LuaFunction func) : base(func) { }
+
+		public void Call(uint param0)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public static Delegate DG_Tweening_Core_DOSetter_uint(LuaFunction func)
+	{
+		if (func == null)
+		{
+			DG.Tweening.Core.DOSetter<uint> fn = delegate { };
+			return fn;
+		}
+
+		DG.Tweening.Core.DOSetter<uint> d = (new DG_Tweening_Core_DOSetter_uint_Event(func)).Call;
+		return d;
+	}
+
+	class DG_Tweening_Core_DOGetter_long_Event : LuaDelegate
+	{
+		public DG_Tweening_Core_DOGetter_long_Event(LuaFunction func) : base(func) { }
+
+		public long Call()
+		{
+			func.Call();
+		long ret = (long)func.CheckNumber();
+			return ret;
+		}
+	}
+
+	public static Delegate DG_Tweening_Core_DOGetter_long(LuaFunction func)
+	{
+		if (func == null)
+		{
+			DG.Tweening.Core.DOGetter<long> fn = delegate { return 0; };
+			return fn;
+		}
+
+		DG.Tweening.Core.DOGetter<long> d = (new DG_Tweening_Core_DOGetter_long_Event(func)).Call;
+		return d;
+	}
+
+	class DG_Tweening_Core_DOSetter_long_Event : LuaDelegate
+	{
+		public DG_Tweening_Core_DOSetter_long_Event(LuaFunction func) : base(func) { }
+
+		public void Call(long param0)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public static Delegate DG_Tweening_Core_DOSetter_long(LuaFunction func)
+	{
+		if (func == null)
+		{
+			DG.Tweening.Core.DOSetter<long> fn = delegate { };
+			return fn;
+		}
+
+		DG.Tweening.Core.DOSetter<long> d = (new DG_Tweening_Core_DOSetter_long_Event(func)).Call;
+		return d;
+	}
+
+	class DG_Tweening_Core_DOGetter_ulong_Event : LuaDelegate
+	{
+		public DG_Tweening_Core_DOGetter_ulong_Event(LuaFunction func) : base(func) { }
+
+		public ulong Call()
+		{
+			func.Call();
+		ulong ret = (ulong)func.CheckNumber();
+			return ret;
+		}
+	}
+
+	public static Delegate DG_Tweening_Core_DOGetter_ulong(LuaFunction func)
+	{
+		if (func == null)
+		{
+			DG.Tweening.Core.DOGetter<ulong> fn = delegate { return 0; };
+			return fn;
+		}
+
+		DG.Tweening.Core.DOGetter<ulong> d = (new DG_Tweening_Core_DOGetter_ulong_Event(func)).Call;
+		return d;
+	}
+
+	class DG_Tweening_Core_DOSetter_ulong_Event : LuaDelegate
+	{
+		public DG_Tweening_Core_DOSetter_ulong_Event(LuaFunction func) : base(func) { }
+
+		public void Call(ulong param0)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public static Delegate DG_Tweening_Core_DOSetter_ulong(LuaFunction func)
+	{
+		if (func == null)
+		{
+			DG.Tweening.Core.DOSetter<ulong> fn = delegate { };
+			return fn;
+		}
+
+		DG.Tweening.Core.DOSetter<ulong> d = (new DG_Tweening_Core_DOSetter_ulong_Event(func)).Call;
+		return d;
+	}
+
+	class DG_Tweening_Core_DOGetter_string_Event : LuaDelegate
+	{
+		public DG_Tweening_Core_DOGetter_string_Event(LuaFunction func) : base(func) { }
+
+		public string Call()
+		{
+			func.Call();
+		string ret = func.CheckString();
+			return ret;
+		}
+	}
+
+	public static Delegate DG_Tweening_Core_DOGetter_string(LuaFunction func)
+	{
+		if (func == null)
+		{
+			DG.Tweening.Core.DOGetter<string> fn = delegate { return null; };
+			return fn;
+		}
+
+		DG.Tweening.Core.DOGetter<string> d = (new DG_Tweening_Core_DOGetter_string_Event(func)).Call;
+		return d;
+	}
+
+	class DG_Tweening_Core_DOSetter_string_Event : LuaDelegate
+	{
+		public DG_Tweening_Core_DOSetter_string_Event(LuaFunction func) : base(func) { }
+
+		public void Call(string param0)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public static Delegate DG_Tweening_Core_DOSetter_string(LuaFunction func)
+	{
+		if (func == null)
+		{
+			DG.Tweening.Core.DOSetter<string> fn = delegate { };
+			return fn;
+		}
+
+		DG.Tweening.Core.DOSetter<string> d = (new DG_Tweening_Core_DOSetter_string_Event(func)).Call;
+		return d;
+	}
+
+	class DG_Tweening_Core_DOGetter_UnityEngine_Vector2_Event : LuaDelegate
+	{
+		public DG_Tweening_Core_DOGetter_UnityEngine_Vector2_Event(LuaFunction func) : base(func) { }
+
+		public UnityEngine.Vector2 Call()
+		{
+			func.Call();
+		UnityEngine.Vector2 ret = func.CheckVector2();
+			return ret;
+		}
+	}
+
+	public static Delegate DG_Tweening_Core_DOGetter_UnityEngine_Vector2(LuaFunction func)
+	{
+		if (func == null)
+		{
+			DG.Tweening.Core.DOGetter<UnityEngine.Vector2> fn = delegate { return default(UnityEngine.Vector2); };
+			return fn;
+		}
+
+		DG.Tweening.Core.DOGetter<UnityEngine.Vector2> d = (new DG_Tweening_Core_DOGetter_UnityEngine_Vector2_Event(func)).Call;
+		return d;
+	}
+
+	class DG_Tweening_Core_DOSetter_UnityEngine_Vector2_Event : LuaDelegate
+	{
+		public DG_Tweening_Core_DOSetter_UnityEngine_Vector2_Event(LuaFunction func) : base(func) { }
+
+		public void Call(UnityEngine.Vector2 param0)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public static Delegate DG_Tweening_Core_DOSetter_UnityEngine_Vector2(LuaFunction func)
+	{
+		if (func == null)
+		{
+			DG.Tweening.Core.DOSetter<UnityEngine.Vector2> fn = delegate { };
+			return fn;
+		}
+
+		DG.Tweening.Core.DOSetter<UnityEngine.Vector2> d = (new DG_Tweening_Core_DOSetter_UnityEngine_Vector2_Event(func)).Call;
+		return d;
+	}
+
+	class DG_Tweening_Core_DOGetter_UnityEngine_Vector3_Event : LuaDelegate
+	{
+		public DG_Tweening_Core_DOGetter_UnityEngine_Vector3_Event(LuaFunction func) : base(func) { }
+
+		public UnityEngine.Vector3 Call()
+		{
+			func.Call();
+		UnityEngine.Vector3 ret = func.CheckVector3();
+			return ret;
+		}
+	}
+
+	public static Delegate DG_Tweening_Core_DOGetter_UnityEngine_Vector3(LuaFunction func)
+	{
+		if (func == null)
+		{
+			DG.Tweening.Core.DOGetter<UnityEngine.Vector3> fn = delegate { return default(UnityEngine.Vector3); };
+			return fn;
+		}
+
+		DG.Tweening.Core.DOGetter<UnityEngine.Vector3> d = (new DG_Tweening_Core_DOGetter_UnityEngine_Vector3_Event(func)).Call;
+		return d;
+	}
+
+	class DG_Tweening_Core_DOSetter_UnityEngine_Vector3_Event : LuaDelegate
+	{
+		public DG_Tweening_Core_DOSetter_UnityEngine_Vector3_Event(LuaFunction func) : base(func) { }
+
+		public void Call(UnityEngine.Vector3 param0)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public static Delegate DG_Tweening_Core_DOSetter_UnityEngine_Vector3(LuaFunction func)
+	{
+		if (func == null)
+		{
+			DG.Tweening.Core.DOSetter<UnityEngine.Vector3> fn = delegate { };
+			return fn;
+		}
+
+		DG.Tweening.Core.DOSetter<UnityEngine.Vector3> d = (new DG_Tweening_Core_DOSetter_UnityEngine_Vector3_Event(func)).Call;
+		return d;
+	}
+
+	class DG_Tweening_Core_DOGetter_UnityEngine_Vector4_Event : LuaDelegate
+	{
+		public DG_Tweening_Core_DOGetter_UnityEngine_Vector4_Event(LuaFunction func) : base(func) { }
+
+		public UnityEngine.Vector4 Call()
+		{
+			func.Call();
+		UnityEngine.Vector4 ret = func.CheckVector4();
+			return ret;
+		}
+	}
+
+	public static Delegate DG_Tweening_Core_DOGetter_UnityEngine_Vector4(LuaFunction func)
+	{
+		if (func == null)
+		{
+			DG.Tweening.Core.DOGetter<UnityEngine.Vector4> fn = delegate { return default(UnityEngine.Vector4); };
+			return fn;
+		}
+
+		DG.Tweening.Core.DOGetter<UnityEngine.Vector4> d = (new DG_Tweening_Core_DOGetter_UnityEngine_Vector4_Event(func)).Call;
+		return d;
+	}
+
+	class DG_Tweening_Core_DOSetter_UnityEngine_Vector4_Event : LuaDelegate
+	{
+		public DG_Tweening_Core_DOSetter_UnityEngine_Vector4_Event(LuaFunction func) : base(func) { }
+
+		public void Call(UnityEngine.Vector4 param0)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public static Delegate DG_Tweening_Core_DOSetter_UnityEngine_Vector4(LuaFunction func)
+	{
+		if (func == null)
+		{
+			DG.Tweening.Core.DOSetter<UnityEngine.Vector4> fn = delegate { };
+			return fn;
+		}
+
+		DG.Tweening.Core.DOSetter<UnityEngine.Vector4> d = (new DG_Tweening_Core_DOSetter_UnityEngine_Vector4_Event(func)).Call;
+		return d;
+	}
+
+	class DG_Tweening_Core_DOGetter_UnityEngine_Quaternion_Event : LuaDelegate
+	{
+		public DG_Tweening_Core_DOGetter_UnityEngine_Quaternion_Event(LuaFunction func) : base(func) { }
+
+		public UnityEngine.Quaternion Call()
+		{
+			func.Call();
+		UnityEngine.Quaternion ret = func.CheckQuaternion();
+			return ret;
+		}
+	}
+
+	public static Delegate DG_Tweening_Core_DOGetter_UnityEngine_Quaternion(LuaFunction func)
+	{
+		if (func == null)
+		{
+			DG.Tweening.Core.DOGetter<UnityEngine.Quaternion> fn = delegate { return default(UnityEngine.Quaternion); };
+			return fn;
+		}
+
+		DG.Tweening.Core.DOGetter<UnityEngine.Quaternion> d = (new DG_Tweening_Core_DOGetter_UnityEngine_Quaternion_Event(func)).Call;
+		return d;
+	}
+
+	class DG_Tweening_Core_DOSetter_UnityEngine_Quaternion_Event : LuaDelegate
+	{
+		public DG_Tweening_Core_DOSetter_UnityEngine_Quaternion_Event(LuaFunction func) : base(func) { }
+
+		public void Call(UnityEngine.Quaternion param0)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public static Delegate DG_Tweening_Core_DOSetter_UnityEngine_Quaternion(LuaFunction func)
+	{
+		if (func == null)
+		{
+			DG.Tweening.Core.DOSetter<UnityEngine.Quaternion> fn = delegate { };
+			return fn;
+		}
+
+		DG.Tweening.Core.DOSetter<UnityEngine.Quaternion> d = (new DG_Tweening_Core_DOSetter_UnityEngine_Quaternion_Event(func)).Call;
+		return d;
+	}
+
+	class DG_Tweening_Core_DOGetter_UnityEngine_Color_Event : LuaDelegate
+	{
+		public DG_Tweening_Core_DOGetter_UnityEngine_Color_Event(LuaFunction func) : base(func) { }
+
+		public UnityEngine.Color Call()
+		{
+			func.Call();
+		UnityEngine.Color ret = func.CheckColor();
+			return ret;
+		}
+	}
+
+	public static Delegate DG_Tweening_Core_DOGetter_UnityEngine_Color(LuaFunction func)
+	{
+		if (func == null)
+		{
+			DG.Tweening.Core.DOGetter<UnityEngine.Color> fn = delegate { return default(UnityEngine.Color); };
+			return fn;
+		}
+
+		DG.Tweening.Core.DOGetter<UnityEngine.Color> d = (new DG_Tweening_Core_DOGetter_UnityEngine_Color_Event(func)).Call;
+		return d;
+	}
+
+	class DG_Tweening_Core_DOSetter_UnityEngine_Color_Event : LuaDelegate
+	{
+		public DG_Tweening_Core_DOSetter_UnityEngine_Color_Event(LuaFunction func) : base(func) { }
+
+		public void Call(UnityEngine.Color param0)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public static Delegate DG_Tweening_Core_DOSetter_UnityEngine_Color(LuaFunction func)
+	{
+		if (func == null)
+		{
+			DG.Tweening.Core.DOSetter<UnityEngine.Color> fn = delegate { };
+			return fn;
+		}
+
+		DG.Tweening.Core.DOSetter<UnityEngine.Color> d = (new DG_Tweening_Core_DOSetter_UnityEngine_Color_Event(func)).Call;
+		return d;
+	}
+
+	class DG_Tweening_Core_DOGetter_UnityEngine_Rect_Event : LuaDelegate
+	{
+		public DG_Tweening_Core_DOGetter_UnityEngine_Rect_Event(LuaFunction func) : base(func) { }
+
+		public UnityEngine.Rect Call()
+		{
+			func.Call();
+		UnityEngine.Rect ret = (UnityEngine.Rect)func.CheckObject(typeof(UnityEngine.Rect));
+			return ret;
+		}
+	}
+
+	public static Delegate DG_Tweening_Core_DOGetter_UnityEngine_Rect(LuaFunction func)
+	{
+		if (func == null)
+		{
+			DG.Tweening.Core.DOGetter<UnityEngine.Rect> fn = delegate { return default(UnityEngine.Rect); };
+			return fn;
+		}
+
+		DG.Tweening.Core.DOGetter<UnityEngine.Rect> d = (new DG_Tweening_Core_DOGetter_UnityEngine_Rect_Event(func)).Call;
+		return d;
+	}
+
+	class DG_Tweening_Core_DOSetter_UnityEngine_Rect_Event : LuaDelegate
+	{
+		public DG_Tweening_Core_DOSetter_UnityEngine_Rect_Event(LuaFunction func) : base(func) { }
+
+		public void Call(UnityEngine.Rect param0)
+		{
+			func.BeginPCall();
+			func.PushValue(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public static Delegate DG_Tweening_Core_DOSetter_UnityEngine_Rect(LuaFunction func)
+	{
+		if (func == null)
+		{
+			DG.Tweening.Core.DOSetter<UnityEngine.Rect> fn = delegate { };
+			return fn;
+		}
+
+		DG.Tweening.Core.DOSetter<UnityEngine.Rect> d = (new DG_Tweening_Core_DOSetter_UnityEngine_Rect_Event(func)).Call;
+		return d;
+	}
+
+	class DG_Tweening_Core_DOGetter_UnityEngine_RectOffset_Event : LuaDelegate
+	{
+		public DG_Tweening_Core_DOGetter_UnityEngine_RectOffset_Event(LuaFunction func) : base(func) { }
+
+		public UnityEngine.RectOffset Call()
+		{
+			func.Call();
+		UnityEngine.RectOffset ret = (UnityEngine.RectOffset)func.CheckObject(typeof(UnityEngine.RectOffset));
+			return ret;
+		}
+	}
+
+	public static Delegate DG_Tweening_Core_DOGetter_UnityEngine_RectOffset(LuaFunction func)
+	{
+		if (func == null)
+		{
+			DG.Tweening.Core.DOGetter<UnityEngine.RectOffset> fn = delegate { return null; };
+			return fn;
+		}
+
+		DG.Tweening.Core.DOGetter<UnityEngine.RectOffset> d = (new DG_Tweening_Core_DOGetter_UnityEngine_RectOffset_Event(func)).Call;
+		return d;
+	}
+
+	class DG_Tweening_Core_DOSetter_UnityEngine_RectOffset_Event : LuaDelegate
+	{
+		public DG_Tweening_Core_DOSetter_UnityEngine_RectOffset_Event(LuaFunction func) : base(func) { }
+
+		public void Call(UnityEngine.RectOffset param0)
+		{
+			func.BeginPCall();
+			func.PushObject(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public static Delegate DG_Tweening_Core_DOSetter_UnityEngine_RectOffset(LuaFunction func)
+	{
+		if (func == null)
+		{
+			DG.Tweening.Core.DOSetter<UnityEngine.RectOffset> fn = delegate { };
+			return fn;
+		}
+
+		DG.Tweening.Core.DOSetter<UnityEngine.RectOffset> d = (new DG_Tweening_Core_DOSetter_UnityEngine_RectOffset_Event(func)).Call;
 		return d;
 	}
 

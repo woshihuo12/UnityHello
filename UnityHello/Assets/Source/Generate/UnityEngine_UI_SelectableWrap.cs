@@ -312,8 +312,15 @@ public class UnityEngine_UI_SelectableWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_allSelectables(IntPtr L)
 	{
-		ToLua.PushObject(L, UnityEngine.UI.Selectable.allSelectables);
-		return 1;
+		try
+		{
+			ToLua.PushObject(L, UnityEngine.UI.Selectable.allSelectables);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

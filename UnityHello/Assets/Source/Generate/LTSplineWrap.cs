@@ -249,15 +249,29 @@ public class LTSplineWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_DISTANCE_COUNT(IntPtr L)
 	{
-		LuaDLL.lua_pushinteger(L, LTSpline.DISTANCE_COUNT);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushinteger(L, LTSpline.DISTANCE_COUNT);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_SUBLINE_COUNT(IntPtr L)
 	{
-		LuaDLL.lua_pushinteger(L, LTSpline.SUBLINE_COUNT);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushinteger(L, LTSpline.SUBLINE_COUNT);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

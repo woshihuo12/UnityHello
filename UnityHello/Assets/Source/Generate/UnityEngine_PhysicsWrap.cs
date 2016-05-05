@@ -1826,43 +1826,85 @@ public class UnityEngine_PhysicsWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_gravity(IntPtr L)
 	{
-		ToLua.Push(L, UnityEngine.Physics.gravity);
-		return 1;
+		try
+		{
+			ToLua.Push(L, UnityEngine.Physics.gravity);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_defaultContactOffset(IntPtr L)
 	{
-		LuaDLL.lua_pushnumber(L, UnityEngine.Physics.defaultContactOffset);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushnumber(L, UnityEngine.Physics.defaultContactOffset);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_bounceThreshold(IntPtr L)
 	{
-		LuaDLL.lua_pushnumber(L, UnityEngine.Physics.bounceThreshold);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushnumber(L, UnityEngine.Physics.bounceThreshold);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_solverIterationCount(IntPtr L)
 	{
-		LuaDLL.lua_pushinteger(L, UnityEngine.Physics.solverIterationCount);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushinteger(L, UnityEngine.Physics.solverIterationCount);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_sleepThreshold(IntPtr L)
 	{
-		LuaDLL.lua_pushnumber(L, UnityEngine.Physics.sleepThreshold);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushnumber(L, UnityEngine.Physics.sleepThreshold);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_queriesHitTriggers(IntPtr L)
 	{
-		LuaDLL.lua_pushboolean(L, UnityEngine.Physics.queriesHitTriggers);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushboolean(L, UnityEngine.Physics.queriesHitTriggers);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

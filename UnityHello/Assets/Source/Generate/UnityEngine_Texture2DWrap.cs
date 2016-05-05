@@ -770,15 +770,29 @@ public class UnityEngine_Texture2DWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_whiteTexture(IntPtr L)
 	{
-		ToLua.Push(L, UnityEngine.Texture2D.whiteTexture);
-		return 1;
+		try
+		{
+			ToLua.Push(L, UnityEngine.Texture2D.whiteTexture);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_blackTexture(IntPtr L)
 	{
-		ToLua.Push(L, UnityEngine.Texture2D.blackTexture);
-		return 1;
+		try
+		{
+			ToLua.Push(L, UnityEngine.Texture2D.blackTexture);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 }
 

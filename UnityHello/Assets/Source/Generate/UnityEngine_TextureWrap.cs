@@ -120,15 +120,29 @@ public class UnityEngine_TextureWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_masterTextureLimit(IntPtr L)
 	{
-		LuaDLL.lua_pushinteger(L, UnityEngine.Texture.masterTextureLimit);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushinteger(L, UnityEngine.Texture.masterTextureLimit);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_anisotropicFiltering(IntPtr L)
 	{
-		ToLua.Push(L, UnityEngine.Texture.anisotropicFiltering);
-		return 1;
+		try
+		{
+			ToLua.Push(L, UnityEngine.Texture.anisotropicFiltering);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

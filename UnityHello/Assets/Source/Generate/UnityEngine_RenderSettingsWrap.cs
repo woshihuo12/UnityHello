@@ -54,155 +54,309 @@ public class UnityEngine_RenderSettingsWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_fog(IntPtr L)
 	{
-		LuaDLL.lua_pushboolean(L, UnityEngine.RenderSettings.fog);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushboolean(L, UnityEngine.RenderSettings.fog);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_fogMode(IntPtr L)
 	{
-		ToLua.Push(L, UnityEngine.RenderSettings.fogMode);
-		return 1;
+		try
+		{
+			ToLua.Push(L, UnityEngine.RenderSettings.fogMode);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_fogColor(IntPtr L)
 	{
-		ToLua.Push(L, UnityEngine.RenderSettings.fogColor);
-		return 1;
+		try
+		{
+			ToLua.Push(L, UnityEngine.RenderSettings.fogColor);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_fogDensity(IntPtr L)
 	{
-		LuaDLL.lua_pushnumber(L, UnityEngine.RenderSettings.fogDensity);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushnumber(L, UnityEngine.RenderSettings.fogDensity);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_fogStartDistance(IntPtr L)
 	{
-		LuaDLL.lua_pushnumber(L, UnityEngine.RenderSettings.fogStartDistance);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushnumber(L, UnityEngine.RenderSettings.fogStartDistance);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_fogEndDistance(IntPtr L)
 	{
-		LuaDLL.lua_pushnumber(L, UnityEngine.RenderSettings.fogEndDistance);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushnumber(L, UnityEngine.RenderSettings.fogEndDistance);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_ambientMode(IntPtr L)
 	{
-		ToLua.Push(L, UnityEngine.RenderSettings.ambientMode);
-		return 1;
+		try
+		{
+			ToLua.Push(L, UnityEngine.RenderSettings.ambientMode);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_ambientSkyColor(IntPtr L)
 	{
-		ToLua.Push(L, UnityEngine.RenderSettings.ambientSkyColor);
-		return 1;
+		try
+		{
+			ToLua.Push(L, UnityEngine.RenderSettings.ambientSkyColor);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_ambientEquatorColor(IntPtr L)
 	{
-		ToLua.Push(L, UnityEngine.RenderSettings.ambientEquatorColor);
-		return 1;
+		try
+		{
+			ToLua.Push(L, UnityEngine.RenderSettings.ambientEquatorColor);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_ambientGroundColor(IntPtr L)
 	{
-		ToLua.Push(L, UnityEngine.RenderSettings.ambientGroundColor);
-		return 1;
+		try
+		{
+			ToLua.Push(L, UnityEngine.RenderSettings.ambientGroundColor);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_ambientLight(IntPtr L)
 	{
-		ToLua.Push(L, UnityEngine.RenderSettings.ambientLight);
-		return 1;
+		try
+		{
+			ToLua.Push(L, UnityEngine.RenderSettings.ambientLight);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_ambientIntensity(IntPtr L)
 	{
-		LuaDLL.lua_pushnumber(L, UnityEngine.RenderSettings.ambientIntensity);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushnumber(L, UnityEngine.RenderSettings.ambientIntensity);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_ambientProbe(IntPtr L)
 	{
-		ToLua.PushValue(L, UnityEngine.RenderSettings.ambientProbe);
-		return 1;
+		try
+		{
+			ToLua.PushValue(L, UnityEngine.RenderSettings.ambientProbe);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_reflectionIntensity(IntPtr L)
 	{
-		LuaDLL.lua_pushnumber(L, UnityEngine.RenderSettings.reflectionIntensity);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushnumber(L, UnityEngine.RenderSettings.reflectionIntensity);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_reflectionBounces(IntPtr L)
 	{
-		LuaDLL.lua_pushinteger(L, UnityEngine.RenderSettings.reflectionBounces);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushinteger(L, UnityEngine.RenderSettings.reflectionBounces);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_haloStrength(IntPtr L)
 	{
-		LuaDLL.lua_pushnumber(L, UnityEngine.RenderSettings.haloStrength);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushnumber(L, UnityEngine.RenderSettings.haloStrength);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_flareStrength(IntPtr L)
 	{
-		LuaDLL.lua_pushnumber(L, UnityEngine.RenderSettings.flareStrength);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushnumber(L, UnityEngine.RenderSettings.flareStrength);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_flareFadeSpeed(IntPtr L)
 	{
-		LuaDLL.lua_pushnumber(L, UnityEngine.RenderSettings.flareFadeSpeed);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushnumber(L, UnityEngine.RenderSettings.flareFadeSpeed);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_skybox(IntPtr L)
 	{
-		ToLua.Push(L, UnityEngine.RenderSettings.skybox);
-		return 1;
+		try
+		{
+			ToLua.Push(L, UnityEngine.RenderSettings.skybox);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_defaultReflectionMode(IntPtr L)
 	{
-		ToLua.Push(L, UnityEngine.RenderSettings.defaultReflectionMode);
-		return 1;
+		try
+		{
+			ToLua.Push(L, UnityEngine.RenderSettings.defaultReflectionMode);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_defaultReflectionResolution(IntPtr L)
 	{
-		LuaDLL.lua_pushinteger(L, UnityEngine.RenderSettings.defaultReflectionResolution);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushinteger(L, UnityEngine.RenderSettings.defaultReflectionResolution);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_customReflection(IntPtr L)
 	{
-		ToLua.Push(L, UnityEngine.RenderSettings.customReflection);
-		return 1;
+		try
+		{
+			ToLua.Push(L, UnityEngine.RenderSettings.customReflection);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

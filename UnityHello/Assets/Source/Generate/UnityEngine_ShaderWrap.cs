@@ -437,8 +437,15 @@ public class UnityEngine_ShaderWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_globalMaximumLOD(IntPtr L)
 	{
-		LuaDLL.lua_pushinteger(L, UnityEngine.Shader.globalMaximumLOD);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushinteger(L, UnityEngine.Shader.globalMaximumLOD);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

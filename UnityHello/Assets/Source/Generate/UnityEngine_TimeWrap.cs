@@ -27,99 +27,197 @@ public class UnityEngine_TimeWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_time(IntPtr L)
 	{
-		LuaDLL.lua_pushnumber(L, UnityEngine.Time.time);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushnumber(L, UnityEngine.Time.time);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_timeSinceLevelLoad(IntPtr L)
 	{
-		LuaDLL.lua_pushnumber(L, UnityEngine.Time.timeSinceLevelLoad);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushnumber(L, UnityEngine.Time.timeSinceLevelLoad);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_deltaTime(IntPtr L)
 	{
-		LuaDLL.lua_pushnumber(L, UnityEngine.Time.deltaTime);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushnumber(L, UnityEngine.Time.deltaTime);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_fixedTime(IntPtr L)
 	{
-		LuaDLL.lua_pushnumber(L, UnityEngine.Time.fixedTime);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushnumber(L, UnityEngine.Time.fixedTime);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_unscaledTime(IntPtr L)
 	{
-		LuaDLL.lua_pushnumber(L, UnityEngine.Time.unscaledTime);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushnumber(L, UnityEngine.Time.unscaledTime);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_unscaledDeltaTime(IntPtr L)
 	{
-		LuaDLL.lua_pushnumber(L, UnityEngine.Time.unscaledDeltaTime);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushnumber(L, UnityEngine.Time.unscaledDeltaTime);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_fixedDeltaTime(IntPtr L)
 	{
-		LuaDLL.lua_pushnumber(L, UnityEngine.Time.fixedDeltaTime);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushnumber(L, UnityEngine.Time.fixedDeltaTime);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_maximumDeltaTime(IntPtr L)
 	{
-		LuaDLL.lua_pushnumber(L, UnityEngine.Time.maximumDeltaTime);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushnumber(L, UnityEngine.Time.maximumDeltaTime);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_smoothDeltaTime(IntPtr L)
 	{
-		LuaDLL.lua_pushnumber(L, UnityEngine.Time.smoothDeltaTime);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushnumber(L, UnityEngine.Time.smoothDeltaTime);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_timeScale(IntPtr L)
 	{
-		LuaDLL.lua_pushnumber(L, UnityEngine.Time.timeScale);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushnumber(L, UnityEngine.Time.timeScale);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_frameCount(IntPtr L)
 	{
-		LuaDLL.lua_pushinteger(L, UnityEngine.Time.frameCount);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushinteger(L, UnityEngine.Time.frameCount);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_renderedFrameCount(IntPtr L)
 	{
-		LuaDLL.lua_pushinteger(L, UnityEngine.Time.renderedFrameCount);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushinteger(L, UnityEngine.Time.renderedFrameCount);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_realtimeSinceStartup(IntPtr L)
 	{
-		LuaDLL.lua_pushnumber(L, UnityEngine.Time.realtimeSinceStartup);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushnumber(L, UnityEngine.Time.realtimeSinceStartup);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_captureFramerate(IntPtr L)
 	{
-		LuaDLL.lua_pushinteger(L, UnityEngine.Time.captureFramerate);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushinteger(L, UnityEngine.Time.captureFramerate);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

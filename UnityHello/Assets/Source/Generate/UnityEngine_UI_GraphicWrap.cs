@@ -476,8 +476,15 @@ public class UnityEngine_UI_GraphicWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_defaultGraphicMaterial(IntPtr L)
 	{
-		ToLua.Push(L, UnityEngine.UI.Graphic.defaultGraphicMaterial);
-		return 1;
+		try
+		{
+			ToLua.Push(L, UnityEngine.UI.Graphic.defaultGraphicMaterial);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

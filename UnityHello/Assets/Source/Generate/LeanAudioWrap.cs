@@ -215,29 +215,57 @@ public class LeanAudioWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_MIN_FREQEUNCY_PERIOD(IntPtr L)
 	{
-		LuaDLL.lua_pushnumber(L, LeanAudio.MIN_FREQEUNCY_PERIOD);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushnumber(L, LeanAudio.MIN_FREQEUNCY_PERIOD);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_PROCESSING_ITERATIONS_MAX(IntPtr L)
 	{
-		LuaDLL.lua_pushinteger(L, LeanAudio.PROCESSING_ITERATIONS_MAX);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushinteger(L, LeanAudio.PROCESSING_ITERATIONS_MAX);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_generatedWaveDistances(IntPtr L)
 	{
-		ToLua.Push(L, LeanAudio.generatedWaveDistances);
-		return 1;
+		try
+		{
+			ToLua.Push(L, LeanAudio.generatedWaveDistances);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_generatedWaveDistancesCount(IntPtr L)
 	{
-		LuaDLL.lua_pushinteger(L, LeanAudio.generatedWaveDistancesCount);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushinteger(L, LeanAudio.generatedWaveDistancesCount);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

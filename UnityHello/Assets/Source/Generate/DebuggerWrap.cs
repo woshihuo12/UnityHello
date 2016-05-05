@@ -234,22 +234,43 @@ public class DebuggerWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_useLog(IntPtr L)
 	{
-		LuaDLL.lua_pushboolean(L, Debugger.useLog);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushboolean(L, Debugger.useLog);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_threadStack(IntPtr L)
 	{
-		LuaDLL.lua_pushstring(L, Debugger.threadStack);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushstring(L, Debugger.threadStack);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_logger(IntPtr L)
 	{
-		ToLua.PushObject(L, Debugger.logger);
-		return 1;
+		try
+		{
+			ToLua.PushObject(L, Debugger.logger);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

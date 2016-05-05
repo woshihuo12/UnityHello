@@ -351,183 +351,365 @@ public class UnityEngine_InputWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_compensateSensors(IntPtr L)
 	{
-		LuaDLL.lua_pushboolean(L, UnityEngine.Input.compensateSensors);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushboolean(L, UnityEngine.Input.compensateSensors);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_gyro(IntPtr L)
 	{
-		ToLua.PushObject(L, UnityEngine.Input.gyro);
-		return 1;
+		try
+		{
+			ToLua.PushObject(L, UnityEngine.Input.gyro);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_mousePosition(IntPtr L)
 	{
-		ToLua.Push(L, UnityEngine.Input.mousePosition);
-		return 1;
+		try
+		{
+			ToLua.Push(L, UnityEngine.Input.mousePosition);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_mouseScrollDelta(IntPtr L)
 	{
-		ToLua.Push(L, UnityEngine.Input.mouseScrollDelta);
-		return 1;
+		try
+		{
+			ToLua.Push(L, UnityEngine.Input.mouseScrollDelta);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_mousePresent(IntPtr L)
 	{
-		LuaDLL.lua_pushboolean(L, UnityEngine.Input.mousePresent);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushboolean(L, UnityEngine.Input.mousePresent);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_simulateMouseWithTouches(IntPtr L)
 	{
-		LuaDLL.lua_pushboolean(L, UnityEngine.Input.simulateMouseWithTouches);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushboolean(L, UnityEngine.Input.simulateMouseWithTouches);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_anyKey(IntPtr L)
 	{
-		LuaDLL.lua_pushboolean(L, UnityEngine.Input.anyKey);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushboolean(L, UnityEngine.Input.anyKey);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_anyKeyDown(IntPtr L)
 	{
-		LuaDLL.lua_pushboolean(L, UnityEngine.Input.anyKeyDown);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushboolean(L, UnityEngine.Input.anyKeyDown);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_inputString(IntPtr L)
 	{
-		LuaDLL.lua_pushstring(L, UnityEngine.Input.inputString);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushstring(L, UnityEngine.Input.inputString);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_acceleration(IntPtr L)
 	{
-		ToLua.Push(L, UnityEngine.Input.acceleration);
-		return 1;
+		try
+		{
+			ToLua.Push(L, UnityEngine.Input.acceleration);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_accelerationEvents(IntPtr L)
 	{
-		ToLua.Push(L, UnityEngine.Input.accelerationEvents);
-		return 1;
+		try
+		{
+			ToLua.Push(L, UnityEngine.Input.accelerationEvents);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_accelerationEventCount(IntPtr L)
 	{
-		LuaDLL.lua_pushinteger(L, UnityEngine.Input.accelerationEventCount);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushinteger(L, UnityEngine.Input.accelerationEventCount);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_touches(IntPtr L)
 	{
-		ToLua.Push(L, UnityEngine.Input.touches);
-		return 1;
+		try
+		{
+			ToLua.Push(L, UnityEngine.Input.touches);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_touchCount(IntPtr L)
 	{
-		LuaDLL.lua_pushinteger(L, UnityEngine.Input.touchCount);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushinteger(L, UnityEngine.Input.touchCount);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_touchPressureSupported(IntPtr L)
 	{
-		LuaDLL.lua_pushboolean(L, UnityEngine.Input.touchPressureSupported);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushboolean(L, UnityEngine.Input.touchPressureSupported);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_stylusTouchSupported(IntPtr L)
 	{
-		LuaDLL.lua_pushboolean(L, UnityEngine.Input.stylusTouchSupported);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushboolean(L, UnityEngine.Input.stylusTouchSupported);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_touchSupported(IntPtr L)
 	{
-		LuaDLL.lua_pushboolean(L, UnityEngine.Input.touchSupported);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushboolean(L, UnityEngine.Input.touchSupported);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_multiTouchEnabled(IntPtr L)
 	{
-		LuaDLL.lua_pushboolean(L, UnityEngine.Input.multiTouchEnabled);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushboolean(L, UnityEngine.Input.multiTouchEnabled);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_location(IntPtr L)
 	{
-		ToLua.PushObject(L, UnityEngine.Input.location);
-		return 1;
+		try
+		{
+			ToLua.PushObject(L, UnityEngine.Input.location);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_compass(IntPtr L)
 	{
-		ToLua.PushObject(L, UnityEngine.Input.compass);
-		return 1;
+		try
+		{
+			ToLua.PushObject(L, UnityEngine.Input.compass);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_deviceOrientation(IntPtr L)
 	{
-		ToLua.Push(L, UnityEngine.Input.deviceOrientation);
-		return 1;
+		try
+		{
+			ToLua.Push(L, UnityEngine.Input.deviceOrientation);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_imeCompositionMode(IntPtr L)
 	{
-		ToLua.Push(L, UnityEngine.Input.imeCompositionMode);
-		return 1;
+		try
+		{
+			ToLua.Push(L, UnityEngine.Input.imeCompositionMode);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_compositionString(IntPtr L)
 	{
-		LuaDLL.lua_pushstring(L, UnityEngine.Input.compositionString);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushstring(L, UnityEngine.Input.compositionString);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_imeIsSelected(IntPtr L)
 	{
-		LuaDLL.lua_pushboolean(L, UnityEngine.Input.imeIsSelected);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushboolean(L, UnityEngine.Input.imeIsSelected);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_compositionCursorPos(IntPtr L)
 	{
-		ToLua.Push(L, UnityEngine.Input.compositionCursorPos);
-		return 1;
+		try
+		{
+			ToLua.Push(L, UnityEngine.Input.compositionCursorPos);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_backButtonLeavesApp(IntPtr L)
 	{
-		LuaDLL.lua_pushboolean(L, UnityEngine.Input.backButtonLeavesApp);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushboolean(L, UnityEngine.Input.backButtonLeavesApp);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

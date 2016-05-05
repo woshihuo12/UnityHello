@@ -297,225 +297,449 @@ public class UnityEngine_ApplicationWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_streamedBytes(IntPtr L)
 	{
-		LuaDLL.lua_pushinteger(L, UnityEngine.Application.streamedBytes);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushinteger(L, UnityEngine.Application.streamedBytes);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_isPlaying(IntPtr L)
 	{
-		LuaDLL.lua_pushboolean(L, UnityEngine.Application.isPlaying);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushboolean(L, UnityEngine.Application.isPlaying);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_isEditor(IntPtr L)
 	{
-		LuaDLL.lua_pushboolean(L, UnityEngine.Application.isEditor);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushboolean(L, UnityEngine.Application.isEditor);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_isWebPlayer(IntPtr L)
 	{
-		LuaDLL.lua_pushboolean(L, UnityEngine.Application.isWebPlayer);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushboolean(L, UnityEngine.Application.isWebPlayer);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_platform(IntPtr L)
 	{
-		ToLua.Push(L, UnityEngine.Application.platform);
-		return 1;
+		try
+		{
+			ToLua.Push(L, UnityEngine.Application.platform);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_isMobilePlatform(IntPtr L)
 	{
-		LuaDLL.lua_pushboolean(L, UnityEngine.Application.isMobilePlatform);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushboolean(L, UnityEngine.Application.isMobilePlatform);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_isConsolePlatform(IntPtr L)
 	{
-		LuaDLL.lua_pushboolean(L, UnityEngine.Application.isConsolePlatform);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushboolean(L, UnityEngine.Application.isConsolePlatform);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_runInBackground(IntPtr L)
 	{
-		LuaDLL.lua_pushboolean(L, UnityEngine.Application.runInBackground);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushboolean(L, UnityEngine.Application.runInBackground);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_dataPath(IntPtr L)
 	{
-		LuaDLL.lua_pushstring(L, UnityEngine.Application.dataPath);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushstring(L, UnityEngine.Application.dataPath);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_streamingAssetsPath(IntPtr L)
 	{
-		LuaDLL.lua_pushstring(L, UnityEngine.Application.streamingAssetsPath);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushstring(L, UnityEngine.Application.streamingAssetsPath);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_persistentDataPath(IntPtr L)
 	{
-		LuaDLL.lua_pushstring(L, UnityEngine.Application.persistentDataPath);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushstring(L, UnityEngine.Application.persistentDataPath);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_temporaryCachePath(IntPtr L)
 	{
-		LuaDLL.lua_pushstring(L, UnityEngine.Application.temporaryCachePath);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushstring(L, UnityEngine.Application.temporaryCachePath);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_srcValue(IntPtr L)
 	{
-		LuaDLL.lua_pushstring(L, UnityEngine.Application.srcValue);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushstring(L, UnityEngine.Application.srcValue);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_absoluteURL(IntPtr L)
 	{
-		LuaDLL.lua_pushstring(L, UnityEngine.Application.absoluteURL);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushstring(L, UnityEngine.Application.absoluteURL);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_unityVersion(IntPtr L)
 	{
-		LuaDLL.lua_pushstring(L, UnityEngine.Application.unityVersion);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushstring(L, UnityEngine.Application.unityVersion);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_version(IntPtr L)
 	{
-		LuaDLL.lua_pushstring(L, UnityEngine.Application.version);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushstring(L, UnityEngine.Application.version);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_bundleIdentifier(IntPtr L)
 	{
-		LuaDLL.lua_pushstring(L, UnityEngine.Application.bundleIdentifier);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushstring(L, UnityEngine.Application.bundleIdentifier);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_installMode(IntPtr L)
 	{
-		ToLua.Push(L, UnityEngine.Application.installMode);
-		return 1;
+		try
+		{
+			ToLua.Push(L, UnityEngine.Application.installMode);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_sandboxType(IntPtr L)
 	{
-		ToLua.Push(L, UnityEngine.Application.sandboxType);
-		return 1;
+		try
+		{
+			ToLua.Push(L, UnityEngine.Application.sandboxType);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_productName(IntPtr L)
 	{
-		LuaDLL.lua_pushstring(L, UnityEngine.Application.productName);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushstring(L, UnityEngine.Application.productName);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_companyName(IntPtr L)
 	{
-		LuaDLL.lua_pushstring(L, UnityEngine.Application.companyName);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushstring(L, UnityEngine.Application.companyName);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_cloudProjectId(IntPtr L)
 	{
-		LuaDLL.lua_pushstring(L, UnityEngine.Application.cloudProjectId);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushstring(L, UnityEngine.Application.cloudProjectId);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_webSecurityEnabled(IntPtr L)
 	{
-		LuaDLL.lua_pushboolean(L, UnityEngine.Application.webSecurityEnabled);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushboolean(L, UnityEngine.Application.webSecurityEnabled);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_webSecurityHostUrl(IntPtr L)
 	{
-		LuaDLL.lua_pushstring(L, UnityEngine.Application.webSecurityHostUrl);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushstring(L, UnityEngine.Application.webSecurityHostUrl);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_targetFrameRate(IntPtr L)
 	{
-		LuaDLL.lua_pushinteger(L, UnityEngine.Application.targetFrameRate);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushinteger(L, UnityEngine.Application.targetFrameRate);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_systemLanguage(IntPtr L)
 	{
-		ToLua.Push(L, UnityEngine.Application.systemLanguage);
-		return 1;
+		try
+		{
+			ToLua.Push(L, UnityEngine.Application.systemLanguage);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_stackTraceLogType(IntPtr L)
 	{
-		ToLua.Push(L, UnityEngine.Application.stackTraceLogType);
-		return 1;
+		try
+		{
+			ToLua.Push(L, UnityEngine.Application.stackTraceLogType);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_backgroundLoadingPriority(IntPtr L)
 	{
-		ToLua.Push(L, UnityEngine.Application.backgroundLoadingPriority);
-		return 1;
+		try
+		{
+			ToLua.Push(L, UnityEngine.Application.backgroundLoadingPriority);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_internetReachability(IntPtr L)
 	{
-		ToLua.Push(L, UnityEngine.Application.internetReachability);
-		return 1;
+		try
+		{
+			ToLua.Push(L, UnityEngine.Application.internetReachability);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_genuine(IntPtr L)
 	{
-		LuaDLL.lua_pushboolean(L, UnityEngine.Application.genuine);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushboolean(L, UnityEngine.Application.genuine);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_genuineCheckAvailable(IntPtr L)
 	{
-		LuaDLL.lua_pushboolean(L, UnityEngine.Application.genuineCheckAvailable);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushboolean(L, UnityEngine.Application.genuineCheckAvailable);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_isShowingSplashScreen(IntPtr L)
 	{
-		LuaDLL.lua_pushboolean(L, UnityEngine.Application.isShowingSplashScreen);
-		return 1;
+		try
+		{
+			LuaDLL.lua_pushboolean(L, UnityEngine.Application.isShowingSplashScreen);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
