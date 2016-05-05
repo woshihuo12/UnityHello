@@ -5,11 +5,17 @@
 local ui_messagebox = class(ui_session)
 
 function ui_messagebox.show(args)
-    ui_manager:instance():show_popup(ui_messagebox(ui_session_data(ui_session_type.POPUP, ui_session_id.UI_MESSAGEBOX)), true, args)
+    local ui_manager = fw_facade:instance():get_mgr(mgr_name.UI_MGR)
+    if ui_manager ~= nil then
+        ui_manager:instance():show_popup(ui_messagebox(ui_session_data(ui_session_type.POPUP, ui_session_id.UI_MESSAGEBOX)), true, args)
+    end
 end
 
 function ui_messagebox.close()
-    ui_manager:instance():close_popup()
+    local ui_manager = fw_facade:instance():get_mgr(mgr_name.UI_MGR)
+    if ui_manager ~= nil then
+        ui_manager:instance():close_popup()
+    end
 end
 
 function ui_messagebox:init(sessionData)

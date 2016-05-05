@@ -4,7 +4,7 @@
 
 require "uiscripts/ui_session_id"
 require "uiscripts/ui_session"
-require "uiscripts/ui_manager"
+
 
 UText = UnityEngine.UI.Text
 UImage = UnityEngine.UI.Image

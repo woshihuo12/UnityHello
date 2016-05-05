@@ -6,7 +6,11 @@ local ui_topbar = class(ui_session)
 
 function ui_topbar.show_me()
     local sd = ui_session_data(ui_session_type.FIXED, ui_session_id.UI_TOPBAR)
-    ui_manager:instance():show_session(ui_topbar(sd))
+
+    local ui_manager = fw_facade:instance():get_mgr(mgr_name.UI_MGR)
+    if ui_manager ~= nil then
+        ui_manager:instance():show_session(ui_topbar(sd))
+    end
 end
 
 function ui_topbar:init(session_data)
@@ -17,7 +21,10 @@ end
 function ui_topbar:on_post_load()
     local left_btn = self.transform:Find("leftBtn").gameObject
     self.lua_behaviour:AddClick(left_btn, function(go)
-        ui_manager:instance():go_back()
+        local ui_manager = fw_facade:instance():get_mgr(mgr_name.UI_MGR)
+        if ui_manager ~= nil then
+            ui_manager:instance():go_back()
+        end
     end )
 end
 

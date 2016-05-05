@@ -67,11 +67,11 @@ function play_open_window_anim(trans, ui_animhandler)
         ui_animhandler.before_handler()
     end
     trans.localScale = Vector3.zero
-    --    local ltDescr = LeanTween.scale(trans, Vector3.one, 0.2):setEase(LeanTweenType.easeOutBack)
-    --    if ltDescr and ui_animhandler and ui_animhandler.after_handler then
-    --        ltDescr:setOnComplete(System.Action(ui_animhandler.after_handler))
-    --    end
-    local tw = trans:DOScale(Vector3.one, 0.2)
-    
+    local ltDescr = LeanTween.scale(trans, Vector3.one, 0.2):setEase(LeanTweenType.easeOutBack)
+    if ltDescr and ui_animhandler and ui_animhandler.after_handler then
+        ltDescr:setOnComplete(System.Action(ui_animhandler.after_handler))
+    end
+    --    local tw = trans:DOScale(Vector3.one, 0.2)
+
 end
 -- endregion

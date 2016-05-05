@@ -5,6 +5,7 @@
 require "common/init"
 require "uiscripts/init"
 require "eventsystem/init"
+require "framework/init"
 
 string_table = require "globalization/zh/string_table"
 

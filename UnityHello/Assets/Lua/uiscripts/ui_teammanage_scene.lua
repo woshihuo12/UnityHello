@@ -6,7 +6,10 @@ local ui_teammanage_scene = class(ui_session)
 
 function ui_teammanage_scene.show_me()
     local sd = ui_session_data(ui_session_type.NORMAL, ui_session_id.UI_TEAMMANAGE_SCENE)
-    ui_manager:instance():show_session(ui_teammanage_scene(sd))
+    local ui_manager = fw_facade:instance():get_mgr(mgr_name.UI_MGR)
+    if ui_manager ~= nil then
+        ui_manager:instance():show_session(ui_teammanage_scene(sd))
+    end
 end
 
 function ui_teammanage_scene:init(session_data)

@@ -29,6 +29,7 @@
     <Folder Include="Lua\globalization\zh\" />
     <Folder Include="Lua\eventsystem\" />
     <Folder Include="Lua\manager\" />
+    <Folder Include="Lua\framework\" />
     <Folder Include="Lua\protol\" />
     <Folder Include="Lua\uiscripts\" />
   </ItemGroup>
@@ -42,6 +43,12 @@
     <Compile Include="Lua\eventsystem\event_dispatcher.lua" />
     <Compile Include="Lua\eventsystem\event_manager.lua" />
     <Compile Include="Lua\eventsystem\init.lua" />
+    <Compile Include="Lua\framework\fw_command.lua" />
+    <Compile Include="Lua\framework\fw_controller.lua" />
+    <Compile Include="Lua\framework\fw_facade.lua" />
+    <Compile Include="Lua\framework\fw_message.lua" />
+    <Compile Include="Lua\framework\fw_startcommand.lua" />
+    <Compile Include="Lua\framework\init.lua" />
     <Compile Include="Lua\globalization\en\string_table.lua" />
     <Compile Include="Lua\globalization\zh\string_table.lua" />
     <Compile Include="Lua\init.lua" />

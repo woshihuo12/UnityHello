@@ -2,7 +2,8 @@
 -- Date
 -- 此文件由[BabeLua]插件自动生成
 
-ui_manager = class()
+local ui_manager = class()
+
 function ui_manager:init()
     -- 所有已加载的 Session
     self._all_sessions = { }
@@ -352,4 +353,5 @@ function ui_manager:hide_all_shown_sessions(include_fixed)
     end
 end
 
+return ui_manager
 -- endregion
