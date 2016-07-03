@@ -1,10 +1,11 @@
 -- region *.lua
 -- Date
 -- 此文件由[BabeLua]插件自动生成
+local class = require("common/middleclass")
 
-local ui_manager = class()
+local ui_manager = class("ui_manager")
 
-function ui_manager:init()
+function ui_manager:initialize()
     -- 所有已加载的 Session
     self._all_sessions = { }
     -- 当前正在显示的 Session
@@ -354,4 +355,3 @@ function ui_manager:hide_all_shown_sessions(include_fixed)
 end
 
 return ui_manager
--- endregion

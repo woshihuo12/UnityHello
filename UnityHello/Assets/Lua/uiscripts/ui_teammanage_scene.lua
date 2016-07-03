@@ -1,8 +1,9 @@
 -- region *.lua
 -- Date
 -- 此文件由[BabeLua]插件自动生成
+local class = require("common/middleclass")
 
-local ui_teammanage_scene = class(ui_session)
+local ui_teammanage_scene = class("ui_teammanage_scene", ui_session)
 
 function ui_teammanage_scene.show_me()
     local sd = ui_session_data(ui_session_type.NORMAL, ui_session_id.UI_TEAMMANAGE_SCENE)
@@ -12,8 +13,9 @@ function ui_teammanage_scene.show_me()
     end
 end
 
-function ui_teammanage_scene:init(session_data)
-    self._base.init(self, session_data)
+function ui_teammanage_scene:initialize(session_data)
+    -- self._base.init(self, session_data)
+    ui_session.initialize(self, session_data)
     self.session_id = ui_session_id.UI_TEAMMANAGE_SCENE
 end
 

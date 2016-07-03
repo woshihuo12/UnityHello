@@ -1,6 +1,8 @@
 -- region *.lua
 -- Date
 -- 此文件由[BabeLua]插件自动生成
+local class = require("common/middleclass")
+
 ui_session_type =
 {
     -- 背景层
@@ -19,29 +21,29 @@ ui_session_type =
     ABOVE_TUTORIAL = 7,
 }
 
-ui_common_handler = class()
-function ui_common_handler:init(before_handler, after_handler)
+ui_common_handler = class("ui_common_handler")
+function ui_common_handler:initialize(before_handler, after_handler)
     self.before_handler = before_handler
     self.after_handler = after_handler
 end
 
-ui_anim_handler = class()
-function ui_anim_handler:init(before_handler, reset_handler, after_handler)
+ui_anim_handler = class("ui_anim_handler")
+function ui_anim_handler:initialize(before_handler, reset_handler, after_handler)
     self.before_handler = before_handler
     self.reset_handler = reset_handler
     self.after_handler = after_handler
 end
 
 -- 界面状态数据
-ui_session_data = class()
-function ui_session_data:init(session_type, prefab_name, is_first_session)
+ui_session_data = class("ui_session_data")
+function ui_session_data:initialize(session_type, prefab_name, is_first_session)
     self.session_type = session_type
     self.prefab_name = prefab_name
     self.is_first_session = is_first_session or false
 end
 
-ui_session = class()
-function ui_session:init(session_data)
+ui_session = class("ui_session")
+function ui_session:initialize(session_data)
     -- 如果需要可以添加一个BoxCollider屏蔽事件
     self.is_lock = false
     self.is_shown = false

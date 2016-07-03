@@ -1,8 +1,9 @@
 -- region *.lua
 -- Date
 -- 此文件由[BabeLua]插件自动生成
+local class = require("common/middleclass")
 
-local ui_topbar = class(ui_session)
+local ui_topbar = class("ui_topbar", ui_session)
 
 function ui_topbar.show_me()
     local sd = ui_session_data(ui_session_type.FIXED, ui_session_id.UI_TOPBAR)
@@ -13,8 +14,9 @@ function ui_topbar.show_me()
     end
 end
 
-function ui_topbar:init(session_data)
-    self._base.init(self, session_data)
+function ui_topbar:initialize(session_data)
+    -- self._base.init(self, session_data)
+    ui_session.initialize(self, session_data)
     self.session_id = ui_session_id.UI_TOPBAR
 end
 

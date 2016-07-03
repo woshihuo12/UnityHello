@@ -1,8 +1,9 @@
 -- region *.lua
 -- Date
 -- 此文件由[BabeLua]插件自动生成
+local class = require("common/middleclass")
 
-simple_state_machine = class()
+simple_state_machine = class("simple_state_machine")
 
 simple_state_machine.VERSION = "2.2.0"
 -- the event transitioned successfully from one state to another
@@ -25,40 +26,40 @@ simple_state_machine.INVALID_CALLBACK_ERROR = "INVALID_CALLBACK_ERROR"
 simple_state_machine.WILDCARD = "*"
 simple_state_machine.ASYNC = "ASYNC"
 
-function simple_state_machine:init()
+function simple_state_machine:initialize()
 end
 
 function simple_state_machine:setup_state(cfg)
     assert(type(cfg) == "table", "simple_state_machine:setup_state() - invalid config")
-
+    
     -- cfg.initial allow for a simple string,
     -- or an table with { state = "foo", event = "setup", defer = true|false }
     if type(cfg.initial) == "string" then
-        self._initial = { state = cfg.initial }
+        self._initial = {state = cfg.initial}
     else
         self._initial = cfg.initial
     end
-
+    
     self._terminal = cfg.terminal or cfg.final
-    self._events = cfg.events or { }
-    self._callbacks = cfg.callbacks or { }
-    self._map = { }
+    self._events = cfg.events or {}
+    self._callbacks = cfg.callbacks or {}
+    self._map = {}
     self._current = "none"
     self._in_transition = false
-
+    
     if self._initial then
         self._initial.event = self._initial.event or "startup"
-        self:_add_event( { name = self._initial.event, from = "none", to = self._initial.state })
+        self:_add_event({name = self._initial.event, from = "none", to = self._initial.state})
     end
-
+    
     for _, event in ipairs(self._events) do
         self:_add_event(event)
     end
-
+    
     if self._initial and not self._initial.defer then
         self:do_event(self._initial.event)
     end
-
+    
     return self._target
 end
 
@@ -85,7 +86,7 @@ end
 
 function simple_state_machine:can_do_event(event_name)
     return not self._in_transition and
-    (self._map[event_name][self._current] ~= nil or self._map[event_name][simple_state_machine.WILDCARD] ~= nil)
+        (self._map[event_name][self._current] ~= nil or self._map[event_name][simple_state_machine.WILDCARD] ~= nil)
 end
 
 function simple_state_machine:cannot_do_event(event_name)
@@ -99,27 +100,27 @@ end
 function simple_state_machine:do_event_force(name, ...)
     local from = self._current
     local map = self._map[name]
-    local to =(map[from] or map[simple_state_machine.WILDCARD]) or from
-    local args = { ...}
-
+    local to = (map[from] or map[simple_state_machine.WILDCARD]) or from
+    local args = {...}
+    
     local event = {
         name = name,
         from = from,
         to = to,
         args = args
     }
-
+    
     if self._in_transition then
         self._in_transition = false
     end
-
+    
     self:_before_event(event)
-
+    
     if from == to then
         self:_after_event(event)
         return simple_state_machine.NOTRANSITION
     end
-
+    
     self._current = to
     self:_enter_state(event)
     self:_change_state(event)
@@ -129,40 +130,40 @@ end
 
 function simple_state_machine:do_event(name, ...)
     assert(self._map[name] ~= nil, string.format("simple_state_machine:DoEvent() - invalid event %s", tostring(name)))
-
+    
     local from = self._current
     local map = self._map[name]
-    local to =(map[from] or map[simple_state_machine.WILDCARD]) or from
-    local args = { ...}
-
+    local to = (map[from] or map[simple_state_machine.WILDCARD]) or from
+    local args = {...}
+    
     local event = {
         name = name,
         from = from,
         to = to,
         args = args,
     }
-
+    
     if self._in_transition then
         self:_on_error(event, simple_state_machine.PENDING_TRANSITION_ERROR,
-        "event " .. name .. " inappropriate because previous transition did not complete")
+            "event " .. name .. " inappropriate because previous transition did not complete")
         return simple_state_machine.FAILURE
     end
-
+    
     if self:cannot_do_event(name) then
         self:_on_error(event, simple_state_machine.INVALID_TRANSITION_ERROR,
-        "event " .. name .. " inappropriate in current state " .. self._current)
+            "event " .. name .. " inappropriate in current state " .. self._current)
         return simple_state_machine.FAILURE
     end
-
+    
     if self:_before_event(event) == false then
         return simple_state_machine.CANCELLED
     end
-
+    
     if from == to then
         self:_after_event(event)
         return simple_state_machine.NOTRANSITION
     end
-
+    
     event.transition = function()
         self._in_transition = false
         self._current = to
@@ -172,13 +173,13 @@ function simple_state_machine:do_event(name, ...)
         self:_after_event(event)
         return simple_state_machine.SUCCEEDED
     end
-
+    
     event.cancel = function()
-        -- provide a way for caller to cancel async transition if desired
-        event.transition = nil
-        self:_after_event(event)
+            -- provide a way for caller to cancel async transition if desired
+            event.transition = nil
+            self:_after_event(event)
     end
-
+    
     self._in_transition = true
     local leave = self:_leave_state(event)
     if leave == false then
@@ -200,7 +201,7 @@ function simple_state_machine:do_event(name, ...)
 end
 
 function simple_state_machine:_add_event(event)
-    local from = { }
+    local from = {}
     if type(event.from) == "table" then
         for _, name in ipairs(event.from) do
             from[name] = true
@@ -211,8 +212,8 @@ function simple_state_machine:_add_event(event)
         -- allow "wildcard" transition if "from" is not specified
         from[simple_state_machine.WILDCARD] = true
     end
-
-    self._map[event.name] = self._map[event.name] or { }
+    
+    self._map[event.name] = self._map[event.name] or {}
     local map = self._map[event.name]
     for fromName, _ in pairs(from) do
         map[fromName] = event.to or fromName
@@ -292,5 +293,3 @@ function simple_state_machine:_on_error(event, error, message)
     print("%s [simple_state_machine] ERROR: error %s, event %s, from %s to %s", tostring(self._target), tostring(error), event.name, event.from, event.to)
     print(message)
 end
-
--- endregion

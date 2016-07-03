@@ -1,14 +1,15 @@
 -- region *.lua
 -- Date
 -- 此文件由[BabeLua]插件自动生成
+local class = require("common/middleclass")
 
 local fw_controller = require "framework/fw_controller"
 
 local fw_startcommand = require "framework/fw_startcommand"
 
-fw_facade = class()
+fw_facade = class("fw_facade")
 
-function fw_facade:init()
+function fw_facade:initialize()
     self.controller = fw_controller:instance()
     self.managers = { }
     self:register_command(noti_const.START_UP, fw_startcommand());

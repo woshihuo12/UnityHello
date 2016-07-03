@@ -15,4 +15,3 @@ noti_const =
 {
     START_UP = "start_up",
 }
--- endregion

@@ -1,14 +1,16 @@
 -- region *.lua
 -- Date
 -- 此文件由[BabeLua]插件自动生成
+local class = require("common/middleclass")
+
 local network_manager = require "manager/network_manager"
 local ui_manager = require "uiscripts/ui_manager"
 local fw_command = require "framework/fw_command"
 local ui_topbar = require "uiscripts/ui_topbar"
 local ui_mainmenu_scene = require "uiscripts/ui_mainmenu_scene"
 
-local fw_startcommand = class(fw_command)
-function fw_startcommand:init()
+local fw_startcommand = class("fw_startcommand", fw_command)
+function fw_startcommand:initialize()
 end
 
 function fw_startcommand:execute(msg)
@@ -21,4 +23,3 @@ function fw_startcommand:execute(msg)
 end
 
 return fw_startcommand
--- endregion
