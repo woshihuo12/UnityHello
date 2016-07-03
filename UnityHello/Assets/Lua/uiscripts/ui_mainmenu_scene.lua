@@ -3,9 +3,9 @@
 -- 此文件由[BabeLua]插件自动生成
 local class = require("common/middleclass")
 
-local person_pb = require "protol/person_pb"
-local ui_messagebox = require "uiscripts/ui_messagebox"
-local ui_teammanage_scene = require "uiscripts/ui_teammanage_scene"
+local person_pb = require("protol/person_pb")
+local ui_messagebox = require("uiscripts/ui_messagebox")
+local ui_teammanage_scene = require("uiscripts/ui_teammanage_scene")
 
 local ui_mainmenu_cellbtn = class("ui_mainmenu_cellbtn", ui_session)
 function ui_mainmenu_cellbtn:initialize()
@@ -140,4 +140,3 @@ function ui_mainmenu_scene:on_pre_destroy()
 end
 
 return ui_mainmenu_scene
--- endregion

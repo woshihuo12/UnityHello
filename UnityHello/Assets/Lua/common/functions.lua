@@ -74,4 +74,3 @@ function play_open_window_anim(trans, ui_animhandler)
     --    local tw = trans:DOScale(Vector3.one, 0.2)
 
 end
--- endregion

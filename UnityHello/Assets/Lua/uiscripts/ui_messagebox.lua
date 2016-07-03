@@ -178,4 +178,3 @@ function ui_messagebox:on_pre_destroy()
 end
 
 return ui_messagebox
--- endregion

@@ -2,10 +2,9 @@
 -- Date
 -- 此文件由[BabeLua]插件自动生成
 local class = require("common/middleclass")
-
-local fw_controller = require "framework/fw_controller"
-
-local fw_startcommand = require "framework/fw_startcommand"
+local fw_controller = require("framework/fw_controller")
+local fw_startcommand = require("framework/fw_startcommand")
+local fw_message = require("framework/fw_message")
 
 fw_facade = class("fw_facade")
 
@@ -57,4 +56,3 @@ function fw_facade:remove_mgr(args)
         self.managers[mgr_name] = nil
     end
 end
--- endregion

@@ -127,4 +127,3 @@ end
 function ui_session:get_session_id()
     return self.session_id;
 end
--- endregion

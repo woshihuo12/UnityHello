@@ -24,5 +24,3 @@ function network_manager.on_socket_data(key, data)
 end
 
 return network_manager
-
--- endregion

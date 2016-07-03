@@ -10,5 +10,3 @@ ui_session_id =
     UI_MAINMENU_SCENE = "ui_mainmenu_scene",
     UI_TEAMMANAGE_SCENE = "ui_teammanage_scene",
 }
-
--- endregion

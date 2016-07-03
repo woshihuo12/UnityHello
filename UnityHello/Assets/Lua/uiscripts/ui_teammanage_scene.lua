@@ -27,4 +27,3 @@ function ui_teammanage_scene:on_pre_destroy()
 end
 
 return ui_teammanage_scene
--- endregion

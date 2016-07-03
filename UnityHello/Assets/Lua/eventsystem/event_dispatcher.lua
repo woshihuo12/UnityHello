@@ -2,6 +2,7 @@
 --Date
 --此文件由[BabeLua]插件自动生成
 local class = require("common/middleclass")
+local event_manager = require("eventsystem/event_manager")
 
 event_dispatcher = class("event_dispatcher")
 function event_dispatcher:initialize()

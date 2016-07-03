@@ -41,5 +41,3 @@ function fw_controller:has_command(cmd_name)
 end
 
 return fw_controller
-
--- endregion

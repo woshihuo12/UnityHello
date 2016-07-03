@@ -39,4 +39,3 @@ function ui_topbar:on_pre_destroy()
 end
 
 return ui_topbar
--- endregion

@@ -3,7 +3,7 @@
 -- 此文件由[BabeLua]插件自动生成
 local class = require("common/middleclass")
 
-event_manager = class("event_manager")
+local event_manager = class("event_manager")
 
 function event_manager:initialize()
     self._events_map = { }
@@ -41,4 +41,5 @@ function event_manager:trigger_event(event_type, ...)
         tmp_event(args)
     end
 end
--- endregion
+
+return event_manager

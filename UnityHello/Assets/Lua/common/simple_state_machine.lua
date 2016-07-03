@@ -3,7 +3,7 @@
 -- 此文件由[BabeLua]插件自动生成
 local class = require("common/middleclass")
 
-simple_state_machine = class("simple_state_machine")
+local simple_state_machine = class("simple_state_machine")
 
 simple_state_machine.VERSION = "2.2.0"
 -- the event transitioned successfully from one state to another
@@ -293,3 +293,5 @@ function simple_state_machine:_on_error(event, error, message)
     print("%s [simple_state_machine] ERROR: error %s, event %s, from %s to %s", tostring(self._target), tostring(error), event.name, event.from, event.to)
     print(message)
 end
+
+return simple_state_machine

@@ -56,5 +56,3 @@ function stack:create()
 
     return t
 end
-
--- endregion

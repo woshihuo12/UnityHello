@@ -20,6 +20,6 @@ function clone(object)
 end
 
 -- require "common/class"
-require "common/stack"
-require "common/functions"
-require "common/simple_state_machine"
+require("common/stack")
+require("common/functions")
+-- require "common/simple_state_machine"
