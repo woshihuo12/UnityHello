@@ -820,7 +820,7 @@ public class UnityEngine_TransformWrap
 			DG.Tweening.PathType arg2 = (DG.Tweening.PathType)ToLua.CheckObject(L, 4, typeof(DG.Tweening.PathType));
 			DG.Tweening.PathMode arg3 = (DG.Tweening.PathMode)ToLua.CheckObject(L, 5, typeof(DG.Tweening.PathMode));
 			int arg4 = (int)LuaDLL.luaL_checknumber(L, 6);
-			System.Nullable<UnityEngine.Color> arg5 = (System.Nullable<UnityEngine.Color>)ToLua.CheckObject(L, 7, typeof(System.Nullable<UnityEngine.Color>));
+			System.Nullable<UnityEngine.Color> arg5 = (System.Nullable<UnityEngine.Color>)ToLua.CheckVarObject(L, 7, typeof(System.Nullable<UnityEngine.Color>));
 			DG.Tweening.Core.TweenerCore<UnityEngine.Vector3,DG.Tweening.Plugins.Core.PathCore.Path,DG.Tweening.Plugins.Options.PathOptions> o = obj.DOLocalPath(arg0, arg1, arg2, arg3, arg4, arg5);
 			ToLua.PushObject(L, o);
 			return 1;
@@ -843,7 +843,7 @@ public class UnityEngine_TransformWrap
 			DG.Tweening.PathType arg2 = (DG.Tweening.PathType)ToLua.CheckObject(L, 4, typeof(DG.Tweening.PathType));
 			DG.Tweening.PathMode arg3 = (DG.Tweening.PathMode)ToLua.CheckObject(L, 5, typeof(DG.Tweening.PathMode));
 			int arg4 = (int)LuaDLL.luaL_checknumber(L, 6);
-			System.Nullable<UnityEngine.Color> arg5 = (System.Nullable<UnityEngine.Color>)ToLua.CheckObject(L, 7, typeof(System.Nullable<UnityEngine.Color>));
+			System.Nullable<UnityEngine.Color> arg5 = (System.Nullable<UnityEngine.Color>)ToLua.CheckVarObject(L, 7, typeof(System.Nullable<UnityEngine.Color>));
 			DG.Tweening.Core.TweenerCore<UnityEngine.Vector3,DG.Tweening.Plugins.Core.PathCore.Path,DG.Tweening.Plugins.Options.PathOptions> o = obj.DOPath(arg0, arg1, arg2, arg3, arg4, arg5);
 			ToLua.PushObject(L, o);
 			return 1;
@@ -1094,7 +1094,7 @@ public class UnityEngine_TransformWrap
 			UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
 			float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
 			DG.Tweening.AxisConstraint arg2 = (DG.Tweening.AxisConstraint)ToLua.CheckObject(L, 4, typeof(DG.Tweening.AxisConstraint));
-			System.Nullable<UnityEngine.Vector3> arg3 = (System.Nullable<UnityEngine.Vector3>)ToLua.CheckObject(L, 5, typeof(System.Nullable<UnityEngine.Vector3>));
+			System.Nullable<UnityEngine.Vector3> arg3 = (System.Nullable<UnityEngine.Vector3>)ToLua.CheckVarObject(L, 5, typeof(System.Nullable<UnityEngine.Vector3>));
 			DG.Tweening.Tweener o = obj.DOLookAt(arg0, arg1, arg2, arg3);
 			ToLua.PushObject(L, o);
 			return 1;

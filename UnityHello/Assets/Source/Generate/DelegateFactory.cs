@@ -47,9 +47,9 @@ public static class DelegateFactory
 		dict.Add(typeof(DG.Tweening.Core.DOSetter<UnityEngine.Rect>), DG_Tweening_Core_DOSetter_UnityEngine_Rect);
 		dict.Add(typeof(DG.Tweening.Core.DOGetter<UnityEngine.RectOffset>), DG_Tweening_Core_DOGetter_UnityEngine_RectOffset);
 		dict.Add(typeof(DG.Tweening.Core.DOSetter<UnityEngine.RectOffset>), DG_Tweening_Core_DOSetter_UnityEngine_RectOffset);
+		dict.Add(typeof(UnityEngine.Camera.CameraCallback), UnityEngine_Camera_CameraCallback);
 		dict.Add(typeof(UnityEngine.Application.LogCallback), UnityEngine_Application_LogCallback);
 		dict.Add(typeof(UnityEngine.Application.AdvertisingIdentifierCallback), UnityEngine_Application_AdvertisingIdentifierCallback);
-		dict.Add(typeof(UnityEngine.Camera.CameraCallback), UnityEngine_Camera_CameraCallback);
 		dict.Add(typeof(UnityEngine.AudioClip.PCMReaderCallback), UnityEngine_AudioClip_PCMReaderCallback);
 		dict.Add(typeof(UnityEngine.AudioClip.PCMSetPositionCallback), UnityEngine_AudioClip_PCMSetPositionCallback);
 		dict.Add(typeof(UnityEngine.UI.InputField.OnValidateInput), UnityEngine_UI_InputField_OnValidateInput);
@@ -150,8 +150,10 @@ public static class DelegateFactory
 
 		public float Call()
 		{
-			func.Call();
-		float ret = (float)func.CheckNumber();
+			func.BeginPCall();
+			func.PCall();
+			float ret = (float)func.CheckNumber();
+			func.EndPCall();
 			return ret;
 		}
 	}
@@ -199,8 +201,10 @@ public static class DelegateFactory
 
 		public double Call()
 		{
-			func.Call();
-		double ret = (double)func.CheckNumber();
+			func.BeginPCall();
+			func.PCall();
+			double ret = (double)func.CheckNumber();
+			func.EndPCall();
 			return ret;
 		}
 	}
@@ -248,8 +252,10 @@ public static class DelegateFactory
 
 		public int Call()
 		{
-			func.Call();
-		int ret = (int)func.CheckNumber();
+			func.BeginPCall();
+			func.PCall();
+			int ret = (int)func.CheckNumber();
+			func.EndPCall();
 			return ret;
 		}
 	}
@@ -297,8 +303,10 @@ public static class DelegateFactory
 
 		public uint Call()
 		{
-			func.Call();
-		uint ret = (uint)func.CheckNumber();
+			func.BeginPCall();
+			func.PCall();
+			uint ret = (uint)func.CheckNumber();
+			func.EndPCall();
 			return ret;
 		}
 	}
@@ -346,8 +354,10 @@ public static class DelegateFactory
 
 		public long Call()
 		{
-			func.Call();
-		long ret = (long)func.CheckNumber();
+			func.BeginPCall();
+			func.PCall();
+			long ret = (long)func.CheckNumber();
+			func.EndPCall();
 			return ret;
 		}
 	}
@@ -395,8 +405,10 @@ public static class DelegateFactory
 
 		public ulong Call()
 		{
-			func.Call();
-		ulong ret = (ulong)func.CheckNumber();
+			func.BeginPCall();
+			func.PCall();
+			ulong ret = (ulong)func.CheckNumber();
+			func.EndPCall();
 			return ret;
 		}
 	}
@@ -444,8 +456,10 @@ public static class DelegateFactory
 
 		public string Call()
 		{
-			func.Call();
-		string ret = func.CheckString();
+			func.BeginPCall();
+			func.PCall();
+			string ret = func.CheckString();
+			func.EndPCall();
 			return ret;
 		}
 	}
@@ -493,8 +507,10 @@ public static class DelegateFactory
 
 		public UnityEngine.Vector2 Call()
 		{
-			func.Call();
-		UnityEngine.Vector2 ret = func.CheckVector2();
+			func.BeginPCall();
+			func.PCall();
+			UnityEngine.Vector2 ret = func.CheckVector2();
+			func.EndPCall();
 			return ret;
 		}
 	}
@@ -542,8 +558,10 @@ public static class DelegateFactory
 
 		public UnityEngine.Vector3 Call()
 		{
-			func.Call();
-		UnityEngine.Vector3 ret = func.CheckVector3();
+			func.BeginPCall();
+			func.PCall();
+			UnityEngine.Vector3 ret = func.CheckVector3();
+			func.EndPCall();
 			return ret;
 		}
 	}
@@ -591,8 +609,10 @@ public static class DelegateFactory
 
 		public UnityEngine.Vector4 Call()
 		{
-			func.Call();
-		UnityEngine.Vector4 ret = func.CheckVector4();
+			func.BeginPCall();
+			func.PCall();
+			UnityEngine.Vector4 ret = func.CheckVector4();
+			func.EndPCall();
 			return ret;
 		}
 	}
@@ -640,8 +660,10 @@ public static class DelegateFactory
 
 		public UnityEngine.Quaternion Call()
 		{
-			func.Call();
-		UnityEngine.Quaternion ret = func.CheckQuaternion();
+			func.BeginPCall();
+			func.PCall();
+			UnityEngine.Quaternion ret = func.CheckQuaternion();
+			func.EndPCall();
 			return ret;
 		}
 	}
@@ -689,8 +711,10 @@ public static class DelegateFactory
 
 		public UnityEngine.Color Call()
 		{
-			func.Call();
-		UnityEngine.Color ret = func.CheckColor();
+			func.BeginPCall();
+			func.PCall();
+			UnityEngine.Color ret = func.CheckColor();
+			func.EndPCall();
 			return ret;
 		}
 	}
@@ -738,8 +762,10 @@ public static class DelegateFactory
 
 		public UnityEngine.Rect Call()
 		{
-			func.Call();
-		UnityEngine.Rect ret = (UnityEngine.Rect)func.CheckObject(typeof(UnityEngine.Rect));
+			func.BeginPCall();
+			func.PCall();
+			UnityEngine.Rect ret = (UnityEngine.Rect)func.CheckObject(typeof(UnityEngine.Rect));
+			func.EndPCall();
 			return ret;
 		}
 	}
@@ -787,8 +813,10 @@ public static class DelegateFactory
 
 		public UnityEngine.RectOffset Call()
 		{
-			func.Call();
-		UnityEngine.RectOffset ret = (UnityEngine.RectOffset)func.CheckObject(typeof(UnityEngine.RectOffset));
+			func.BeginPCall();
+			func.PCall();
+			UnityEngine.RectOffset ret = (UnityEngine.RectOffset)func.CheckObject(typeof(UnityEngine.RectOffset));
+			func.EndPCall();
 			return ret;
 		}
 	}
@@ -827,6 +855,31 @@ public static class DelegateFactory
 		}
 
 		DG.Tweening.Core.DOSetter<UnityEngine.RectOffset> d = (new DG_Tweening_Core_DOSetter_UnityEngine_RectOffset_Event(func)).Call;
+		return d;
+	}
+
+	class UnityEngine_Camera_CameraCallback_Event : LuaDelegate
+	{
+		public UnityEngine_Camera_CameraCallback_Event(LuaFunction func) : base(func) { }
+
+		public void Call(UnityEngine.Camera param0)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public static Delegate UnityEngine_Camera_CameraCallback(LuaFunction func)
+	{
+		if (func == null)
+		{
+			UnityEngine.Camera.CameraCallback fn = delegate { };
+			return fn;
+		}
+
+		UnityEngine.Camera.CameraCallback d = (new UnityEngine_Camera_CameraCallback_Event(func)).Call;
 		return d;
 	}
 
@@ -881,31 +934,6 @@ public static class DelegateFactory
 		}
 
 		UnityEngine.Application.AdvertisingIdentifierCallback d = (new UnityEngine_Application_AdvertisingIdentifierCallback_Event(func)).Call;
-		return d;
-	}
-
-	class UnityEngine_Camera_CameraCallback_Event : LuaDelegate
-	{
-		public UnityEngine_Camera_CameraCallback_Event(LuaFunction func) : base(func) { }
-
-		public void Call(UnityEngine.Camera param0)
-		{
-			func.BeginPCall();
-			func.Push(param0);
-			func.PCall();
-			func.EndPCall();
-		}
-	}
-
-	public static Delegate UnityEngine_Camera_CameraCallback(LuaFunction func)
-	{
-		if (func == null)
-		{
-			UnityEngine.Camera.CameraCallback fn = delegate { };
-			return fn;
-		}
-
-		UnityEngine.Camera.CameraCallback d = (new UnityEngine_Camera_CameraCallback_Event(func)).Call;
 		return d;
 	}
 

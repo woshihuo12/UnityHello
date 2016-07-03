@@ -32,14 +32,53 @@ public static class LuaBinder
 		DG_Tweening_SequenceWrap.Register(L);
 		DG_Tweening_TweenerWrap.Register(L);
 		DG_Tweening_LoopTypeWrap.Register(L);
+		DG_Tweening_PathModeWrap.Register(L);
+		DG_Tweening_PathTypeWrap.Register(L);
+		L.BeginModule("Core");
+		L.RegFunction("DOGetter_float", DG_Tweening_Core_DOGetter_float);
+		L.RegFunction("DOSetter_float", DG_Tweening_Core_DOSetter_float);
+		L.RegFunction("DOGetter_double", DG_Tweening_Core_DOGetter_double);
+		L.RegFunction("DOSetter_double", DG_Tweening_Core_DOSetter_double);
+		L.RegFunction("DOGetter_int", DG_Tweening_Core_DOGetter_int);
+		L.RegFunction("DOSetter_int", DG_Tweening_Core_DOSetter_int);
+		L.RegFunction("DOGetter_uint", DG_Tweening_Core_DOGetter_uint);
+		L.RegFunction("DOSetter_uint", DG_Tweening_Core_DOSetter_uint);
+		L.RegFunction("DOGetter_long", DG_Tweening_Core_DOGetter_long);
+		L.RegFunction("DOSetter_long", DG_Tweening_Core_DOSetter_long);
+		L.RegFunction("DOGetter_ulong", DG_Tweening_Core_DOGetter_ulong);
+		L.RegFunction("DOSetter_ulong", DG_Tweening_Core_DOSetter_ulong);
+		L.RegFunction("DOGetter_string", DG_Tweening_Core_DOGetter_string);
+		L.RegFunction("DOSetter_string", DG_Tweening_Core_DOSetter_string);
+		L.RegFunction("DOGetter_UnityEngine_Vector2", DG_Tweening_Core_DOGetter_UnityEngine_Vector2);
+		L.RegFunction("DOSetter_UnityEngine_Vector2", DG_Tweening_Core_DOSetter_UnityEngine_Vector2);
+		L.RegFunction("DOGetter_UnityEngine_Vector3", DG_Tweening_Core_DOGetter_UnityEngine_Vector3);
+		L.RegFunction("DOSetter_UnityEngine_Vector3", DG_Tweening_Core_DOSetter_UnityEngine_Vector3);
+		L.RegFunction("DOGetter_UnityEngine_Vector4", DG_Tweening_Core_DOGetter_UnityEngine_Vector4);
+		L.RegFunction("DOSetter_UnityEngine_Vector4", DG_Tweening_Core_DOSetter_UnityEngine_Vector4);
+		L.RegFunction("DOGetter_UnityEngine_Quaternion", DG_Tweening_Core_DOGetter_UnityEngine_Quaternion);
+		L.RegFunction("DOSetter_UnityEngine_Quaternion", DG_Tweening_Core_DOSetter_UnityEngine_Quaternion);
+		L.RegFunction("DOGetter_UnityEngine_Color", DG_Tweening_Core_DOGetter_UnityEngine_Color);
+		L.RegFunction("DOSetter_UnityEngine_Color", DG_Tweening_Core_DOSetter_UnityEngine_Color);
+		L.RegFunction("DOGetter_UnityEngine_Rect", DG_Tweening_Core_DOGetter_UnityEngine_Rect);
+		L.RegFunction("DOSetter_UnityEngine_Rect", DG_Tweening_Core_DOSetter_UnityEngine_Rect);
+		L.RegFunction("DOGetter_UnityEngine_RectOffset", DG_Tweening_Core_DOGetter_UnityEngine_RectOffset);
+		L.RegFunction("DOSetter_UnityEngine_RectOffset", DG_Tweening_Core_DOSetter_UnityEngine_RectOffset);
+		L.EndModule();
 		L.EndModule();
 		L.EndModule();
 		L.BeginModule("UnityEngine");
 		UnityEngine_ComponentWrap.Register(L);
+		UnityEngine_TransformWrap.Register(L);
+		UnityEngine_LightWrap.Register(L);
+		UnityEngine_MaterialWrap.Register(L);
+		UnityEngine_RigidbodyWrap.Register(L);
+		UnityEngine_CameraWrap.Register(L);
+		UnityEngine_AudioSourceWrap.Register(L);
+		UnityEngine_LineRendererWrap.Register(L);
+		UnityEngine_TrailRendererWrap.Register(L);
 		UnityEngine_BehaviourWrap.Register(L);
 		UnityEngine_MonoBehaviourWrap.Register(L);
 		UnityEngine_GameObjectWrap.Register(L);
-		UnityEngine_TransformWrap.Register(L);
 		UnityEngine_TrackedReferenceWrap.Register(L);
 		UnityEngine_ApplicationWrap.Register(L);
 		UnityEngine_PhysicsWrap.Register(L);
@@ -48,18 +87,14 @@ public static class LuaBinder
 		UnityEngine_TextureWrap.Register(L);
 		UnityEngine_Texture2DWrap.Register(L);
 		UnityEngine_ShaderWrap.Register(L);
-		UnityEngine_MaterialWrap.Register(L);
 		UnityEngine_RendererWrap.Register(L);
 		UnityEngine_WWWWrap.Register(L);
 		UnityEngine_ScreenWrap.Register(L);
-		UnityEngine_CameraWrap.Register(L);
 		UnityEngine_CameraClearFlagsWrap.Register(L);
 		UnityEngine_AudioClipWrap.Register(L);
-		UnityEngine_AudioSourceWrap.Register(L);
 		UnityEngine_AssetBundleWrap.Register(L);
 		UnityEngine_ParticleSystemWrap.Register(L);
 		UnityEngine_AsyncOperationWrap.Register(L);
-		UnityEngine_LightWrap.Register(L);
 		UnityEngine_LightTypeWrap.Register(L);
 		UnityEngine_SleepTimeoutWrap.Register(L);
 		UnityEngine_AnimatorWrap.Register(L);
@@ -87,7 +122,6 @@ public static class LuaBinder
 		UnityEngine_RenderSettingsWrap.Register(L);
 		UnityEngine_BlendWeightsWrap.Register(L);
 		UnityEngine_RenderTextureWrap.Register(L);
-		UnityEngine_RigidbodyWrap.Register(L);
 		UnityEngine_SpriteWrap.Register(L);
 		UnityEngine_RectWrap.Register(L);
 		UnityEngine_RectTransformWrap.Register(L);
@@ -113,6 +147,7 @@ public static class LuaBinder
 		UnityEngine_UI_ContentSizeFitterWrap.Register(L);
 		UnityEngine_UI_DropdownWrap.Register(L);
 		UnityEngine_UI_MaskWrap.Register(L);
+		UnityEngine_UI_RectMask2DWrap.Register(L);
 		UnityEngine_UI_LayoutElementWrap.Register(L);
 		UnityEngine_UI_SliderWrap.Register(L);
 		UnityEngine_UI_ScrollbarWrap.Register(L);
@@ -146,6 +181,454 @@ public static class LuaBinder
 		L.EndModule();
 		L.EndModule();
 		Debugger.Log("Register lua type cost time: {0}", Time.realtimeSinceStartup - t);
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DG_Tweening_Core_DOGetter_float(IntPtr L)
+	{
+		try
+		{
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(DG.Tweening.Core.DOGetter<float>), func);
+			ToLua.Push(L, arg1);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DG_Tweening_Core_DOSetter_float(IntPtr L)
+	{
+		try
+		{
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(DG.Tweening.Core.DOSetter<float>), func);
+			ToLua.Push(L, arg1);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DG_Tweening_Core_DOGetter_double(IntPtr L)
+	{
+		try
+		{
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(DG.Tweening.Core.DOGetter<double>), func);
+			ToLua.Push(L, arg1);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DG_Tweening_Core_DOSetter_double(IntPtr L)
+	{
+		try
+		{
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(DG.Tweening.Core.DOSetter<double>), func);
+			ToLua.Push(L, arg1);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DG_Tweening_Core_DOGetter_int(IntPtr L)
+	{
+		try
+		{
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(DG.Tweening.Core.DOGetter<int>), func);
+			ToLua.Push(L, arg1);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DG_Tweening_Core_DOSetter_int(IntPtr L)
+	{
+		try
+		{
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(DG.Tweening.Core.DOSetter<int>), func);
+			ToLua.Push(L, arg1);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DG_Tweening_Core_DOGetter_uint(IntPtr L)
+	{
+		try
+		{
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(DG.Tweening.Core.DOGetter<uint>), func);
+			ToLua.Push(L, arg1);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DG_Tweening_Core_DOSetter_uint(IntPtr L)
+	{
+		try
+		{
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(DG.Tweening.Core.DOSetter<uint>), func);
+			ToLua.Push(L, arg1);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DG_Tweening_Core_DOGetter_long(IntPtr L)
+	{
+		try
+		{
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(DG.Tweening.Core.DOGetter<long>), func);
+			ToLua.Push(L, arg1);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DG_Tweening_Core_DOSetter_long(IntPtr L)
+	{
+		try
+		{
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(DG.Tweening.Core.DOSetter<long>), func);
+			ToLua.Push(L, arg1);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DG_Tweening_Core_DOGetter_ulong(IntPtr L)
+	{
+		try
+		{
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(DG.Tweening.Core.DOGetter<ulong>), func);
+			ToLua.Push(L, arg1);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DG_Tweening_Core_DOSetter_ulong(IntPtr L)
+	{
+		try
+		{
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(DG.Tweening.Core.DOSetter<ulong>), func);
+			ToLua.Push(L, arg1);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DG_Tweening_Core_DOGetter_string(IntPtr L)
+	{
+		try
+		{
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(DG.Tweening.Core.DOGetter<string>), func);
+			ToLua.Push(L, arg1);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DG_Tweening_Core_DOSetter_string(IntPtr L)
+	{
+		try
+		{
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(DG.Tweening.Core.DOSetter<string>), func);
+			ToLua.Push(L, arg1);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DG_Tweening_Core_DOGetter_UnityEngine_Vector2(IntPtr L)
+	{
+		try
+		{
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(DG.Tweening.Core.DOGetter<UnityEngine.Vector2>), func);
+			ToLua.Push(L, arg1);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DG_Tweening_Core_DOSetter_UnityEngine_Vector2(IntPtr L)
+	{
+		try
+		{
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(DG.Tweening.Core.DOSetter<UnityEngine.Vector2>), func);
+			ToLua.Push(L, arg1);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DG_Tweening_Core_DOGetter_UnityEngine_Vector3(IntPtr L)
+	{
+		try
+		{
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(DG.Tweening.Core.DOGetter<UnityEngine.Vector3>), func);
+			ToLua.Push(L, arg1);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DG_Tweening_Core_DOSetter_UnityEngine_Vector3(IntPtr L)
+	{
+		try
+		{
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(DG.Tweening.Core.DOSetter<UnityEngine.Vector3>), func);
+			ToLua.Push(L, arg1);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DG_Tweening_Core_DOGetter_UnityEngine_Vector4(IntPtr L)
+	{
+		try
+		{
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(DG.Tweening.Core.DOGetter<UnityEngine.Vector4>), func);
+			ToLua.Push(L, arg1);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DG_Tweening_Core_DOSetter_UnityEngine_Vector4(IntPtr L)
+	{
+		try
+		{
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(DG.Tweening.Core.DOSetter<UnityEngine.Vector4>), func);
+			ToLua.Push(L, arg1);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DG_Tweening_Core_DOGetter_UnityEngine_Quaternion(IntPtr L)
+	{
+		try
+		{
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(DG.Tweening.Core.DOGetter<UnityEngine.Quaternion>), func);
+			ToLua.Push(L, arg1);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DG_Tweening_Core_DOSetter_UnityEngine_Quaternion(IntPtr L)
+	{
+		try
+		{
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(DG.Tweening.Core.DOSetter<UnityEngine.Quaternion>), func);
+			ToLua.Push(L, arg1);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DG_Tweening_Core_DOGetter_UnityEngine_Color(IntPtr L)
+	{
+		try
+		{
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(DG.Tweening.Core.DOGetter<UnityEngine.Color>), func);
+			ToLua.Push(L, arg1);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DG_Tweening_Core_DOSetter_UnityEngine_Color(IntPtr L)
+	{
+		try
+		{
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(DG.Tweening.Core.DOSetter<UnityEngine.Color>), func);
+			ToLua.Push(L, arg1);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DG_Tweening_Core_DOGetter_UnityEngine_Rect(IntPtr L)
+	{
+		try
+		{
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(DG.Tweening.Core.DOGetter<UnityEngine.Rect>), func);
+			ToLua.Push(L, arg1);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DG_Tweening_Core_DOSetter_UnityEngine_Rect(IntPtr L)
+	{
+		try
+		{
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(DG.Tweening.Core.DOSetter<UnityEngine.Rect>), func);
+			ToLua.Push(L, arg1);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DG_Tweening_Core_DOGetter_UnityEngine_RectOffset(IntPtr L)
+	{
+		try
+		{
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(DG.Tweening.Core.DOGetter<UnityEngine.RectOffset>), func);
+			ToLua.Push(L, arg1);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DG_Tweening_Core_DOSetter_UnityEngine_RectOffset(IntPtr L)
+	{
+		try
+		{
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(DG.Tweening.Core.DOSetter<UnityEngine.RectOffset>), func);
+			ToLua.Push(L, arg1);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

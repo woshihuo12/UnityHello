@@ -100,9 +100,9 @@ public class DG_Tweening_DOTweenWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 3);
-			System.Nullable<bool> arg0 = (System.Nullable<bool>)ToLua.CheckObject(L, 1, typeof(System.Nullable<bool>));
-			System.Nullable<bool> arg1 = (System.Nullable<bool>)ToLua.CheckObject(L, 2, typeof(System.Nullable<bool>));
-			System.Nullable<DG.Tweening.LogBehaviour> arg2 = (System.Nullable<DG.Tweening.LogBehaviour>)ToLua.CheckObject(L, 3, typeof(System.Nullable<DG.Tweening.LogBehaviour>));
+			System.Nullable<bool> arg0 = (System.Nullable<bool>)ToLua.CheckVarObject(L, 1, typeof(System.Nullable<bool>));
+			System.Nullable<bool> arg1 = (System.Nullable<bool>)ToLua.CheckVarObject(L, 2, typeof(System.Nullable<bool>));
+			System.Nullable<DG.Tweening.LogBehaviour> arg2 = (System.Nullable<DG.Tweening.LogBehaviour>)ToLua.CheckVarObject(L, 3, typeof(System.Nullable<DG.Tweening.LogBehaviour>));
 			DG.Tweening.IDOTweenInit o = DG.Tweening.DOTween.Init(arg0, arg1, arg2);
 			ToLua.PushObject(L, o);
 			return 1;
