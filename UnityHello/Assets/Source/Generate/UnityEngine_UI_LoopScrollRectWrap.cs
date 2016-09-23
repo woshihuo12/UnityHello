@@ -25,7 +25,7 @@ public class UnityEngine_UI_LoopScrollRectWrap
 		L.RegFunction("SetLayoutHorizontal", SetLayoutHorizontal);
 		L.RegFunction("SetLayoutVertical", SetLayoutVertical);
 		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", Lua_ToString);
+		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("mCellPerfabGo", get_mCellPerfabGo, set_mCellPerfabGo);
 		L.RegVar("CellPrefabName", get_CellPrefabName, set_CellPrefabName);
 		L.RegVar("TotalCount", get_TotalCount, set_TotalCount);
@@ -359,23 +359,6 @@ public class UnityEngine_UI_LoopScrollRectWrap
 		{
 			return LuaDLL.toluaL_exception(L, e);
 		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Lua_ToString(IntPtr L)
-	{
-		object obj = ToLua.ToObject(L, 1);
-
-		if (obj != null)
-		{
-			LuaDLL.lua_pushstring(L, obj.ToString());
-		}
-		else
-		{
-			LuaDLL.lua_pushnil(L);
-		}
-
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

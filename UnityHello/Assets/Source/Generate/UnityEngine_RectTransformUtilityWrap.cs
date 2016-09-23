@@ -17,7 +17,7 @@ public class UnityEngine_RectTransformUtilityWrap
 		L.RegFunction("CalculateRelativeRectTransformBounds", CalculateRelativeRectTransformBounds);
 		L.RegFunction("FlipLayoutOnAxis", FlipLayoutOnAxis);
 		L.RegFunction("FlipLayoutAxes", FlipLayoutAxes);
-		L.RegFunction("__tostring", Lua_ToString);
+		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.EndClass();
 	}
 
@@ -239,23 +239,6 @@ public class UnityEngine_RectTransformUtilityWrap
 		{
 			return LuaDLL.toluaL_exception(L, e);
 		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Lua_ToString(IntPtr L)
-	{
-		object obj = ToLua.ToObject(L, 1);
-
-		if (obj != null)
-		{
-			LuaDLL.lua_pushstring(L, obj.ToString());
-		}
-		else
-		{
-			LuaDLL.lua_pushnil(L);
-		}
-
-		return 1;
 	}
 }
 

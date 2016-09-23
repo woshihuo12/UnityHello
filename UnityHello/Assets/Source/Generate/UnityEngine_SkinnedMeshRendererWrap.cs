@@ -12,7 +12,7 @@ public class UnityEngine_SkinnedMeshRendererWrap
 		L.RegFunction("SetBlendShapeWeight", SetBlendShapeWeight);
 		L.RegFunction("New", _CreateUnityEngine_SkinnedMeshRenderer);
 		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", Lua_ToString);
+		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("bones", get_bones, set_bones);
 		L.RegVar("rootBone", get_rootBone, set_rootBone);
 		L.RegVar("quality", get_quality, set_quality);
@@ -115,23 +115,6 @@ public class UnityEngine_SkinnedMeshRendererWrap
 		{
 			return LuaDLL.toluaL_exception(L, e);
 		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Lua_ToString(IntPtr L)
-	{
-		object obj = ToLua.ToObject(L, 1);
-
-		if (obj != null)
-		{
-			LuaDLL.lua_pushstring(L, obj.ToString());
-		}
-		else
-		{
-			LuaDLL.lua_pushnil(L);
-		}
-
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

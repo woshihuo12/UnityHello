@@ -16,7 +16,7 @@ public class LTSplineWrap
 		L.RegFunction("placeLocal", placeLocal);
 		L.RegFunction("gizmoDraw", gizmoDraw);
 		L.RegFunction("New", _CreateLTSpline);
-		L.RegFunction("__tostring", Lua_ToString);
+		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("DISTANCE_COUNT", get_DISTANCE_COUNT, set_DISTANCE_COUNT);
 		L.RegVar("SUBLINE_COUNT", get_SUBLINE_COUNT, set_SUBLINE_COUNT);
 		L.RegVar("pts", get_pts, set_pts);
@@ -227,23 +227,6 @@ public class LTSplineWrap
 		{
 			return LuaDLL.toluaL_exception(L, e);
 		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Lua_ToString(IntPtr L)
-	{
-		object obj = ToLua.ToObject(L, 1);
-
-		if (obj != null)
-		{
-			LuaDLL.lua_pushstring(L, obj.ToString());
-		}
-		else
-		{
-			LuaDLL.lua_pushnil(L);
-		}
-
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

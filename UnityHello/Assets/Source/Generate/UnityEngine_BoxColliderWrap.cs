@@ -9,7 +9,7 @@ public class UnityEngine_BoxColliderWrap
 		L.BeginClass(typeof(UnityEngine.BoxCollider), typeof(UnityEngine.Collider));
 		L.RegFunction("New", _CreateUnityEngine_BoxCollider);
 		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", Lua_ToString);
+		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("center", get_center, set_center);
 		L.RegVar("size", get_size, set_size);
 		L.EndClass();
@@ -55,23 +55,6 @@ public class UnityEngine_BoxColliderWrap
 		{
 			return LuaDLL.toluaL_exception(L, e);
 		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Lua_ToString(IntPtr L)
-	{
-		object obj = ToLua.ToObject(L, 1);
-
-		if (obj != null)
-		{
-			LuaDLL.lua_pushstring(L, obj.ToString());
-		}
-		else
-		{
-			LuaDLL.lua_pushnil(L);
-		}
-
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

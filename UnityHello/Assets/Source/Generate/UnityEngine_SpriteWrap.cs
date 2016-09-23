@@ -11,7 +11,7 @@ public class UnityEngine_SpriteWrap
 		L.RegFunction("OverrideGeometry", OverrideGeometry);
 		L.RegFunction("New", _CreateUnityEngine_Sprite);
 		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", Lua_ToString);
+		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("bounds", get_bounds, null);
 		L.RegVar("rect", get_rect, null);
 		L.RegVar("pixelsPerUnit", get_pixelsPerUnit, null);
@@ -161,23 +161,6 @@ public class UnityEngine_SpriteWrap
 		{
 			return LuaDLL.toluaL_exception(L, e);
 		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Lua_ToString(IntPtr L)
-	{
-		object obj = ToLua.ToObject(L, 1);
-
-		if (obj != null)
-		{
-			LuaDLL.lua_pushstring(L, obj.ToString());
-		}
-		else
-		{
-			LuaDLL.lua_pushnil(L);
-		}
-
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

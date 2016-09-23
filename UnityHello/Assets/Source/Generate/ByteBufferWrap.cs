@@ -29,7 +29,7 @@ public class ByteBufferWrap
 		L.RegFunction("ToBytes", ToBytes);
 		L.RegFunction("Flush", Flush);
 		L.RegFunction("New", _CreateByteBuffer);
-		L.RegFunction("__tostring", Lua_ToString);
+		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.EndClass();
 	}
 
@@ -138,7 +138,7 @@ public class ByteBufferWrap
 		{
 			ToLua.CheckArgsCount(L, 2);
 			ByteBuffer obj = (ByteBuffer)ToLua.CheckObject(L, 1, typeof(ByteBuffer));
-			long arg0 = (long)LuaDLL.luaL_checknumber(L, 2);
+			long arg0 = LuaDLL.tolua_checkint64(L, 2);
 			obj.WriteLong(arg0);
 			return 0;
 		}
@@ -292,7 +292,7 @@ public class ByteBufferWrap
 			ToLua.CheckArgsCount(L, 1);
 			ByteBuffer obj = (ByteBuffer)ToLua.CheckObject(L, 1, typeof(ByteBuffer));
 			long o = obj.ReadLong();
-			LuaDLL.lua_pushnumber(L, o);
+			LuaDLL.tolua_pushint64(L, o);
 			return 1;
 		}
 		catch(Exception e)
@@ -417,23 +417,6 @@ public class ByteBufferWrap
 		{
 			return LuaDLL.toluaL_exception(L, e);
 		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Lua_ToString(IntPtr L)
-	{
-		object obj = ToLua.ToObject(L, 1);
-
-		if (obj != null)
-		{
-			LuaDLL.lua_pushstring(L, obj.ToString());
-		}
-		else
-		{
-			LuaDLL.lua_pushnil(L);
-		}
-
-		return 1;
 	}
 }
 

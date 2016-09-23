@@ -12,7 +12,7 @@ public class UnityEngine_UI_LayoutGroupWrap
 		L.RegFunction("SetLayoutHorizontal", SetLayoutHorizontal);
 		L.RegFunction("SetLayoutVertical", SetLayoutVertical);
 		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", Lua_ToString);
+		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("padding", get_padding, set_padding);
 		L.RegVar("childAlignment", get_childAlignment, set_childAlignment);
 		L.RegVar("minWidth", get_minWidth, null);
@@ -105,23 +105,6 @@ public class UnityEngine_UI_LayoutGroupWrap
 		{
 			return LuaDLL.toluaL_exception(L, e);
 		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Lua_ToString(IntPtr L)
-	{
-		object obj = ToLua.ToObject(L, 1);
-
-		if (obj != null)
-		{
-			LuaDLL.lua_pushstring(L, obj.ToString());
-		}
-		else
-		{
-			LuaDLL.lua_pushnil(L);
-		}
-
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

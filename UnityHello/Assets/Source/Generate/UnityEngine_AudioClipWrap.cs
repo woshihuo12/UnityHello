@@ -14,7 +14,7 @@ public class UnityEngine_AudioClipWrap
 		L.RegFunction("Create", Create);
 		L.RegFunction("New", _CreateUnityEngine_AudioClip);
 		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", Lua_ToString);
+		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("length", get_length, null);
 		L.RegVar("samples", get_samples, null);
 		L.RegVar("channels", get_channels, null);
@@ -233,23 +233,6 @@ public class UnityEngine_AudioClipWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Lua_ToString(IntPtr L)
-	{
-		object obj = ToLua.ToObject(L, 1);
-
-		if (obj != null)
-		{
-			LuaDLL.lua_pushstring(L, obj.ToString());
-		}
-		else
-		{
-			LuaDLL.lua_pushnil(L);
-		}
-
-		return 1;
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_length(IntPtr L)
 	{
 		object o = null;
@@ -406,9 +389,20 @@ public class UnityEngine_AudioClipWrap
 	{
 		try
 		{
+			int count = LuaDLL.lua_gettop(L);
 			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
-			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(UnityEngine.AudioClip.PCMReaderCallback), func);
-			ToLua.Push(L, arg1);
+
+			if (count == 1)
+			{
+				Delegate arg1 = DelegateFactory.CreateDelegate(typeof(UnityEngine.AudioClip.PCMReaderCallback), func);
+				ToLua.Push(L, arg1);
+			}
+			else
+			{
+				LuaTable self = ToLua.CheckLuaTable(L, 2);
+				Delegate arg1 = DelegateFactory.CreateDelegate(typeof(UnityEngine.AudioClip.PCMReaderCallback), func, self);
+				ToLua.Push(L, arg1);
+			}
 			return 1;
 		}
 		catch(Exception e)
@@ -422,9 +416,20 @@ public class UnityEngine_AudioClipWrap
 	{
 		try
 		{
+			int count = LuaDLL.lua_gettop(L);
 			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
-			Delegate arg1 = DelegateFactory.CreateDelegate(typeof(UnityEngine.AudioClip.PCMSetPositionCallback), func);
-			ToLua.Push(L, arg1);
+
+			if (count == 1)
+			{
+				Delegate arg1 = DelegateFactory.CreateDelegate(typeof(UnityEngine.AudioClip.PCMSetPositionCallback), func);
+				ToLua.Push(L, arg1);
+			}
+			else
+			{
+				LuaTable self = ToLua.CheckLuaTable(L, 2);
+				Delegate arg1 = DelegateFactory.CreateDelegate(typeof(UnityEngine.AudioClip.PCMSetPositionCallback), func, self);
+				ToLua.Push(L, arg1);
+			}
 			return 1;
 		}
 		catch(Exception e)

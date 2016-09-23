@@ -23,7 +23,7 @@ public class UnityEngine_AssetBundleWrap
 		L.RegFunction("GetAllScenePaths", GetAllScenePaths);
 		L.RegFunction("New", _CreateUnityEngine_AssetBundle);
 		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", Lua_ToString);
+		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("mainAsset", get_mainAsset, null);
 		L.EndClass();
 	}
@@ -78,7 +78,7 @@ public class UnityEngine_AssetBundleWrap
 			{
 				string arg0 = ToLua.ToString(L, 1);
 				uint arg1 = (uint)LuaDLL.lua_tonumber(L, 2);
-				ulong arg2 = (ulong)LuaDLL.lua_tonumber(L, 3);
+				ulong arg2 = LuaDLL.tolua_touint64(L, 3);
 				UnityEngine.AssetBundleCreateRequest o = UnityEngine.AssetBundle.LoadFromFileAsync(arg0, arg1, arg2);
 				ToLua.PushObject(L, o);
 				return 1;
@@ -120,7 +120,7 @@ public class UnityEngine_AssetBundleWrap
 			{
 				string arg0 = ToLua.ToString(L, 1);
 				uint arg1 = (uint)LuaDLL.lua_tonumber(L, 2);
-				ulong arg2 = (ulong)LuaDLL.lua_tonumber(L, 3);
+				ulong arg2 = LuaDLL.tolua_touint64(L, 3);
 				UnityEngine.AssetBundle o = UnityEngine.AssetBundle.LoadFromFile(arg0, arg1, arg2);
 				ToLua.Push(L, o);
 				return 1;
@@ -493,23 +493,6 @@ public class UnityEngine_AssetBundleWrap
 		{
 			return LuaDLL.toluaL_exception(L, e);
 		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Lua_ToString(IntPtr L)
-	{
-		object obj = ToLua.ToObject(L, 1);
-
-		if (obj != null)
-		{
-			LuaDLL.lua_pushstring(L, obj.ToString());
-		}
-		else
-		{
-			LuaDLL.lua_pushnil(L);
-		}
-
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

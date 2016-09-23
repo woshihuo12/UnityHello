@@ -10,7 +10,7 @@ public class UnityEngine_UI_LayoutElementWrap
 		L.RegFunction("CalculateLayoutInputHorizontal", CalculateLayoutInputHorizontal);
 		L.RegFunction("CalculateLayoutInputVertical", CalculateLayoutInputVertical);
 		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", Lua_ToString);
+		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("ignoreLayout", get_ignoreLayout, set_ignoreLayout);
 		L.RegVar("minWidth", get_minWidth, set_minWidth);
 		L.RegVar("minHeight", get_minHeight, set_minHeight);
@@ -70,23 +70,6 @@ public class UnityEngine_UI_LayoutElementWrap
 		{
 			return LuaDLL.toluaL_exception(L, e);
 		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Lua_ToString(IntPtr L)
-	{
-		object obj = ToLua.ToObject(L, 1);
-
-		if (obj != null)
-		{
-			LuaDLL.lua_pushstring(L, obj.ToString());
-		}
-		else
-		{
-			LuaDLL.lua_pushnil(L);
-		}
-
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

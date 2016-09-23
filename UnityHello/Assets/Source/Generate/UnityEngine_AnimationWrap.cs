@@ -26,7 +26,7 @@ public class UnityEngine_AnimationWrap
 		L.RegFunction("New", _CreateUnityEngine_Animation);
 		L.RegVar("this", _this, null);
 		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", Lua_ToString);
+		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("clip", get_clip, set_clip);
 		L.RegVar("playAutomatically", get_playAutomatically, set_playAutomatically);
 		L.RegVar("wrapMode", get_wrapMode, set_wrapMode);
@@ -608,23 +608,6 @@ public class UnityEngine_AnimationWrap
 		{
 			return LuaDLL.toluaL_exception(L, e);
 		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Lua_ToString(IntPtr L)
-	{
-		object obj = ToLua.ToObject(L, 1);
-
-		if (obj != null)
-		{
-			LuaDLL.lua_pushstring(L, obj.ToString());
-		}
-		else
-		{
-			LuaDLL.lua_pushnil(L);
-		}
-
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

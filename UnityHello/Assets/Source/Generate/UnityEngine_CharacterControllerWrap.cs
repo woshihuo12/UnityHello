@@ -11,7 +11,7 @@ public class UnityEngine_CharacterControllerWrap
 		L.RegFunction("Move", Move);
 		L.RegFunction("New", _CreateUnityEngine_CharacterController);
 		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", Lua_ToString);
+		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("isGrounded", get_isGrounded, null);
 		L.RegVar("velocity", get_velocity, null);
 		L.RegVar("collisionFlags", get_collisionFlags, null);
@@ -101,23 +101,6 @@ public class UnityEngine_CharacterControllerWrap
 		{
 			return LuaDLL.toluaL_exception(L, e);
 		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Lua_ToString(IntPtr L)
-	{
-		object obj = ToLua.ToObject(L, 1);
-
-		if (obj != null)
-		{
-			LuaDLL.lua_pushstring(L, obj.ToString());
-		}
-		else
-		{
-			LuaDLL.lua_pushnil(L);
-		}
-
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

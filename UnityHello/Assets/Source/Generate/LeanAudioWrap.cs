@@ -15,7 +15,7 @@ public class LeanAudioWrap
 		L.RegFunction("playClipAt", playClipAt);
 		L.RegFunction("printOutAudioClip", printOutAudioClip);
 		L.RegFunction("New", _CreateLeanAudio);
-		L.RegFunction("__tostring", Lua_ToString);
+		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("MIN_FREQEUNCY_PERIOD", get_MIN_FREQEUNCY_PERIOD, set_MIN_FREQEUNCY_PERIOD);
 		L.RegVar("PROCESSING_ITERATIONS_MAX", get_PROCESSING_ITERATIONS_MAX, set_PROCESSING_ITERATIONS_MAX);
 		L.RegVar("generatedWaveDistances", get_generatedWaveDistances, set_generatedWaveDistances);
@@ -193,23 +193,6 @@ public class LeanAudioWrap
 		{
 			return LuaDLL.toluaL_exception(L, e);
 		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Lua_ToString(IntPtr L)
-	{
-		object obj = ToLua.ToObject(L, 1);
-
-		if (obj != null)
-		{
-			LuaDLL.lua_pushstring(L, obj.ToString());
-		}
-		else
-		{
-			LuaDLL.lua_pushnil(L);
-		}
-
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

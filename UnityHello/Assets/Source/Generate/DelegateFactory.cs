@@ -5,7 +5,7 @@ using LuaInterface;
 
 public static class DelegateFactory
 {
-	public delegate Delegate DelegateValue(LuaFunction func);
+	public delegate Delegate DelegateValue(LuaFunction func, LuaTable self, bool flag);
 	public static Dictionary<Type, DelegateValue> dict = new Dictionary<Type, DelegateValue>();
 
 	static DelegateFactory()
@@ -19,34 +19,9 @@ public static class DelegateFactory
 		dict.Clear();
 		dict.Add(typeof(System.Action), System_Action);
 		dict.Add(typeof(UnityEngine.Events.UnityAction), UnityEngine_Events_UnityAction);
-		dict.Add(typeof(DG.Tweening.Core.DOGetter<float>), DG_Tweening_Core_DOGetter_float);
-		dict.Add(typeof(DG.Tweening.Core.DOSetter<float>), DG_Tweening_Core_DOSetter_float);
-		dict.Add(typeof(DG.Tweening.Core.DOGetter<double>), DG_Tweening_Core_DOGetter_double);
-		dict.Add(typeof(DG.Tweening.Core.DOSetter<double>), DG_Tweening_Core_DOSetter_double);
-		dict.Add(typeof(DG.Tweening.Core.DOGetter<int>), DG_Tweening_Core_DOGetter_int);
-		dict.Add(typeof(DG.Tweening.Core.DOSetter<int>), DG_Tweening_Core_DOSetter_int);
-		dict.Add(typeof(DG.Tweening.Core.DOGetter<uint>), DG_Tweening_Core_DOGetter_uint);
-		dict.Add(typeof(DG.Tweening.Core.DOSetter<uint>), DG_Tweening_Core_DOSetter_uint);
-		dict.Add(typeof(DG.Tweening.Core.DOGetter<long>), DG_Tweening_Core_DOGetter_long);
-		dict.Add(typeof(DG.Tweening.Core.DOSetter<long>), DG_Tweening_Core_DOSetter_long);
-		dict.Add(typeof(DG.Tweening.Core.DOGetter<ulong>), DG_Tweening_Core_DOGetter_ulong);
-		dict.Add(typeof(DG.Tweening.Core.DOSetter<ulong>), DG_Tweening_Core_DOSetter_ulong);
-		dict.Add(typeof(DG.Tweening.Core.DOGetter<string>), DG_Tweening_Core_DOGetter_string);
-		dict.Add(typeof(DG.Tweening.Core.DOSetter<string>), DG_Tweening_Core_DOSetter_string);
-		dict.Add(typeof(DG.Tweening.Core.DOGetter<UnityEngine.Vector2>), DG_Tweening_Core_DOGetter_UnityEngine_Vector2);
-		dict.Add(typeof(DG.Tweening.Core.DOSetter<UnityEngine.Vector2>), DG_Tweening_Core_DOSetter_UnityEngine_Vector2);
-		dict.Add(typeof(DG.Tweening.Core.DOGetter<UnityEngine.Vector3>), DG_Tweening_Core_DOGetter_UnityEngine_Vector3);
-		dict.Add(typeof(DG.Tweening.Core.DOSetter<UnityEngine.Vector3>), DG_Tweening_Core_DOSetter_UnityEngine_Vector3);
-		dict.Add(typeof(DG.Tweening.Core.DOGetter<UnityEngine.Vector4>), DG_Tweening_Core_DOGetter_UnityEngine_Vector4);
-		dict.Add(typeof(DG.Tweening.Core.DOSetter<UnityEngine.Vector4>), DG_Tweening_Core_DOSetter_UnityEngine_Vector4);
-		dict.Add(typeof(DG.Tweening.Core.DOGetter<UnityEngine.Quaternion>), DG_Tweening_Core_DOGetter_UnityEngine_Quaternion);
-		dict.Add(typeof(DG.Tweening.Core.DOSetter<UnityEngine.Quaternion>), DG_Tweening_Core_DOSetter_UnityEngine_Quaternion);
-		dict.Add(typeof(DG.Tweening.Core.DOGetter<UnityEngine.Color>), DG_Tweening_Core_DOGetter_UnityEngine_Color);
-		dict.Add(typeof(DG.Tweening.Core.DOSetter<UnityEngine.Color>), DG_Tweening_Core_DOSetter_UnityEngine_Color);
-		dict.Add(typeof(DG.Tweening.Core.DOGetter<UnityEngine.Rect>), DG_Tweening_Core_DOGetter_UnityEngine_Rect);
-		dict.Add(typeof(DG.Tweening.Core.DOSetter<UnityEngine.Rect>), DG_Tweening_Core_DOSetter_UnityEngine_Rect);
-		dict.Add(typeof(DG.Tweening.Core.DOGetter<UnityEngine.RectOffset>), DG_Tweening_Core_DOGetter_UnityEngine_RectOffset);
-		dict.Add(typeof(DG.Tweening.Core.DOSetter<UnityEngine.RectOffset>), DG_Tweening_Core_DOSetter_UnityEngine_RectOffset);
+		dict.Add(typeof(System.Predicate<int>), System_Predicate_int);
+		dict.Add(typeof(System.Action<int>), System_Action_int);
+		dict.Add(typeof(System.Comparison<int>), System_Comparison_int);
 		dict.Add(typeof(UnityEngine.Camera.CameraCallback), UnityEngine_Camera_CameraCallback);
 		dict.Add(typeof(UnityEngine.Application.LogCallback), UnityEngine_Application_LogCallback);
 		dict.Add(typeof(UnityEngine.Application.AdvertisingIdentifierCallback), UnityEngine_Application_AdvertisingIdentifierCallback);
@@ -76,7 +51,20 @@ public static class DelegateFactory
             throw new LuaException(string.Format("Delegate {0} not register", LuaMisc.GetTypeName(t)));            
         }
         
-        return create(func);        
+        return create(func, null, false);        
+    }
+
+    [NoToLuaAttribute]
+    public static Delegate CreateDelegate(Type t, LuaFunction func, LuaTable self)
+    {
+        DelegateValue create = null;
+
+        if (!dict.TryGetValue(t, out create))
+        {
+            throw new LuaException(string.Format("Delegate {0} not register", LuaMisc.GetTypeName(t)));
+        }
+
+        return create(func, self, true);
     }
 
     [NoToLuaAttribute]
@@ -100,181 +88,165 @@ public static class DelegateFactory
         return obj;
     }
 
+    [NoToLuaAttribute]
+    public static Delegate RemoveDelegate(Delegate obj, Delegate dg)
+    {
+        LuaDelegate remove = dg.Target as LuaDelegate;
+
+        if (remove == null)
+        {
+            obj = Delegate.Remove(obj, dg);
+            return obj;
+        }
+
+        LuaState state = remove.func.GetLuaState();
+        Delegate[] ds = obj.GetInvocationList();        
+
+        for (int i = 0; i < ds.Length; i++)
+        {
+            LuaDelegate ld = ds[i].Target as LuaDelegate;
+
+            if (ld != null && ld == remove)
+            {
+                obj = Delegate.Remove(obj, ds[i]);
+                state.DelayDispose(ld.func);
+                state.DelayDispose(ld.self);
+                break;
+            }
+        }
+
+        return obj;
+    }
+
 	class System_Action_Event : LuaDelegate
 	{
 		public System_Action_Event(LuaFunction func) : base(func) { }
+		public System_Action_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
 		public void Call()
 		{
 			func.Call();
 		}
+
+		public void CallWithSelf()
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.PCall();
+			func.EndPCall();
+		}
 	}
 
-	public static Delegate System_Action(LuaFunction func)
+	public static Delegate System_Action(LuaFunction func, LuaTable self, bool flag)
 	{
 		if (func == null)
 		{
-			System.Action fn = delegate { };
+			System.Action fn = delegate() { };
 			return fn;
 		}
 
-		System.Action d = (new System_Action_Event(func)).Call;
-		return d;
+		if(!flag)
+		{
+			System.Action d = (new System_Action_Event(func)).Call;
+			return d;
+		}
+		else
+		{
+			System.Action d = (new System_Action_Event(func, self)).CallWithSelf;
+			return d;
+		}
 	}
 
 	class UnityEngine_Events_UnityAction_Event : LuaDelegate
 	{
 		public UnityEngine_Events_UnityAction_Event(LuaFunction func) : base(func) { }
+		public UnityEngine_Events_UnityAction_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
 		public void Call()
 		{
 			func.Call();
 		}
-	}
 
-	public static Delegate UnityEngine_Events_UnityAction(LuaFunction func)
-	{
-		if (func == null)
-		{
-			UnityEngine.Events.UnityAction fn = delegate { };
-			return fn;
-		}
-
-		UnityEngine.Events.UnityAction d = (new UnityEngine_Events_UnityAction_Event(func)).Call;
-		return d;
-	}
-
-	class DG_Tweening_Core_DOGetter_float_Event : LuaDelegate
-	{
-		public DG_Tweening_Core_DOGetter_float_Event(LuaFunction func) : base(func) { }
-
-		public float Call()
+		public void CallWithSelf()
 		{
 			func.BeginPCall();
+			func.Push(self);
 			func.PCall();
-			float ret = (float)func.CheckNumber();
 			func.EndPCall();
-			return ret;
 		}
 	}
 
-	public static Delegate DG_Tweening_Core_DOGetter_float(LuaFunction func)
+	public static Delegate UnityEngine_Events_UnityAction(LuaFunction func, LuaTable self, bool flag)
 	{
 		if (func == null)
 		{
-			DG.Tweening.Core.DOGetter<float> fn = delegate { return 0; };
+			UnityEngine.Events.UnityAction fn = delegate() { };
 			return fn;
 		}
 
-		DG.Tweening.Core.DOGetter<float> d = (new DG_Tweening_Core_DOGetter_float_Event(func)).Call;
-		return d;
+		if(!flag)
+		{
+			UnityEngine.Events.UnityAction d = (new UnityEngine_Events_UnityAction_Event(func)).Call;
+			return d;
+		}
+		else
+		{
+			UnityEngine.Events.UnityAction d = (new UnityEngine_Events_UnityAction_Event(func, self)).CallWithSelf;
+			return d;
+		}
 	}
 
-	class DG_Tweening_Core_DOSetter_float_Event : LuaDelegate
+	class System_Predicate_int_Event : LuaDelegate
 	{
-		public DG_Tweening_Core_DOSetter_float_Event(LuaFunction func) : base(func) { }
+		public System_Predicate_int_Event(LuaFunction func) : base(func) { }
+		public System_Predicate_int_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
-		public void Call(float param0)
+		public bool Call(int param0)
 		{
 			func.BeginPCall();
 			func.Push(param0);
 			func.PCall();
-			func.EndPCall();
-		}
-	}
-
-	public static Delegate DG_Tweening_Core_DOSetter_float(LuaFunction func)
-	{
-		if (func == null)
-		{
-			DG.Tweening.Core.DOSetter<float> fn = delegate { };
-			return fn;
-		}
-
-		DG.Tweening.Core.DOSetter<float> d = (new DG_Tweening_Core_DOSetter_float_Event(func)).Call;
-		return d;
-	}
-
-	class DG_Tweening_Core_DOGetter_double_Event : LuaDelegate
-	{
-		public DG_Tweening_Core_DOGetter_double_Event(LuaFunction func) : base(func) { }
-
-		public double Call()
-		{
-			func.BeginPCall();
-			func.PCall();
-			double ret = (double)func.CheckNumber();
+			bool ret = func.CheckBoolean();
 			func.EndPCall();
 			return ret;
 		}
-	}
 
-	public static Delegate DG_Tweening_Core_DOGetter_double(LuaFunction func)
-	{
-		if (func == null)
-		{
-			DG.Tweening.Core.DOGetter<double> fn = delegate { return 0; };
-			return fn;
-		}
-
-		DG.Tweening.Core.DOGetter<double> d = (new DG_Tweening_Core_DOGetter_double_Event(func)).Call;
-		return d;
-	}
-
-	class DG_Tweening_Core_DOSetter_double_Event : LuaDelegate
-	{
-		public DG_Tweening_Core_DOSetter_double_Event(LuaFunction func) : base(func) { }
-
-		public void Call(double param0)
+		public bool CallWithSelf(int param0)
 		{
 			func.BeginPCall();
+			func.Push(self);
 			func.Push(param0);
 			func.PCall();
-			func.EndPCall();
-		}
-	}
-
-	public static Delegate DG_Tweening_Core_DOSetter_double(LuaFunction func)
-	{
-		if (func == null)
-		{
-			DG.Tweening.Core.DOSetter<double> fn = delegate { };
-			return fn;
-		}
-
-		DG.Tweening.Core.DOSetter<double> d = (new DG_Tweening_Core_DOSetter_double_Event(func)).Call;
-		return d;
-	}
-
-	class DG_Tweening_Core_DOGetter_int_Event : LuaDelegate
-	{
-		public DG_Tweening_Core_DOGetter_int_Event(LuaFunction func) : base(func) { }
-
-		public int Call()
-		{
-			func.BeginPCall();
-			func.PCall();
-			int ret = (int)func.CheckNumber();
+			bool ret = func.CheckBoolean();
 			func.EndPCall();
 			return ret;
 		}
 	}
 
-	public static Delegate DG_Tweening_Core_DOGetter_int(LuaFunction func)
+	public static Delegate System_Predicate_int(LuaFunction func, LuaTable self, bool flag)
 	{
 		if (func == null)
 		{
-			DG.Tweening.Core.DOGetter<int> fn = delegate { return 0; };
+			System.Predicate<int> fn = delegate(int param0) { return false; };
 			return fn;
 		}
 
-		DG.Tweening.Core.DOGetter<int> d = (new DG_Tweening_Core_DOGetter_int_Event(func)).Call;
-		return d;
+		if(!flag)
+		{
+			System.Predicate<int> d = (new System_Predicate_int_Event(func)).Call;
+			return d;
+		}
+		else
+		{
+			System.Predicate<int> d = (new System_Predicate_int_Event(func, self)).CallWithSelf;
+			return d;
+		}
 	}
 
-	class DG_Tweening_Core_DOSetter_int_Event : LuaDelegate
+	class System_Action_int_Event : LuaDelegate
 	{
-		public DG_Tweening_Core_DOSetter_int_Event(LuaFunction func) : base(func) { }
+		public System_Action_int_Event(LuaFunction func) : base(func) { }
+		public System_Action_int_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
 		public void Call(int param0)
 		{
@@ -283,584 +255,90 @@ public static class DelegateFactory
 			func.PCall();
 			func.EndPCall();
 		}
-	}
 
-	public static Delegate DG_Tweening_Core_DOSetter_int(LuaFunction func)
-	{
-		if (func == null)
-		{
-			DG.Tweening.Core.DOSetter<int> fn = delegate { };
-			return fn;
-		}
-
-		DG.Tweening.Core.DOSetter<int> d = (new DG_Tweening_Core_DOSetter_int_Event(func)).Call;
-		return d;
-	}
-
-	class DG_Tweening_Core_DOGetter_uint_Event : LuaDelegate
-	{
-		public DG_Tweening_Core_DOGetter_uint_Event(LuaFunction func) : base(func) { }
-
-		public uint Call()
+		public void CallWithSelf(int param0)
 		{
 			func.BeginPCall();
-			func.PCall();
-			uint ret = (uint)func.CheckNumber();
-			func.EndPCall();
-			return ret;
-		}
-	}
-
-	public static Delegate DG_Tweening_Core_DOGetter_uint(LuaFunction func)
-	{
-		if (func == null)
-		{
-			DG.Tweening.Core.DOGetter<uint> fn = delegate { return 0; };
-			return fn;
-		}
-
-		DG.Tweening.Core.DOGetter<uint> d = (new DG_Tweening_Core_DOGetter_uint_Event(func)).Call;
-		return d;
-	}
-
-	class DG_Tweening_Core_DOSetter_uint_Event : LuaDelegate
-	{
-		public DG_Tweening_Core_DOSetter_uint_Event(LuaFunction func) : base(func) { }
-
-		public void Call(uint param0)
-		{
-			func.BeginPCall();
+			func.Push(self);
 			func.Push(param0);
 			func.PCall();
 			func.EndPCall();
 		}
 	}
 
-	public static Delegate DG_Tweening_Core_DOSetter_uint(LuaFunction func)
+	public static Delegate System_Action_int(LuaFunction func, LuaTable self, bool flag)
 	{
 		if (func == null)
 		{
-			DG.Tweening.Core.DOSetter<uint> fn = delegate { };
+			System.Action<int> fn = delegate(int param0) { };
 			return fn;
 		}
 
-		DG.Tweening.Core.DOSetter<uint> d = (new DG_Tweening_Core_DOSetter_uint_Event(func)).Call;
-		return d;
-	}
-
-	class DG_Tweening_Core_DOGetter_long_Event : LuaDelegate
-	{
-		public DG_Tweening_Core_DOGetter_long_Event(LuaFunction func) : base(func) { }
-
-		public long Call()
+		if(!flag)
 		{
-			func.BeginPCall();
-			func.PCall();
-			long ret = (long)func.CheckNumber();
-			func.EndPCall();
-			return ret;
+			System.Action<int> d = (new System_Action_int_Event(func)).Call;
+			return d;
+		}
+		else
+		{
+			System.Action<int> d = (new System_Action_int_Event(func, self)).CallWithSelf;
+			return d;
 		}
 	}
 
-	public static Delegate DG_Tweening_Core_DOGetter_long(LuaFunction func)
+	class System_Comparison_int_Event : LuaDelegate
 	{
-		if (func == null)
-		{
-			DG.Tweening.Core.DOGetter<long> fn = delegate { return 0; };
-			return fn;
-		}
+		public System_Comparison_int_Event(LuaFunction func) : base(func) { }
+		public System_Comparison_int_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
-		DG.Tweening.Core.DOGetter<long> d = (new DG_Tweening_Core_DOGetter_long_Event(func)).Call;
-		return d;
-	}
-
-	class DG_Tweening_Core_DOSetter_long_Event : LuaDelegate
-	{
-		public DG_Tweening_Core_DOSetter_long_Event(LuaFunction func) : base(func) { }
-
-		public void Call(long param0)
+		public int Call(int param0, int param1)
 		{
 			func.BeginPCall();
 			func.Push(param0);
+			func.Push(param1);
 			func.PCall();
-			func.EndPCall();
-		}
-	}
-
-	public static Delegate DG_Tweening_Core_DOSetter_long(LuaFunction func)
-	{
-		if (func == null)
-		{
-			DG.Tweening.Core.DOSetter<long> fn = delegate { };
-			return fn;
-		}
-
-		DG.Tweening.Core.DOSetter<long> d = (new DG_Tweening_Core_DOSetter_long_Event(func)).Call;
-		return d;
-	}
-
-	class DG_Tweening_Core_DOGetter_ulong_Event : LuaDelegate
-	{
-		public DG_Tweening_Core_DOGetter_ulong_Event(LuaFunction func) : base(func) { }
-
-		public ulong Call()
-		{
-			func.BeginPCall();
-			func.PCall();
-			ulong ret = (ulong)func.CheckNumber();
+			int ret = (int)func.CheckNumber();
 			func.EndPCall();
 			return ret;
 		}
-	}
 
-	public static Delegate DG_Tweening_Core_DOGetter_ulong(LuaFunction func)
-	{
-		if (func == null)
-		{
-			DG.Tweening.Core.DOGetter<ulong> fn = delegate { return 0; };
-			return fn;
-		}
-
-		DG.Tweening.Core.DOGetter<ulong> d = (new DG_Tweening_Core_DOGetter_ulong_Event(func)).Call;
-		return d;
-	}
-
-	class DG_Tweening_Core_DOSetter_ulong_Event : LuaDelegate
-	{
-		public DG_Tweening_Core_DOSetter_ulong_Event(LuaFunction func) : base(func) { }
-
-		public void Call(ulong param0)
+		public int CallWithSelf(int param0, int param1)
 		{
 			func.BeginPCall();
+			func.Push(self);
 			func.Push(param0);
+			func.Push(param1);
 			func.PCall();
-			func.EndPCall();
-		}
-	}
-
-	public static Delegate DG_Tweening_Core_DOSetter_ulong(LuaFunction func)
-	{
-		if (func == null)
-		{
-			DG.Tweening.Core.DOSetter<ulong> fn = delegate { };
-			return fn;
-		}
-
-		DG.Tweening.Core.DOSetter<ulong> d = (new DG_Tweening_Core_DOSetter_ulong_Event(func)).Call;
-		return d;
-	}
-
-	class DG_Tweening_Core_DOGetter_string_Event : LuaDelegate
-	{
-		public DG_Tweening_Core_DOGetter_string_Event(LuaFunction func) : base(func) { }
-
-		public string Call()
-		{
-			func.BeginPCall();
-			func.PCall();
-			string ret = func.CheckString();
+			int ret = (int)func.CheckNumber();
 			func.EndPCall();
 			return ret;
 		}
 	}
 
-	public static Delegate DG_Tweening_Core_DOGetter_string(LuaFunction func)
+	public static Delegate System_Comparison_int(LuaFunction func, LuaTable self, bool flag)
 	{
 		if (func == null)
 		{
-			DG.Tweening.Core.DOGetter<string> fn = delegate { return null; };
+			System.Comparison<int> fn = delegate(int param0, int param1) { return 0; };
 			return fn;
 		}
 
-		DG.Tweening.Core.DOGetter<string> d = (new DG_Tweening_Core_DOGetter_string_Event(func)).Call;
-		return d;
-	}
-
-	class DG_Tweening_Core_DOSetter_string_Event : LuaDelegate
-	{
-		public DG_Tweening_Core_DOSetter_string_Event(LuaFunction func) : base(func) { }
-
-		public void Call(string param0)
+		if(!flag)
 		{
-			func.BeginPCall();
-			func.Push(param0);
-			func.PCall();
-			func.EndPCall();
+			System.Comparison<int> d = (new System_Comparison_int_Event(func)).Call;
+			return d;
 		}
-	}
-
-	public static Delegate DG_Tweening_Core_DOSetter_string(LuaFunction func)
-	{
-		if (func == null)
+		else
 		{
-			DG.Tweening.Core.DOSetter<string> fn = delegate { };
-			return fn;
+			System.Comparison<int> d = (new System_Comparison_int_Event(func, self)).CallWithSelf;
+			return d;
 		}
-
-		DG.Tweening.Core.DOSetter<string> d = (new DG_Tweening_Core_DOSetter_string_Event(func)).Call;
-		return d;
-	}
-
-	class DG_Tweening_Core_DOGetter_UnityEngine_Vector2_Event : LuaDelegate
-	{
-		public DG_Tweening_Core_DOGetter_UnityEngine_Vector2_Event(LuaFunction func) : base(func) { }
-
-		public UnityEngine.Vector2 Call()
-		{
-			func.BeginPCall();
-			func.PCall();
-			UnityEngine.Vector2 ret = func.CheckVector2();
-			func.EndPCall();
-			return ret;
-		}
-	}
-
-	public static Delegate DG_Tweening_Core_DOGetter_UnityEngine_Vector2(LuaFunction func)
-	{
-		if (func == null)
-		{
-			DG.Tweening.Core.DOGetter<UnityEngine.Vector2> fn = delegate { return default(UnityEngine.Vector2); };
-			return fn;
-		}
-
-		DG.Tweening.Core.DOGetter<UnityEngine.Vector2> d = (new DG_Tweening_Core_DOGetter_UnityEngine_Vector2_Event(func)).Call;
-		return d;
-	}
-
-	class DG_Tweening_Core_DOSetter_UnityEngine_Vector2_Event : LuaDelegate
-	{
-		public DG_Tweening_Core_DOSetter_UnityEngine_Vector2_Event(LuaFunction func) : base(func) { }
-
-		public void Call(UnityEngine.Vector2 param0)
-		{
-			func.BeginPCall();
-			func.Push(param0);
-			func.PCall();
-			func.EndPCall();
-		}
-	}
-
-	public static Delegate DG_Tweening_Core_DOSetter_UnityEngine_Vector2(LuaFunction func)
-	{
-		if (func == null)
-		{
-			DG.Tweening.Core.DOSetter<UnityEngine.Vector2> fn = delegate { };
-			return fn;
-		}
-
-		DG.Tweening.Core.DOSetter<UnityEngine.Vector2> d = (new DG_Tweening_Core_DOSetter_UnityEngine_Vector2_Event(func)).Call;
-		return d;
-	}
-
-	class DG_Tweening_Core_DOGetter_UnityEngine_Vector3_Event : LuaDelegate
-	{
-		public DG_Tweening_Core_DOGetter_UnityEngine_Vector3_Event(LuaFunction func) : base(func) { }
-
-		public UnityEngine.Vector3 Call()
-		{
-			func.BeginPCall();
-			func.PCall();
-			UnityEngine.Vector3 ret = func.CheckVector3();
-			func.EndPCall();
-			return ret;
-		}
-	}
-
-	public static Delegate DG_Tweening_Core_DOGetter_UnityEngine_Vector3(LuaFunction func)
-	{
-		if (func == null)
-		{
-			DG.Tweening.Core.DOGetter<UnityEngine.Vector3> fn = delegate { return default(UnityEngine.Vector3); };
-			return fn;
-		}
-
-		DG.Tweening.Core.DOGetter<UnityEngine.Vector3> d = (new DG_Tweening_Core_DOGetter_UnityEngine_Vector3_Event(func)).Call;
-		return d;
-	}
-
-	class DG_Tweening_Core_DOSetter_UnityEngine_Vector3_Event : LuaDelegate
-	{
-		public DG_Tweening_Core_DOSetter_UnityEngine_Vector3_Event(LuaFunction func) : base(func) { }
-
-		public void Call(UnityEngine.Vector3 param0)
-		{
-			func.BeginPCall();
-			func.Push(param0);
-			func.PCall();
-			func.EndPCall();
-		}
-	}
-
-	public static Delegate DG_Tweening_Core_DOSetter_UnityEngine_Vector3(LuaFunction func)
-	{
-		if (func == null)
-		{
-			DG.Tweening.Core.DOSetter<UnityEngine.Vector3> fn = delegate { };
-			return fn;
-		}
-
-		DG.Tweening.Core.DOSetter<UnityEngine.Vector3> d = (new DG_Tweening_Core_DOSetter_UnityEngine_Vector3_Event(func)).Call;
-		return d;
-	}
-
-	class DG_Tweening_Core_DOGetter_UnityEngine_Vector4_Event : LuaDelegate
-	{
-		public DG_Tweening_Core_DOGetter_UnityEngine_Vector4_Event(LuaFunction func) : base(func) { }
-
-		public UnityEngine.Vector4 Call()
-		{
-			func.BeginPCall();
-			func.PCall();
-			UnityEngine.Vector4 ret = func.CheckVector4();
-			func.EndPCall();
-			return ret;
-		}
-	}
-
-	public static Delegate DG_Tweening_Core_DOGetter_UnityEngine_Vector4(LuaFunction func)
-	{
-		if (func == null)
-		{
-			DG.Tweening.Core.DOGetter<UnityEngine.Vector4> fn = delegate { return default(UnityEngine.Vector4); };
-			return fn;
-		}
-
-		DG.Tweening.Core.DOGetter<UnityEngine.Vector4> d = (new DG_Tweening_Core_DOGetter_UnityEngine_Vector4_Event(func)).Call;
-		return d;
-	}
-
-	class DG_Tweening_Core_DOSetter_UnityEngine_Vector4_Event : LuaDelegate
-	{
-		public DG_Tweening_Core_DOSetter_UnityEngine_Vector4_Event(LuaFunction func) : base(func) { }
-
-		public void Call(UnityEngine.Vector4 param0)
-		{
-			func.BeginPCall();
-			func.Push(param0);
-			func.PCall();
-			func.EndPCall();
-		}
-	}
-
-	public static Delegate DG_Tweening_Core_DOSetter_UnityEngine_Vector4(LuaFunction func)
-	{
-		if (func == null)
-		{
-			DG.Tweening.Core.DOSetter<UnityEngine.Vector4> fn = delegate { };
-			return fn;
-		}
-
-		DG.Tweening.Core.DOSetter<UnityEngine.Vector4> d = (new DG_Tweening_Core_DOSetter_UnityEngine_Vector4_Event(func)).Call;
-		return d;
-	}
-
-	class DG_Tweening_Core_DOGetter_UnityEngine_Quaternion_Event : LuaDelegate
-	{
-		public DG_Tweening_Core_DOGetter_UnityEngine_Quaternion_Event(LuaFunction func) : base(func) { }
-
-		public UnityEngine.Quaternion Call()
-		{
-			func.BeginPCall();
-			func.PCall();
-			UnityEngine.Quaternion ret = func.CheckQuaternion();
-			func.EndPCall();
-			return ret;
-		}
-	}
-
-	public static Delegate DG_Tweening_Core_DOGetter_UnityEngine_Quaternion(LuaFunction func)
-	{
-		if (func == null)
-		{
-			DG.Tweening.Core.DOGetter<UnityEngine.Quaternion> fn = delegate { return default(UnityEngine.Quaternion); };
-			return fn;
-		}
-
-		DG.Tweening.Core.DOGetter<UnityEngine.Quaternion> d = (new DG_Tweening_Core_DOGetter_UnityEngine_Quaternion_Event(func)).Call;
-		return d;
-	}
-
-	class DG_Tweening_Core_DOSetter_UnityEngine_Quaternion_Event : LuaDelegate
-	{
-		public DG_Tweening_Core_DOSetter_UnityEngine_Quaternion_Event(LuaFunction func) : base(func) { }
-
-		public void Call(UnityEngine.Quaternion param0)
-		{
-			func.BeginPCall();
-			func.Push(param0);
-			func.PCall();
-			func.EndPCall();
-		}
-	}
-
-	public static Delegate DG_Tweening_Core_DOSetter_UnityEngine_Quaternion(LuaFunction func)
-	{
-		if (func == null)
-		{
-			DG.Tweening.Core.DOSetter<UnityEngine.Quaternion> fn = delegate { };
-			return fn;
-		}
-
-		DG.Tweening.Core.DOSetter<UnityEngine.Quaternion> d = (new DG_Tweening_Core_DOSetter_UnityEngine_Quaternion_Event(func)).Call;
-		return d;
-	}
-
-	class DG_Tweening_Core_DOGetter_UnityEngine_Color_Event : LuaDelegate
-	{
-		public DG_Tweening_Core_DOGetter_UnityEngine_Color_Event(LuaFunction func) : base(func) { }
-
-		public UnityEngine.Color Call()
-		{
-			func.BeginPCall();
-			func.PCall();
-			UnityEngine.Color ret = func.CheckColor();
-			func.EndPCall();
-			return ret;
-		}
-	}
-
-	public static Delegate DG_Tweening_Core_DOGetter_UnityEngine_Color(LuaFunction func)
-	{
-		if (func == null)
-		{
-			DG.Tweening.Core.DOGetter<UnityEngine.Color> fn = delegate { return default(UnityEngine.Color); };
-			return fn;
-		}
-
-		DG.Tweening.Core.DOGetter<UnityEngine.Color> d = (new DG_Tweening_Core_DOGetter_UnityEngine_Color_Event(func)).Call;
-		return d;
-	}
-
-	class DG_Tweening_Core_DOSetter_UnityEngine_Color_Event : LuaDelegate
-	{
-		public DG_Tweening_Core_DOSetter_UnityEngine_Color_Event(LuaFunction func) : base(func) { }
-
-		public void Call(UnityEngine.Color param0)
-		{
-			func.BeginPCall();
-			func.Push(param0);
-			func.PCall();
-			func.EndPCall();
-		}
-	}
-
-	public static Delegate DG_Tweening_Core_DOSetter_UnityEngine_Color(LuaFunction func)
-	{
-		if (func == null)
-		{
-			DG.Tweening.Core.DOSetter<UnityEngine.Color> fn = delegate { };
-			return fn;
-		}
-
-		DG.Tweening.Core.DOSetter<UnityEngine.Color> d = (new DG_Tweening_Core_DOSetter_UnityEngine_Color_Event(func)).Call;
-		return d;
-	}
-
-	class DG_Tweening_Core_DOGetter_UnityEngine_Rect_Event : LuaDelegate
-	{
-		public DG_Tweening_Core_DOGetter_UnityEngine_Rect_Event(LuaFunction func) : base(func) { }
-
-		public UnityEngine.Rect Call()
-		{
-			func.BeginPCall();
-			func.PCall();
-			UnityEngine.Rect ret = (UnityEngine.Rect)func.CheckObject(typeof(UnityEngine.Rect));
-			func.EndPCall();
-			return ret;
-		}
-	}
-
-	public static Delegate DG_Tweening_Core_DOGetter_UnityEngine_Rect(LuaFunction func)
-	{
-		if (func == null)
-		{
-			DG.Tweening.Core.DOGetter<UnityEngine.Rect> fn = delegate { return default(UnityEngine.Rect); };
-			return fn;
-		}
-
-		DG.Tweening.Core.DOGetter<UnityEngine.Rect> d = (new DG_Tweening_Core_DOGetter_UnityEngine_Rect_Event(func)).Call;
-		return d;
-	}
-
-	class DG_Tweening_Core_DOSetter_UnityEngine_Rect_Event : LuaDelegate
-	{
-		public DG_Tweening_Core_DOSetter_UnityEngine_Rect_Event(LuaFunction func) : base(func) { }
-
-		public void Call(UnityEngine.Rect param0)
-		{
-			func.BeginPCall();
-			func.PushValue(param0);
-			func.PCall();
-			func.EndPCall();
-		}
-	}
-
-	public static Delegate DG_Tweening_Core_DOSetter_UnityEngine_Rect(LuaFunction func)
-	{
-		if (func == null)
-		{
-			DG.Tweening.Core.DOSetter<UnityEngine.Rect> fn = delegate { };
-			return fn;
-		}
-
-		DG.Tweening.Core.DOSetter<UnityEngine.Rect> d = (new DG_Tweening_Core_DOSetter_UnityEngine_Rect_Event(func)).Call;
-		return d;
-	}
-
-	class DG_Tweening_Core_DOGetter_UnityEngine_RectOffset_Event : LuaDelegate
-	{
-		public DG_Tweening_Core_DOGetter_UnityEngine_RectOffset_Event(LuaFunction func) : base(func) { }
-
-		public UnityEngine.RectOffset Call()
-		{
-			func.BeginPCall();
-			func.PCall();
-			UnityEngine.RectOffset ret = (UnityEngine.RectOffset)func.CheckObject(typeof(UnityEngine.RectOffset));
-			func.EndPCall();
-			return ret;
-		}
-	}
-
-	public static Delegate DG_Tweening_Core_DOGetter_UnityEngine_RectOffset(LuaFunction func)
-	{
-		if (func == null)
-		{
-			DG.Tweening.Core.DOGetter<UnityEngine.RectOffset> fn = delegate { return null; };
-			return fn;
-		}
-
-		DG.Tweening.Core.DOGetter<UnityEngine.RectOffset> d = (new DG_Tweening_Core_DOGetter_UnityEngine_RectOffset_Event(func)).Call;
-		return d;
-	}
-
-	class DG_Tweening_Core_DOSetter_UnityEngine_RectOffset_Event : LuaDelegate
-	{
-		public DG_Tweening_Core_DOSetter_UnityEngine_RectOffset_Event(LuaFunction func) : base(func) { }
-
-		public void Call(UnityEngine.RectOffset param0)
-		{
-			func.BeginPCall();
-			func.PushObject(param0);
-			func.PCall();
-			func.EndPCall();
-		}
-	}
-
-	public static Delegate DG_Tweening_Core_DOSetter_UnityEngine_RectOffset(LuaFunction func)
-	{
-		if (func == null)
-		{
-			DG.Tweening.Core.DOSetter<UnityEngine.RectOffset> fn = delegate { };
-			return fn;
-		}
-
-		DG.Tweening.Core.DOSetter<UnityEngine.RectOffset> d = (new DG_Tweening_Core_DOSetter_UnityEngine_RectOffset_Event(func)).Call;
-		return d;
 	}
 
 	class UnityEngine_Camera_CameraCallback_Event : LuaDelegate
 	{
 		public UnityEngine_Camera_CameraCallback_Event(LuaFunction func) : base(func) { }
+		public UnityEngine_Camera_CameraCallback_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
 		public void Call(UnityEngine.Camera param0)
 		{
@@ -869,25 +347,43 @@ public static class DelegateFactory
 			func.PCall();
 			func.EndPCall();
 		}
+
+		public void CallWithSelf(UnityEngine.Camera param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
 	}
 
-	public static Delegate UnityEngine_Camera_CameraCallback(LuaFunction func)
+	public static Delegate UnityEngine_Camera_CameraCallback(LuaFunction func, LuaTable self, bool flag)
 	{
 		if (func == null)
 		{
-			UnityEngine.Camera.CameraCallback fn = delegate { };
+			UnityEngine.Camera.CameraCallback fn = delegate(UnityEngine.Camera param0) { };
 			return fn;
 		}
 
-		UnityEngine.Camera.CameraCallback d = (new UnityEngine_Camera_CameraCallback_Event(func)).Call;
-		return d;
+		if(!flag)
+		{
+			UnityEngine.Camera.CameraCallback d = (new UnityEngine_Camera_CameraCallback_Event(func)).Call;
+			return d;
+		}
+		else
+		{
+			UnityEngine.Camera.CameraCallback d = (new UnityEngine_Camera_CameraCallback_Event(func, self)).CallWithSelf;
+			return d;
+		}
 	}
 
 	class UnityEngine_Application_LogCallback_Event : LuaDelegate
 	{
 		public UnityEngine_Application_LogCallback_Event(LuaFunction func) : base(func) { }
+		public UnityEngine_Application_LogCallback_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
-		public void Call(string param0,string param1,UnityEngine.LogType param2)
+		public void Call(string param0, string param1, UnityEngine.LogType param2)
 		{
 			func.BeginPCall();
 			func.Push(param0);
@@ -896,25 +392,45 @@ public static class DelegateFactory
 			func.PCall();
 			func.EndPCall();
 		}
+
+		public void CallWithSelf(string param0, string param1, UnityEngine.LogType param2)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.Push(param1);
+			func.Push(param2);
+			func.PCall();
+			func.EndPCall();
+		}
 	}
 
-	public static Delegate UnityEngine_Application_LogCallback(LuaFunction func)
+	public static Delegate UnityEngine_Application_LogCallback(LuaFunction func, LuaTable self, bool flag)
 	{
 		if (func == null)
 		{
-			UnityEngine.Application.LogCallback fn = delegate { };
+			UnityEngine.Application.LogCallback fn = delegate(string param0, string param1, UnityEngine.LogType param2) { };
 			return fn;
 		}
 
-		UnityEngine.Application.LogCallback d = (new UnityEngine_Application_LogCallback_Event(func)).Call;
-		return d;
+		if(!flag)
+		{
+			UnityEngine.Application.LogCallback d = (new UnityEngine_Application_LogCallback_Event(func)).Call;
+			return d;
+		}
+		else
+		{
+			UnityEngine.Application.LogCallback d = (new UnityEngine_Application_LogCallback_Event(func, self)).CallWithSelf;
+			return d;
+		}
 	}
 
 	class UnityEngine_Application_AdvertisingIdentifierCallback_Event : LuaDelegate
 	{
 		public UnityEngine_Application_AdvertisingIdentifierCallback_Event(LuaFunction func) : base(func) { }
+		public UnityEngine_Application_AdvertisingIdentifierCallback_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
-		public void Call(string param0,bool param1,string param2)
+		public void Call(string param0, bool param1, string param2)
 		{
 			func.BeginPCall();
 			func.Push(param0);
@@ -923,23 +439,43 @@ public static class DelegateFactory
 			func.PCall();
 			func.EndPCall();
 		}
+
+		public void CallWithSelf(string param0, bool param1, string param2)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.Push(param1);
+			func.Push(param2);
+			func.PCall();
+			func.EndPCall();
+		}
 	}
 
-	public static Delegate UnityEngine_Application_AdvertisingIdentifierCallback(LuaFunction func)
+	public static Delegate UnityEngine_Application_AdvertisingIdentifierCallback(LuaFunction func, LuaTable self, bool flag)
 	{
 		if (func == null)
 		{
-			UnityEngine.Application.AdvertisingIdentifierCallback fn = delegate { };
+			UnityEngine.Application.AdvertisingIdentifierCallback fn = delegate(string param0, bool param1, string param2) { };
 			return fn;
 		}
 
-		UnityEngine.Application.AdvertisingIdentifierCallback d = (new UnityEngine_Application_AdvertisingIdentifierCallback_Event(func)).Call;
-		return d;
+		if(!flag)
+		{
+			UnityEngine.Application.AdvertisingIdentifierCallback d = (new UnityEngine_Application_AdvertisingIdentifierCallback_Event(func)).Call;
+			return d;
+		}
+		else
+		{
+			UnityEngine.Application.AdvertisingIdentifierCallback d = (new UnityEngine_Application_AdvertisingIdentifierCallback_Event(func, self)).CallWithSelf;
+			return d;
+		}
 	}
 
 	class UnityEngine_AudioClip_PCMReaderCallback_Event : LuaDelegate
 	{
 		public UnityEngine_AudioClip_PCMReaderCallback_Event(LuaFunction func) : base(func) { }
+		public UnityEngine_AudioClip_PCMReaderCallback_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
 		public void Call(float[] param0)
 		{
@@ -948,23 +484,41 @@ public static class DelegateFactory
 			func.PCall();
 			func.EndPCall();
 		}
+
+		public void CallWithSelf(float[] param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
 	}
 
-	public static Delegate UnityEngine_AudioClip_PCMReaderCallback(LuaFunction func)
+	public static Delegate UnityEngine_AudioClip_PCMReaderCallback(LuaFunction func, LuaTable self, bool flag)
 	{
 		if (func == null)
 		{
-			UnityEngine.AudioClip.PCMReaderCallback fn = delegate { };
+			UnityEngine.AudioClip.PCMReaderCallback fn = delegate(float[] param0) { };
 			return fn;
 		}
 
-		UnityEngine.AudioClip.PCMReaderCallback d = (new UnityEngine_AudioClip_PCMReaderCallback_Event(func)).Call;
-		return d;
+		if(!flag)
+		{
+			UnityEngine.AudioClip.PCMReaderCallback d = (new UnityEngine_AudioClip_PCMReaderCallback_Event(func)).Call;
+			return d;
+		}
+		else
+		{
+			UnityEngine.AudioClip.PCMReaderCallback d = (new UnityEngine_AudioClip_PCMReaderCallback_Event(func, self)).CallWithSelf;
+			return d;
+		}
 	}
 
 	class UnityEngine_AudioClip_PCMSetPositionCallback_Event : LuaDelegate
 	{
 		public UnityEngine_AudioClip_PCMSetPositionCallback_Event(LuaFunction func) : base(func) { }
+		public UnityEngine_AudioClip_PCMSetPositionCallback_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
 		public void Call(int param0)
 		{
@@ -973,25 +527,43 @@ public static class DelegateFactory
 			func.PCall();
 			func.EndPCall();
 		}
+
+		public void CallWithSelf(int param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
 	}
 
-	public static Delegate UnityEngine_AudioClip_PCMSetPositionCallback(LuaFunction func)
+	public static Delegate UnityEngine_AudioClip_PCMSetPositionCallback(LuaFunction func, LuaTable self, bool flag)
 	{
 		if (func == null)
 		{
-			UnityEngine.AudioClip.PCMSetPositionCallback fn = delegate { };
+			UnityEngine.AudioClip.PCMSetPositionCallback fn = delegate(int param0) { };
 			return fn;
 		}
 
-		UnityEngine.AudioClip.PCMSetPositionCallback d = (new UnityEngine_AudioClip_PCMSetPositionCallback_Event(func)).Call;
-		return d;
+		if(!flag)
+		{
+			UnityEngine.AudioClip.PCMSetPositionCallback d = (new UnityEngine_AudioClip_PCMSetPositionCallback_Event(func)).Call;
+			return d;
+		}
+		else
+		{
+			UnityEngine.AudioClip.PCMSetPositionCallback d = (new UnityEngine_AudioClip_PCMSetPositionCallback_Event(func, self)).CallWithSelf;
+			return d;
+		}
 	}
 
 	class UnityEngine_UI_InputField_OnValidateInput_Event : LuaDelegate
 	{
 		public UnityEngine_UI_InputField_OnValidateInput_Event(LuaFunction func) : base(func) { }
+		public UnityEngine_UI_InputField_OnValidateInput_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
-		public char Call(string param0,int param1,char param2)
+		public char Call(string param0, int param1, char param2)
 		{
 			func.BeginPCall();
 			func.Push(param0);
@@ -1002,23 +574,45 @@ public static class DelegateFactory
 			func.EndPCall();
 			return ret;
 		}
+
+		public char CallWithSelf(string param0, int param1, char param2)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.Push(param1);
+			func.Push(param2);
+			func.PCall();
+			char ret = (char)func.CheckNumber();
+			func.EndPCall();
+			return ret;
+		}
 	}
 
-	public static Delegate UnityEngine_UI_InputField_OnValidateInput(LuaFunction func)
+	public static Delegate UnityEngine_UI_InputField_OnValidateInput(LuaFunction func, LuaTable self, bool flag)
 	{
 		if (func == null)
 		{
-			UnityEngine.UI.InputField.OnValidateInput fn = delegate { return '\0'; };
+			UnityEngine.UI.InputField.OnValidateInput fn = delegate(string param0, int param1, char param2) { return '\0'; };
 			return fn;
 		}
 
-		UnityEngine.UI.InputField.OnValidateInput d = (new UnityEngine_UI_InputField_OnValidateInput_Event(func)).Call;
-		return d;
+		if(!flag)
+		{
+			UnityEngine.UI.InputField.OnValidateInput d = (new UnityEngine_UI_InputField_OnValidateInput_Event(func)).Call;
+			return d;
+		}
+		else
+		{
+			UnityEngine.UI.InputField.OnValidateInput d = (new UnityEngine_UI_InputField_OnValidateInput_Event(func, self)).CallWithSelf;
+			return d;
+		}
 	}
 
 	class UnityEngine_RectTransform_ReapplyDrivenProperties_Event : LuaDelegate
 	{
 		public UnityEngine_RectTransform_ReapplyDrivenProperties_Event(LuaFunction func) : base(func) { }
+		public UnityEngine_RectTransform_ReapplyDrivenProperties_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
 		public void Call(UnityEngine.RectTransform param0)
 		{
@@ -1027,45 +621,80 @@ public static class DelegateFactory
 			func.PCall();
 			func.EndPCall();
 		}
+
+		public void CallWithSelf(UnityEngine.RectTransform param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
 	}
 
-	public static Delegate UnityEngine_RectTransform_ReapplyDrivenProperties(LuaFunction func)
+	public static Delegate UnityEngine_RectTransform_ReapplyDrivenProperties(LuaFunction func, LuaTable self, bool flag)
 	{
 		if (func == null)
 		{
-			UnityEngine.RectTransform.ReapplyDrivenProperties fn = delegate { };
+			UnityEngine.RectTransform.ReapplyDrivenProperties fn = delegate(UnityEngine.RectTransform param0) { };
 			return fn;
 		}
 
-		UnityEngine.RectTransform.ReapplyDrivenProperties d = (new UnityEngine_RectTransform_ReapplyDrivenProperties_Event(func)).Call;
-		return d;
+		if(!flag)
+		{
+			UnityEngine.RectTransform.ReapplyDrivenProperties d = (new UnityEngine_RectTransform_ReapplyDrivenProperties_Event(func)).Call;
+			return d;
+		}
+		else
+		{
+			UnityEngine.RectTransform.ReapplyDrivenProperties d = (new UnityEngine_RectTransform_ReapplyDrivenProperties_Event(func, self)).CallWithSelf;
+			return d;
+		}
 	}
 
 	class UnityEngine_Canvas_WillRenderCanvases_Event : LuaDelegate
 	{
 		public UnityEngine_Canvas_WillRenderCanvases_Event(LuaFunction func) : base(func) { }
+		public UnityEngine_Canvas_WillRenderCanvases_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
 		public void Call()
 		{
 			func.Call();
 		}
+
+		public void CallWithSelf()
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.PCall();
+			func.EndPCall();
+		}
 	}
 
-	public static Delegate UnityEngine_Canvas_WillRenderCanvases(LuaFunction func)
+	public static Delegate UnityEngine_Canvas_WillRenderCanvases(LuaFunction func, LuaTable self, bool flag)
 	{
 		if (func == null)
 		{
-			UnityEngine.Canvas.WillRenderCanvases fn = delegate { };
+			UnityEngine.Canvas.WillRenderCanvases fn = delegate() { };
 			return fn;
 		}
 
-		UnityEngine.Canvas.WillRenderCanvases d = (new UnityEngine_Canvas_WillRenderCanvases_Event(func)).Call;
-		return d;
+		if(!flag)
+		{
+			UnityEngine.Canvas.WillRenderCanvases d = (new UnityEngine_Canvas_WillRenderCanvases_Event(func)).Call;
+			return d;
+		}
+		else
+		{
+			UnityEngine.Canvas.WillRenderCanvases d = (new UnityEngine_Canvas_WillRenderCanvases_Event(func, self)).CallWithSelf;
+			return d;
+		}
 	}
 
 	class System_Action_float_Event : LuaDelegate
 	{
 		public System_Action_float_Event(LuaFunction func) : base(func) { }
+		public System_Action_float_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
 		public void Call(float param0)
 		{
@@ -1074,25 +703,43 @@ public static class DelegateFactory
 			func.PCall();
 			func.EndPCall();
 		}
+
+		public void CallWithSelf(float param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
 	}
 
-	public static Delegate System_Action_float(LuaFunction func)
+	public static Delegate System_Action_float(LuaFunction func, LuaTable self, bool flag)
 	{
 		if (func == null)
 		{
-			System.Action<float> fn = delegate { };
+			System.Action<float> fn = delegate(float param0) { };
 			return fn;
 		}
 
-		System.Action<float> d = (new System_Action_float_Event(func)).Call;
-		return d;
+		if(!flag)
+		{
+			System.Action<float> d = (new System_Action_float_Event(func)).Call;
+			return d;
+		}
+		else
+		{
+			System.Action<float> d = (new System_Action_float_Event(func, self)).CallWithSelf;
+			return d;
+		}
 	}
 
 	class System_Action_float_float_Event : LuaDelegate
 	{
 		public System_Action_float_float_Event(LuaFunction func) : base(func) { }
+		public System_Action_float_float_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
-		public void Call(float param0,float param1)
+		public void Call(float param0, float param1)
 		{
 			func.BeginPCall();
 			func.Push(param0);
@@ -1100,25 +747,44 @@ public static class DelegateFactory
 			func.PCall();
 			func.EndPCall();
 		}
+
+		public void CallWithSelf(float param0, float param1)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.Push(param1);
+			func.PCall();
+			func.EndPCall();
+		}
 	}
 
-	public static Delegate System_Action_float_float(LuaFunction func)
+	public static Delegate System_Action_float_float(LuaFunction func, LuaTable self, bool flag)
 	{
 		if (func == null)
 		{
-			System.Action<float,float> fn = delegate { };
+			System.Action<float,float> fn = delegate(float param0, float param1) { };
 			return fn;
 		}
 
-		System.Action<float,float> d = (new System_Action_float_float_Event(func)).Call;
-		return d;
+		if(!flag)
+		{
+			System.Action<float,float> d = (new System_Action_float_float_Event(func)).Call;
+			return d;
+		}
+		else
+		{
+			System.Action<float,float> d = (new System_Action_float_float_Event(func, self)).CallWithSelf;
+			return d;
+		}
 	}
 
 	class System_Action_float_object_Event : LuaDelegate
 	{
 		public System_Action_float_object_Event(LuaFunction func) : base(func) { }
+		public System_Action_float_object_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
-		public void Call(float param0,object param1)
+		public void Call(float param0, object param1)
 		{
 			func.BeginPCall();
 			func.Push(param0);
@@ -1126,23 +792,42 @@ public static class DelegateFactory
 			func.PCall();
 			func.EndPCall();
 		}
+
+		public void CallWithSelf(float param0, object param1)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.Push(param1);
+			func.PCall();
+			func.EndPCall();
+		}
 	}
 
-	public static Delegate System_Action_float_object(LuaFunction func)
+	public static Delegate System_Action_float_object(LuaFunction func, LuaTable self, bool flag)
 	{
 		if (func == null)
 		{
-			System.Action<float,object> fn = delegate { };
+			System.Action<float,object> fn = delegate(float param0, object param1) { };
 			return fn;
 		}
 
-		System.Action<float,object> d = (new System_Action_float_object_Event(func)).Call;
-		return d;
+		if(!flag)
+		{
+			System.Action<float,object> d = (new System_Action_float_object_Event(func)).Call;
+			return d;
+		}
+		else
+		{
+			System.Action<float,object> d = (new System_Action_float_object_Event(func, self)).CallWithSelf;
+			return d;
+		}
 	}
 
 	class System_Action_UnityEngine_Vector2_Event : LuaDelegate
 	{
 		public System_Action_UnityEngine_Vector2_Event(LuaFunction func) : base(func) { }
+		public System_Action_UnityEngine_Vector2_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
 		public void Call(UnityEngine.Vector2 param0)
 		{
@@ -1151,23 +836,41 @@ public static class DelegateFactory
 			func.PCall();
 			func.EndPCall();
 		}
+
+		public void CallWithSelf(UnityEngine.Vector2 param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
 	}
 
-	public static Delegate System_Action_UnityEngine_Vector2(LuaFunction func)
+	public static Delegate System_Action_UnityEngine_Vector2(LuaFunction func, LuaTable self, bool flag)
 	{
 		if (func == null)
 		{
-			System.Action<UnityEngine.Vector2> fn = delegate { };
+			System.Action<UnityEngine.Vector2> fn = delegate(UnityEngine.Vector2 param0) { };
 			return fn;
 		}
 
-		System.Action<UnityEngine.Vector2> d = (new System_Action_UnityEngine_Vector2_Event(func)).Call;
-		return d;
+		if(!flag)
+		{
+			System.Action<UnityEngine.Vector2> d = (new System_Action_UnityEngine_Vector2_Event(func)).Call;
+			return d;
+		}
+		else
+		{
+			System.Action<UnityEngine.Vector2> d = (new System_Action_UnityEngine_Vector2_Event(func, self)).CallWithSelf;
+			return d;
+		}
 	}
 
 	class System_Action_UnityEngine_Vector3_Event : LuaDelegate
 	{
 		public System_Action_UnityEngine_Vector3_Event(LuaFunction func) : base(func) { }
+		public System_Action_UnityEngine_Vector3_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
 		public void Call(UnityEngine.Vector3 param0)
 		{
@@ -1176,25 +879,43 @@ public static class DelegateFactory
 			func.PCall();
 			func.EndPCall();
 		}
+
+		public void CallWithSelf(UnityEngine.Vector3 param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
 	}
 
-	public static Delegate System_Action_UnityEngine_Vector3(LuaFunction func)
+	public static Delegate System_Action_UnityEngine_Vector3(LuaFunction func, LuaTable self, bool flag)
 	{
 		if (func == null)
 		{
-			System.Action<UnityEngine.Vector3> fn = delegate { };
+			System.Action<UnityEngine.Vector3> fn = delegate(UnityEngine.Vector3 param0) { };
 			return fn;
 		}
 
-		System.Action<UnityEngine.Vector3> d = (new System_Action_UnityEngine_Vector3_Event(func)).Call;
-		return d;
+		if(!flag)
+		{
+			System.Action<UnityEngine.Vector3> d = (new System_Action_UnityEngine_Vector3_Event(func)).Call;
+			return d;
+		}
+		else
+		{
+			System.Action<UnityEngine.Vector3> d = (new System_Action_UnityEngine_Vector3_Event(func, self)).CallWithSelf;
+			return d;
+		}
 	}
 
 	class System_Action_UnityEngine_Vector3_object_Event : LuaDelegate
 	{
 		public System_Action_UnityEngine_Vector3_object_Event(LuaFunction func) : base(func) { }
+		public System_Action_UnityEngine_Vector3_object_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
-		public void Call(UnityEngine.Vector3 param0,object param1)
+		public void Call(UnityEngine.Vector3 param0, object param1)
 		{
 			func.BeginPCall();
 			func.Push(param0);
@@ -1202,23 +923,42 @@ public static class DelegateFactory
 			func.PCall();
 			func.EndPCall();
 		}
+
+		public void CallWithSelf(UnityEngine.Vector3 param0, object param1)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.Push(param1);
+			func.PCall();
+			func.EndPCall();
+		}
 	}
 
-	public static Delegate System_Action_UnityEngine_Vector3_object(LuaFunction func)
+	public static Delegate System_Action_UnityEngine_Vector3_object(LuaFunction func, LuaTable self, bool flag)
 	{
 		if (func == null)
 		{
-			System.Action<UnityEngine.Vector3,object> fn = delegate { };
+			System.Action<UnityEngine.Vector3,object> fn = delegate(UnityEngine.Vector3 param0, object param1) { };
 			return fn;
 		}
 
-		System.Action<UnityEngine.Vector3,object> d = (new System_Action_UnityEngine_Vector3_object_Event(func)).Call;
-		return d;
+		if(!flag)
+		{
+			System.Action<UnityEngine.Vector3,object> d = (new System_Action_UnityEngine_Vector3_object_Event(func)).Call;
+			return d;
+		}
+		else
+		{
+			System.Action<UnityEngine.Vector3,object> d = (new System_Action_UnityEngine_Vector3_object_Event(func, self)).CallWithSelf;
+			return d;
+		}
 	}
 
 	class System_Action_UnityEngine_Color_Event : LuaDelegate
 	{
 		public System_Action_UnityEngine_Color_Event(LuaFunction func) : base(func) { }
+		public System_Action_UnityEngine_Color_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
 		public void Call(UnityEngine.Color param0)
 		{
@@ -1227,23 +967,41 @@ public static class DelegateFactory
 			func.PCall();
 			func.EndPCall();
 		}
+
+		public void CallWithSelf(UnityEngine.Color param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
 	}
 
-	public static Delegate System_Action_UnityEngine_Color(LuaFunction func)
+	public static Delegate System_Action_UnityEngine_Color(LuaFunction func, LuaTable self, bool flag)
 	{
 		if (func == null)
 		{
-			System.Action<UnityEngine.Color> fn = delegate { };
+			System.Action<UnityEngine.Color> fn = delegate(UnityEngine.Color param0) { };
 			return fn;
 		}
 
-		System.Action<UnityEngine.Color> d = (new System_Action_UnityEngine_Color_Event(func)).Call;
-		return d;
+		if(!flag)
+		{
+			System.Action<UnityEngine.Color> d = (new System_Action_UnityEngine_Color_Event(func)).Call;
+			return d;
+		}
+		else
+		{
+			System.Action<UnityEngine.Color> d = (new System_Action_UnityEngine_Color_Event(func, self)).CallWithSelf;
+			return d;
+		}
 	}
 
 	class System_Action_object_Event : LuaDelegate
 	{
 		public System_Action_object_Event(LuaFunction func) : base(func) { }
+		public System_Action_object_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
 		public void Call(object param0)
 		{
@@ -1252,23 +1010,41 @@ public static class DelegateFactory
 			func.PCall();
 			func.EndPCall();
 		}
+
+		public void CallWithSelf(object param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
 	}
 
-	public static Delegate System_Action_object(LuaFunction func)
+	public static Delegate System_Action_object(LuaFunction func, LuaTable self, bool flag)
 	{
 		if (func == null)
 		{
-			System.Action<object> fn = delegate { };
+			System.Action<object> fn = delegate(object param0) { };
 			return fn;
 		}
 
-		System.Action<object> d = (new System_Action_object_Event(func)).Call;
-		return d;
+		if(!flag)
+		{
+			System.Action<object> d = (new System_Action_object_Event(func)).Call;
+			return d;
+		}
+		else
+		{
+			System.Action<object> d = (new System_Action_object_Event(func, self)).CallWithSelf;
+			return d;
+		}
 	}
 
 	class System_Action_LTEvent_Event : LuaDelegate
 	{
 		public System_Action_LTEvent_Event(LuaFunction func) : base(func) { }
+		public System_Action_LTEvent_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
 		public void Call(LTEvent param0)
 		{
@@ -1277,18 +1053,35 @@ public static class DelegateFactory
 			func.PCall();
 			func.EndPCall();
 		}
+
+		public void CallWithSelf(LTEvent param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.PushObject(param0);
+			func.PCall();
+			func.EndPCall();
+		}
 	}
 
-	public static Delegate System_Action_LTEvent(LuaFunction func)
+	public static Delegate System_Action_LTEvent(LuaFunction func, LuaTable self, bool flag)
 	{
 		if (func == null)
 		{
-			System.Action<LTEvent> fn = delegate { };
+			System.Action<LTEvent> fn = delegate(LTEvent param0) { };
 			return fn;
 		}
 
-		System.Action<LTEvent> d = (new System_Action_LTEvent_Event(func)).Call;
-		return d;
+		if(!flag)
+		{
+			System.Action<LTEvent> d = (new System_Action_LTEvent_Event(func)).Call;
+			return d;
+		}
+		else
+		{
+			System.Action<LTEvent> d = (new System_Action_LTEvent_Event(func, self)).CallWithSelf;
+			return d;
+		}
 	}
 
 }

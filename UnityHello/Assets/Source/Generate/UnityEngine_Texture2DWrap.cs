@@ -28,7 +28,7 @@ public class UnityEngine_Texture2DWrap
 		L.RegFunction("EncodeToJPG", EncodeToJPG);
 		L.RegFunction("New", _CreateUnityEngine_Texture2D);
 		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", Lua_ToString);
+		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("mipmapCount", get_mipmapCount, null);
 		L.RegVar("format", get_format, null);
 		L.RegVar("whiteTexture", get_whiteTexture, null);
@@ -710,23 +710,6 @@ public class UnityEngine_Texture2DWrap
 		{
 			return LuaDLL.toluaL_exception(L, e);
 		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Lua_ToString(IntPtr L)
-	{
-		object obj = ToLua.ToObject(L, 1);
-
-		if (obj != null)
-		{
-			LuaDLL.lua_pushstring(L, obj.ToString());
-		}
-		else
-		{
-			LuaDLL.lua_pushnil(L);
-		}
-
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

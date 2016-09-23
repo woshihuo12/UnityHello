@@ -9,7 +9,7 @@ public class UnityEngine_ParticleAnimatorWrap
 		L.BeginClass(typeof(UnityEngine.ParticleAnimator), typeof(UnityEngine.Component));
 		L.RegFunction("New", _CreateUnityEngine_ParticleAnimator);
 		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", Lua_ToString);
+		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("doesAnimateColor", get_doesAnimateColor, set_doesAnimateColor);
 		L.RegVar("worldRotationAxis", get_worldRotationAxis, set_worldRotationAxis);
 		L.RegVar("localRotationAxis", get_localRotationAxis, set_localRotationAxis);
@@ -62,23 +62,6 @@ public class UnityEngine_ParticleAnimatorWrap
 		{
 			return LuaDLL.toluaL_exception(L, e);
 		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Lua_ToString(IntPtr L)
-	{
-		object obj = ToLua.ToObject(L, 1);
-
-		if (obj != null)
-		{
-			LuaDLL.lua_pushstring(L, obj.ToString());
-		}
-		else
-		{
-			LuaDLL.lua_pushnil(L);
-		}
-
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

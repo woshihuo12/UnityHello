@@ -9,7 +9,7 @@ public class UnityEngine_UI_GraphicRaycasterWrap
 		L.BeginClass(typeof(UnityEngine.UI.GraphicRaycaster), typeof(UnityEngine.EventSystems.BaseRaycaster));
 		L.RegFunction("Raycast", Raycast);
 		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", Lua_ToString);
+		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("sortOrderPriority", get_sortOrderPriority, null);
 		L.RegVar("renderOrderPriority", get_renderOrderPriority, null);
 		L.RegVar("ignoreReversedGraphics", get_ignoreReversedGraphics, set_ignoreReversedGraphics);
@@ -52,23 +52,6 @@ public class UnityEngine_UI_GraphicRaycasterWrap
 		{
 			return LuaDLL.toluaL_exception(L, e);
 		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Lua_ToString(IntPtr L)
-	{
-		object obj = ToLua.ToObject(L, 1);
-
-		if (obj != null)
-		{
-			LuaDLL.lua_pushstring(L, obj.ToString());
-		}
-		else
-		{
-			LuaDLL.lua_pushnil(L);
-		}
-
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

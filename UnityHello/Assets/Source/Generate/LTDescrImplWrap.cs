@@ -58,7 +58,7 @@ public class LTDescrImplWrap
 		L.RegFunction("setOnStart", setOnStart);
 		L.RegFunction("setDirection", setDirection);
 		L.RegFunction("New", _CreateLTDescrImpl);
-		L.RegFunction("__tostring", Lua_ToString);
+		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("rectTransform", get_rectTransform, set_rectTransform);
 		L.RegVar("uiText", get_uiText, set_uiText);
 		L.RegVar("uiImage", get_uiImage, set_uiImage);
@@ -1386,23 +1386,6 @@ public class LTDescrImplWrap
 		{
 			return LuaDLL.toluaL_exception(L, e);
 		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Lua_ToString(IntPtr L)
-	{
-		object obj = ToLua.ToObject(L, 1);
-
-		if (obj != null)
-		{
-			LuaDLL.lua_pushstring(L, obj.ToString());
-		}
-		else
-		{
-			LuaDLL.lua_pushnil(L);
-		}
-
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

@@ -8,7 +8,7 @@ public class UnityEngine_AsyncOperationWrap
 	{
 		L.BeginClass(typeof(UnityEngine.AsyncOperation), typeof(System.Object));
 		L.RegFunction("New", _CreateUnityEngine_AsyncOperation);
-		L.RegFunction("__tostring", Lua_ToString);
+		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("isDone", get_isDone, null);
 		L.RegVar("progress", get_progress, null);
 		L.RegVar("priority", get_priority, set_priority);
@@ -38,23 +38,6 @@ public class UnityEngine_AsyncOperationWrap
 		{
 			return LuaDLL.toluaL_exception(L, e);
 		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Lua_ToString(IntPtr L)
-	{
-		object obj = ToLua.ToObject(L, 1);
-
-		if (obj != null)
-		{
-			LuaDLL.lua_pushstring(L, obj.ToString());
-		}
-		else
-		{
-			LuaDLL.lua_pushnil(L);
-		}
-
-		return 1;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
