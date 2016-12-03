@@ -33,6 +33,7 @@ public class UnityEngine_AudioSourceWrap
 		L.RegVar("clip", get_clip, set_clip);
 		L.RegVar("outputAudioMixerGroup", get_outputAudioMixerGroup, set_outputAudioMixerGroup);
 		L.RegVar("isPlaying", get_isPlaying, null);
+		L.RegVar("isVirtual", get_isVirtual, null);
 		L.RegVar("loop", get_loop, set_loop);
 		L.RegVar("ignoreListenerVolume", get_ignoreListenerVolume, set_ignoreListenerVolume);
 		L.RegVar("playOnAwake", get_playOnAwake, set_playOnAwake);
@@ -552,6 +553,25 @@ public class UnityEngine_AudioSourceWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index isPlaying on a nil value" : e.Message);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_isVirtual(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.AudioSource obj = (UnityEngine.AudioSource)o;
+			bool ret = obj.isVirtual;
+			LuaDLL.lua_pushboolean(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index isVirtual on a nil value" : e.Message);
 		}
 	}
 

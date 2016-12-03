@@ -29,6 +29,7 @@ public class UnityEngine_CanvasWrap
 		L.RegVar("sortingLayerID", get_sortingLayerID, set_sortingLayerID);
 		L.RegVar("cachedSortingLayerValue", get_cachedSortingLayerValue, null);
 		L.RegVar("sortingLayerName", get_sortingLayerName, set_sortingLayerName);
+		L.RegVar("rootCanvas", get_rootCanvas, null);
 		L.RegVar("willRenderCanvases", get_willRenderCanvases, set_willRenderCanvases);
 		L.RegFunction("WillRenderCanvases", UnityEngine_Canvas_WillRenderCanvases);
 		L.EndClass();
@@ -427,6 +428,25 @@ public class UnityEngine_CanvasWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index sortingLayerName on a nil value" : e.Message);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_rootCanvas(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Canvas obj = (UnityEngine.Canvas)o;
+			UnityEngine.Canvas ret = obj.rootCanvas;
+			ToLua.Push(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index rootCanvas on a nil value" : e.Message);
 		}
 	}
 

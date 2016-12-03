@@ -206,7 +206,7 @@ public static class CustomSettings
 
     public static List<Type> dynamicList = new List<Type>()
     {
-        /*typeof(MeshRenderer),
+        typeof(MeshRenderer),
         typeof(ParticleEmitter),
         typeof(ParticleRenderer),
         typeof(ParticleAnimator),
@@ -219,18 +219,18 @@ public static class CustomSettings
 
         typeof(Animation),
         typeof(AnimationClip),
-        typeof(AnimationState),        
+        typeof(AnimationState),
 
         typeof(BlendWeights),
         typeof(RenderTexture),
-        typeof(Rigidbody),*/
+        typeof(Rigidbody),
     };
 
     //重载函数，相同参数个数，相同位置out参数匹配出问题时, 需要强制匹配解决
     //使用方法参见例子14
     public static List<Type> outList = new List<Type>()
     {
-
+        
     };
 
     public static BindType _GT(Type t)

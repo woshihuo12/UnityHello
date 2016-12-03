@@ -1,0 +1,12 @@
+﻿<Properties StartupItem="UnityHello.CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\ToLua\Core\LuaFileUtils.cs">
+    <Files>
+      <File FileName="Assets\ToLua\Core\LuaFileUtils.cs" Line="121" Column="43" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
