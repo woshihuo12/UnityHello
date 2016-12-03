@@ -1,7 +1,7 @@
 # UnityHello
 Unity版hello world,演示了各种tolua相关的hello world级程序，所以取名为hello
 
-<b>基于 5.3.4 p5</b>
+<b>基于 5.3.6 p8</b>
 </br>
 </br>
 https://github.com/topameng/tolua
