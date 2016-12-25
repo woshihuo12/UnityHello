@@ -152,17 +152,25 @@ public static class ToLuaExport
         "UIWidget.showHandles",
         "Input.IsJoystickPreconfigured",
         "UIDrawCall.isActive",
+        "MonoBehaviour.runInEditMode",
+        "Light.lightmappingMode"
+    };
+
+	public static List<MemberInfo> memberInfoFilter = new List<MemberInfo>
+	{
+        //可精确查找一个函数
+		//Type.GetMethod(string name, BindingFlags bindingAttr, Binder binder, CallingConventions callConvention, Type[] types, ParameterModifier[] modifiers);
     };
 
     public static bool IsMemberFilter(MemberInfo mi)
     {
-        return memberFilter.Contains(type.Name + "." + mi.Name);
+		return memberInfoFilter.Contains(mi) || memberFilter.Contains(type.Name + "." + mi.Name);
     }
 
     public static bool IsMemberFilter(Type t)
     {
         string name = LuaMisc.GetTypeName(t);
-        return memberFilter.Find((p) => { return name.Contains(p); }) != null;
+        return memberInfoFilter.Contains(t) || memberFilter.Find((p) => { return name.Contains(p); }) != null;
     }
 
     static ToLuaExport()
