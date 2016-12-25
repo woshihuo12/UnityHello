@@ -1,6 +1,3 @@
---region *.lua
---Date
---此文件由[BabeLua]插件自动生成
 function clone(object)
     local lookup_table = {}
     local function _copy(object)
@@ -20,6 +17,7 @@ function clone(object)
 end
 
 -- require "common/class"
+class = require("common/middleclass")
 require("common/stack")
 require("common/functions")
 -- require "common/simple_state_machine"

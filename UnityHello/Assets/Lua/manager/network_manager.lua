@@ -1,8 +1,3 @@
--- region *.lua
--- Date
--- 此文件由[BabeLua]插件自动生成
-local class = require("common/middleclass")
-
 local network_manager = class("network_manager")
 
 function network_manager:instance()

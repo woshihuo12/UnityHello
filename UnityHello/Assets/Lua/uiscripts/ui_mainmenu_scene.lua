@@ -1,8 +1,3 @@
--- region *.lua
--- Date
--- 此文件由[BabeLua]插件自动生成
-local class = require("common/middleclass")
-
 local person_pb = require("protol/person_pb")
 local ui_messagebox = require("uiscripts/ui_messagebox")
 local ui_teammanage_scene = require("uiscripts/ui_teammanage_scene")

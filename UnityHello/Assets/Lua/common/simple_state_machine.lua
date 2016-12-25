@@ -1,8 +1,3 @@
--- region *.lua
--- Date
--- 此文件由[BabeLua]插件自动生成
-local class = require("common/middleclass")
-
 local simple_state_machine = class("simple_state_machine")
 
 simple_state_machine.VERSION = "2.2.0"
