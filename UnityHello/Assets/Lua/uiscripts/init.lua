@@ -5,7 +5,6 @@
 require("uiscripts/ui_session_id")
 require("uiscripts/ui_session")
 
-
 UText = UnityEngine.UI.Text
 UImage = UnityEngine.UI.Image
 UButton = UnityEngine.UI.Button

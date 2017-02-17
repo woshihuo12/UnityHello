@@ -10,6 +10,7 @@ public class testbbb : MonoBehaviour
     private void Awake()
     {
         Debug.Log("Awake");
+        Text t = null;
     }
 
     void Start()

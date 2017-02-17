@@ -540,6 +540,11 @@ function table.unique(t, bArray)
     return n
 end
 
+function table.clear( tb )
+    for k,v in pairs(tb) do
+        tb[k] = nil
+    end
+end
 --------------------------------
 -- 根据系统时间初始化随机数种子，让后续的 math.random() 返回更随机的值
 -- @function [parent=#math] newrandomseed

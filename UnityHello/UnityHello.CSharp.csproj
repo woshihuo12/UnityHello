@@ -197,6 +197,7 @@
     <Compile Include="Assets\Source\Generate\UnityEngine_RenderSettingsWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_RenderTextureWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_RendererWrap.cs" />
+    <Compile Include="Assets\Source\Generate\UnityEngine_ResourcesWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_RigidbodyWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_ScreenWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_ShaderWrap.cs" />
