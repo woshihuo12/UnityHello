@@ -1,4 +1,5 @@
 require("common/init")
+require("core/init")
 require("uiscripts/init")
 require("eventsystem/init")
 require("framework/init")

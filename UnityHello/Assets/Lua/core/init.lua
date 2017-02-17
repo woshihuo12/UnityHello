@@ -1,0 +1,1 @@
+lua_object = require("core/lua_object")

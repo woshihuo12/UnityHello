@@ -124,3 +124,5 @@ end
 function lua_object:__tostring()
     return string.format("lua_object.name = %s", self.name)
 end
+
+return lua_object

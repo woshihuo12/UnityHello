@@ -37,7 +37,7 @@ function ui_session_data:initialize(session_type, prefab_name, is_first_session)
     self.is_first_session = is_first_session or false
 end
 
-ui_session = class("ui_session")
+ui_session = class("ui_session", lua_object)
 function ui_session:initialize(session_data)
     -- 如果需要可以添加一个BoxCollider屏蔽事件
     self.is_lock = false
