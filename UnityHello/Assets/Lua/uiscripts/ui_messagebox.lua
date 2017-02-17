@@ -17,6 +17,7 @@ end
 function ui_messagebox:initialize(sessionData)
     ui_session.initialize(self, sessionData)
     self.session_id = ui_session_id.UI_MESSAGEBOX
+    self:add_component("test_hello")
 end
 
 function ui_messagebox:on_post_load()
@@ -35,6 +36,8 @@ function ui_messagebox:on_post_load()
     
     self._right_btn_go = self._content_tr:Find("btnRight").gameObject
     self._right_btn_txt = self._right_btn_go.transform:Find("txt"):GetComponent(typeof(UText))
+
+    self:send_message("say_hello")
 end
 
 function ui_messagebox:_on_enter_btn1(args)

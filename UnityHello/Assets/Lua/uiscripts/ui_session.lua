@@ -40,6 +40,7 @@ end
 ui_session = class("ui_session", lua_object)
 function ui_session:initialize(session_data)
     -- 如果需要可以添加一个BoxCollider屏蔽事件
+    lua_object.initialize(self, session_data.prefab_name)
     self.is_lock = false
     self.is_shown = false
     -- 当前界面ID

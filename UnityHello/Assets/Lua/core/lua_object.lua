@@ -28,7 +28,7 @@ function lua_object:add_component(arg)
     if self.components[name] then
         return self.components[name]
     end
-    local cmp = self:load_component(arg)
+    local cmp = load_component(arg)
     assert(cmp, "component " .. name .. " does not exist!")
     
     local loadedcmp = cmp(self)
