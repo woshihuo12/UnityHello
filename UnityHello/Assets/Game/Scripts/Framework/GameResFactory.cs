@@ -81,6 +81,9 @@ public class GameResFactory
                 luaCallBack.Push(go);
                 luaCallBack.PCall();
                 luaCallBack.EndPCall();
+
+                luaCallBack.Dispose();
+                luaCallBack = null;
             }
             Debug.Log("CreatePanel::>> " + assetName + " " + prefab);
             //mUIList.Add(go);
@@ -127,6 +130,9 @@ public class GameResFactory
                 luaCallBack.Push(Obj);
                 luaCallBack.PCall();
                 luaCallBack.EndPCall();
+
+                luaCallBack.Dispose();
+                luaCallBack = null;
             }
         });
     }

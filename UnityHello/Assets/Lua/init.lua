@@ -3,6 +3,7 @@ require("core/init")
 require("uiscripts/init")
 require("eventsystem/init")
 require("framework/init")
+require("subsystems/init")
 
 string_table = require("globalization/zh/string_table")
 
