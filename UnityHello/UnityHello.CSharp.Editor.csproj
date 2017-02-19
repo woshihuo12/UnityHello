@@ -55,9 +55,6 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Advertisements">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Advertisements.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor.Advertisements">
       <HintPath>Library\UnityAssemblies\UnityEditor.Advertisements.dll</HintPath>
     </Reference>
@@ -82,12 +79,6 @@
     <Reference Include="UnityEditor.TreeEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.TreeEditor.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Analytics">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Analytics.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Purchasing">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Purchasing.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor.Graphs">
       <HintPath>Library\UnityAssemblies\UnityEditor.Graphs.dll</HintPath>
     </Reference>
@@ -96,6 +87,9 @@
     </Reference>
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>Library\UnityAssemblies\SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
+    </Reference>
+    <Reference Include="TexturePackerImporter">
+      <HintPath>Assets\codeandweb.com\Editor\TexturePackerImporter.dll</HintPath>
     </Reference>
     <Reference Include="DOTween">
       <HintPath>Assets\DOTween\DOTween.dll</HintPath>
@@ -114,9 +108,6 @@
     </Reference>
     <Reference Include="Debugger">
       <HintPath>Assets\Plugins\Debugger.dll</HintPath>
-    </Reference>
-    <Reference Include="TexturePackerImporter">
-      <HintPath>Assets\codeandweb.com\Editor\TexturePackerImporter.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
