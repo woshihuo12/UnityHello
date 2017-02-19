@@ -1290,14 +1290,6 @@ public class UnityEngine_AnimatorWrap
 				obj.Play(arg0, arg1);
 				return 0;
 			}
-			else if (count == 3 && TypeChecker.CheckTypes(L, 1, typeof(UnityEngine.Animator), typeof(UnityEngine.Experimental.Director.Playable), typeof(object)))
-			{
-				UnityEngine.Animator obj = (UnityEngine.Animator)ToLua.ToObject(L, 1);
-				UnityEngine.Experimental.Director.Playable arg0 = (UnityEngine.Experimental.Director.Playable)ToLua.ToObject(L, 2);
-				object arg1 = ToLua.ToVarObject(L, 3);
-				obj.Play(arg0, arg1);
-				return 0;
-			}
 			else if (count == 4 && TypeChecker.CheckTypes(L, 1, typeof(UnityEngine.Animator), typeof(string), typeof(int), typeof(float)))
 			{
 				UnityEngine.Animator obj = (UnityEngine.Animator)ToLua.ToObject(L, 1);

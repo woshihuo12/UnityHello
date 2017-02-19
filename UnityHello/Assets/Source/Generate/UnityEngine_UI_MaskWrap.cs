@@ -7,6 +7,7 @@ public class UnityEngine_UI_MaskWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(UnityEngine.UI.Mask), typeof(UnityEngine.EventSystems.UIBehaviour));
+		L.RegFunction("MaskEnabled", MaskEnabled);
 		L.RegFunction("IsRaycastLocationValid", IsRaycastLocationValid);
 		L.RegFunction("GetModifiedMaterial", GetModifiedMaterial);
 		L.RegFunction("__eq", op_Equality);
@@ -15,6 +16,23 @@ public class UnityEngine_UI_MaskWrap
 		L.RegVar("showMaskGraphic", get_showMaskGraphic, set_showMaskGraphic);
 		L.RegVar("graphic", get_graphic, null);
 		L.EndClass();
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int MaskEnabled(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			UnityEngine.UI.Mask obj = (UnityEngine.UI.Mask)ToLua.CheckObject(L, 1, typeof(UnityEngine.UI.Mask));
+			bool o = obj.MaskEnabled();
+			LuaDLL.lua_pushboolean(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

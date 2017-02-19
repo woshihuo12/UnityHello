@@ -48,27 +48,11 @@ public class UnityEngine_Experimental_Director_DirectorPlayerWrap
 	{
 		try
 		{
-			int count = LuaDLL.lua_gettop(L);
-
-			if (count == 2 && TypeChecker.CheckTypes(L, 1, typeof(UnityEngine.Experimental.Director.DirectorPlayer), typeof(UnityEngine.Experimental.Director.Playable)))
-			{
-				UnityEngine.Experimental.Director.DirectorPlayer obj = (UnityEngine.Experimental.Director.DirectorPlayer)ToLua.ToObject(L, 1);
-				UnityEngine.Experimental.Director.Playable arg0 = (UnityEngine.Experimental.Director.Playable)ToLua.ToObject(L, 2);
-				obj.Play(arg0);
-				return 0;
-			}
-			else if (count == 3 && TypeChecker.CheckTypes(L, 1, typeof(UnityEngine.Experimental.Director.DirectorPlayer), typeof(UnityEngine.Experimental.Director.Playable), typeof(object)))
-			{
-				UnityEngine.Experimental.Director.DirectorPlayer obj = (UnityEngine.Experimental.Director.DirectorPlayer)ToLua.ToObject(L, 1);
-				UnityEngine.Experimental.Director.Playable arg0 = (UnityEngine.Experimental.Director.Playable)ToLua.ToObject(L, 2);
-				object arg1 = ToLua.ToVarObject(L, 3);
-				obj.Play(arg0, arg1);
-				return 0;
-			}
-			else
-			{
-				return LuaDLL.luaL_throw(L, "invalid arguments to method: UnityEngine.Experimental.Director.DirectorPlayer.Play");
-			}
+			ToLua.CheckArgsCount(L, 2);
+			UnityEngine.Experimental.Director.DirectorPlayer obj = (UnityEngine.Experimental.Director.DirectorPlayer)ToLua.CheckObject(L, 1, typeof(UnityEngine.Experimental.Director.DirectorPlayer));
+			UnityEngine.Experimental.Director.Playable arg0 = (UnityEngine.Experimental.Director.Playable)ToLua.CheckObject(L, 2, typeof(UnityEngine.Experimental.Director.Playable));
+			obj.Play(arg0);
+			return 0;
 		}
 		catch(Exception e)
 		{

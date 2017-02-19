@@ -8,6 +8,7 @@ public class UnityEngine_CanvasWrap
 	{
 		L.BeginClass(typeof(UnityEngine.Canvas), typeof(UnityEngine.Behaviour));
 		L.RegFunction("GetDefaultCanvasMaterial", GetDefaultCanvasMaterial);
+		L.RegFunction("GetETC1SupportedCanvasMaterial", GetETC1SupportedCanvasMaterial);
 		L.RegFunction("ForceUpdateCanvases", ForceUpdateCanvases);
 		L.RegFunction("New", _CreateUnityEngine_Canvas);
 		L.RegFunction("__eq", op_Equality);
@@ -66,6 +67,22 @@ public class UnityEngine_CanvasWrap
 		{
 			ToLua.CheckArgsCount(L, 0);
 			UnityEngine.Material o = UnityEngine.Canvas.GetDefaultCanvasMaterial();
+			ToLua.Push(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetETC1SupportedCanvasMaterial(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 0);
+			UnityEngine.Material o = UnityEngine.Canvas.GetETC1SupportedCanvasMaterial();
 			ToLua.Push(L, o);
 			return 1;
 		}

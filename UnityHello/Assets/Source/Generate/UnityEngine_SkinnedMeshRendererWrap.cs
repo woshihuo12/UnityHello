@@ -18,6 +18,7 @@ public class UnityEngine_SkinnedMeshRendererWrap
 		L.RegVar("quality", get_quality, set_quality);
 		L.RegVar("sharedMesh", get_sharedMesh, set_sharedMesh);
 		L.RegVar("updateWhenOffscreen", get_updateWhenOffscreen, set_updateWhenOffscreen);
+		L.RegVar("skinnedMotionVectors", get_skinnedMotionVectors, set_skinnedMotionVectors);
 		L.RegVar("localBounds", get_localBounds, set_localBounds);
 		L.EndClass();
 	}
@@ -213,6 +214,25 @@ public class UnityEngine_SkinnedMeshRendererWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_skinnedMotionVectors(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.SkinnedMeshRenderer obj = (UnityEngine.SkinnedMeshRenderer)o;
+			bool ret = obj.skinnedMotionVectors;
+			LuaDLL.lua_pushboolean(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index skinnedMotionVectors on a nil value" : e.Message);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_localBounds(IntPtr L)
 	{
 		object o = null;
@@ -323,6 +343,25 @@ public class UnityEngine_SkinnedMeshRendererWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index updateWhenOffscreen on a nil value" : e.Message);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_skinnedMotionVectors(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.SkinnedMeshRenderer obj = (UnityEngine.SkinnedMeshRenderer)o;
+			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+			obj.skinnedMotionVectors = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index skinnedMotionVectors on a nil value" : e.Message);
 		}
 	}
 
