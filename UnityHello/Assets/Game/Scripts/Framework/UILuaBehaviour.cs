@@ -4,10 +4,12 @@ using System.Collections;
 using System.Collections.Generic;
 using LuaInterface;
 
-public class LuaBehaviour : MonoBehaviour
+public class UILuaBehaviour : MonoBehaviour
 {
     private LuaState mLuaState = null;
     private LuaTable mLuaTable = null;
+
+    private Dictionary<string, LuaFunction> mButtonCallbacks = new Dictionary<string, LuaFunction>();
 
     private LuaFunction mFixedUpdateFunc = null;
     private LuaFunction mUpdateFunc = null;
@@ -217,9 +219,54 @@ public class LuaBehaviour : MonoBehaviour
         RemoveUpdate();
     }
 
+    public void AddClick(GameObject go, LuaFunction luafunc)
+    {
+        if (!CheckValid()) return;
+        if (go == null || luafunc == null) return;
+        if (!mButtonCallbacks.ContainsKey(go.name))
+        {
+            mButtonCallbacks.Add(go.name, luafunc);
+            go.GetComponent<Button>().onClick.AddListener(
+                delegate()
+                {
+                    luafunc.BeginPCall();
+                    luafunc.Push(go);
+                    luafunc.PCall();
+                    luafunc.EndPCall();
+                }
+            );
+        }
+    }
+
+    public void RemoveClick(GameObject go)
+    {
+        if (!CheckValid()) return;
+        if (go == null) return;
+        LuaFunction luafunc = null;
+        if (mButtonCallbacks.TryGetValue(go.name, out luafunc))
+        {
+            luafunc.Dispose();
+            luafunc = null;
+            mButtonCallbacks.Remove(go.name);
+        }
+    }
+
+    public void ClearClick()
+    {
+        foreach (var de in mButtonCallbacks)
+        {
+            if (de.Value != null)
+            {
+                de.Value.Dispose();
+            }
+        }
+        mButtonCallbacks.Clear();
+    }
+
     private void OnDestroy()
     {
         if (!CheckValid()) return;
+        ClearClick();
         LuaFunction destroyFunc = mLuaTable.GetLuaFunction("OnDestroy") as LuaFunction;
         if (destroyFunc != null)
         {

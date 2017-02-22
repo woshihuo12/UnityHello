@@ -2,12 +2,15 @@
 using System;
 using LuaInterface;
 
-public class LuaBehaviourWrap
+public class UILuaBehaviourWrap
 {
 	public static void Register(LuaState L)
 	{
-		L.BeginClass(typeof(LuaBehaviour), typeof(UnityEngine.MonoBehaviour));
+		L.BeginClass(typeof(UILuaBehaviour), typeof(UnityEngine.MonoBehaviour));
 		L.RegFunction("Init", Init);
+		L.RegFunction("AddClick", AddClick);
+		L.RegFunction("RemoveClick", RemoveClick);
+		L.RegFunction("ClearClick", ClearClick);
 		L.RegFunction("__eq", op_Equality);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("UsingOnEnable", get_UsingOnEnable, set_UsingOnEnable);
@@ -21,9 +24,60 @@ public class LuaBehaviourWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 2);
-			LuaBehaviour obj = (LuaBehaviour)ToLua.CheckObject(L, 1, typeof(LuaBehaviour));
+			UILuaBehaviour obj = (UILuaBehaviour)ToLua.CheckObject(L, 1, typeof(UILuaBehaviour));
 			LuaTable arg0 = ToLua.CheckLuaTable(L, 2);
 			obj.Init(arg0);
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int AddClick(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			UILuaBehaviour obj = (UILuaBehaviour)ToLua.CheckObject(L, 1, typeof(UILuaBehaviour));
+			UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckUnityObject(L, 2, typeof(UnityEngine.GameObject));
+			LuaFunction arg1 = ToLua.CheckLuaFunction(L, 3);
+			obj.AddClick(arg0, arg1);
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int RemoveClick(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			UILuaBehaviour obj = (UILuaBehaviour)ToLua.CheckObject(L, 1, typeof(UILuaBehaviour));
+			UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckUnityObject(L, 2, typeof(UnityEngine.GameObject));
+			obj.RemoveClick(arg0);
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int ClearClick(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			UILuaBehaviour obj = (UILuaBehaviour)ToLua.CheckObject(L, 1, typeof(UILuaBehaviour));
+			obj.ClearClick();
 			return 0;
 		}
 		catch(Exception e)
@@ -58,7 +112,7 @@ public class LuaBehaviourWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			LuaBehaviour obj = (LuaBehaviour)o;
+			UILuaBehaviour obj = (UILuaBehaviour)o;
 			bool ret = obj.UsingOnEnable;
 			LuaDLL.lua_pushboolean(L, ret);
 			return 1;
@@ -77,7 +131,7 @@ public class LuaBehaviourWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			LuaBehaviour obj = (LuaBehaviour)o;
+			UILuaBehaviour obj = (UILuaBehaviour)o;
 			bool ret = obj.UsingOnDisable;
 			LuaDLL.lua_pushboolean(L, ret);
 			return 1;
@@ -96,7 +150,7 @@ public class LuaBehaviourWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			LuaBehaviour obj = (LuaBehaviour)o;
+			UILuaBehaviour obj = (UILuaBehaviour)o;
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
 			obj.UsingOnEnable = arg0;
 			return 0;
@@ -115,7 +169,7 @@ public class LuaBehaviourWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			LuaBehaviour obj = (LuaBehaviour)o;
+			UILuaBehaviour obj = (UILuaBehaviour)o;
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
 			obj.UsingOnDisable = arg0;
 			return 0;

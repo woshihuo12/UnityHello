@@ -111,6 +111,7 @@
     <Compile Include="Assets\Game\Scripts\Framework\ThreadManager.cs" />
     <Compile Include="Assets\Game\Scripts\Framework\TimeTicker.cs" />
     <Compile Include="Assets\Game\Scripts\Framework\Tools.cs" />
+    <Compile Include="Assets\Game\Scripts\Framework\UILuaBehaviour.cs" />
     <Compile Include="Assets\Game\Scripts\Framework\View.cs" />
     <Compile Include="Assets\Game\Scripts\Globals.cs" />
     <Compile Include="Assets\Game\Scripts\Interface\ICommand.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="Assets\Source\Generate\LuaInterface_DebuggerWrap.cs" />
     <Compile Include="Assets\Source\Generate\ManagerWrap.cs" />
     <Compile Include="Assets\Source\Generate\NetworkManagerWrap.cs" />
+    <Compile Include="Assets\Source\Generate\UILuaBehaviourWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_AnimationBlendModeWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_AnimationClipWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_AnimationStateWrap.cs" />

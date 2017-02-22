@@ -11,9 +11,9 @@ using UnityEngine.EventSystems;
 
 public static class CustomSettings
 {
-    public static string saveDir = Application.dataPath + "/Source/Generate/";    
+    public static string saveDir = Application.dataPath + "/Source/Generate/";
     public static string luaDir = Application.dataPath + "/Lua/";
-    public static string toluaBaseType = Application.dataPath + "/ToLua/BaseType/";    
+    public static string toluaBaseType = Application.dataPath + "/ToLua/BaseType/";
     public static string toluaLuaDir = Application.dataPath + "/ToLua/Lua";
 
     //导出时强制做为静态类的类型(注意customTypeList 还要添加这个类型才能导出)
@@ -183,6 +183,7 @@ public static class CustomSettings
         _GT(typeof(GraphicRaycaster)),
 
         _GT(typeof(LuaBehaviour)),
+        _GT(typeof(UILuaBehaviour)),
         _GT(typeof(GameResFactory)),
 
         _GT(typeof(ScrollRect)),
@@ -237,7 +238,7 @@ public static class CustomSettings
     //使用方法参见例子14
     public static List<Type> outList = new List<Type>()
     {
-        
+
     };
 
     public static BindType _GT(Type t)
@@ -248,5 +249,5 @@ public static class CustomSettings
     public static DelegateType _DT(Type t)
     {
         return new DelegateType(t);
-    }    
+    }
 }

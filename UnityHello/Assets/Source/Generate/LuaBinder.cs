@@ -11,6 +11,7 @@ public static class LuaBinder
 		L.BeginModule(null);
 		LuaInterface_DebuggerWrap.Register(L);
 		LuaBehaviourWrap.Register(L);
+		UILuaBehaviourWrap.Register(L);
 		GameResFactoryWrap.Register(L);
 		BaseWrap.Register(L);
 		ManagerWrap.Register(L);

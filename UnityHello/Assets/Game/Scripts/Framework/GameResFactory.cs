@@ -72,7 +72,7 @@ public class GameResFactory
                 rtTr.localScale = scale;
             }
 
-            LuaBehaviour tmpBehaviour = go.AddComponent<LuaBehaviour>();
+            UILuaBehaviour tmpBehaviour = go.AddComponent<UILuaBehaviour>();
             tmpBehaviour.Init(luaTable);
 
             if (luaCallBack != null)
