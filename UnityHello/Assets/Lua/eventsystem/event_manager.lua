@@ -32,8 +32,8 @@ end
 function event_manager:trigger_event(event_type, ...)
     local tmp_event = self._events_map[event_type]
     if tmp_event then
-        local args = { ...}
-        tmp_event(args)
+        -- local args = { ... }
+        tmp_event( ... )
     end
 end
 

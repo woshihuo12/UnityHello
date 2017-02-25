@@ -2,6 +2,10 @@ local person_pb = require("protol/person_pb")
 local ui_messagebox = require("uiscripts/ui_messagebox")
 local ui_teammanage_scene = require("uiscripts/ui_teammanage_scene")
 
+local function test_event_listener(_center_txt)
+    _center_txt.text = "aaaaaaaaa"--"测试模块消息通信"
+end
+
 local ui_mainmenu_cellbtn = class("ui_mainmenu_cellbtn", ui_session)
 function ui_mainmenu_cellbtn:initialize()
 
@@ -90,6 +94,9 @@ function ui_mainmenu_scene:on_post_load()
             end,
             right_btn_str = string_table.get_text("noTxt"),
             right_btn_handler = function()
+
+                event_dispatcher.instance().ui_event_manager:trigger_event(event_define.UI_EVENT_TEST)
+
                 local msg = person_pb.Person()
                 msg:ParseFromString(self.pb_data)
                 print('person_pb decoder: ' .. tostring(msg.phones[2].num))
@@ -108,14 +115,18 @@ function ui_mainmenu_scene:on_post_load()
     self.lua_behaviour:AddClick(btn2, function(go)
         right_btn_sp.sprite = GameResFactory.Instance():GetResSprite("redBtn")
 
-        event_dispatcher:instance().ui_event_manager:trigger_event(event_define.UI_EVENT_TEST)
+        event_dispatcher.instance().ui_event_manager:trigger_event(event_define.UI_EVENT_TEST, self._center_txt)
     end )
 
     local btn3 = self.transform:Find("btn3").gameObject
     self.lua_behaviour:AddClick(btn3, function(go)
         ui_teammanage_scene.show_me()
     end )
+
+    event_dispatcher.instance().ui_event_manager:add_event_listener(event_define.UI_EVENT_TEST, test_event_listener)
 end
+
+
 
 function ui_mainmenu_scene:reset_window(args)
     self._center_txt.text = ""
@@ -125,13 +136,13 @@ function ui_mainmenu_scene:reset_window(args)
         self._cd_time = self._cd_time > 0 and self._cd_time - 1 or 0
     end , 1, -1, false)
 
-    event_dispatcher:instance().ui_event_manager:add_event_listener(event_define.UI_EVENT_TEST, function()
-        self._cd_timer:Start()
-    end )
+    -- event_dispatcher.instance().ui_event_manager:add_event_listener(event_define.UI_EVENT_TEST, function()
+    --     self._cd_timer:Start()
+    -- end )
 end
 
 function ui_mainmenu_scene:on_pre_destroy()
-
+    event_dispatcher.instance().ui_event_manager:remove_event_listener(event_define.UI_EVENT_TEST, test_event_listener)
 end
 
 return ui_mainmenu_scene
