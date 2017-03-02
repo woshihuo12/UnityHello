@@ -12,6 +12,7 @@ public class LuaBehaviourWrap
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("UsingOnEnable", get_UsingOnEnable, set_UsingOnEnable);
 		L.RegVar("UsingOnDisable", get_UsingOnDisable, set_UsingOnDisable);
+		L.RegVar("LuaTableName", get_LuaTableName, set_LuaTableName);
 		L.EndClass();
 	}
 
@@ -20,10 +21,11 @@ public class LuaBehaviourWrap
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 2);
+			ToLua.CheckArgsCount(L, 3);
 			LuaBehaviour obj = (LuaBehaviour)ToLua.CheckObject(L, 1, typeof(LuaBehaviour));
 			LuaTable arg0 = ToLua.CheckLuaTable(L, 2);
-			obj.Init(arg0);
+			string arg1 = ToLua.CheckString(L, 3);
+			obj.Init(arg0, arg1);
 			return 0;
 		}
 		catch(Exception e)
@@ -89,6 +91,25 @@ public class LuaBehaviourWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_LuaTableName(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			LuaBehaviour obj = (LuaBehaviour)o;
+			string ret = obj.LuaTableName;
+			LuaDLL.lua_pushstring(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index LuaTableName on a nil value" : e.Message);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_UsingOnEnable(IntPtr L)
 	{
 		object o = null;
@@ -123,6 +144,25 @@ public class LuaBehaviourWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index UsingOnDisable on a nil value" : e.Message);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_LuaTableName(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			LuaBehaviour obj = (LuaBehaviour)o;
+			string arg0 = ToLua.CheckString(L, 2);
+			obj.LuaTableName = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index LuaTableName on a nil value" : e.Message);
 		}
 	}
 }

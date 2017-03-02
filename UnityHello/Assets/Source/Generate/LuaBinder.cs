@@ -18,6 +18,7 @@ public static class LuaBinder
 		ByteBufferWrap.Register(L);
 		NetworkManagerWrap.Register(L);
 		LuaHelperWrap.Register(L);
+		GlobalsWrap.Register(L);
 		LeanTweenTypeWrap.Register(L);
 		LTDescrImplWrap.Register(L);
 		LTBezierWrap.Register(L);

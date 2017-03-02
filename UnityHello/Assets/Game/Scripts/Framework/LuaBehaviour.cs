@@ -42,6 +42,19 @@ public class LuaBehaviour : MonoBehaviour
         }
     }
 
+    private string mLuaTableName;
+    public string LuaTableName
+    {
+        get
+        {
+            return mLuaTableName;
+        }
+        set
+        {
+            mLuaTableName = value;
+        }
+    }
+
     private bool mIsStarted = false;
 
     private void SafeRelease(ref LuaFunction func)
@@ -69,7 +82,7 @@ public class LuaBehaviour : MonoBehaviour
         return true;
     }
 
-    public void Init(LuaTable tb)
+    public void Init(LuaTable tb, string tableName)
     {
         mLuaState = SimpleLuaClient.GetMainState();
         if (mLuaState == null) return;
@@ -87,6 +100,12 @@ public class LuaBehaviour : MonoBehaviour
             Debug.LogWarning("mLuaTable is null:" + name);
             return;
         }
+
+        if (!string.IsNullOrEmpty(tableName))
+        {
+            LuaTableName = tableName;
+        }
+
         mLuaTable["gameObject"] = gameObject;
         mLuaTable["transform"] = transform;
         mLuaTable["lua_behaviour"] = this;

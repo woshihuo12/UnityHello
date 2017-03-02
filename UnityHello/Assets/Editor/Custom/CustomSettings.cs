@@ -197,6 +197,7 @@ public static class CustomSettings
         _GT(typeof(NetworkManager)),
 
         _GT(typeof(LuaHelper)),
+        _GT(typeof(Globals)),
 
         /////////////////////////////////////LeanTween     
         _GT(typeof(LeanTweenType)),

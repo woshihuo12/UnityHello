@@ -1208,3 +1208,35 @@ function play_open_window_anim(trans, ui_animhandler)
 
 end
 
+--
+function create_lua_behavior(go, lua_table, lua_name)
+    if tolua.isnull(go) or lua_table == nil then
+        return
+    end
+    if lua_name == nil then
+        local tmp_behavior = go:AddComponent(typeof(LuaBehaviour))
+        if tmp_behavior ~= nil then
+            tmp_behavior:Init(lua_table, "")
+        end
+    else
+        local cur_lua_behaviors = go:GetComponents(typeof(LuaBehaviour))
+        if cur_lua_behaviors then
+            local already_has = false
+            local array_length = cur_lua_behaviors.Length
+            for i=0, array_length - 1 do
+                local tmp_behavior = cur_lua_behaviors[i]
+                if tmp_behavior ~= nil and tmp_behavior.LuaTableName ~= "" and tmp_behavior.LuaTableName == lua_name then
+                    already_has = true
+                    tmp_behavior:Init(lua_table, lua_name)
+                    break
+                end
+            end
+            if not already_has then
+                local tmp_behavior = go:AddComponent(typeof(LuaBehaviour))
+                if tmp_behavior ~= nil then
+                    tmp_behavior:Init(lua_table, lua_name)
+                end
+            end
+        end
+    end
+end
