@@ -1213,7 +1213,7 @@ function create_lua_behavior(go, lua_table, lua_name)
     if tolua.isnull(go) or lua_table == nil then
         return
     end
-    if lua_name == nil then
+    if lua_name == nil or lua_name == "" then
         local tmp_behavior = go:AddComponent(typeof(LuaBehaviour))
         if tmp_behavior ~= nil then
             tmp_behavior:Init(lua_table, "")
