@@ -1,0 +1,23 @@
+ManifestFileVersion: 0
+CRC: 2484574998
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c1619f9c34e9e9a848f847c8f6273b10
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1033bf7ddfd4c6d43e7a6382c0a0a61a
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/BundleResources/BuildByDir/Lua/LuaScripts/uiscripts/ui_session_id.lua.bytes
+- Assets/BundleResources/BuildByDir/Lua/LuaScripts/uiscripts/ui_mainmenu_scene.lua.bytes
+- Assets/BundleResources/BuildByDir/Lua/LuaScripts/uiscripts/init.lua.bytes
+- Assets/BundleResources/BuildByDir/Lua/LuaScripts/uiscripts/ui_topbar.lua.bytes
+- Assets/BundleResources/BuildByDir/Lua/LuaScripts/uiscripts/ui_manager.lua.bytes
+- Assets/BundleResources/BuildByDir/Lua/LuaScripts/uiscripts/ui_teammanage_scene.lua.bytes
+- Assets/BundleResources/BuildByDir/Lua/LuaScripts/uiscripts/ui_session.lua.bytes
+- Assets/BundleResources/BuildByDir/Lua/LuaScripts/uiscripts/ui_messagebox.lua.bytes
+Dependencies: []

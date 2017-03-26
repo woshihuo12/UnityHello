@@ -21,6 +21,7 @@ public class LTBezierPathWrap
 		L.RegVar("length", get_length, set_length);
 		L.RegVar("orientToPath", get_orientToPath, set_orientToPath);
 		L.RegVar("orientToPath2d", get_orientToPath2d, set_orientToPath2d);
+		L.RegVar("distance", get_distance, null);
 		L.EndClass();
 	}
 
@@ -304,6 +305,25 @@ public class LTBezierPathWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index orientToPath2d on a nil value" : e.Message);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_distance(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			LTBezierPath obj = (LTBezierPath)o;
+			float ret = obj.distance;
+			LuaDLL.lua_pushnumber(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index distance on a nil value" : e.Message);
 		}
 	}
 

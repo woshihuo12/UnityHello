@@ -129,23 +129,34 @@ public class LeanAudioWrap
 			if (count == 1 && TypeChecker.CheckTypes(L, 1, typeof(UnityEngine.AudioClip)))
 			{
 				UnityEngine.AudioClip arg0 = (UnityEngine.AudioClip)ToLua.ToObject(L, 1);
-				LeanAudio.play(arg0);
-				return 0;
+				UnityEngine.AudioSource o = LeanAudio.play(arg0);
+				ToLua.Push(L, o);
+				return 1;
 			}
 			else if (count == 2 && TypeChecker.CheckTypes(L, 1, typeof(UnityEngine.AudioClip), typeof(UnityEngine.Vector3)))
 			{
 				UnityEngine.AudioClip arg0 = (UnityEngine.AudioClip)ToLua.ToObject(L, 1);
 				UnityEngine.Vector3 arg1 = ToLua.ToVector3(L, 2);
-				LeanAudio.play(arg0, arg1);
-				return 0;
+				UnityEngine.AudioSource o = LeanAudio.play(arg0, arg1);
+				ToLua.Push(L, o);
+				return 1;
+			}
+			else if (count == 2 && TypeChecker.CheckTypes(L, 1, typeof(UnityEngine.AudioClip), typeof(float)))
+			{
+				UnityEngine.AudioClip arg0 = (UnityEngine.AudioClip)ToLua.ToObject(L, 1);
+				float arg1 = (float)LuaDLL.lua_tonumber(L, 2);
+				UnityEngine.AudioSource o = LeanAudio.play(arg0, arg1);
+				ToLua.Push(L, o);
+				return 1;
 			}
 			else if (count == 3 && TypeChecker.CheckTypes(L, 1, typeof(UnityEngine.AudioClip), typeof(UnityEngine.Vector3), typeof(float)))
 			{
 				UnityEngine.AudioClip arg0 = (UnityEngine.AudioClip)ToLua.ToObject(L, 1);
 				UnityEngine.Vector3 arg1 = ToLua.ToVector3(L, 2);
 				float arg2 = (float)LuaDLL.lua_tonumber(L, 3);
-				LeanAudio.play(arg0, arg1, arg2);
-				return 0;
+				UnityEngine.AudioSource o = LeanAudio.play(arg0, arg1, arg2);
+				ToLua.Push(L, o);
+				return 1;
 			}
 			else
 			{

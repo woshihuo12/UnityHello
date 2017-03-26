@@ -2,7 +2,8 @@
 require("init")
 
 -- 主入口函数。从这里开始lua逻辑
-function Main()					
+function Main()	
+	print("main started")				
     fw_facade:instance():send_msg_command(noti_const.START_UP)
 end
 

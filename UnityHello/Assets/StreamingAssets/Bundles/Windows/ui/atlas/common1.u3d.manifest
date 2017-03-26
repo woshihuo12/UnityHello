@@ -1,0 +1,23 @@
+ManifestFileVersion: 0
+CRC: 2799891902
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 1765ef06d9ab9ce817c955c3991459d3
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: b7b67953d93408c961db06bb48448e35
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 639f9624f74b0aa40b7918c14a35c3f1, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/BundleResources/BuildByDir/UI/Atlas/Common1/res_atlas_common1.png
+- Assets/BundleResources/BuildByDir/UI/Atlas/Common1/res_asset_packer.asset
+Dependencies: []

@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using KEngine;
 
 public class Base : MonoBehaviour
 {
     private AppFacade mFacade;
-    private ResourceManager mResMgr;
+    private KResourceManager mResMgr;
+    //private ResourceManagerOld mResMgr;
     private LuaManager mLuaMgr;
     private SimpleTimerManager mTimerManager;
     private ThreadManager mThreadManager;
@@ -36,13 +38,13 @@ public class Base : MonoBehaviour
         }
     }
 
-    protected ResourceManager ResManager
+    protected KResourceManager ResManager
     {
         get
         {
             if (mResMgr == null)
             {
-                mResMgr = GameFacade.GetManager<ResourceManager>();
+                mResMgr = GameFacade.GetManager<KResourceManager>();
             }
             return mResMgr;
         }

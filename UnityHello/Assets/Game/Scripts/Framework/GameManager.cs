@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using System.IO;
 using System;
 using System.Text;
+using KEngine;
+using LuaInterface;
 
 public class GameManager : Manager
 {
     protected static bool mInitialize = false;
 
     private List<string> mDownloadFiles = new List<string>();
-
-    private StringBuilder mSb = new StringBuilder(42);
     void Awake()
     {
         Init();
@@ -30,9 +30,9 @@ public class GameManager : Manager
     /// </summary>
     public void CheckExtractResource()
     {
-        bool isExists = Directory.Exists(Tools.DataPath)
-            && Directory.Exists(Tools.DataPath + "lua/")
-            && File.Exists(Tools.DataPath + "files.txt");
+        bool isExists = Directory.Exists(KResourceManager.DocumentResourcesPathWithoutFileProtocol)
+            && Directory.Exists(KResourceManager.DocumentResourcesPathWithoutFileProtocol + "lua/")
+            && File.Exists(KResourceManager.DocumentResourcesPathWithoutFileProtocol + "files.txt");
 
         if (isExists || GameSetting.DevelopMode)
         {
@@ -180,14 +180,14 @@ public class GameManager : Manager
             yield break;
         }
 
-        string dataPath = Tools.DataPath;
+        string dataPath = KResourceManager.DocumentResourcesPathWithoutFileProtocol;
         string url = GameSetting.WebUrl;
         string message = string.Empty;
 
         string random = DateTime.Now.ToString("yyyymmddhhmmss");
 
         string listUrl = url + "files.txt?v=" + random;
-        Debug.LogWarning("LoadUpdate---->>>" + listUrl);
+        Log.LogWarning("LoadUpdate---->>>" + listUrl);
 
         WWW www = new WWW(listUrl);
         yield return www;
@@ -220,11 +220,9 @@ public class GameManager : Manager
                 Directory.CreateDirectory(path);
             }
 
-            string fileUrl = mSb.Remove(0, mSb.Length)
-                    .Append(url)
-                    .Append(f)
-                    .Append("?v=")
-                    .Append(random).ToString();
+            string fileUrl = StringBuilderCache.GetStringAndRelease(StringBuilderCache.Acquire()
+                .Append(url).Append(f).Append("?v=").Append(random)
+                );
             bool canUpdate = !File.Exists(localFile);
             if (!canUpdate)
             {
@@ -236,9 +234,9 @@ public class GameManager : Manager
             //本地缺少文件
             if (canUpdate)
             {
-                Debug.Log(fileUrl);
-                message = mSb.Remove(0, mSb.Length).Append("downloading>>")
-                    .Append(fileUrl).ToString();
+                Log.Info(fileUrl);
+                message = StringBuilderCache.GetStringAndRelease(StringBuilderCache.Acquire().Append("downloading>>")
+                    .Append(fileUrl));
                 GameFacade.SendMessageCommand(NotiConst.UPDATE_MESSAGE, message);
                 /*
                 www = new WWW(fileUrl); yield return www;
@@ -268,23 +266,7 @@ public class GameManager : Manager
     /// </summary>
     public void OnResourceInited()
     {
-#if ASYNC_MODE
-        if (GameSetting.DevelopMode)
-        {
-            OnInitialize();
-        }
-        else
-        {
-            ResManager.Initialize(Tools.GetOS(), delegate()
-            {
-                Debug.Log("Initialize OK!!!");
-                OnInitialize();
-            });
-        }
-#else
-        ResManager.Initialize();
         OnInitialize();
-#endif
     }
 
     void OnInitialize()

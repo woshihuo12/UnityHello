@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using LuaInterface;
+using KEngine;
 public class GameResFactory
 {
     private static GameResFactory sInstance = null;
@@ -9,15 +10,16 @@ public class GameResFactory
         if (sInstance == null)
         {
             sInstance = new GameResFactory();
-            sInstance.mResManager = AppFacade.Instance.GetManager<ResourceManager>();
+            sInstance.mResManager = AppFacade.Instance.GetManager<KResourceManager>();
         }
         return sInstance;
     }
 
-    internal ResourceManager mResManager;
+    internal KResourceManager mResManager;
     private List<GameObject> mUIEffectsList = new List<GameObject>();
     public AssetPacker mAssetPacker = null;
 
+    private Dictionary<string, StaticAssetLoader> mUIPrefabLoaders = new Dictionary<string, StaticAssetLoader>();
     //private List<GameObject> mUIList = new List<GameObject>();
     //private Dictionary<string, GameObjectCache> mResCaches = new Dictionary<string, GameObjectCache>();
 
@@ -34,20 +36,28 @@ public class GameResFactory
     {
         if (mResManager == null) return;
 
-        string tmpAssetName = assetName;
-        if (GameSetting.DevelopMode)
+        string tmpAssetName = "uiprefab/" + assetName;
+        if (AssetFileLoader.IsEditorLoadAsset)
         {
-            tmpAssetName = "UIPrefab/" + assetName;
+            tmpAssetName = "BuildByFile/" + tmpAssetName + ".prefab";
         }
-        mResManager.LoadPrefab(assetName + GameSetting.ExtName, tmpAssetName, delegate(UnityEngine.Object[] objs)
+
+        StaticAssetLoader.Load(tmpAssetName, (bool isOk, Object resultObj) =>
         {
-            if (objs.Length == 0) return;
-            GameObject prefab = objs[0] as GameObject;
-            if (prefab == null)
+            if (!isOk
+                || resultObj == null)
             {
+                Log.Error("GetUIPrefab is error:{0}", tmpAssetName);
                 return;
             }
-            GameObject go = UnityEngine.GameObject.Instantiate(prefab) as GameObject;
+
+            GameObject go = resultObj as GameObject;
+            if (go == null)
+            {
+                Log.Error("GetUIPrefab go is null:{0}", tmpAssetName);
+                return;
+            }
+
             go.name = assetName;
             go.layer = LayerMask.NameToLayer("UI");
 
@@ -72,7 +82,7 @@ public class GameResFactory
                 rtTr.localScale = scale;
             }
 
-            UILuaBehaviour tmpBehaviour = go.AddComponent<UILuaBehaviour>();
+            UILuaBehaviour tmpBehaviour = Tools.SafeGetComponent<UILuaBehaviour>(go);
             tmpBehaviour.Init(luaTable);
 
             if (luaCallBack != null)
@@ -85,8 +95,7 @@ public class GameResFactory
                 luaCallBack.Dispose();
                 luaCallBack = null;
             }
-            Debug.Log("CreatePanel::>> " + assetName + " " + prefab);
-            //mUIList.Add(go);
+            Debug.Log("CreatePanel::>> " + assetName);
         });
     }
 
@@ -99,20 +108,20 @@ public class GameResFactory
     protected void GetEffectObj(string effname, System.Action<GameObject> callBack)
     {
         if (mResManager == null) return;
-        mResManager.LoadPrefab(effname, effname, delegate(UnityEngine.Object[] objs)
-        {
-            if (objs.Length == 0) return;
-            GameObject prefab = objs[0] as GameObject;
-            if (prefab == null)
-            {
-                return;
-            }
-            GameObject go = GameObject.Instantiate(prefab) as GameObject;
-            if (callBack != null)
-            {
-                callBack(go);
-            }
-        });
+        //mResManager.LoadPrefab(effname, effname, delegate(UnityEngine.Object[] objs)
+        //{
+        //    if (objs.Length == 0) return;
+        //    GameObject prefab = objs[0] as GameObject;
+        //    if (prefab == null)
+        //    {
+        //        return;
+        //    }
+        //    GameObject go = GameObject.Instantiate(prefab) as GameObject;
+        //    if (callBack != null)
+        //    {
+        //        callBack(go);
+        //    }
+        //});
     }
 
     //获取UI特效

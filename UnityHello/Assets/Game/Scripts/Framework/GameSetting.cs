@@ -12,10 +12,8 @@ public class GameSetting
     public const string AppName = "UnityHello";               //应用程序名称
 
     public const int GameFrameRate = 30;
-
-    public const string AssetDir = "StreamingAssets";           //素材目录 
     //AB素材扩展名
-    public const string ExtName = ".unity3d";
+    public const string ABExtName = ".u3d";
 
     public static bool LuaByteMode = false;                     //Lua字节码模式-默认关闭 
     public static bool LuaBundleMode = false;                    //Lua代码AssetBundle模式
@@ -25,32 +23,15 @@ public class GameSetting
 
     public static bool EnableLuaDebug = false;
 
-    public static string AssetPath
-    {
-        get
-        {
-            return Application.streamingAssetsPath;
-        }
-    }
+    // 美术库用到
+    public const string ResourcesBuildDir = "BundleResources";
 
-    public static string TransAssetPath
-    {
-        get
-        {
-            string protocl = "file://";
-            if (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer)
-            {
-                protocl = "file:///";
-            }
-            else if (Application.platform == RuntimePlatform.Android)
-            {
-                protocl = "";
-            }
-            else if (Application.platform == RuntimePlatform.IPhonePlayer)
-            {
-                protocl = "";
-            }
-            return protocl + AssetPath;
-        }
-    }
+    /// <summary>
+    /// 编辑状态的资源目录存放, Unity 5中采用自动对BundleResources整体打包，把编辑器部分移出
+    /// </summary>
+    public const string ResourcesEditDir = "BundleEditing";
+
+    public const string ProductRelPath = "Product";
+    public const string StreamingBundlesFolderName = "Bundles";
+    public const string AssetBundleBuildRelPath = "Product/Bundles";
 }

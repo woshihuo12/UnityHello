@@ -1,0 +1,43 @@
+ManifestFileVersion: 0
+CRC: 4225582540
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: ca81c5bce81d528ca57309245d7b2b1d
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2a7e80c860a8fa3c72eac1f39fe93ad9
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 96be5dd14ae016f43bade2ec4e60e056, type: 3}
+- Class: 114
+  Script: {fileID: 1392445389, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 31082f87c86159249b8e38a251d81a70, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 128
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+Assets:
+- Assets/BundleResources/BuildByFile/UIPrefab/ui_teammanage_scene.prefab
+Dependencies:
+- D:/githubs/UnityHello/UnityHello/Product/Bundles/Windows/ui/atlas/common1.u3d

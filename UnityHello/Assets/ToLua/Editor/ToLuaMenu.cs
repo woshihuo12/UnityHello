@@ -962,7 +962,10 @@ public static class ToLuaMenu
             string dest = destDir + "/" + str;
             if (appendext) dest += ".bytes";
             string dir = Path.GetDirectoryName(dest);
-            Directory.CreateDirectory(dir);
+            if(!Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+            }
             File.Copy(files[i], dest, true);
         }
     }

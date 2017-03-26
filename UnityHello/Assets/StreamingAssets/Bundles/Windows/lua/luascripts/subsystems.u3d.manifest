@@ -1,0 +1,17 @@
+ManifestFileVersion: 0
+CRC: 116893069
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 90a1223c949375ea06218570b32d4cc7
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1033bf7ddfd4c6d43e7a6382c0a0a61a
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/BundleResources/BuildByDir/Lua/LuaScripts/subsystems/init.lua.bytes
+- Assets/BundleResources/BuildByDir/Lua/LuaScripts/subsystems/item_subsystem.lua.bytes
+Dependencies: []

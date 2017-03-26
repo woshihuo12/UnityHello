@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 831597591
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9f80efa9a378d5904eae7b0cbd7d6cae
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1033bf7ddfd4c6d43e7a6382c0a0a61a
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/BundleResources/BuildByDir/Lua/LuaScripts/components/test_hello.lua.bytes
+Dependencies: []

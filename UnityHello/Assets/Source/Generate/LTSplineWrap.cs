@@ -9,16 +9,23 @@ public class LTSplineWrap
 		L.BeginClass(typeof(LTSpline), typeof(System.Object));
 		L.RegFunction("map", map);
 		L.RegFunction("interp", interp);
+		L.RegFunction("ratioAtPoint", ratioAtPoint);
 		L.RegFunction("point", point);
 		L.RegFunction("place2d", place2d);
 		L.RegFunction("placeLocal2d", placeLocal2d);
 		L.RegFunction("place", place);
 		L.RegFunction("placeLocal", placeLocal);
 		L.RegFunction("gizmoDraw", gizmoDraw);
+		L.RegFunction("drawGizmo", drawGizmo);
+		L.RegFunction("drawLine", drawLine);
+		L.RegFunction("drawLinesGLLines", drawLinesGLLines);
+		L.RegFunction("generateVectors", generateVectors);
 		L.RegFunction("New", _CreateLTSpline);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("DISTANCE_COUNT", get_DISTANCE_COUNT, set_DISTANCE_COUNT);
 		L.RegVar("SUBLINE_COUNT", get_SUBLINE_COUNT, set_SUBLINE_COUNT);
+		L.RegVar("distance", get_distance, set_distance);
+		L.RegVar("constantSpeed", get_constantSpeed, set_constantSpeed);
 		L.RegVar("pts", get_pts, set_pts);
 		L.RegVar("ptsAdj", get_ptsAdj, set_ptsAdj);
 		L.RegVar("ptsAdjLength", get_ptsAdjLength, set_ptsAdjLength);
@@ -34,10 +41,18 @@ public class LTSplineWrap
 		{
 			int count = LuaDLL.lua_gettop(L);
 
-			if (TypeChecker.CheckParamsType(L, typeof(UnityEngine.Vector3), 1, count))
+			if (count == 1)
 			{
-				UnityEngine.Vector3[] arg0 = ToLua.CheckParamsObject<UnityEngine.Vector3>(L, 1, count);
+				UnityEngine.Vector3[] arg0 = ToLua.CheckObjectArray<UnityEngine.Vector3>(L, 1);
 				LTSpline obj = new LTSpline(arg0);
+				ToLua.PushObject(L, obj);
+				return 1;
+			}
+			else if (count == 2 && TypeChecker.CheckTypes(L, 1, typeof(UnityEngine.Vector3[]), typeof(bool)))
+			{
+				UnityEngine.Vector3[] arg0 = ToLua.CheckObjectArray<UnityEngine.Vector3>(L, 1);
+				bool arg1 = LuaDLL.luaL_checkboolean(L, 2);
+				LTSpline obj = new LTSpline(arg0, arg1);
 				ToLua.PushObject(L, obj);
 				return 1;
 			}
@@ -80,6 +95,24 @@ public class LTSplineWrap
 			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 			UnityEngine.Vector3 o = obj.interp(arg0);
 			ToLua.Push(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int ratioAtPoint(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			LTSpline obj = (LTSpline)ToLua.CheckObject(L, 1, typeof(LTSpline));
+			UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
+			float o = obj.ratioAtPoint(arg0);
+			LuaDLL.lua_pushnumber(L, o);
 			return 1;
 		}
 		catch(Exception e)
@@ -230,6 +263,92 @@ public class LTSplineWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int drawGizmo(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 2 && TypeChecker.CheckTypes(L, 1, typeof(UnityEngine.Transform[]), typeof(UnityEngine.Color)))
+			{
+				UnityEngine.Transform[] arg0 = ToLua.CheckObjectArray<UnityEngine.Transform>(L, 1);
+				UnityEngine.Color arg1 = ToLua.ToColor(L, 2);
+				LTSpline.drawGizmo(arg0, arg1);
+				return 0;
+			}
+			else if (count == 2 && TypeChecker.CheckTypes(L, 1, typeof(LTSpline), typeof(UnityEngine.Color)))
+			{
+				LTSpline obj = (LTSpline)ToLua.ToObject(L, 1);
+				UnityEngine.Color arg0 = ToLua.ToColor(L, 2);
+				obj.drawGizmo(arg0);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: LTSpline.drawGizmo");
+			}
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int drawLine(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			UnityEngine.Transform[] arg0 = ToLua.CheckObjectArray<UnityEngine.Transform>(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			UnityEngine.Color arg2 = ToLua.ToColor(L, 3);
+			LTSpline.drawLine(arg0, arg1, arg2);
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int drawLinesGLLines(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 4);
+			LTSpline obj = (LTSpline)ToLua.CheckObject(L, 1, typeof(LTSpline));
+			UnityEngine.Material arg0 = (UnityEngine.Material)ToLua.CheckUnityObject(L, 2, typeof(UnityEngine.Material));
+			UnityEngine.Color arg1 = ToLua.ToColor(L, 3);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 4);
+			obj.drawLinesGLLines(arg0, arg1, arg2);
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int generateVectors(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			LTSpline obj = (LTSpline)ToLua.CheckObject(L, 1, typeof(LTSpline));
+			UnityEngine.Vector3[] o = obj.generateVectors();
+			ToLua.Push(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_DISTANCE_COUNT(IntPtr L)
 	{
 		try
@@ -254,6 +373,44 @@ public class LTSplineWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_distance(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			LTSpline obj = (LTSpline)o;
+			float ret = obj.distance;
+			LuaDLL.lua_pushnumber(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index distance on a nil value" : e.Message);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_constantSpeed(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			LTSpline obj = (LTSpline)o;
+			bool ret = obj.constantSpeed;
+			LuaDLL.lua_pushboolean(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index constantSpeed on a nil value" : e.Message);
 		}
 	}
 
@@ -379,6 +536,44 @@ public class LTSplineWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_distance(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			LTSpline obj = (LTSpline)o;
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+			obj.distance = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index distance on a nil value" : e.Message);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_constantSpeed(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			LTSpline obj = (LTSpline)o;
+			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+			obj.constantSpeed = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index constantSpeed on a nil value" : e.Message);
 		}
 	}
 

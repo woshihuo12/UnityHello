@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEditor;
 
 public class Globals : MonoBehaviour
 {
@@ -12,6 +13,11 @@ public class Globals : MonoBehaviour
     void Start()
     {
         AppFacade.Instance.StartUp();   //启动游戏
+        //foreach (var assetGuid in AssetDatabase.FindAssets(""))
+        //{
+        //    var assetPath = AssetDatabase.GUIDToAssetPath(assetGuid);
+        //    Debug.Log(assetPath);
+        //}
     }
 
     // Update is called once per frame

@@ -3,10 +3,10 @@ using System.Collections;
 using LuaInterface;
 using System.IO;
 using System.Text;
+using KEngine;
 
 public class SimpleLuaResLoader : LuaFileUtils
 {
-    private StringBuilder mSb = new StringBuilder(42);
     public SimpleLuaResLoader()
     {
         instance = this;
@@ -78,9 +78,8 @@ public class SimpleLuaResLoader : LuaFileUtils
         if (!Path.IsPathRooted(fileName))
         {
             string dir = Application.persistentDataPath.Replace('\\', '/');
-            mSb.Remove(0, mSb.Length).Append(dir).Append("/").Append(GetOSDir())
-                .Append("/Lua/").Append(fileName);
-            path = mSb.ToString();
+            path = StringBuilderCache.GetStringAndRelease(StringBuilderCache.Acquire().Append(dir).Append("/").Append(KResourceManager.BuildPlatformName)
+                 .Append("/Lua/").Append(fileName));
         }
         if (File.Exists(path))
         {
@@ -144,27 +143,32 @@ public class LuaManager : Manager
 
     private void InitLuaPath()
     {
-        if (!GameSetting.DevelopMode)
+        if (GameSetting.DevelopMode)
         {
-            SimpleLuaClient.GetMainState().AddSearchPath(Tools.DataPath + "lua");
+            if (!GameSetting.LuaBundleMode)
+            {
+                SimpleLuaClient.GetMainState().AddSearchPath(LuaConst.luaDir);
+                SimpleLuaClient.GetMainState().AddSearchPath(LuaConst.toluaDir);
+            }
         }
     }
 
     private void Awake()
     {
         mSimpleLuaClient = gameObject.AddComponent<SimpleLuaClient>();
+        InitLuaLoaderSearchPath();
     }
 
     private void AddBundle(string bundleName)
     {
-        string url = Tools.DataPath + "/lua/" + bundleName;
+        string url = KResourceManager.BundlesPathWithoutFileProtocol + "/lua/" + bundleName;
         if (File.Exists(url))
         {
             AssetBundle bundle = AssetBundle.LoadFromFile(url);
             if (bundle != null)
             {
                 bundleName = bundleName.Replace("lua/", "");
-                bundleName = bundleName.Replace(".unity3d", "");
+                bundleName = bundleName.Replace(GameSetting.ABExtName, "");
                 LuaFileUtils.Instance.AddSearchBundle(bundleName.ToLower(), bundle);
             }
         }
@@ -175,25 +179,45 @@ public class LuaManager : Manager
     /// </summary>
     void InitLuaBundle()
     {
-        if (!GameSetting.DevelopMode
-            && GameSetting.LuaBundleMode)
+        if (GameSetting.LuaBundleMode)
         {
-            AddBundle("lua/lua.unity3d");
-            AddBundle("lua/lua_math.unity3d");
-            AddBundle("lua/lua_system.unity3d");
-            AddBundle("lua/lua_u3d.unity3d");
-            AddBundle("lua/lua_misc.unity3d");
-            AddBundle("lua/lua_cjson.unity3d");
-            AddBundle("lua/lua_lscripts.unity3d");
-            AddBundle("lua/lua_socket.unity3d");
-            AddBundle("lua/lua_protobuf.unity3d");
+            AddBundle("toluascripts/system/reflection.u3d");
+            AddBundle("toluascripts/cjson.u3d");
+            AddBundle("toluascripts/lpeg.u3d");
+            AddBundle("toluascripts/misc.u3d");
+            AddBundle("toluascripts/protobuf.u3d");
+            AddBundle("toluascripts/socket.u3d");
+            AddBundle("toluascripts/system.u3d");
+            AddBundle("toluascripts/unityengine.u3d");
+            ////////////////////////////////////
+            AddBundle("luascripts/ai/bt.u3d");
+            AddBundle("luascripts/globalization/zh.u3d");
+            AddBundle("luascripts/common.u3d");
+            AddBundle("luascripts/components.u3d");
+            AddBundle("luascripts/core.u3d");
+            AddBundle("luascripts/data_infos.u3d");
+            AddBundle("luascripts/entities.u3d");
+            AddBundle("luascripts/eventsystem.u3d");
+            AddBundle("luascripts/framework.u3d");
+            AddBundle("luascripts/manager.u3d");
+            AddBundle("luascripts/protol.u3d");
+            AddBundle("luascripts/settings.u3d");
+            AddBundle("luascripts/subsystems.u3d");
+            AddBundle("luascripts/uiscripts.u3d");
+            ///////////////////////////////////////
+            AddBundle("toluascripts.u3d");
+            AddBundle("luascripts.u3d");
         }
+    }
+
+    public void InitLuaLoaderSearchPath()
+    {
+        InitLuaPath();
+        InitLuaBundle();
     }
 
     public void InitStart()
     {
-        InitLuaPath();
-        InitLuaBundle();
         mSimpleLuaClient.OnLuaFilesLoaded();
     }
 

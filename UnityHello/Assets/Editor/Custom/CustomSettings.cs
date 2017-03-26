@@ -201,7 +201,6 @@ public static class CustomSettings
 
         /////////////////////////////////////LeanTween     
         _GT(typeof(LeanTweenType)),
-        _GT(typeof(LTDescrImpl)),
         _GT(typeof(LTBezier)),
         _GT(typeof(LTBezierPath)),
         _GT(typeof(LTEvent)),

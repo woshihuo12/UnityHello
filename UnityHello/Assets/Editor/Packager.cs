@@ -165,7 +165,7 @@ public class Packager
         {
             Directory.CreateDirectory(Application.streamingAssetsPath);
         }
-        AddBuildMap("ui_notice" + GameSetting.ExtName, "*.prefab", "Assets/Game/UIPrefab");
+        AddBuildMap("ui_notice" + GameSetting.ABExtName, "*.prefab", "Assets/Game/UIPrefab");
     }
 
     public static void EncodeLuaFile(string srcFile, string outFile)
@@ -270,12 +270,12 @@ public class Packager
         {
             string name = dirs[i].Replace(destDir, string.Empty);
             name = name.Replace('\\', '_').Replace('/', '_');
-            name = "lua/lua_" + name.ToLower() + GameSetting.ExtName;
+            name = "lua/lua_" + name.ToLower() + GameSetting.ABExtName;
 
             string path = "Assets" + dirs[i].Replace(Application.dataPath, "");
             AddBuildMap(name, "*.bytes", path);
         }
-        AddBuildMap("lua/lua" + GameSetting.ExtName, "*.bytes", "Assets/TmpLua");
+        AddBuildMap("lua/lua" + GameSetting.ABExtName, "*.bytes", "Assets/TmpLua");
 
         ////-------------------------------处理非Lua文件----------------------------------
         //string luaPath = AppDataPath + "/StreamingAssets/lua/";

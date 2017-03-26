@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public class AssetBundleLoader : IDisposable
+public class AssetBundleLoaderOld : IDisposable
 {
     static Locker<string> mAssetLocker = new Locker<string>();
     public AssetBundle mAssetBundle;

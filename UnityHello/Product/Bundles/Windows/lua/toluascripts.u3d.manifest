@@ -1,0 +1,23 @@
+ManifestFileVersion: 0
+CRC: 4073085740
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 58b9ff4d4a58c955add7417f776cebe6
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1033bf7ddfd4c6d43e7a6382c0a0a61a
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/BundleResources/BuildByDir/Lua/ToLuaScripts/ltn12.lua.bytes
+- Assets/BundleResources/BuildByDir/Lua/ToLuaScripts/socket.lua.bytes
+- Assets/BundleResources/BuildByDir/Lua/ToLuaScripts/event.lua.bytes
+- Assets/BundleResources/BuildByDir/Lua/ToLuaScripts/slot.lua.bytes
+- Assets/BundleResources/BuildByDir/Lua/ToLuaScripts/list.lua.bytes
+- Assets/BundleResources/BuildByDir/Lua/ToLuaScripts/typeof.lua.bytes
+- Assets/BundleResources/BuildByDir/Lua/ToLuaScripts/tolua.lua.bytes
+- Assets/BundleResources/BuildByDir/Lua/ToLuaScripts/mime.lua.bytes
+Dependencies: []

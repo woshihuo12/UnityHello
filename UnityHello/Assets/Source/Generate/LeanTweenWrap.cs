@@ -10,7 +10,6 @@ public class LeanTweenWrap
 		L.RegFunction("init", init);
 		L.RegFunction("reset", reset);
 		L.RegFunction("Update", Update);
-		L.RegFunction("OnLevelWasLoaded", OnLevelWasLoaded);
 		L.RegFunction("update", update);
 		L.RegFunction("removeTween", removeTween);
 		L.RegFunction("add", add);
@@ -30,6 +29,7 @@ public class LeanTweenWrap
 		L.RegFunction("options", options);
 		L.RegFunction("play", play);
 		L.RegFunction("alpha", alpha);
+		L.RegFunction("sequence", sequence);
 		L.RegFunction("textAlpha", textAlpha);
 		L.RegFunction("alphaText", alphaText);
 		L.RegFunction("alphaCanvas", alphaCanvas);
@@ -63,6 +63,46 @@ public class LeanTweenWrap
 		L.RegFunction("scaleZ", scaleZ);
 		L.RegFunction("value", value);
 		L.RegFunction("delayedSound", delayedSound);
+		L.RegFunction("size", size);
+		L.RegFunction("tweenOnCurve", tweenOnCurve);
+		L.RegFunction("tweenOnCurveVector", tweenOnCurveVector);
+		L.RegFunction("easeOutQuadOpt", easeOutQuadOpt);
+		L.RegFunction("easeInQuadOpt", easeInQuadOpt);
+		L.RegFunction("easeInOutQuadOpt", easeInOutQuadOpt);
+		L.RegFunction("linear", linear);
+		L.RegFunction("clerp", clerp);
+		L.RegFunction("spring", spring);
+		L.RegFunction("easeInQuad", easeInQuad);
+		L.RegFunction("easeOutQuad", easeOutQuad);
+		L.RegFunction("easeInOutQuad", easeInOutQuad);
+		L.RegFunction("easeInOutQuadOpt2", easeInOutQuadOpt2);
+		L.RegFunction("easeInCubic", easeInCubic);
+		L.RegFunction("easeOutCubic", easeOutCubic);
+		L.RegFunction("easeInOutCubic", easeInOutCubic);
+		L.RegFunction("easeInQuart", easeInQuart);
+		L.RegFunction("easeOutQuart", easeOutQuart);
+		L.RegFunction("easeInOutQuart", easeInOutQuart);
+		L.RegFunction("easeInQuint", easeInQuint);
+		L.RegFunction("easeOutQuint", easeOutQuint);
+		L.RegFunction("easeInOutQuint", easeInOutQuint);
+		L.RegFunction("easeInSine", easeInSine);
+		L.RegFunction("easeOutSine", easeOutSine);
+		L.RegFunction("easeInOutSine", easeInOutSine);
+		L.RegFunction("easeInExpo", easeInExpo);
+		L.RegFunction("easeOutExpo", easeOutExpo);
+		L.RegFunction("easeInOutExpo", easeInOutExpo);
+		L.RegFunction("easeInCirc", easeInCirc);
+		L.RegFunction("easeOutCirc", easeOutCirc);
+		L.RegFunction("easeInOutCirc", easeInOutCirc);
+		L.RegFunction("easeInBounce", easeInBounce);
+		L.RegFunction("easeOutBounce", easeOutBounce);
+		L.RegFunction("easeInOutBounce", easeInOutBounce);
+		L.RegFunction("easeInBack", easeInBack);
+		L.RegFunction("easeOutBack", easeOutBack);
+		L.RegFunction("easeInOutBack", easeInOutBack);
+		L.RegFunction("easeInElastic", easeInElastic);
+		L.RegFunction("easeOutElastic", easeOutElastic);
+		L.RegFunction("easeInOutElastic", easeInOutElastic);
 		L.RegFunction("addListener", addListener);
 		L.RegFunction("removeListener", removeListener);
 		L.RegFunction("dispatchEvent", dispatchEvent);
@@ -70,12 +110,18 @@ public class LeanTweenWrap
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("throwErrors", get_throwErrors, set_throwErrors);
 		L.RegVar("tau", get_tau, set_tau);
+		L.RegVar("PI_DIV2", get_PI_DIV2, set_PI_DIV2);
+		L.RegVar("dtEstimated", get_dtEstimated, set_dtEstimated);
 		L.RegVar("dtManual", get_dtManual, set_dtManual);
+		L.RegVar("dtActual", get_dtActual, set_dtActual);
+		L.RegVar("punch", get_punch, set_punch);
+		L.RegVar("shake", get_shake, set_shake);
 		L.RegVar("startSearch", get_startSearch, set_startSearch);
 		L.RegVar("d", get_d, set_d);
 		L.RegVar("EVENTS_MAX", get_EVENTS_MAX, set_EVENTS_MAX);
 		L.RegVar("LISTENERS_MAX", get_LISTENERS_MAX, set_LISTENERS_MAX);
 		L.RegVar("maxSearch", get_maxSearch, null);
+		L.RegVar("maxSimulataneousTweens", get_maxSimulataneousTweens, null);
 		L.RegVar("tweensRunning", get_tweensRunning, null);
 		L.RegVar("tweenEmpty", get_tweenEmpty, null);
 		L.EndClass();
@@ -133,23 +179,6 @@ public class LeanTweenWrap
 			ToLua.CheckArgsCount(L, 1);
 			LeanTween obj = (LeanTween)ToLua.CheckObject(L, 1, typeof(LeanTween));
 			obj.Update();
-			return 0;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int OnLevelWasLoaded(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 2);
-			LeanTween obj = (LeanTween)ToLua.CheckObject(L, 1, typeof(LeanTween));
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
-			obj.OnLevelWasLoaded(arg0);
 			return 0;
 		}
 		catch(Exception e)
@@ -276,7 +305,13 @@ public class LeanTweenWrap
 		{
 			int count = LuaDLL.lua_gettop(L);
 
-			if (count == 1 && TypeChecker.CheckTypes(L, 1, typeof(int)))
+			if (count == 1 && TypeChecker.CheckTypes(L, 1, typeof(UnityEngine.RectTransform)))
+			{
+				UnityEngine.RectTransform arg0 = (UnityEngine.RectTransform)ToLua.ToObject(L, 1);
+				LeanTween.cancel(arg0);
+				return 0;
+			}
+			else if (count == 1 && TypeChecker.CheckTypes(L, 1, typeof(int)))
 			{
 				int arg0 = (int)LuaDLL.lua_tonumber(L, 1);
 				LeanTween.cancel(arg0);
@@ -286,13 +321,6 @@ public class LeanTweenWrap
 			{
 				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.ToObject(L, 1);
 				LeanTween.cancel(arg0);
-				return 0;
-			}
-			else if (count == 2 && TypeChecker.CheckTypes(L, 1, typeof(int), typeof(bool)))
-			{
-				int arg0 = (int)LuaDLL.lua_tonumber(L, 1);
-				bool arg1 = LuaDLL.lua_toboolean(L, 2);
-				LeanTween.cancel(arg0, arg1);
 				return 0;
 			}
 			else if (count == 2 && TypeChecker.CheckTypes(L, 1, typeof(LTRect), typeof(int)))
@@ -309,11 +337,19 @@ public class LeanTweenWrap
 				LeanTween.cancel(arg0, arg1);
 				return 0;
 			}
-			else if (count == 2 && TypeChecker.CheckTypes(L, 1, typeof(UnityEngine.GameObject), typeof(int)))
+			else if (count == 2 && TypeChecker.CheckTypes(L, 1, typeof(int), typeof(bool)))
+			{
+				int arg0 = (int)LuaDLL.lua_tonumber(L, 1);
+				bool arg1 = LuaDLL.lua_toboolean(L, 2);
+				LeanTween.cancel(arg0, arg1);
+				return 0;
+			}
+			else if (count == 3 && TypeChecker.CheckTypes(L, 1, typeof(UnityEngine.GameObject), typeof(int), typeof(bool)))
 			{
 				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.ToObject(L, 1);
 				int arg1 = (int)LuaDLL.lua_tonumber(L, 2);
-				LeanTween.cancel(arg0, arg1);
+				bool arg2 = LuaDLL.lua_toboolean(L, 3);
+				LeanTween.cancel(arg0, arg1, arg2);
 				return 0;
 			}
 			else
@@ -475,16 +511,16 @@ public class LeanTweenWrap
 		{
 			int count = LuaDLL.lua_gettop(L);
 
-			if (count == 1 && TypeChecker.CheckTypes(L, 1, typeof(LTRect)))
+			if (count == 1 && TypeChecker.CheckTypes(L, 1, typeof(int)))
 			{
-				LTRect arg0 = (LTRect)ToLua.ToObject(L, 1);
+				int arg0 = (int)LuaDLL.lua_tonumber(L, 1);
 				bool o = LeanTween.isTweening(arg0);
 				LuaDLL.lua_pushboolean(L, o);
 				return 1;
 			}
-			else if (count == 1 && TypeChecker.CheckTypes(L, 1, typeof(int)))
+			else if (count == 1 && TypeChecker.CheckTypes(L, 1, typeof(LTRect)))
 			{
-				int arg0 = (int)LuaDLL.lua_tonumber(L, 1);
+				LTRect arg0 = (LTRect)ToLua.ToObject(L, 1);
 				bool o = LeanTween.isTweening(arg0);
 				LuaDLL.lua_pushboolean(L, o);
 				return 1;
@@ -492,6 +528,13 @@ public class LeanTweenWrap
 			else if (count == 1 && TypeChecker.CheckTypes(L, 1, typeof(UnityEngine.GameObject)))
 			{
 				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.ToObject(L, 1);
+				bool o = LeanTween.isTweening(arg0);
+				LuaDLL.lua_pushboolean(L, o);
+				return 1;
+			}
+			else if (count == 1 && TypeChecker.CheckTypes(L, 1, typeof(UnityEngine.RectTransform)))
+			{
+				UnityEngine.RectTransform arg0 = (UnityEngine.RectTransform)ToLua.ToObject(L, 1);
 				bool o = LeanTween.isTweening(arg0);
 				LuaDLL.lua_pushboolean(L, o);
 				return 1;
@@ -632,6 +675,22 @@ public class LeanTweenWrap
 			{
 				return LuaDLL.luaL_throw(L, "invalid arguments to method: LeanTween.alpha");
 			}
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int sequence(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 0);
+			LTSeq o = LeanTween.sequence();
+			ToLua.PushObject(L, o);
+			return 1;
 		}
 		catch(Exception e)
 		{
@@ -1002,13 +1061,30 @@ public class LeanTweenWrap
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 3);
-			UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckUnityObject(L, 1, typeof(UnityEngine.GameObject));
-			UnityEngine.Vector3[] arg1 = ToLua.CheckObjectArray<UnityEngine.Vector3>(L, 2);
-			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
-			LTDescr o = LeanTween.moveSpline(arg0, arg1, arg2);
-			ToLua.PushObject(L, o);
-			return 1;
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 3 && TypeChecker.CheckTypes(L, 1, typeof(UnityEngine.GameObject), typeof(LTSpline), typeof(float)))
+			{
+				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.ToObject(L, 1);
+				LTSpline arg1 = (LTSpline)ToLua.ToObject(L, 2);
+				float arg2 = (float)LuaDLL.lua_tonumber(L, 3);
+				LTDescr o = LeanTween.moveSpline(arg0, arg1, arg2);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 3 && TypeChecker.CheckTypes(L, 1, typeof(UnityEngine.GameObject), typeof(UnityEngine.Vector3[]), typeof(float)))
+			{
+				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.ToObject(L, 1);
+				UnityEngine.Vector3[] arg1 = ToLua.CheckObjectArray<UnityEngine.Vector3>(L, 2);
+				float arg2 = (float)LuaDLL.lua_tonumber(L, 3);
+				LTDescr o = LeanTween.moveSpline(arg0, arg1, arg2);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: LeanTween.moveSpline");
+			}
 		}
 		catch(Exception e)
 		{
@@ -1289,10 +1365,10 @@ public class LeanTweenWrap
 				ToLua.PushObject(L, o);
 				return 1;
 			}
-			else if (count == 3 && TypeChecker.CheckTypes(L, 1, typeof(LTRect), typeof(float), typeof(float)))
+			else if (count == 3 && TypeChecker.CheckTypes(L, 1, typeof(UnityEngine.RectTransform), typeof(UnityEngine.Vector3), typeof(float)))
 			{
-				LTRect arg0 = (LTRect)ToLua.ToObject(L, 1);
-				float arg1 = (float)LuaDLL.lua_tonumber(L, 2);
+				UnityEngine.RectTransform arg0 = (UnityEngine.RectTransform)ToLua.ToObject(L, 1);
+				UnityEngine.Vector3 arg1 = ToLua.ToVector3(L, 2);
 				float arg2 = (float)LuaDLL.lua_tonumber(L, 3);
 				LTDescr o = LeanTween.rotate(arg0, arg1, arg2);
 				ToLua.PushObject(L, o);
@@ -1302,6 +1378,15 @@ public class LeanTweenWrap
 			{
 				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.ToObject(L, 1);
 				UnityEngine.Vector3 arg1 = ToLua.ToVector3(L, 2);
+				float arg2 = (float)LuaDLL.lua_tonumber(L, 3);
+				LTDescr o = LeanTween.rotate(arg0, arg1, arg2);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 3 && TypeChecker.CheckTypes(L, 1, typeof(LTRect), typeof(float), typeof(float)))
+			{
+				LTRect arg0 = (LTRect)ToLua.ToObject(L, 1);
+				float arg1 = (float)LuaDLL.lua_tonumber(L, 2);
 				float arg2 = (float)LuaDLL.lua_tonumber(L, 3);
 				LTDescr o = LeanTween.rotate(arg0, arg1, arg2);
 				ToLua.PushObject(L, o);
@@ -1579,7 +1664,16 @@ public class LeanTweenWrap
 		{
 			int count = LuaDLL.lua_gettop(L);
 
-			if (count == 4 && TypeChecker.CheckTypes(L, 1, typeof(UnityEngine.GameObject), typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3), typeof(float)))
+			if (count == 3 && TypeChecker.CheckTypes(L, 1, typeof(float), typeof(float), typeof(float)))
+			{
+				float arg0 = (float)LuaDLL.lua_tonumber(L, 1);
+				float arg1 = (float)LuaDLL.lua_tonumber(L, 2);
+				float arg2 = (float)LuaDLL.lua_tonumber(L, 3);
+				LTDescr o = LeanTween.value(arg0, arg1, arg2);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 4 && TypeChecker.CheckTypes(L, 1, typeof(UnityEngine.GameObject), typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3), typeof(float)))
 			{
 				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.ToObject(L, 1);
 				UnityEngine.Vector3 arg1 = ToLua.ToVector3(L, 2);
@@ -1683,6 +1777,29 @@ public class LeanTweenWrap
 
 				float arg2 = (float)LuaDLL.lua_tonumber(L, 3);
 				float arg3 = (float)LuaDLL.lua_tonumber(L, 4);
+				float arg4 = (float)LuaDLL.lua_tonumber(L, 5);
+				LTDescr o = LeanTween.value(arg0, arg1, arg2, arg3, arg4);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 5 && TypeChecker.CheckTypes(L, 1, typeof(UnityEngine.GameObject), typeof(System.Action<UnityEngine.Color,object>), typeof(UnityEngine.Color), typeof(UnityEngine.Color), typeof(float)))
+			{
+				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.ToObject(L, 1);
+				System.Action<UnityEngine.Color,object> arg1 = null;
+				LuaTypes funcType2 = LuaDLL.lua_type(L, 2);
+
+				if (funcType2 != LuaTypes.LUA_TFUNCTION)
+				{
+					 arg1 = (System.Action<UnityEngine.Color,object>)ToLua.ToObject(L, 2);
+				}
+				else
+				{
+					LuaFunction func = ToLua.ToLuaFunction(L, 2);
+					arg1 = DelegateFactory.CreateDelegate(typeof(System.Action<UnityEngine.Color,object>), func) as System.Action<UnityEngine.Color,object>;
+				}
+
+				UnityEngine.Color arg2 = ToLua.ToColor(L, 3);
+				UnityEngine.Color arg3 = ToLua.ToColor(L, 4);
 				float arg4 = (float)LuaDLL.lua_tonumber(L, 5);
 				LTDescr o = LeanTween.value(arg0, arg1, arg2, arg3, arg4);
 				ToLua.PushObject(L, o);
@@ -1798,6 +1915,791 @@ public class LeanTweenWrap
 			{
 				return LuaDLL.luaL_throw(L, "invalid arguments to method: LeanTween.delayedSound");
 			}
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int size(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			UnityEngine.RectTransform arg0 = (UnityEngine.RectTransform)ToLua.CheckUnityObject(L, 1, typeof(UnityEngine.RectTransform));
+			UnityEngine.Vector2 arg1 = ToLua.ToVector2(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			LTDescr o = LeanTween.size(arg0, arg1, arg2);
+			ToLua.PushObject(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int tweenOnCurve(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			LTDescr arg0 = (LTDescr)ToLua.CheckObject(L, 1, typeof(LTDescr));
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float o = LeanTween.tweenOnCurve(arg0, arg1);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int tweenOnCurveVector(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			LTDescr arg0 = (LTDescr)ToLua.CheckObject(L, 1, typeof(LTDescr));
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			UnityEngine.Vector3 o = LeanTween.tweenOnCurveVector(arg0, arg1);
+			ToLua.Push(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeOutQuadOpt(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float o = LeanTween.easeOutQuadOpt(arg0, arg1, arg2);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeInQuadOpt(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float o = LeanTween.easeInQuadOpt(arg0, arg1, arg2);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeInOutQuadOpt(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 3 && TypeChecker.CheckTypes(L, 1, typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3), typeof(float)))
+			{
+				UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 1);
+				UnityEngine.Vector3 arg1 = ToLua.ToVector3(L, 2);
+				float arg2 = (float)LuaDLL.lua_tonumber(L, 3);
+				UnityEngine.Vector3 o = LeanTween.easeInOutQuadOpt(arg0, arg1, arg2);
+				ToLua.Push(L, o);
+				return 1;
+			}
+			else if (count == 3 && TypeChecker.CheckTypes(L, 1, typeof(float), typeof(float), typeof(float)))
+			{
+				float arg0 = (float)LuaDLL.lua_tonumber(L, 1);
+				float arg1 = (float)LuaDLL.lua_tonumber(L, 2);
+				float arg2 = (float)LuaDLL.lua_tonumber(L, 3);
+				float o = LeanTween.easeInOutQuadOpt(arg0, arg1, arg2);
+				LuaDLL.lua_pushnumber(L, o);
+				return 1;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: LeanTween.easeInOutQuadOpt");
+			}
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int linear(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float o = LeanTween.linear(arg0, arg1, arg2);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int clerp(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float o = LeanTween.clerp(arg0, arg1, arg2);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int spring(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float o = LeanTween.spring(arg0, arg1, arg2);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeInQuad(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float o = LeanTween.easeInQuad(arg0, arg1, arg2);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeOutQuad(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float o = LeanTween.easeOutQuad(arg0, arg1, arg2);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeInOutQuad(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float o = LeanTween.easeInOutQuad(arg0, arg1, arg2);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeInOutQuadOpt2(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 4);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float arg3 = (float)LuaDLL.luaL_checknumber(L, 4);
+			float o = LeanTween.easeInOutQuadOpt2(arg0, arg1, arg2, arg3);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeInCubic(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float o = LeanTween.easeInCubic(arg0, arg1, arg2);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeOutCubic(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float o = LeanTween.easeOutCubic(arg0, arg1, arg2);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeInOutCubic(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float o = LeanTween.easeInOutCubic(arg0, arg1, arg2);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeInQuart(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float o = LeanTween.easeInQuart(arg0, arg1, arg2);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeOutQuart(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float o = LeanTween.easeOutQuart(arg0, arg1, arg2);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeInOutQuart(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float o = LeanTween.easeInOutQuart(arg0, arg1, arg2);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeInQuint(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float o = LeanTween.easeInQuint(arg0, arg1, arg2);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeOutQuint(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float o = LeanTween.easeOutQuint(arg0, arg1, arg2);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeInOutQuint(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float o = LeanTween.easeInOutQuint(arg0, arg1, arg2);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeInSine(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float o = LeanTween.easeInSine(arg0, arg1, arg2);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeOutSine(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float o = LeanTween.easeOutSine(arg0, arg1, arg2);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeInOutSine(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float o = LeanTween.easeInOutSine(arg0, arg1, arg2);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeInExpo(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float o = LeanTween.easeInExpo(arg0, arg1, arg2);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeOutExpo(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float o = LeanTween.easeOutExpo(arg0, arg1, arg2);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeInOutExpo(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float o = LeanTween.easeInOutExpo(arg0, arg1, arg2);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeInCirc(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float o = LeanTween.easeInCirc(arg0, arg1, arg2);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeOutCirc(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float o = LeanTween.easeOutCirc(arg0, arg1, arg2);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeInOutCirc(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float o = LeanTween.easeInOutCirc(arg0, arg1, arg2);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeInBounce(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float o = LeanTween.easeInBounce(arg0, arg1, arg2);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeOutBounce(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float o = LeanTween.easeOutBounce(arg0, arg1, arg2);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeInOutBounce(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float o = LeanTween.easeInOutBounce(arg0, arg1, arg2);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeInBack(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 4);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float arg3 = (float)LuaDLL.luaL_checknumber(L, 4);
+			float o = LeanTween.easeInBack(arg0, arg1, arg2, arg3);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeOutBack(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 4);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float arg3 = (float)LuaDLL.luaL_checknumber(L, 4);
+			float o = LeanTween.easeOutBack(arg0, arg1, arg2, arg3);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeInOutBack(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 4);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float arg3 = (float)LuaDLL.luaL_checknumber(L, 4);
+			float o = LeanTween.easeInOutBack(arg0, arg1, arg2, arg3);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeInElastic(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 5);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float arg3 = (float)LuaDLL.luaL_checknumber(L, 4);
+			float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+			float o = LeanTween.easeInElastic(arg0, arg1, arg2, arg3, arg4);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeOutElastic(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 5);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float arg3 = (float)LuaDLL.luaL_checknumber(L, 4);
+			float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+			float o = LeanTween.easeOutElastic(arg0, arg1, arg2, arg3, arg4);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int easeInOutElastic(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 5);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+			float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+			float arg3 = (float)LuaDLL.luaL_checknumber(L, 4);
+			float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+			float o = LeanTween.easeInOutElastic(arg0, arg1, arg2, arg3, arg4);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
 		}
 		catch(Exception e)
 		{
@@ -1999,11 +2901,81 @@ public class LeanTweenWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_PI_DIV2(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushnumber(L, LeanTween.PI_DIV2);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_dtEstimated(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushnumber(L, LeanTween.dtEstimated);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_dtManual(IntPtr L)
 	{
 		try
 		{
 			LuaDLL.lua_pushnumber(L, LeanTween.dtManual);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_dtActual(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushnumber(L, LeanTween.dtActual);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_punch(IntPtr L)
+	{
+		try
+		{
+			ToLua.PushObject(L, LeanTween.punch);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_shake(IntPtr L)
+	{
+		try
+		{
+			ToLua.PushObject(L, LeanTween.shake);
 			return 1;
 		}
 		catch(Exception e)
@@ -2083,6 +3055,20 @@ public class LeanTweenWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_maxSimulataneousTweens(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushinteger(L, LeanTween.maxSimulataneousTweens);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_tweensRunning(IntPtr L)
 	{
 		try
@@ -2141,12 +3127,87 @@ public class LeanTweenWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_PI_DIV2(IntPtr L)
+	{
+		try
+		{
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+			LeanTween.PI_DIV2 = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_dtEstimated(IntPtr L)
+	{
+		try
+		{
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+			LeanTween.dtEstimated = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_dtManual(IntPtr L)
 	{
 		try
 		{
 			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 			LeanTween.dtManual = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_dtActual(IntPtr L)
+	{
+		try
+		{
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+			LeanTween.dtActual = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_punch(IntPtr L)
+	{
+		try
+		{
+			UnityEngine.AnimationCurve arg0 = (UnityEngine.AnimationCurve)ToLua.CheckObject(L, 2, typeof(UnityEngine.AnimationCurve));
+			LeanTween.punch = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_shake(IntPtr L)
+	{
+		try
+		{
+			UnityEngine.AnimationCurve arg0 = (UnityEngine.AnimationCurve)ToLua.CheckObject(L, 2, typeof(UnityEngine.AnimationCurve));
+			LeanTween.shake = arg0;
 			return 0;
 		}
 		catch(Exception e)

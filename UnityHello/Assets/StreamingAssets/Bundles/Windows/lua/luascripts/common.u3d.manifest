@@ -1,0 +1,22 @@
+ManifestFileVersion: 0
+CRC: 808450254
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 65d97c0af343b2e847a45c9b896ce8cd
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1033bf7ddfd4c6d43e7a6382c0a0a61a
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/BundleResources/BuildByDir/Lua/LuaScripts/common/class.lua.bytes
+- Assets/BundleResources/BuildByDir/Lua/LuaScripts/common/functions.lua.bytes
+- Assets/BundleResources/BuildByDir/Lua/LuaScripts/common/middleclass.lua.bytes
+- Assets/BundleResources/BuildByDir/Lua/LuaScripts/common/init.lua.bytes
+- Assets/BundleResources/BuildByDir/Lua/LuaScripts/common/stack.lua.bytes
+- Assets/BundleResources/BuildByDir/Lua/LuaScripts/common/simple_state_machine.lua.bytes
+- Assets/BundleResources/BuildByDir/Lua/LuaScripts/common/stateful.lua.bytes
+Dependencies: []

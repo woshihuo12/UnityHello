@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
-
+using KEngine;
 public class StartUpCommand : ControllerCommand
 {
     private IEnumerator InitFunc(Action OnLoadStep, Action loadOver)
@@ -16,7 +16,7 @@ public class StartUpCommand : ControllerCommand
         AppFacade.Instance.RegisterCommand(NotiConst.DISPATCH_MESSAGE, typeof(SocketCommand));
 
         AppFacade.Instance.AddManager<LuaManager>();
-        ResourceManager resMgr = AppFacade.Instance.AddManager<ResourceManager>();
+        KResourceManager resMgr = AppFacade.Instance.AddManager<KResourceManager>();
 
         AppFacade.Instance.AddManager<NetworkManager>();
         AppFacade.Instance.AddManager<ThreadManager>();
@@ -24,12 +24,12 @@ public class StartUpCommand : ControllerCommand
 
         bool canNext = false;
 
-        resMgr.LoadAssetPacker("res_asset_packer.unity", "res_asset_packer", delegate(UnityEngine.Object[] objs)
-        {
-            if (objs.Length == 0) return;
-            GameResFactory.Instance().mAssetPacker = objs[0] as AssetPacker;
-            canNext = true;
-        });
+        //resMgr.LoadAssetPacker("res_asset_packer.unity", "res_asset_packer", delegate(UnityEngine.Object[] objs)
+        //{
+        //    if (objs.Length == 0) return;
+        //    GameResFactory.Instance().mAssetPacker = objs[0] as AssetPacker;
+        canNext = true;
+        //});
 
         while (canNext == false) yield return null;
 

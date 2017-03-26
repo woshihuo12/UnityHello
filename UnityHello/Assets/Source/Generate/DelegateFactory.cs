@@ -30,14 +30,14 @@ public static class DelegateFactory
 		dict.Add(typeof(UnityEngine.UI.InputField.OnValidateInput), UnityEngine_UI_InputField_OnValidateInput);
 		dict.Add(typeof(UnityEngine.RectTransform.ReapplyDrivenProperties), UnityEngine_RectTransform_ReapplyDrivenProperties);
 		dict.Add(typeof(UnityEngine.Canvas.WillRenderCanvases), UnityEngine_Canvas_WillRenderCanvases);
+		dict.Add(typeof(System.Action<object>), System_Action_object);
 		dict.Add(typeof(System.Action<float>), System_Action_float);
 		dict.Add(typeof(System.Action<float,float>), System_Action_float_float);
-		dict.Add(typeof(System.Action<float,object>), System_Action_float_object);
+		dict.Add(typeof(System.Action<UnityEngine.Color>), System_Action_UnityEngine_Color);
+		dict.Add(typeof(System.Action<UnityEngine.Color,object>), System_Action_UnityEngine_Color_object);
 		dict.Add(typeof(System.Action<UnityEngine.Vector2>), System_Action_UnityEngine_Vector2);
 		dict.Add(typeof(System.Action<UnityEngine.Vector3>), System_Action_UnityEngine_Vector3);
-		dict.Add(typeof(System.Action<UnityEngine.Vector3,object>), System_Action_UnityEngine_Vector3_object);
-		dict.Add(typeof(System.Action<UnityEngine.Color>), System_Action_UnityEngine_Color);
-		dict.Add(typeof(System.Action<object>), System_Action_object);
+		dict.Add(typeof(System.Action<float,object>), System_Action_float_object);
 		dict.Add(typeof(System.Action<LTEvent>), System_Action_LTEvent);
 	}
 
@@ -779,6 +779,53 @@ public static class DelegateFactory
 		}
 	}
 
+	class System_Action_object_Event : LuaDelegate
+	{
+		public System_Action_object_Event(LuaFunction func) : base(func) { }
+		public System_Action_object_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public void Call(object param0)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+
+		public void CallWithSelf(object param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public static Delegate System_Action_object(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			System.Action<object> fn = delegate(object param0) { };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			System_Action_object_Event target = new System_Action_object_Event(func);
+			System.Action<object> d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			System_Action_object_Event target = new System_Action_object_Event(func, self);
+			System.Action<object> d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
 	class System_Action_float_Event : LuaDelegate
 	{
 		public System_Action_float_Event(LuaFunction func) : base(func) { }
@@ -875,12 +922,59 @@ public static class DelegateFactory
 		}
 	}
 
-	class System_Action_float_object_Event : LuaDelegate
+	class System_Action_UnityEngine_Color_Event : LuaDelegate
 	{
-		public System_Action_float_object_Event(LuaFunction func) : base(func) { }
-		public System_Action_float_object_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+		public System_Action_UnityEngine_Color_Event(LuaFunction func) : base(func) { }
+		public System_Action_UnityEngine_Color_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
-		public void Call(float param0, object param1)
+		public void Call(UnityEngine.Color param0)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+
+		public void CallWithSelf(UnityEngine.Color param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public static Delegate System_Action_UnityEngine_Color(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			System.Action<UnityEngine.Color> fn = delegate(UnityEngine.Color param0) { };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			System_Action_UnityEngine_Color_Event target = new System_Action_UnityEngine_Color_Event(func);
+			System.Action<UnityEngine.Color> d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			System_Action_UnityEngine_Color_Event target = new System_Action_UnityEngine_Color_Event(func, self);
+			System.Action<UnityEngine.Color> d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	class System_Action_UnityEngine_Color_object_Event : LuaDelegate
+	{
+		public System_Action_UnityEngine_Color_object_Event(LuaFunction func) : base(func) { }
+		public System_Action_UnityEngine_Color_object_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public void Call(UnityEngine.Color param0, object param1)
 		{
 			func.BeginPCall();
 			func.Push(param0);
@@ -889,7 +983,7 @@ public static class DelegateFactory
 			func.EndPCall();
 		}
 
-		public void CallWithSelf(float param0, object param1)
+		public void CallWithSelf(UnityEngine.Color param0, object param1)
 		{
 			func.BeginPCall();
 			func.Push(self);
@@ -900,25 +994,25 @@ public static class DelegateFactory
 		}
 	}
 
-	public static Delegate System_Action_float_object(LuaFunction func, LuaTable self, bool flag)
+	public static Delegate System_Action_UnityEngine_Color_object(LuaFunction func, LuaTable self, bool flag)
 	{
 		if (func == null)
 		{
-			System.Action<float,object> fn = delegate(float param0, object param1) { };
+			System.Action<UnityEngine.Color,object> fn = delegate(UnityEngine.Color param0, object param1) { };
 			return fn;
 		}
 
 		if(!flag)
 		{
-			System_Action_float_object_Event target = new System_Action_float_object_Event(func);
-			System.Action<float,object> d = target.Call;
+			System_Action_UnityEngine_Color_object_Event target = new System_Action_UnityEngine_Color_object_Event(func);
+			System.Action<UnityEngine.Color,object> d = target.Call;
 			target.method = d.Method;
 			return d;
 		}
 		else
 		{
-			System_Action_float_object_Event target = new System_Action_float_object_Event(func, self);
-			System.Action<float,object> d = target.CallWithSelf;
+			System_Action_UnityEngine_Color_object_Event target = new System_Action_UnityEngine_Color_object_Event(func, self);
+			System.Action<UnityEngine.Color,object> d = target.CallWithSelf;
 			target.method = d.Method;
 			return d;
 		}
@@ -1018,12 +1112,12 @@ public static class DelegateFactory
 		}
 	}
 
-	class System_Action_UnityEngine_Vector3_object_Event : LuaDelegate
+	class System_Action_float_object_Event : LuaDelegate
 	{
-		public System_Action_UnityEngine_Vector3_object_Event(LuaFunction func) : base(func) { }
-		public System_Action_UnityEngine_Vector3_object_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+		public System_Action_float_object_Event(LuaFunction func) : base(func) { }
+		public System_Action_float_object_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
-		public void Call(UnityEngine.Vector3 param0, object param1)
+		public void Call(float param0, object param1)
 		{
 			func.BeginPCall();
 			func.Push(param0);
@@ -1032,7 +1126,7 @@ public static class DelegateFactory
 			func.EndPCall();
 		}
 
-		public void CallWithSelf(UnityEngine.Vector3 param0, object param1)
+		public void CallWithSelf(float param0, object param1)
 		{
 			func.BeginPCall();
 			func.Push(self);
@@ -1043,119 +1137,25 @@ public static class DelegateFactory
 		}
 	}
 
-	public static Delegate System_Action_UnityEngine_Vector3_object(LuaFunction func, LuaTable self, bool flag)
+	public static Delegate System_Action_float_object(LuaFunction func, LuaTable self, bool flag)
 	{
 		if (func == null)
 		{
-			System.Action<UnityEngine.Vector3,object> fn = delegate(UnityEngine.Vector3 param0, object param1) { };
+			System.Action<float,object> fn = delegate(float param0, object param1) { };
 			return fn;
 		}
 
 		if(!flag)
 		{
-			System_Action_UnityEngine_Vector3_object_Event target = new System_Action_UnityEngine_Vector3_object_Event(func);
-			System.Action<UnityEngine.Vector3,object> d = target.Call;
+			System_Action_float_object_Event target = new System_Action_float_object_Event(func);
+			System.Action<float,object> d = target.Call;
 			target.method = d.Method;
 			return d;
 		}
 		else
 		{
-			System_Action_UnityEngine_Vector3_object_Event target = new System_Action_UnityEngine_Vector3_object_Event(func, self);
-			System.Action<UnityEngine.Vector3,object> d = target.CallWithSelf;
-			target.method = d.Method;
-			return d;
-		}
-	}
-
-	class System_Action_UnityEngine_Color_Event : LuaDelegate
-	{
-		public System_Action_UnityEngine_Color_Event(LuaFunction func) : base(func) { }
-		public System_Action_UnityEngine_Color_Event(LuaFunction func, LuaTable self) : base(func, self) { }
-
-		public void Call(UnityEngine.Color param0)
-		{
-			func.BeginPCall();
-			func.Push(param0);
-			func.PCall();
-			func.EndPCall();
-		}
-
-		public void CallWithSelf(UnityEngine.Color param0)
-		{
-			func.BeginPCall();
-			func.Push(self);
-			func.Push(param0);
-			func.PCall();
-			func.EndPCall();
-		}
-	}
-
-	public static Delegate System_Action_UnityEngine_Color(LuaFunction func, LuaTable self, bool flag)
-	{
-		if (func == null)
-		{
-			System.Action<UnityEngine.Color> fn = delegate(UnityEngine.Color param0) { };
-			return fn;
-		}
-
-		if(!flag)
-		{
-			System_Action_UnityEngine_Color_Event target = new System_Action_UnityEngine_Color_Event(func);
-			System.Action<UnityEngine.Color> d = target.Call;
-			target.method = d.Method;
-			return d;
-		}
-		else
-		{
-			System_Action_UnityEngine_Color_Event target = new System_Action_UnityEngine_Color_Event(func, self);
-			System.Action<UnityEngine.Color> d = target.CallWithSelf;
-			target.method = d.Method;
-			return d;
-		}
-	}
-
-	class System_Action_object_Event : LuaDelegate
-	{
-		public System_Action_object_Event(LuaFunction func) : base(func) { }
-		public System_Action_object_Event(LuaFunction func, LuaTable self) : base(func, self) { }
-
-		public void Call(object param0)
-		{
-			func.BeginPCall();
-			func.Push(param0);
-			func.PCall();
-			func.EndPCall();
-		}
-
-		public void CallWithSelf(object param0)
-		{
-			func.BeginPCall();
-			func.Push(self);
-			func.Push(param0);
-			func.PCall();
-			func.EndPCall();
-		}
-	}
-
-	public static Delegate System_Action_object(LuaFunction func, LuaTable self, bool flag)
-	{
-		if (func == null)
-		{
-			System.Action<object> fn = delegate(object param0) { };
-			return fn;
-		}
-
-		if(!flag)
-		{
-			System_Action_object_Event target = new System_Action_object_Event(func);
-			System.Action<object> d = target.Call;
-			target.method = d.Method;
-			return d;
-		}
-		else
-		{
-			System_Action_object_Event target = new System_Action_object_Event(func, self);
-			System.Action<object> d = target.CallWithSelf;
+			System_Action_float_object_Event target = new System_Action_float_object_Event(func, self);
+			System.Action<float,object> d = target.CallWithSelf;
 			target.method = d.Method;
 			return d;
 		}

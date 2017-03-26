@@ -3,6 +3,7 @@ using System.Collections;
 using System.IO;
 using System.Text;
 using System;
+using KEngine;
 
 public class Tools
 {
@@ -118,9 +119,9 @@ public class Tools
     /// <summary>
     /// 资源管理器
     /// </summary>
-    public static ResourceManager GetResManager()
+    public static KResourceManager GetResManager()
     {
-        return AppFacade.Instance.GetManager<ResourceManager>();
+        return AppFacade.Instance.GetManager<KResourceManager>();
     }
 
     public static void ChangeChildLayer(Transform t, int layer)
@@ -141,5 +142,20 @@ public class Tools
         child.localPosition = Vector3.zero;
         child.localRotation = Quaternion.identity;
         ChangeChildLayer(child, target.gameObject.layer);
+    }
+
+    public static T SafeGetComponent<T>(GameObject go) where T : Component
+    {
+        if (go == null)
+        {
+            return null;
+        }
+
+        T ret = go.GetComponent<T>();
+        if (ret == null)
+        {
+            ret = go.AddComponent<T>();
+        }
+        return ret;
     }
 }

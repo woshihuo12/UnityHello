@@ -1,0 +1,102 @@
+ManifestFileVersion: 0
+CRC: 1571460210
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: ui/atlas/common1.u3d
+      Dependencies: {}
+    Info_1:
+      Name: uiprefab/ui_mainmenu_cellbtn.prefab.u3d
+      Dependencies:
+        Dependency_0: ui/atlas/common1.u3d
+    Info_2:
+      Name: uiprefab/ui_mainmenu_scene.prefab.u3d
+      Dependencies:
+        Dependency_0: ui/atlas/common1.u3d
+    Info_3:
+      Name: uiprefab/ui_messagebox.prefab.u3d
+      Dependencies:
+        Dependency_0: ui/atlas/common1.u3d
+    Info_4:
+      Name: uiprefab/ui_teammanage_scene.prefab.u3d
+      Dependencies:
+        Dependency_0: ui/atlas/common1.u3d
+    Info_5:
+      Name: uiprefab/ui_topbar.prefab.u3d
+      Dependencies:
+        Dependency_0: ui/atlas/common1.u3d
+    Info_6:
+      Name: lua/luascripts.u3d
+      Dependencies: {}
+    Info_7:
+      Name: lua/luascripts/ai/bt.u3d
+      Dependencies: {}
+    Info_8:
+      Name: lua/luascripts/common.u3d
+      Dependencies: {}
+    Info_9:
+      Name: lua/luascripts/components.u3d
+      Dependencies: {}
+    Info_10:
+      Name: lua/luascripts/core.u3d
+      Dependencies: {}
+    Info_11:
+      Name: lua/luascripts/data_infos.u3d
+      Dependencies: {}
+    Info_12:
+      Name: lua/luascripts/entities.u3d
+      Dependencies: {}
+    Info_13:
+      Name: lua/luascripts/eventsystem.u3d
+      Dependencies: {}
+    Info_14:
+      Name: lua/luascripts/framework.u3d
+      Dependencies: {}
+    Info_15:
+      Name: lua/luascripts/globalization/en.u3d
+      Dependencies: {}
+    Info_16:
+      Name: lua/luascripts/globalization/zh.u3d
+      Dependencies: {}
+    Info_17:
+      Name: lua/luascripts/manager.u3d
+      Dependencies: {}
+    Info_18:
+      Name: lua/luascripts/protol.u3d
+      Dependencies: {}
+    Info_19:
+      Name: lua/luascripts/settings.u3d
+      Dependencies: {}
+    Info_20:
+      Name: lua/luascripts/subsystems.u3d
+      Dependencies: {}
+    Info_21:
+      Name: lua/luascripts/uiscripts.u3d
+      Dependencies: {}
+    Info_22:
+      Name: lua/toluascripts.u3d
+      Dependencies: {}
+    Info_23:
+      Name: lua/toluascripts/cjson.u3d
+      Dependencies: {}
+    Info_24:
+      Name: lua/toluascripts/lpeg.u3d
+      Dependencies: {}
+    Info_25:
+      Name: lua/toluascripts/misc.u3d
+      Dependencies: {}
+    Info_26:
+      Name: lua/toluascripts/protobuf.u3d
+      Dependencies: {}
+    Info_27:
+      Name: lua/toluascripts/socket.u3d
+      Dependencies: {}
+    Info_28:
+      Name: lua/toluascripts/system.u3d
+      Dependencies: {}
+    Info_29:
+      Name: lua/toluascripts/system/reflection.u3d
+      Dependencies: {}
+    Info_30:
+      Name: lua/toluascripts/unityengine.u3d
+      Dependencies: {}

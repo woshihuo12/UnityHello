@@ -1,0 +1,21 @@
+ManifestFileVersion: 0
+CRC: 1291992603
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: eb8c2315f0b90ac29eb2cd99e268abef
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1033bf7ddfd4c6d43e7a6382c0a0a61a
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/BundleResources/BuildByDir/Lua/LuaScripts/framework/init.lua.bytes
+- Assets/BundleResources/BuildByDir/Lua/LuaScripts/framework/fw_startcommand.lua.bytes
+- Assets/BundleResources/BuildByDir/Lua/LuaScripts/framework/fw_controller.lua.bytes
+- Assets/BundleResources/BuildByDir/Lua/LuaScripts/framework/fw_command.lua.bytes
+- Assets/BundleResources/BuildByDir/Lua/LuaScripts/framework/fw_message.lua.bytes
+- Assets/BundleResources/BuildByDir/Lua/LuaScripts/framework/fw_facade.lua.bytes
+Dependencies: []

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using LuaInterface;
 
-public class AccessingLuaVariables : MonoBehaviour 
+public class AccessingLuaVariables : MonoBehaviour
 {
     private string script =
         @"
@@ -12,6 +12,8 @@ public class AccessingLuaVariables : MonoBehaviour
             varTable.default = 1
             varTable.map = {}
             varTable.map.name = 'map'
+
+            varTable2 = { a = true }
             
             meta = {name = 'meta'}
             setmetatable(varTable, meta)
@@ -21,7 +23,7 @@ public class AccessingLuaVariables : MonoBehaviour
             end
         ";
 
-	void Start () 
+    void Start() 
     {        
         LuaState lua = new LuaState();
         lua.Start();
@@ -35,6 +37,10 @@ public class AccessingLuaVariables : MonoBehaviour
         LuaFunction func = lua["TestFunc"] as LuaFunction;
         func.Call();
         func.Dispose();
+
+        LuaTable tmpTable = lua.GetTable("varTable2");
+        Debugger.Log("-----------------");
+        Debugger.Log((tmpTable["a"]).GetType());
 
         //cache成LuaTable进行访问
         LuaTable table = lua.GetTable("varTable");

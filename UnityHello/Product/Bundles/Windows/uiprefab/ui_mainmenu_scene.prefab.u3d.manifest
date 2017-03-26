@@ -1,0 +1,51 @@
+ManifestFileVersion: 0
+CRC: 497996556
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 760fd49eddbef858a42d230b4b72817a
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 23d97ac080f1602d0b26f9cc15950acc
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 96be5dd14ae016f43bade2ec4e60e056, type: 3}
+- Class: 114
+  Script: {fileID: 1392445389, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 1741964061, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: -146154839, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 1297475563, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 31082f87c86159249b8e38a251d81a70, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: b3f3b16bb95918245a8195a6dbfa7292, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 128
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+Assets:
+- Assets/BundleResources/BuildByFile/UIPrefab/ui_mainmenu_scene.prefab
+Dependencies:
+- D:/githubs/UnityHello/UnityHello/Product/Bundles/Windows/ui/atlas/common1.u3d

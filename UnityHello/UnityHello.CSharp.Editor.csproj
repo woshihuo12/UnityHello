@@ -117,9 +117,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Editor\BuildTools.cs" />
+    <Compile Include="Assets\Editor\CommandLine.cs" />
     <Compile Include="Assets\Editor\CommandLineReader.cs" />
     <Compile Include="Assets\Editor\Custom\CustomSettings.cs" />
     <Compile Include="Assets\Editor\CustomEditorTool.cs" />
+    <Compile Include="Assets\Editor\KAutoBuilder.cs" />
+    <Compile Include="Assets\Editor\KEditorUtils.cs" />
+    <Compile Include="Assets\Editor\KSymbolLinkHelper.cs" />
+    <Compile Include="Assets\Editor\KUnityEditorEventCatcher.cs" />
     <Compile Include="Assets\Editor\LeanTween\LeanTweenDocumentationEditor.cs" />
     <Compile Include="Assets\Editor\Packager.cs" />
     <Compile Include="Assets\ToLua\Editor\Extend\ToLua_LuaInterface_EventObject.cs" />
