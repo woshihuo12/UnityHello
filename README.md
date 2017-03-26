@@ -12,6 +12,7 @@ https://github.com/jarjin/LuaFramework_UGUI.git
 
 https://github.com/chuxiang9007/xlsx2lua-language.git
 
+https://github.com/mr-kelly/KSFramework.git
 </br>
 
 1：基于texturepacker的ugui的使用，为什么用tp，实验它打的图集要比ugui的紧凑，按钮2 点击下会变红色背景） 
