@@ -134,7 +134,7 @@ public class Packager
 
         mABBMaps.Clear();
 
-        if (GameSetting.LuaBundleMode)
+        if (EngineConfig.instance.IsLuaBundleMode)
         {
             HandleLuaBundle();
 
@@ -165,7 +165,7 @@ public class Packager
         {
             Directory.CreateDirectory(Application.streamingAssetsPath);
         }
-        AddBuildMap("ui_notice" + GameSetting.ABExtName, "*.prefab", "Assets/Game/UIPrefab");
+        AddBuildMap("ui_notice" + EngineConfig.instance.ABExtName, "*.prefab", "Assets/Game/UIPrefab");
     }
 
     public static void EncodeLuaFile(string srcFile, string outFile)
@@ -252,7 +252,7 @@ public class Packager
                 string dest = destDir + str + ".bytes";
                 string dir = Path.GetDirectoryName(dest);
                 if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
-                if (GameSetting.LuaByteMode)
+                if (EngineConfig.instance.IsLuaByteMode)
                 {
                     EncodeLuaFile(files[j], dest);
                 }
@@ -270,12 +270,12 @@ public class Packager
         {
             string name = dirs[i].Replace(destDir, string.Empty);
             name = name.Replace('\\', '_').Replace('/', '_');
-            name = "lua/lua_" + name.ToLower() + GameSetting.ABExtName;
+            name = "lua/lua_" + name.ToLower() + EngineConfig.instance.ABExtName;
 
             string path = "Assets" + dirs[i].Replace(Application.dataPath, "");
             AddBuildMap(name, "*.bytes", path);
         }
-        AddBuildMap("lua/lua" + GameSetting.ABExtName, "*.bytes", "Assets/TmpLua");
+        AddBuildMap("lua/lua" + EngineConfig.instance.ABExtName, "*.bytes", "Assets/TmpLua");
 
         ////-------------------------------处理非Lua文件----------------------------------
         //string luaPath = AppDataPath + "/StreamingAssets/lua/";
@@ -376,7 +376,7 @@ public class Packager
                 {
                     File.Delete(newpath);
                 }
-                if (GameSetting.LuaByteMode)
+                if (EngineConfig.instance.IsLuaByteMode)
                 {
                     EncodeLuaFile(f, newpath);
                 }

@@ -20,7 +20,7 @@ namespace KEngine.Editor
         [MenuItem("KEngine/AssetBundle/Make Names from [BundleResources]")]
         public static void MakeAssetBundleNames()
         {
-            var dir = "Assets/" + GameSetting.ResourcesBuildDir + "/";
+            var dir = "Assets/" + EngineConfig.instance.ResourcesBuildDir + "/";
 
             // Check marked asset bundle whether real
             foreach (var assetGuid in AssetDatabase.FindAssets(""))
@@ -55,7 +55,7 @@ namespace KEngine.Editor
                 }
 
                 var bundleName = filepath.Substring(dirForDirs.Length, filepath.Length - dirForDirs.Length - Path.GetFileName(filepath).Length - 1);
-                importer.assetBundleName = bundleName + GameSetting.ABExtName;
+                importer.assetBundleName = bundleName + EngineConfig.instance.ABExtName;
             }
 
             var dirForFiles = dir + "BuildByFile/";
@@ -71,7 +71,7 @@ namespace KEngine.Editor
                     continue;
                 }
                 var bundleName = filepath.Substring(dirForFiles.Length, filepath.Length - dirForFiles.Length);
-                importer.assetBundleName = bundleName + GameSetting.ABExtName;
+                importer.assetBundleName = bundleName + EngineConfig.instance.ABExtName;
             }
 
             AssetDatabase.RemoveUnusedAssetBundleNames();
@@ -126,7 +126,7 @@ namespace KEngine.Editor
         /// <returns></returns>
         public static string GetExportPath(BuildTarget platfrom)
         {
-            string basePath = Path.GetFullPath(GameSetting.AssetBundleBuildRelPath);
+            string basePath = Path.GetFullPath(EngineConfig.instance.AssetBundleBuildRelPath);
             if (File.Exists(basePath))
             {
                 BuildTools.ShowDialog("路径配置错误: " + basePath);
@@ -274,7 +274,7 @@ namespace KEngine.Editor
             productBundlePath = Application.dataPath + "/Resources";
             DeleteLuaDirectoy(productBundlePath);
 
-            productBundlePath = Application.dataPath + "/" + GameSetting.ResourcesBuildDir;
+            productBundlePath = Application.dataPath + "/" + EngineConfig.instance.ResourcesBuildDir;
             DeleteLuaDirectoy(productBundlePath);
 
             AssetDatabase.Refresh();
@@ -311,7 +311,7 @@ namespace KEngine.Editor
 
         private static string CreateBundleResourceDir(string dir)
         {
-            dir = Application.dataPath + "/" + GameSetting.ResourcesBuildDir + "/" + dir;
+            dir = Application.dataPath + "/" + EngineConfig.instance.ResourcesBuildDir + "/" + dir;
             if (!Directory.Exists(dir))
             {
                 Directory.CreateDirectory(dir);
@@ -323,8 +323,8 @@ namespace KEngine.Editor
         public static void BuildLuaToResources()
         {
             ClearAllLuaFiles();
-            string destDir = Application.dataPath + "/" + GameSetting.ResourcesBuildDir + "/BuildByDir/Lua/LuaScripts";
-            string destDir2 = Application.dataPath + "/" + GameSetting.ResourcesBuildDir + "/BuildByDir/Lua/ToLuaScripts";
+            string destDir = Application.dataPath + "/" + EngineConfig.instance.ResourcesBuildDir + "/BuildByDir/Lua/LuaScripts";
+            string destDir2 = Application.dataPath + "/" + EngineConfig.instance.ResourcesBuildDir + "/BuildByDir/Lua/ToLuaScripts";
             CopyLuaBytesFiles(LuaConst.luaDir, destDir);
             CopyLuaBytesFiles(LuaConst.toluaDir, destDir2);
             AssetDatabase.Refresh();

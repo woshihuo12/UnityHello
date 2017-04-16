@@ -10,9 +10,9 @@ public class SimpleLuaResLoader : LuaFileUtils
     public SimpleLuaResLoader()
     {
         instance = this;
-        if (GameSetting.DevelopMode)
+        if (EngineConfig.instance.IsDebugMode)
         {
-            if (GameSetting.LuaBundleMode)
+            if (EngineConfig.instance.IsLuaBundleMode)
             {
                 beZip = true;
             }
@@ -29,7 +29,7 @@ public class SimpleLuaResLoader : LuaFileUtils
 
     public override byte[] ReadFile(string fileName)
     {
-        if (GameSetting.DevelopMode)
+        if (EngineConfig.instance.IsDevelopMode)
         {
             byte[] buffer = base.ReadFile(fileName);
             if (buffer == null)
@@ -98,6 +98,7 @@ public class SimpleLuaClient : LuaClient
 
     protected override void LoadLuaFiles()
     {
+        base.LoadLuaFiles();
     }
 
     protected override void OpenLibs()
@@ -122,17 +123,17 @@ public class SimpleLuaClient : LuaClient
 
     protected override void OnLoadFinished()
     {
-    }
-
-    public void OnLuaFilesLoaded()
-    {
-        if (GameSetting.EnableLuaDebug)
+        if (EngineConfig.instance.IsEnableLuaDebug)
         {
             OpenZbsDebugger();
         }
 
         luaState.Start();
         StartLooper();
+    }
+
+    public void OnLuaFilesLoaded()
+    {
         StartMain();
     }
 }
@@ -143,9 +144,9 @@ public class LuaManager : Manager
 
     private void InitLuaPath()
     {
-        if (GameSetting.DevelopMode)
+        if (EngineConfig.instance.IsDevelopMode)
         {
-            if (!GameSetting.LuaBundleMode)
+            if (!EngineConfig.instance.IsLuaBundleMode)
             {
                 SimpleLuaClient.GetMainState().AddSearchPath(LuaConst.luaDir);
                 SimpleLuaClient.GetMainState().AddSearchPath(LuaConst.toluaDir);
@@ -168,7 +169,7 @@ public class LuaManager : Manager
             if (bundle != null)
             {
                 bundleName = bundleName.Replace("lua/", "");
-                bundleName = bundleName.Replace(GameSetting.ABExtName, "");
+                bundleName = bundleName.Replace(EngineConfig.instance.ABExtName, "");
                 LuaFileUtils.Instance.AddSearchBundle(bundleName.ToLower(), bundle);
             }
         }
@@ -179,7 +180,7 @@ public class LuaManager : Manager
     /// </summary>
     void InitLuaBundle()
     {
-        if (GameSetting.LuaBundleMode)
+        if (EngineConfig.instance.IsLuaBundleMode)
         {
             AddBundle("toluascripts/system/reflection.u3d");
             AddBundle("toluascripts/cjson.u3d");

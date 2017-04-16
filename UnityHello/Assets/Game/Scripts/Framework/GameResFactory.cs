@@ -19,7 +19,7 @@ public class GameResFactory
     private List<GameObject> mUIEffectsList = new List<GameObject>();
     public AssetPacker mAssetPacker = null;
 
-    private Dictionary<string, StaticAssetLoader> mUIPrefabLoaders = new Dictionary<string, StaticAssetLoader>();
+    //private Dictionary<string, StaticAssetLoader> mUIPrefabLoaders = new Dictionary<string, StaticAssetLoader>();
     //private List<GameObject> mUIList = new List<GameObject>();
     //private Dictionary<string, GameObjectCache> mResCaches = new Dictionary<string, GameObjectCache>();
 

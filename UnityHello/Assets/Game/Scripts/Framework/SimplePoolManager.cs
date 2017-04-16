@@ -698,68 +698,68 @@ namespace SimplePM
             return emitter;
         }
 
-        private IEnumerator ListenForEmitDespawn(ParticleEmitter emitter)
-        {
-            yield return null;
-            yield return new WaitForEndOfFrame();
+        //private IEnumerator ListenForEmitDespawn(ParticleEmitter emitter)
+        //{
+        //    yield return null;
+        //    yield return new WaitForEndOfFrame();
 
-            float safetimer = 0;
-            GameObject emitterGO = emitter.gameObject;
-            while (emitter.particleCount > 0 && emitterGO.activeInHierarchy)
-            {
-                safetimer += Time.deltaTime;
-                if (safetimer > MaxParticleDespawnTime)
-                {
-                    Debug.LogWarning
-                    (
-                        string.Format
-                        (
-                            "SpawnPool {0}: " +
-                                "Timed out while listening for all particles to die. " +
-                                "Waited for {1}sec.",
-                            PoolName,
-                            MaxParticleDespawnTime
-                        )
-                    );
-                }
-                yield return null;
-            }
-            emitter.emit = false;
-            if (emitterGO.activeInHierarchy)
-            {
-                Despawn(emitter.transform);
-            }
-        }
+        //    float safetimer = 0;
+        //    GameObject emitterGO = emitter.gameObject;
+        //    while (emitter.particleCount > 0 && emitterGO.activeInHierarchy)
+        //    {
+        //        safetimer += Time.deltaTime;
+        //        if (safetimer > MaxParticleDespawnTime)
+        //        {
+        //            Debug.LogWarning
+        //            (
+        //                string.Format
+        //                (
+        //                    "SpawnPool {0}: " +
+        //                        "Timed out while listening for all particles to die. " +
+        //                        "Waited for {1}sec.",
+        //                    PoolName,
+        //                    MaxParticleDespawnTime
+        //                )
+        //            );
+        //        }
+        //        yield return null;
+        //    }
+        //    emitter.emit = false;
+        //    if (emitterGO.activeInHierarchy)
+        //    {
+        //        Despawn(emitter.transform);
+        //    }
+        //}
 
-        public ParticleEmitter Spawn(ParticleEmitter prefab, Vector3 pos, Quaternion rot)
-        {
-            Transform inst = this.Spawn(prefab.transform, pos, rot);
-            if (inst == null) return null;
-            ParticleAnimator animator = inst.GetComponent<ParticleAnimator>();
-            if (animator != null) animator.autodestruct = false;
-            ParticleEmitter emitter = inst.GetComponent<ParticleEmitter>();
-            emitter.emit = true;
-            StartCoroutine(ListenForEmitDespawn(emitter));
-            return emitter;
-        }
+        //public ParticleEmitter Spawn(ParticleEmitter prefab, Vector3 pos, Quaternion rot)
+        //{
+        //    Transform inst = this.Spawn(prefab.transform, pos, rot);
+        //    if (inst == null) return null;
+        //    ParticleAnimator animator = inst.GetComponent<ParticleAnimator>();
+        //    if (animator != null) animator.autodestruct = false;
+        //    ParticleEmitter emitter = inst.GetComponent<ParticleEmitter>();
+        //    emitter.emit = true;
+        //    StartCoroutine(ListenForEmitDespawn(emitter));
+        //    return emitter;
+        //}
 
-        public ParticleEmitter Spawn(ParticleEmitter prefab, Vector3 pos, Quaternion rot, string colorPropertyName, Color color)
-        {
-            Transform inst = Spawn(prefab.transform, pos, rot);
-            if (inst == null) return null;
+        //public ParticleEmitter Spawn(ParticleEmitter prefab, Vector3 pos, Quaternion rot, string colorPropertyName, Color color)
+        //{
+        //    Transform inst = Spawn(prefab.transform, pos, rot);
+        //    if (inst == null) return null;
 
-            ParticleAnimator animator = inst.GetComponent<ParticleAnimator>();
-            if (animator != null) animator.autodestruct = false;
+        //    ParticleAnimator animator = inst.GetComponent<ParticleAnimator>();
+        //    if (animator != null) animator.autodestruct = false;
 
-            ParticleEmitter emitter = inst.GetComponent<ParticleEmitter>();
+        //    ParticleEmitter emitter = inst.GetComponent<ParticleEmitter>();
 
-            emitter.GetComponent<Renderer>().material.SetColor(colorPropertyName, color);
-            emitter.emit = true;
+        //    emitter.GetComponent<Renderer>().material.SetColor(colorPropertyName, color);
+        //    emitter.emit = true;
 
-            StartCoroutine(ListenForEmitDespawn(emitter));
+        //    StartCoroutine(ListenForEmitDespawn(emitter));
 
-            return emitter;
-        }
+        //    return emitter;
+        //}
 
         public void Despawn(Transform inst, Transform parent)
         {

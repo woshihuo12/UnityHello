@@ -16,8 +16,7 @@ public class StartUpCommand : ControllerCommand
         AppFacade.Instance.RegisterCommand(NotiConst.DISPATCH_MESSAGE, typeof(SocketCommand));
 
         AppFacade.Instance.AddManager<LuaManager>();
-        KResourceManager resMgr = AppFacade.Instance.AddManager<KResourceManager>();
-
+        AppFacade.Instance.AddManager<KResourceManager>();
         AppFacade.Instance.AddManager<NetworkManager>();
         AppFacade.Instance.AddManager<ThreadManager>();
         AppFacade.Instance.AddManager<SimpleTimerManager>();

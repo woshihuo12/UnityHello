@@ -238,7 +238,7 @@ public class SocketClient
     /// </summary>
     public void SendConnect()
     {
-        ConnectServer(GameSetting.SocketAddress, GameSetting.SocketPort);
+        ConnectServer(EngineConfig.instance.SocketAddress, EngineConfig.instance.SocketPort);
     }
 
     /// <summary>

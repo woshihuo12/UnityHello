@@ -32,13 +32,13 @@ public class Tools
     {
         get
         {
-            string game = GameSetting.AppName.ToLower();
+            string game = EngineConfig.instance.AppName.ToLower();
             if (Application.isMobilePlatform)
             {
                 return Application.persistentDataPath + "/" + game + "/";
             }
 
-            if (GameSetting.DevelopMode)
+            if (EngineConfig.instance.IsDevelopMode)
             {
                 return Application.streamingAssetsPath + "/" + GetOS() + "/";
             }

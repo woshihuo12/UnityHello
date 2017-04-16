@@ -79,9 +79,9 @@ public class ResourceManagerOld : Manager
             return abName;
         }
         abName = abName.ToLower();
-        if (!abName.EndsWith(GameSetting.ABExtName))
+        if (!abName.EndsWith(EngineConfig.instance.ABExtName))
         {
-            abName += GameSetting.ABExtName;
+            abName += EngineConfig.instance.ABExtName;
         }
         if (abName.Contains("/"))
         {
@@ -136,7 +136,7 @@ public class ResourceManagerOld : Manager
     private void LoadAsset<T>(string abName, string[] assetNames, Action<UnityEngine.Object[]> action,
         LuaFunction func) where T : UnityEngine.Object
     {
-        if (GameSetting.DevelopMode)
+        if (EngineConfig.instance.IsDevelopMode)
         {
             if (assetNames.Length > 0)
             {

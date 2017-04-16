@@ -22,7 +22,7 @@ public class GameManager : Manager
         //释放资源
         CheckExtractResource();
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
-        Application.targetFrameRate = GameSetting.GameFrameRate;
+        Application.targetFrameRate = EngineConfig.instance.GameFrameRate;
     }
 
     /// <summary>
@@ -34,7 +34,7 @@ public class GameManager : Manager
             && Directory.Exists(KResourceManager.DocumentResourcesPathWithoutFileProtocol + "lua/")
             && File.Exists(KResourceManager.DocumentResourcesPathWithoutFileProtocol + "files.txt");
 
-        if (isExists || GameSetting.DevelopMode)
+        if (isExists || EngineConfig.instance.IsDebugMode)
         {
             StartCoroutine(OnUpdateResource());
             return;   //文件已经解压过了，自己可添加检查文件列表逻辑
@@ -174,14 +174,14 @@ public class GameManager : Manager
     /// </summary>
     IEnumerator OnUpdateResource()
     {
-        if (!GameSetting.UpdateMode)
+        if (!EngineConfig.instance.IsUpdateMopde)
         {
             OnResourceInited();
             yield break;
         }
 
         string dataPath = KResourceManager.DocumentResourcesPathWithoutFileProtocol;
-        string url = GameSetting.WebUrl;
+        string url = EngineConfig.instance.WebUrl;
         string message = string.Empty;
 
         string random = DateTime.Now.ToString("yyyymmddhhmmss");

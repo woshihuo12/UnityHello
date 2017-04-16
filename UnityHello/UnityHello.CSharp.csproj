@@ -128,6 +128,7 @@
     <Compile Include="Assets\Game\Scripts\ResourceManager\KAssetBundleLoader.cs" />
     <Compile Include="Assets\Game\Scripts\ResourceManager\KAssetBundleParser.cs" />
     <Compile Include="Assets\Game\Scripts\ResourceManager\KAssetFileLoader.cs" />
+    <Compile Include="Assets\Game\Scripts\ResourceManager\KAtlasLoader.cs" />
     <Compile Include="Assets\Game\Scripts\ResourceManager\KAudioLoader.cs" />
     <Compile Include="Assets\Game\Scripts\ResourceManager\KBytesLoader.cs" />
     <Compile Include="Assets\Game\Scripts\ResourceManager\KEngineAndroidPlugin.cs" />

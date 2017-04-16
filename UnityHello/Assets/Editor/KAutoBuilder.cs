@@ -30,9 +30,9 @@ namespace KEngine.Editor
         {
             string[] args = System.Environment.GetCommandLineArgs();
 
-            if (!Directory.Exists(GameSetting.ProductRelPath))
+            if (!Directory.Exists(EngineConfig.instance.ProductRelPath))
             {
-                Directory.CreateDirectory(GameSetting.ProductRelPath);
+                Directory.CreateDirectory(EngineConfig.instance.ProductRelPath);
             }
 
             if (args.Length >= 2)
@@ -95,7 +95,7 @@ namespace KEngine.Editor
 
             ParseArgs(ref opt, ref outputpath);
 
-            string fullPath = System.IO.Path.Combine(GameSetting.ProductRelPath, outputpath);
+            string fullPath = System.IO.Path.Combine(EngineConfig.instance.ProductRelPath, outputpath);
 
             string fullDir = System.IO.Path.GetDirectoryName(fullPath);
 
@@ -204,7 +204,7 @@ namespace KEngine.Editor
             get
             {
                 // StreamingAssetsPath
-                return "Assets/StreamingAssets/" + GameSetting.StreamingBundlesFolderName;
+                return "Assets/StreamingAssets/" + EngineConfig.instance.StreamingBundlesFolderName;
                 // hold asset bundles
             }
         }

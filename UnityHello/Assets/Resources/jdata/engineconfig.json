@@ -1,0 +1,21 @@
+{
+  "IsLoadAssetBundle": false,
+  "IsEditorLoadAsset": true,
+  "IsDebugMode": true,
+  "IsUpdateMode": false,
+  "LuaByteMode": false,
+  "LuaBundleMode": false,
+  "EnableLuaDebug": false,
+  "IsDevelopMode": true,
+  "WebUrl": "http://localhost:6688/",
+  "AppName": "UnityHello",
+  "ABExtName": ".u3d",
+  "ResourcesBuildDir": "BundleResources",
+  "ResourcesEditDir": "BundleEditing",
+  "ProductRelPath": "Product",
+  "StreamingBundlesFolderName": "Product",
+  "AssetBundleBuildRelPath": "Product/Bundles",
+  "SocketAddress": "",
+  "SocketPort": 0,
+  "GameFrameRate": 30
+}

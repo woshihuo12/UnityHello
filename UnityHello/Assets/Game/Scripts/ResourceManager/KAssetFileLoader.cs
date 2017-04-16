@@ -24,7 +24,7 @@ namespace KEngine
         {
             get
             {
-                return Application.isEditor && EngineConfig.instance.IsEditorLoadAsset();
+                return Application.isEditor && EngineConfig.instance.IsEditorLoadAsset;
             }
         }
 
@@ -44,7 +44,7 @@ namespace KEngine
         {
             // 添加扩展名
             if (!IsEditorLoadAsset)
-                path = path + GameSetting.ABExtName;
+                path = path + EngineConfig.instance.ABExtName;
 
             LoaderDelgate realcallback = null;
             if (assetFileLoadedCallback != null)
@@ -65,7 +65,7 @@ namespace KEngine
 
         private IEnumerator _Init(string path, LoaderMode loaderMode)
         {
-            IsLoadAssetBundle = EngineConfig.instance.IsLoadAssetBundle();
+            IsLoadAssetBundle = EngineConfig.instance.IsLoadAssetBundle;
 
             Object getAsset = null;
 
@@ -80,10 +80,10 @@ namespace KEngine
                 }
                 else
                 {
-                    getAsset = UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/" + GameSetting.ResourcesBuildDir + "/" + path, typeof(UnityEngine.Object));
+                    getAsset = UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/" + EngineConfig.instance.ResourcesBuildDir + "/" + path, typeof(UnityEngine.Object));
                     if (getAsset == null)
                     {
-                        Log.Error("Asset is NULL(from {0} Folder): {1}", GameSetting.ResourcesBuildDir, path);
+                        Log.Error("Asset is NULL(from {0} Folder): {1}", EngineConfig.instance.ResourcesBuildDir, path);
                     }
                 }
 #else

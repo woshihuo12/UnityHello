@@ -33,7 +33,7 @@ namespace KEngine
                     Application.platform == RuntimePlatform.OSXEditor)
                     return 1f;
 
-                return Debug.isDebugBuild ? 5f : 10f;
+                return EngineConfig.instance.IsDebugMode ? 5f : 10f;
             }
         }
 
@@ -384,7 +384,7 @@ namespace KEngine
         /// </summary>
         public virtual void Release()
         {
-            if (IsReadyDisposed && Debug.isDebugBuild)
+            if (IsReadyDisposed && EngineConfig.instance.IsDebugMode)
             {
                 Log.Warning("[{0}]Too many dipose! {1}, Count: {2}", GetType().Name, this.Url, RefCount);
             }
@@ -393,7 +393,7 @@ namespace KEngine
             if (RefCount <= 0)
             {
                 // TODO: 全部Loader整理好后再设这里吧
-                if (Debug.isDebugBuild)
+                if (EngineConfig.instance.IsDebugMode)
                 {
                     if (RefCount < 0)
                     {

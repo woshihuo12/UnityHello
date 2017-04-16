@@ -56,7 +56,7 @@ namespace KEngine
         {
             get
             {
-                return GameSetting.ProductRelPath;
+                return EngineConfig.instance.ProductRelPath;
             }
         }
 
@@ -200,7 +200,7 @@ namespace KEngine
         /// <returns></returns>
         public static string GetAssetBundlePath(string path, params object[] formats)
         {
-            var tmpFormat = StringBuilderCache.GetStringAndRelease(StringBuilderCache.Acquire().Append(path).Append(GameSetting.ABExtName));
+            var tmpFormat = StringBuilderCache.GetStringAndRelease(StringBuilderCache.Acquire().Append(path).Append(EngineConfig.instance.ABExtName));
             return StringBuilderCache.GetStringAndRelease(StringBuilderCache.Acquire().AppendFormat(tmpFormat, formats));
         }
 
