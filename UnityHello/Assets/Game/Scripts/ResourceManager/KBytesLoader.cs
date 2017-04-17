@@ -1,30 +1,4 @@
-﻿#region Copyright (c) Kingsoft Xishanju
-
-// KEngine - Asset Bundle framework for Unity3D
-// ===================================
-// 
-// Filename: KBytesLoader.cs
-// Date:        2016/01/20
-// Author:     Kelly
-// Email:       23110388@qq.com
-// Github:     https://github.com/mr-kelly/KEngine
-// 
-// This library is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Lesser General Public
-// License as published by the Free Software Foundation; either
-// version 3.0 of the License, or (at your option) any later version.
-// 
-// This library is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-// Lesser General Public License for more details.
-// 
-// You should have received a copy of the GNU Lesser General Public
-// License along with this library.
-
-#endregion
-
-using System.Collections;
+﻿using System.Collections;
 using System.IO;
 using KEngine;
 using UnityEngine;
@@ -64,7 +38,7 @@ namespace KEngine
             var getResPathType = KResourceManager.GetResourceFullPath(url, _loaderMode == LoaderMode.Async, out _fullUrl);
             if (getResPathType == KResourceManager.GetResourceFullPathType.Invalid)
             {
-                if (Debug.isDebugBuild)
+                if (EngineConfig.instance.IsDebugMode)
                     Log.Error("[HotBytesLoader]Error Path: {0}", url);
                 OnFinish(null);
                 yield break;

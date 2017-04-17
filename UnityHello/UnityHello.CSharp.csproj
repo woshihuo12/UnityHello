@@ -93,7 +93,6 @@
     <Compile Include="Assets\Game\Scripts\Framework\GameConst.cs" />
     <Compile Include="Assets\Game\Scripts\Framework\GameManager.cs" />
     <Compile Include="Assets\Game\Scripts\Framework\GameResFactory.cs" />
-    <Compile Include="Assets\Game\Scripts\Framework\GameSetting.cs" />
     <Compile Include="Assets\Game\Scripts\Framework\Locker.cs" />
     <Compile Include="Assets\Game\Scripts\Framework\LuaBehaviour.cs" />
     <Compile Include="Assets\Game\Scripts\Framework\LuaHelper.cs" />

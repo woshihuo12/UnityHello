@@ -45,7 +45,7 @@ namespace KEngine
 
         public KAssetBundleParser(string relativePath, byte[] bytes, Action<AssetBundle> callback = null)
         {
-            if (Debug.isDebugBuild)
+            if (EngineConfig.instance.IsDebugMode)
             {
                 _startTime = Time.realtimeSinceStartup;
             }
@@ -53,7 +53,11 @@ namespace KEngine
             Callback = callback;
             RelativePath = relativePath;
 
-            var func = BundleBytesFilter ?? DefaultParseAb;
+            var func = BundleBytesFilter;
+            if (func == null)
+            {
+                func = DefaultParseAb;
+            }
             var abBytes = func(relativePath, bytes);
             switch (Mode)
             {
@@ -95,7 +99,7 @@ namespace KEngine
                     Callback(Bundle);
             }
 
-            if (Application.isEditor && Debug.isDebugBuild)
+            if (Application.isEditor && EngineConfig.instance.IsDebugMode)
             {
                 var useTime = Time.realtimeSinceStartup - _startTime;
                 var timeLimit = Mode == CAssetBundleParserMode.Async ? 1f : .3f;
