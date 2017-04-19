@@ -13,6 +13,7 @@ public static class LuaBinder
 		LuaBehaviourWrap.Register(L);
 		UILuaBehaviourWrap.Register(L);
 		GameResFactoryWrap.Register(L);
+		UIAtlasMgrWrap.Register(L);
 		BaseWrap.Register(L);
 		ManagerWrap.Register(L);
 		ByteBufferWrap.Register(L);

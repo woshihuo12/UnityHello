@@ -17,20 +17,10 @@ public class GameResFactory
 
     internal KResourceManager mResManager;
     private List<GameObject> mUIEffectsList = new List<GameObject>();
-    public AssetPacker mAssetPacker = null;
 
     //private Dictionary<string, StaticAssetLoader> mUIPrefabLoaders = new Dictionary<string, StaticAssetLoader>();
     //private List<GameObject> mUIList = new List<GameObject>();
     //private Dictionary<string, GameObjectCache> mResCaches = new Dictionary<string, GameObjectCache>();
-
-    public Sprite GetResSprite(string spName)
-    {
-        if (mAssetPacker == null)
-        {
-            return Sprite.Create(Texture2D.whiteTexture, new Rect(0, 0, 4, 4), new Vector2(0.5f, 0.5f));
-        }
-        return mAssetPacker.GetSprite(spName);
-    }
 
     public void GetUIPrefab(string assetName, Transform parent, LuaTable luaTable, LuaFunction luaCallBack)
     {

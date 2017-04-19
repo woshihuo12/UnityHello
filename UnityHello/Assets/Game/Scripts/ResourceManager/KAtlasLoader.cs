@@ -45,7 +45,7 @@ namespace KEngine
         {
             base.Init(url, args);
             Path = url;
-            AssetFileBridge = AssetFileLoader.Load(Path, OnAtlasLoaded);
+            AssetFileBridge = AssetFileLoader.Load(Path, OnAtlasLoaded, LoaderMode.Sync);
         }
 
         private void OnAtlasLoaded(bool isOk, UnityEngine.Object obj)

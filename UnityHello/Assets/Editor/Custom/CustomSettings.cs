@@ -185,6 +185,7 @@ public static class CustomSettings
         _GT(typeof(LuaBehaviour)),
         _GT(typeof(UILuaBehaviour)),
         _GT(typeof(GameResFactory)),
+        _GT(typeof(UIAtlasMgr)),
 
         _GT(typeof(ScrollRect)),
         _GT(typeof(LoopScrollRect)),

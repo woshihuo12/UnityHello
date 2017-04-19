@@ -8,7 +8,6 @@ public class GameResFactoryWrap
 	{
 		L.BeginClass(typeof(GameResFactory), typeof(System.Object));
 		L.RegFunction("Instance", Instance);
-		L.RegFunction("GetResSprite", GetResSprite);
 		L.RegFunction("GetUIPrefab", GetUIPrefab);
 		L.RegFunction("DestroyUIPrefab", DestroyUIPrefab);
 		L.RegFunction("GetUIEffect", GetUIEffect);
@@ -16,7 +15,6 @@ public class GameResFactoryWrap
 		L.RegFunction("DestroyAllUIEffect", DestroyAllUIEffect);
 		L.RegFunction("New", _CreateGameResFactory);
 		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("mAssetPacker", get_mAssetPacker, set_mAssetPacker);
 		L.EndClass();
 	}
 
@@ -52,24 +50,6 @@ public class GameResFactoryWrap
 			ToLua.CheckArgsCount(L, 0);
 			GameResFactory o = GameResFactory.Instance();
 			ToLua.PushObject(L, o);
-			return 1;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int GetResSprite(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 2);
-			GameResFactory obj = (GameResFactory)ToLua.CheckObject(L, 1, typeof(GameResFactory));
-			string arg0 = ToLua.CheckString(L, 2);
-			UnityEngine.Sprite o = obj.GetResSprite(arg0);
-			ToLua.Push(L, o);
 			return 1;
 		}
 		catch(Exception e)
@@ -163,44 +143,6 @@ public class GameResFactoryWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_mAssetPacker(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			GameResFactory obj = (GameResFactory)o;
-			AssetPacker ret = obj.mAssetPacker;
-			ToLua.Push(L, ret);
-			return 1;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index mAssetPacker on a nil value" : e.Message);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_mAssetPacker(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			GameResFactory obj = (GameResFactory)o;
-			AssetPacker arg0 = (AssetPacker)ToLua.CheckUnityObject(L, 2, typeof(AssetPacker));
-			obj.mAssetPacker = arg0;
-			return 0;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o == null ? "attempt to index mAssetPacker on a nil value" : e.Message);
 		}
 	}
 }

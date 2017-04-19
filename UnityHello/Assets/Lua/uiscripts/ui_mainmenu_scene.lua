@@ -113,7 +113,9 @@ function ui_mainmenu_scene:on_post_load()
     local right_btn_sp = btn2:GetComponent(typeof(UImage))
 
     self.lua_behaviour:AddClick(btn2, function(go)
-        right_btn_sp.sprite = GameResFactory.Instance():GetResSprite("redBtn")
+         UIAtlasMgr.Instance():GetSprite("res_asset_packer","redBtn", function(sp)
+            right_btn_sp.sprite = sp
+        end)
 
         event_dispatcher.instance().ui_event_manager:trigger_event(event_define.UI_EVENT_TEST, self._center_txt)
     end )

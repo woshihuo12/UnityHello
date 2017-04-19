@@ -150,6 +150,7 @@
     <Compile Include="Assets\Game\Scripts\UI\LoopHorizontalScrollRect.cs" />
     <Compile Include="Assets\Game\Scripts\UI\LoopScrollRect.cs" />
     <Compile Include="Assets\Game\Scripts\UI\LoopVerticalScrollRect.cs" />
+    <Compile Include="Assets\Game\Scripts\UI\UIAtlasMgr.cs" />
     <Compile Include="Assets\Game\Scripts\UI\UILongPressButton.cs" />
     <Compile Include="Assets\Game\Scripts\UI\UIRoot.cs" />
     <Compile Include="Assets\Game\Scripts\UI\UITextGradient.cs" />
@@ -183,6 +184,7 @@
     <Compile Include="Assets\Source\Generate\LuaInterface_DebuggerWrap.cs" />
     <Compile Include="Assets\Source\Generate\ManagerWrap.cs" />
     <Compile Include="Assets\Source\Generate\NetworkManagerWrap.cs" />
+    <Compile Include="Assets\Source\Generate\UIAtlasMgrWrap.cs" />
     <Compile Include="Assets\Source\Generate\UILuaBehaviourWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_AnimationBlendModeWrap.cs" />
     <Compile Include="Assets\Source\Generate\UnityEngine_AnimationClipWrap.cs" />
