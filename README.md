@@ -1,4 +1,5 @@
 # UnityHello
+[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
 Unity版hello world,演示了各种tolua相关的hello world级程序，所以取名为hello
 
 <b>基于 5.4.4 f1</b>
