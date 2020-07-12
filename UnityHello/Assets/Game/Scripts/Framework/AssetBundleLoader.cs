@@ -17,18 +17,7 @@ public class AssetBundleLoaderOld : IDisposable
     {
         mAssetBundle = null;
         WWW download = null;
-        if (Caching.enabled)
-        {
-            while (!Caching.ready)
-            {
-                yield return null;
-            }
-            download = WWW.LoadFromCacheOrDownload(assetPath, version, crc);
-        }
-        else
-        {
-            download = new WWW(assetPath);
-        }
+        download = new WWW(assetPath);
         yield return download;
         if (download.error != null)
         {

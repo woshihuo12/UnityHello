@@ -65,7 +65,7 @@ namespace KEngine
 #if UNITY_5
                     CreateRequest = AssetBundle.LoadFromMemoryAsync(abBytes);
 #else
-					CreateRequest = AssetBundle.CreateFromMemory(abBytes);
+					CreateRequest = AssetBundle.LoadFromMemoryAsync(abBytes);
 #endif
                     CreateRequest.priority = _autoPriority++; // 后进先出, 一个一个来
                     var rManager = AppFacade.Instance.GetManager<KResourceManager>();
@@ -78,7 +78,7 @@ namespace KEngine
 #if UNITY_5
                     OnFinish(AssetBundle.LoadFromMemory(abBytes));
 #else
-					OnFinish(AssetBundle.CreateFromMemoryImmediate(abBytes));
+					OnFinish(AssetBundle.LoadFromMemory(abBytes));
 #endif
                     break;
                 default:

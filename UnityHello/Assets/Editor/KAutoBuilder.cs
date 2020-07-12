@@ -150,7 +150,7 @@ namespace KEngine.Editor
 #if UNITY_5
             return PerformBuild("Apps/IOSProjects/" + ipaName, BuildTarget.iOS, opt);
 #else
-            return PerformBuild("Apps/IOSProjects/" + ipaName, BuildTarget.iPhone, opt);
+            return PerformBuild("Apps/IOSProjects/" + ipaName, BuildTarget.iOS, opt);
 #endif
         }
 

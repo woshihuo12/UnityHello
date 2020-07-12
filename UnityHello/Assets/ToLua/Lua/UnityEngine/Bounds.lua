@@ -9,7 +9,12 @@ local type = type
 local Vector3 = Vector3
 local zero = Vector3.zero
 
-local Bounds = {}
+local Bounds = 
+{
+	center = Vector3.zero,
+	extents = Vector3.zero,
+}
+
 local get = tolua.initget(Bounds)
 
 Bounds.__index = function(t,k)
@@ -27,15 +32,11 @@ Bounds.__index = function(t,k)
 end
 
 Bounds.__call = function(t, center, size)
-	return Bounds.New(center, size)
+	return setmetatable({center = center, extents = size * 0.5}, Bounds)		
 end
 
-function Bounds.New(center, size)
-	local bd = {}
-	bd.center = center
-	bd.extents = size * 0.5
-	setmetatable(bd, Bounds)	
-	return bd
+function Bounds.New(center, size)	
+	return setmetatable({center = center, extents = size * 0.5}, Bounds)		
 end
 
 function Bounds:Get()
@@ -76,10 +77,8 @@ function Bounds:Encapsulate(point)
 	self:SetMinMax(Vector3.Min(self:GetMin(), point), Vector3.Max(self:GetMax(), point))
 end
 
-function Bounds:Expand(amount)
-	local t = type(amount)
-	
-	if t == "number" then
+function Bounds:Expand(amount)	
+	if type(amount) == "number" then
 		amount = amount * 0.5
 		self.extents:Add(Vector3.New(amount, amount, amount))
 	else
@@ -155,14 +154,14 @@ function Bounds:ClosestPoint(point)
 			distance = distance + delta * delta
 			closest[i] = -extent[i]
 		elseif closest[i] > extent[i]  then
-			fDelta = closest[i] - extent[i]
+			delta = closest[i] - extent[i]
 			distance = distance + delta * delta
 			closest[i] = extent[i]
 		end
 	end
 		
 	if distance == 0 then	    
-		return rkPoint, 0
+		return point, 0
 	else	
 		outPoint = closest + self:GetCenter()
 		return outPoint, distance
@@ -174,7 +173,7 @@ function Bounds:Destroy()
 	self.size	= nil
 end
 
-Bounds.__tostring = function(self)
+Bounds.__tostring = function(self)	
 	return string.format("Center: %s, Extents %s", tostring(self.center), tostring(self.extents))
 end
 

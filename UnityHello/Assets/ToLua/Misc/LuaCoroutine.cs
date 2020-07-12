@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2015-2016 topameng(topameng@qq.com)
+Copyright (c) 2015-2017 topameng(topameng@qq.com)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -26,9 +26,8 @@ using System.Collections;
 
 public static class LuaCoroutine
 {
-    static MonoBehaviour mb = null;
-
-    static string strCo =
+	private static MonoBehaviour mb = null;
+	private static string strCo =
         @"
         local _WaitForSeconds, _WaitForFixedUpdate, _WaitForEndOfFrame, _Yield, _StopCoroutine = WaitForSeconds, WaitForFixedUpdate, WaitForEndOfFrame, Yield, StopCoroutine        
         local error = error
@@ -116,11 +115,12 @@ public static class LuaCoroutine
     public static void Register(LuaState state, MonoBehaviour behaviour)
     {
         state.BeginModule(null);
-        state.RegFunction("WaitForSeconds", WaitForSeconds);
+        state.RegFunction("WaitForSeconds", _WaitForSeconds);
         state.RegFunction("WaitForFixedUpdate", WaitForFixedUpdate);
         state.RegFunction("WaitForEndOfFrame", WaitForEndOfFrame);
         state.RegFunction("Yield", Yield);
         state.RegFunction("StopCoroutine", StopCoroutine);
+        state.RegFunction("WrapLuaCoroutine", WrapLuaCoroutine);
         state.EndModule();
 
         state.LuaDoString(strCo, "LuaCoroutine.cs");
@@ -153,14 +153,14 @@ public static class LuaCoroutine
     }*/
 
     [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-    static int WaitForSeconds(IntPtr L)
+	private static int _WaitForSeconds(IntPtr L)
     {
         try
         {
             float sec = (float)LuaDLL.luaL_checknumber(L, 1);
             LuaFunction func = ToLua.ToLuaFunction(L, 2);
             Coroutine co = mb.StartCoroutine(CoWaitForSeconds(sec, func));
-            ToLua.PushObject(L, co);
+            ToLua.PushSealed(L, co);
             return 1;
         }
         catch (Exception e)
@@ -169,20 +169,20 @@ public static class LuaCoroutine
         }
     }
 
-    static IEnumerator CoWaitForSeconds(float sec, LuaFunction func)
+	private static IEnumerator CoWaitForSeconds(float sec, LuaFunction func)
     {
         yield return new WaitForSeconds(sec);
         func.Call();
     }
 
     [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-    static int WaitForFixedUpdate(IntPtr L)
+	private static int WaitForFixedUpdate(IntPtr L)
     {
         try
         {
             LuaFunction func = ToLua.ToLuaFunction(L, 1);
             Coroutine co = mb.StartCoroutine(CoWaitForFixedUpdate(func));
-            ToLua.PushObject(L, co);
+            ToLua.PushSealed(L, co);
             return 1;
         }
         catch (Exception e)
@@ -191,20 +191,20 @@ public static class LuaCoroutine
         }
     }
 
-    static IEnumerator CoWaitForFixedUpdate(LuaFunction func)
+	private static IEnumerator CoWaitForFixedUpdate(LuaFunction func)
     {
         yield return new WaitForFixedUpdate();
         func.Call();
     }
 
     [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-    static int WaitForEndOfFrame(IntPtr L)
+	private static int WaitForEndOfFrame(IntPtr L)
     {
         try
         {
             LuaFunction func = ToLua.ToLuaFunction(L, 1);
             Coroutine co = mb.StartCoroutine(CoWaitForEndOfFrame(func));
-            ToLua.PushObject(L, co);
+            ToLua.PushSealed(L, co);
             return 1;
         }
         catch (Exception e)
@@ -213,21 +213,21 @@ public static class LuaCoroutine
         }
     }
 
-    static IEnumerator CoWaitForEndOfFrame(LuaFunction func)
+	private static IEnumerator CoWaitForEndOfFrame(LuaFunction func)
     {
         yield return new WaitForEndOfFrame();
         func.Call();
     }
 
     [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-    static int Yield(IntPtr L)
+	private static int Yield(IntPtr L)
     {
         try
         {
             object o = ToLua.ToVarObject(L, 1);
             LuaFunction func = ToLua.ToLuaFunction(L, 2);
             Coroutine co = mb.StartCoroutine(CoYield(o, func));
-            ToLua.PushObject(L, co);
+            ToLua.PushSealed(L, co);
             return 1;
         }
         catch (Exception e)
@@ -236,7 +236,7 @@ public static class LuaCoroutine
         }
     }
 
-    static IEnumerator CoYield(object o, LuaFunction func)
+	private static IEnumerator CoYield(object o, LuaFunction func)
     {
         if (o is IEnumerator)
         {
@@ -251,7 +251,7 @@ public static class LuaCoroutine
     }
 
     [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-    static int StopCoroutine(IntPtr L)
+	private static int StopCoroutine(IntPtr L)
     {
         try
         {
@@ -262,6 +262,28 @@ public static class LuaCoroutine
         catch (Exception e)
         {
             return LuaDLL.toluaL_exception(L, e);
+        }
+    }
+
+    [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+    private static int WrapLuaCoroutine(IntPtr L)
+    {
+        LuaFunction func = ToLua.ToLuaFunction(L, 1);
+        IEnumerator enumerator = CoWrap(func);
+        ToLua.Push(L, enumerator);
+        return 1;
+    }
+
+    private static IEnumerator CoWrap(LuaFunction func)
+    {
+        if (func == null)
+        {
+            yield break;
+        }
+
+        while (func.Invoke<bool>())
+        {
+            yield return null;
         }
     }
 }

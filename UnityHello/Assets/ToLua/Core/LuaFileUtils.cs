@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2015-2016 topameng(topameng@qq.com)
+Copyright (c) 2015-2017 topameng(topameng@qq.com)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -111,23 +111,9 @@ namespace LuaInterface
             return false;
         }
 
-        public string GetPackagePath()
-        {
-            StringBuilder sb = StringBuilderCache.Acquire();
-            sb.Append(";");
-
-            for (int i = 0; i < searchPaths.Count; i++)
-            {
-                sb.Append(searchPaths[i]);
-                sb.Append(';');
-            }
-
-            return StringBuilderCache.GetStringAndRelease(sb);
-        }
-
         public void AddSearchBundle(string name, AssetBundle bundle)
         {
-            zipMap[name] = bundle;            
+            zipMap[name] = bundle;
         }
 
         public string FindFile(string fileName)
@@ -138,7 +124,7 @@ namespace LuaInterface
             }
 
             if (Path.IsPathRooted(fileName))
-            {                
+            {
                 if (!fileName.EndsWith(".lua"))
                 {
                     fileName += ".lua";
@@ -146,7 +132,7 @@ namespace LuaInterface
 
                 return fileName;
             }
-            
+
             if (fileName.EndsWith(".lua"))
             {
                 fileName = fileName.Substring(0, fileName.Length - 4);
@@ -189,7 +175,7 @@ namespace LuaInterface
             {
                 return ReadZipFile(fileName);
             }
-        }        
+        }
 
         public virtual string FindFileError(string fileName)
         {
@@ -198,40 +184,41 @@ namespace LuaInterface
                 return fileName;
             }
 
-            StringBuilder sb = StringBuilderCache.Acquire();
-
             if (fileName.EndsWith(".lua"))
             {
                 fileName = fileName.Substring(0, fileName.Length - 4);
             }
 
-            for (int i = 0; i < searchPaths.Count; i++)
+            using (CString.Block())
             {
-                sb.AppendFormat("\n\tno file '{0}'", searchPaths[i]);
-            }
+                CString sb = CString.Alloc(512);
 
-            sb = sb.Replace("?", fileName);
-
-            if (beZip)
-            {
-                int pos = fileName.LastIndexOf('/');
-                string bundle = "";
-
-                if (pos > 0)
+                for (int i = 0; i < searchPaths.Count; i++)
                 {
-                    bundle = fileName.Substring(0, pos);
-                    bundle = bundle.Replace('/', '_');
-                    bundle = string.Format("lua_{0}.unity3d", bundle);
-                }
-                else
-                {
-                    bundle = "lua.unity3d";
+                    sb.Append("\n\tno file '").Append(searchPaths[i]).Append('\'');
                 }
 
-                sb.AppendFormat("\n\tno file '{0}' in {1}", fileName, bundle);
-            }
+                sb = sb.Replace("?", fileName);
 
-            return StringBuilderCache.GetStringAndRelease(sb);
+                if (beZip)
+                {
+                    int pos = fileName.LastIndexOf('/');
+
+                    if (pos > 0)
+                    {
+                        int tmp = pos + 1;
+                        sb.Append("\n\tno file '").Append(fileName, tmp, fileName.Length - tmp).Append(".lua' in ").Append("lua_");
+                        tmp = sb.Length;
+                        sb.Append(fileName, 0, pos).Replace('/', '_', tmp, pos).Append(".unity3d");
+                    }
+                    else
+                    {
+                        sb.Append("\n\tno file '").Append(fileName).Append(".lua' in ").Append("lua.unity3d");
+                    }
+                }
+
+                return sb.ToString();
+            }
         }
 
         byte[] ReadZipFile(string fileName)
@@ -239,37 +226,39 @@ namespace LuaInterface
             AssetBundle zipFile = null;
             byte[] buffer = null;
             string zipName = null;
-            StringBuilder sb = StringBuilderCache.Acquire();
-            sb.Append("lua");
-            int pos = fileName.LastIndexOf('/');
 
-            if (pos > 0)
+            using (CString.Block())
             {
-                sb.Append("_");
-                sb.Append(fileName.Substring(0, pos).ToLower());        //shit, unity5 assetbund'name must lower
-                sb.Replace('/', '_');                
-                fileName = fileName.Substring(pos + 1);
-            }
+                CString sb = CString.Alloc(256);
+                sb.Append("lua");
+                int pos = fileName.LastIndexOf('/');
 
-            if (!fileName.EndsWith(".lua"))
-            {
-                fileName += ".lua";
-            }
+                if (pos > 0)
+                {
+                    sb.Append("_");
+                    sb.Append(fileName, 0, pos).ToLower().Replace('/', '_');
+                    fileName = fileName.Substring(pos + 1);
+                }
 
-#if UNITY_5
-            fileName += ".bytes";
+                if (!fileName.EndsWith(".lua"))
+                {
+                    fileName += ".lua";
+                }
+
+#if UNITY_5 || UNITY_5_3_OR_NEWER
+                fileName += ".bytes";
 #endif
-            zipName = StringBuilderCache.GetStringAndRelease(sb);
-            zipMap.TryGetValue(zipName, out zipFile);
+                zipName = sb.ToString();
+                zipMap.TryGetValue(zipName, out zipFile);
+            }
 
             if (zipFile != null)
             {
-#if UNITY_5
-                TextAsset luaCode = zipFile.LoadAsset<TextAsset>(fileName);
-#else
+#if UNITY_4_6 || UNITY_4_7
                 TextAsset luaCode = zipFile.Load(fileName, typeof(TextAsset)) as TextAsset;
+#else
+                TextAsset luaCode = zipFile.LoadAsset<TextAsset>(fileName);
 #endif
-
                 if (luaCode != null)
                 {
                     buffer = luaCode.bytes;

@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2015-2016 topameng(topameng@qq.com)
+Copyright (c) 2015-2017 topameng(topameng@qq.com)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,7 @@ using System.Reflection;
 namespace LuaInterface
 {
     //代表一个反射函数
-    public class LuaMethod
+    public sealed class LuaMethod
     {        
         MethodInfo method = null;
         List<Type> list = new List<Type>();
@@ -67,8 +67,8 @@ namespace LuaInterface
                 {
                     bool isRef = list[i].IsByRef;
                     Type t0 = isRef ? list[i].GetElementType() : list[i];
-                    object o = ToLua.CheckVarObject(L, i + offset, t0);
-                    args[i] = TypeChecker.ChangeType(o, t0);
+                    object o = ToLua.CheckVarObject(L, i + offset, t0);                    
+                    args[i] = o;
                 }
             }
             

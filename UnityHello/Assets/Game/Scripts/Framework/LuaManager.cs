@@ -123,11 +123,6 @@ public class SimpleLuaClient : LuaClient
 
     protected override void OnLoadFinished()
     {
-        if (EngineConfig.instance.IsEnableLuaDebug)
-        {
-            OpenZbsDebugger();
-        }
-
         luaState.Start();
         StartLooper();
     }
@@ -227,7 +222,7 @@ public class LuaManager : Manager
         LuaFunction func = SimpleLuaClient.GetMainState().GetFunction(funcName);
         if (func != null)
         {
-            return func.Call(args);
+            //return func.Call(args);
         }
         return null;
     }
