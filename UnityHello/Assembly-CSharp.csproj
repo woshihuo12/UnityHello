@@ -310,7 +310,6 @@
     <Compile Include="Assets\ToLua\Source\Generate\UnityEngine_WrapModeWrap.cs" />
     <Compile Include="Assets\ToLua\Source\LuaConst.cs" />
     <Compile Include="Assets\testbbb.cs" />
-    <None Include="Assets\codeandweb.com\Readme.txt" />
     <None Include="Assets\DOTween\DOTween43.xml" />
     <None Include="Assets\ToLua\Injection\InjectionBlackList.txt" />
     <None Include="Assets\DOTween\DOTween50.xml" />
@@ -892,6 +891,9 @@
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
       <HintPath>E:/GithubSource/UnityHello/UnityHello/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Sprite.Editor">
+      <HintPath>E:/GithubSource/UnityHello/UnityHello/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>E:/GithubSource/UnityHello/UnityHello/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>

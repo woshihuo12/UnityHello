@@ -74,6 +74,7 @@
     <Compile Include="Assets\Editor\KUnityEditorEventCatcher.cs" />
     <Compile Include="Assets\Editor\LeanTween\LeanTweenDocumentationEditor.cs" />
     <Compile Include="Assets\Editor\Packager.cs" />
+    <Compile Include="Assets\Editor\SpriteAtlasMaker.cs" />
     <Compile Include="Assets\ToLua\Editor\Extend\ToLua_LuaInterface_EventObject.cs" />
     <Compile Include="Assets\ToLua\Editor\Extend\ToLua_LuaInterface_LuaConstructor.cs" />
     <Compile Include="Assets\ToLua\Editor\Extend\ToLua_LuaInterface_LuaField.cs" />
@@ -96,7 +97,6 @@
     <Compile Include="Assets\ToLua\Injection\Editor\ToLuaInjectionHelper.cs" />
     <Compile Include="Assets\ToLua\Injection\Editor\ToLuaText.cs" />
     <Compile Include="Assets\ToLua\Injection\Editor\ToluaInjectionBlackListPanel.cs" />
-    <None Include="Assets\codeandweb.com\Editor\SettingsTexturePackerImporter.txt" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity201924/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -294,9 +294,6 @@
     </Reference>
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/16.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
-    </Reference>
-    <Reference Include="TexturePackerImporter">
-      <HintPath>E:/GithubSource/UnityHello/UnityHello/Assets/codeandweb.com/Editor/TexturePackerImporter.dll</HintPath>
     </Reference>
     <Reference Include="DOTween">
       <HintPath>E:/GithubSource/UnityHello/UnityHello/Assets/DOTween/DOTween.dll</HintPath>
@@ -699,6 +696,9 @@
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
       <HintPath>E:/GithubSource/UnityHello/UnityHello/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Sprite.Editor">
+      <HintPath>E:/GithubSource/UnityHello/UnityHello/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>E:/GithubSource/UnityHello/UnityHello/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>

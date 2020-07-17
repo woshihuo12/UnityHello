@@ -22,7 +22,7 @@ https://github.com/chuxiang9007/xlsx2lua-language.git
 https://github.com/mr-kelly/KSFramework.git
 </br>
 
-1：基于texturepacker的ugui的使用，为什么用tp，实验它打的图集要比ugui的紧凑，按钮2 点击下会变红色背景） 
+1：基于spriteatlas的ugui的使用，按钮2 点击下会变红色背景） 
 
 2:proto-gen-lua 基本使用，按钮1点出 messagebox, messagebox左边按钮 encode， 右边按钮decode，顺序不要反哦，proto生成文件位于Asset/Editor下，已经继承到菜单    [MenuItem("CustomEditorTool/Protobuf-Gen-Lua", false, 110)]  中，方便使用
 

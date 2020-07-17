@@ -154,3 +154,7 @@ $RECYCLE.BIN/
 
 # Mac desktop service store files
 .DS_Store
+UnityHello/.vs/UnityHello/v16/Server/sqlite3/db.lock
+UnityHello/.vs/UnityHello/v16/Server/sqlite3/storage.ide
+UnityHello/.vs/UnityHello/v16/Server/sqlite3/storage.ide-shm
+UnityHello/.vs/UnityHello/v16/Server/sqlite3/storage.ide-wal
